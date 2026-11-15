@@ -778,26 +778,35 @@
         const gUser = result.user;
         const cleanId = (gUser.email.split("@")[0].replace(/[^a-zA-Z0-9_-]/g, "").toLowerCase() || "user").slice(0, 20);
 
-        let userObj = await fetchUserFromCloud(cleanId);
-        if (!userObj) {
-          userObj = {
-            id: cleanId,
-            name: gUser.displayName || cleanId,
-            email: gUser.email || "",
-            pin: "0000",
-            authMethod: "google",
-            targetHours: 6,
-            sessions: [],
-            syllabusChecked: {},
-            activePunchStart: null,
-            activeSubject: "",
-            createdAt: new Date().toISOString()
-          };
-          await saveUserToCloud(userObj);
-        } else {
-          saveLocalUser(userObj);
-        }
+        // Open dashboard immediately without waiting for a second database round-trip
+        let userObj = getLocalUsersMap()[cleanId] || {
+          id: cleanId,
+          name: gUser.displayName || cleanId,
+          email: gUser.email || "",
+          pin: "0000",
+          authMethod: "google",
+          targetHours: 6,
+          sessions: [],
+          syllabusChecked: {},
+          activePunchStart: null,
+          activeSubject: "",
+          createdAt: new Date().toISOString()
+        };
+
+        saveLocalUser(userObj);
         loginSuccess(userObj);
+
+        // Sync with Firestore silently in the background
+        fetchUserFromCloud(cleanId).then(async (cloudData) => {
+          if (cloudData) {
+            currentUser = cloudData;
+            if (!currentUser.syllabusChecked) currentUser.syllabusChecked = {};
+            saveLocalUser(cloudData);
+            renderDashboard();
+          } else {
+            await saveUserToCloud(userObj);
+          }
+        });
       } catch (err) {
         console.error("Google login error:", err);
         showAlert("Google Sign-In failed: Make sure Google is enabled in Firebase Authentication & studypunchone.vercel.app is in Authorized Domains.");
