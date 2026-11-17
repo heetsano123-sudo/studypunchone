@@ -2,566 +2,717 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>StudyPunch — Cloud Clock-In, Leaderboard & NEET 2027 Syllabus</title>
-  <link rel="preconnect" href="https://firestore.googleapis.com" crossorigin />
-  <link rel="preconnect" href="https://identitytoolkit.googleapis.com" crossorigin />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StudyPunch — Zero-Distraction Clock, DOT AI, Spider Syllabus & Live Arena</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet" />
   <style>
     body {
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background: radial-gradient(circle at top, #1e1b4b 0%, #0f172a 60%, #020617 100%);
+      background: radial-gradient(circle at top, #0f172a 0%, #020617 100%);
       min-height: 100vh;
+      color: #f8fafc;
       overflow-x: hidden;
     }
-    .tabular-nums {
+    .mono-nums {
+      font-family: 'JetBrains Mono', monospace;
       font-variant-numeric: tabular-nums;
     }
-    /* Smooth Mobile Home-Screen Horizontal Swipe Track */
-    .swipe-viewport {
-      width: 100%;
-      overflow: hidden;
+    /* Tactile Clicky UI Feel */
+    .clicky {
+      transition: transform 0.1s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.15s ease, background-color 0.15s ease;
+    }
+    .clicky:active {
+      transform: scale(0.95) translateY(1px);
+    }
+    /* Spider-Web Thread Connectors */
+    .spider-hub {
+      position: relative;
+      border-left: 2px solid rgba(99, 102, 241, 0.45);
+      margin-left: 1.25rem;
+      padding-left: 1.25rem;
+    }
+    .spider-node {
       position: relative;
     }
-    .swipe-track {
-      display: flex;
-      width: 300%;
-      transition: transform 0.34s cubic-bezier(0.22, 1, 0.36, 1);
-      will-change: transform;
-    }
-    .swipe-slide {
-      width: 33.333333%;
-      flex-shrink: 0;
-      min-height: calc(100vh - 76px);
-    }
-    /* Line-Folder Tree Connectors */
-    .tree-branch {
-      position: relative;
-      margin-left: 1.1rem;
-      padding-left: 1.1rem;
-      border-left: 2px dashed #cbd5e1;
-    }
-    .tree-leaf {
-      position: relative;
-    }
-    .tree-leaf::before {
+    .spider-node::before {
       content: "";
       position: absolute;
-      left: -1.1rem;
+      left: -1.25rem;
       top: 50%;
-      width: 0.9rem;
-      border-top: 2px dashed #cbd5e1;
+      width: 1rem;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(99, 102, 241, 0.5), rgba(16, 185, 129, 0.6));
+    }
+    .spider-node::after {
+      content: "";
+      position: absolute;
+      left: -1.45rem;
+      top: calc(50% - 3px);
+      width: 6px;
+      height: 6px;
+      border-radius: 9999px;
+      background: #6366f1;
+      box-shadow: 0 0 8px #6366f1;
+    }
+    /* Live Pulsing Beacon */
+    @keyframes pulseGlow {
+      0%, 100% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      50% { transform: scale(1.08); opacity: 0.9; box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+    }
+    .live-beacon {
+      animation: pulseGlow 1.8s infinite;
+    }
+    /* Revolving Cylinder Animation */
+    .cylinder-spin {
+      transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
     }
   </style>
 </head>
-<body class="text-slate-800 antialiased selection:bg-emerald-500 selection:text-white">
+<body class="antialiased selection:bg-emerald-500 selection:text-black">
+
+  <!-- ================= PITCH-BLACK ZERO-DISTRACTION OVERLAY ================= -->
+  <div id="zeroDistractionOverlay" class="hidden fixed inset-0 bg-black z-[100] flex flex-col items-center justify-center p-6 select-none">
+    <div class="max-w-xl w-full text-center space-y-8">
+      <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 text-xs font-bold tracking-widest uppercase">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 live-beacon"></span>
+        ZERO-DISTRACTION FOCUS LOCKED IN
+      </div>
+
+      <div>
+        <p id="zdSubjectDisplay" class="text-sm sm:text-base font-bold text-zinc-400 tracking-wide uppercase mb-3">NEET Deep Study Session</p>
+        <div id="zdTimerDisplay" class="mono-nums text-6xl sm:text-8xl font-extrabold text-white tracking-tight drop-shadow-[0_0_35px_rgba(16,185,129,0.28)]">
+          00:00:00
+        </div>
+        <p id="zdStartedAtDisplay" class="text-xs text-zinc-600 mt-4 font-medium">Broadcasted as 🟢 LIVE on Leaderboard</p>
+      </div>
+
+      <div class="pt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <button id="zdClockOutBtn" type="button" class="clicky w-full sm:w-auto px-10 py-4 rounded-2xl bg-rose-600 hover:bg-rose-500 text-white font-extrabold text-sm tracking-wide uppercase shadow-[0_0_30px_rgba(225,29,72,0.4)]">
+          ⏹ Clock Out & Save Session
+        </button>
+      </div>
+      <p class="text-[11px] text-zinc-700">Phone down. Eyes on the target. Every second counts toward NEET 2027.</p>
+    </div>
+  </div>
 
   <!-- ================= AUTHENTICATION SCREEN ================= -->
   <div id="authScreen" class="min-h-screen flex flex-col items-center justify-center p-4">
-    <div class="bg-white rounded-3xl shadow-2xl w-full max-w-md p-7 sm:p-8 border border-slate-100">
+    <div class="bg-slate-900/90 backdrop-blur-xl rounded-3xl shadow-2xl w-full max-w-md p-7 sm:p-8 border border-slate-800">
       
       <div class="flex items-center justify-between mb-6">
         <div class="flex items-center gap-3">
-          <div class="w-11 h-11 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-700 font-extrabold text-xl shadow-sm">
-            ⏱️
+          <div class="w-11 h-11 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-extrabold text-xl shadow-sm">
+            ⚡
           </div>
           <div>
-            <h1 class="text-xl font-extrabold text-slate-900 tracking-tight">StudyPunch</h1>
-            <p class="text-xs text-slate-500">Cloud Student ID & NEET 2027 Portal</p>
+            <h1 class="text-xl font-black text-white tracking-tight">StudyPunch</h1>
+            <p class="text-xs text-slate-400">DOT AI • Spider Syllabus • Live Arena</p>
           </div>
         </div>
-        <span id="cloudBadge" class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+        <span id="cloudBadge" class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
           Cloud Ready
         </span>
       </div>
 
-      <!-- One-Click Google Login Button -->
-      <button id="googleLoginBtn" type="button" class="w-full flex items-center justify-center gap-3 bg-white hover:bg-slate-50 text-slate-800 font-semibold py-3 px-4 rounded-xl border border-slate-300 shadow-sm transition active:scale-[0.99] mb-4">
+      <!-- One-Click Google Account Login + Personal Drive Sync -->
+      <button id="googleLoginBtn" type="button" class="clicky w-full flex items-center justify-center gap-3 bg-white hover:bg-slate-100 text-slate-900 font-bold py-3 px-4 rounded-xl shadow-md mb-4">
         <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5" alt="Google" />
-        <span>Continue with Google Account</span>
+        <span>Continue with Google (Auto Drive Sync)</span>
       </button>
 
       <div class="relative flex py-2 items-center mb-4">
-        <div class="flex-grow border-t border-slate-200"></div>
-        <span class="flex-shrink mx-3 text-[11px] font-semibold uppercase tracking-wider text-slate-400">Or Use Student ID & PIN</span>
-        <div class="flex-grow border-t border-slate-200"></div>
+        <div class="flex-grow border-t border-slate-800"></div>
+        <span class="flex-shrink mx-3 text-[11px] font-bold uppercase tracking-wider text-slate-500">Or Student ID & PIN</span>
+        <div class="flex-grow border-t border-slate-800"></div>
       </div>
 
-      <!-- Mode Switch Tabs -->
-      <div class="grid grid-cols-2 bg-slate-100 p-1 rounded-xl mb-5">
-        <button id="tabSignIn" type="button" class="py-2 text-xs font-bold rounded-lg bg-white text-slate-900 shadow-sm transition">
+      <div class="grid grid-cols-2 bg-slate-950 p-1 rounded-xl mb-5 border border-slate-800">
+        <button id="tabSignIn" type="button" class="clicky py-2 text-xs font-bold rounded-lg bg-slate-800 text-white shadow-sm">
           Student Sign In
         </button>
-        <button id="tabCreateId" type="button" class="py-2 text-xs font-bold rounded-lg text-slate-600 hover:text-slate-900 transition">
+        <button id="tabCreateId" type="button" class="clicky py-2 text-xs font-bold rounded-lg text-slate-400 hover:text-white">
           Create Student ID
         </button>
       </div>
 
-      <div id="authAlert" class="hidden mb-4 p-3 rounded-xl text-xs font-medium bg-red-50 text-red-600 border border-red-200"></div>
+      <div id="authAlert" class="hidden mb-4 p-3 rounded-xl text-xs font-semibold bg-rose-950/80 text-rose-300 border border-rose-500/30"></div>
 
       <!-- SIGN IN FORM -->
       <form id="signInForm" class="space-y-4">
         <div>
-          <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-600 mb-1">Student ID</label>
-          <input id="loginStudentId" type="text" required placeholder="e.g. heet16" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm" />
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1">Student ID</label>
+          <input id="loginStudentId" type="text" required placeholder="e.g. heet16" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm" />
         </div>
         <div>
-          <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-600 mb-1">4-Digit PIN</label>
-          <input id="loginPin" type="password" inputmode="numeric" maxlength="4" required placeholder="••••" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm tracking-widest" />
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1">4-Digit PIN</label>
+          <input id="loginPin" type="password" inputmode="numeric" maxlength="4" required placeholder="••••" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm tracking-widest" />
         </div>
-        <button id="signInSubmitBtn" type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl shadow-md transition active:scale-[0.99]">
-          Sign In to StudyPunch →
+        <button id="signInSubmitBtn" type="submit" class="clicky w-full bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold py-3 rounded-xl shadow-lg">
+          Enter Mission Control →
         </button>
       </form>
 
       <!-- CREATE ID FORM -->
       <form id="createIdForm" class="hidden space-y-3.5">
         <div>
-          <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-600 mb-1">Full Name</label>
-          <input id="regFullName" type="text" required placeholder="e.g. Heet Soni" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm" />
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1">Full Name</label>
+          <input id="regFullName" type="text" required placeholder="e.g. Heet Soni" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm" />
         </div>
         <div>
-          <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-600 mb-1">Choose Your Student ID</label>
-          <input id="regStudentId" type="text" required placeholder="e.g. heet16" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm" />
-          <p class="text-[11px] text-slate-400 mt-1">Letters, numbers, underscores or hyphens (3–20 chars)</p>
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1">Choose Student ID</label>
+          <input id="regStudentId" type="text" required placeholder="e.g. heet16" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm" />
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-600 mb-1">4-Digit PIN</label>
-            <input id="regPin" type="password" inputmode="numeric" maxlength="4" required placeholder="••••" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm tracking-widest" />
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1">4-Digit PIN</label>
+            <input id="regPin" type="password" inputmode="numeric" maxlength="4" required placeholder="••••" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm tracking-widest" />
           </div>
           <div>
-            <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-600 mb-1">Confirm PIN</label>
-            <input id="regPinConfirm" type="password" inputmode="numeric" maxlength="4" required placeholder="••••" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm tracking-widest" />
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1">Confirm PIN</label>
+            <input id="regPinConfirm" type="password" inputmode="numeric" maxlength="4" required placeholder="••••" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm tracking-widest" />
           </div>
         </div>
         <div>
-          <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-600 mb-1">Daily Study Target (Hours)</label>
-          <input id="regTarget" type="number" min="1" max="18" step="0.5" value="6" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm" />
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1">Daily Target (Hours)</label>
+          <input id="regTarget" type="number" min="1" max="18" step="0.5" value="6" required class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm" />
         </div>
-        <button id="createIdSubmitBtn" type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl shadow-md transition active:scale-[0.99]">
+        <button id="createIdSubmitBtn" type="submit" class="clicky w-full bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold py-3 rounded-xl shadow-lg">
           Create Student ID +
         </button>
       </form>
-
-      <div class="mt-5 pt-4 border-t border-slate-100 text-center">
-        <button id="authOpenLeaderboardBtn" type="button" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 inline-flex items-center gap-1.5">
-          🏆 View All Users Study Leaderboard
-        </button>
-      </div>
     </div>
   </div>
 
-  <!-- ================= MAIN APP SCREEN (MOBILE HOME-SCREEN SLIDER) ================= -->
+  <!-- ================= MAIN APPLICATION SHELL ================= -->
   <div id="appScreen" class="hidden min-h-screen flex flex-col">
-    <!-- Top Navbar -->
-    <header class="bg-slate-900/90 backdrop-blur-md border-b border-slate-800 sticky top-0 z-30">
-      <div class="max-w-6xl mx-auto px-4 py-2.5 flex flex-wrap items-center justify-between gap-2">
-        <div class="flex items-center gap-2.5">
-          <div class="w-9 h-9 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-bold">
-            ⏱️
+    <!-- Top Tactical Navigation Bar -->
+    <header class="bg-slate-950/90 backdrop-blur-lg border-b border-slate-800/80 sticky top-0 z-40">
+      <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-emerald-500/15 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-black">
+            ⚡
           </div>
           <div>
             <div class="flex items-center gap-2">
-              <span class="font-extrabold text-white tracking-tight text-sm sm:text-base">StudyPunch</span>
-              <span id="navCloudStatus" class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-semibold">Cloud Ready</span>
+              <span class="font-black text-white tracking-tight">StudyPunch</span>
+              <span id="navCloudStatus" class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold">Cloud Live</span>
+              <span id="navDriveStatus" class="hidden text-[10px] px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-500/30 font-bold">Google Drive Linked</span>
             </div>
-            <p id="welcomeUserText" class="text-[11px] text-slate-400">Logged in</p>
+            <p id="welcomeUserText" class="text-xs text-slate-400">Logged in</p>
           </div>
         </div>
 
-        <!-- Slide Indicator Tabs (Tap OR Swipe Left/Right Anywhere) -->
-        <div class="flex items-center gap-1.5 bg-slate-800/80 p-1 rounded-xl border border-slate-700/60">
-          <button id="navDashboardBtn" type="button" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-emerald-600 text-white shadow-sm transition">
-            ⏱️ Clock-In
+        <!-- Fast Clicky Navigation Tabs -->
+        <div class="flex flex-wrap items-center gap-1.5">
+          <button id="navDashboardBtn" type="button" class="clicky px-3.5 py-2 rounded-xl text-xs font-extrabold bg-emerald-600 text-white shadow-sm">
+            ⏱️ Clock-In & DOT
           </button>
-          <button id="navSyllabusBtn" type="button" class="px-3 py-1.5 rounded-lg text-xs font-bold text-slate-300 hover:text-white transition">
-            📚 Syllabus
+          <button id="navSyllabusBtn" type="button" class="clicky px-3.5 py-2 rounded-xl text-xs font-extrabold bg-slate-900 text-slate-300 hover:bg-slate-800 border border-slate-800">
+            🕸️ Spider Syllabus
           </button>
-          <button id="navLeaderboardBtn" type="button" class="px-3 py-1.5 rounded-lg text-xs font-bold text-slate-300 hover:text-white transition">
-            🏆 Ranks
+          <button id="navLeaderboardBtn" type="button" class="clicky px-3.5 py-2 rounded-xl text-xs font-extrabold bg-slate-900 text-slate-300 hover:bg-slate-800 border border-slate-800 flex items-center gap-1.5">
+            <span>🏆 Live Leaderboard</span>
+            <span id="navLiveCountBadge" class="px-1.5 py-0.2 rounded-full text-[10px] bg-emerald-500 text-black font-black">0 Live</span>
+          </button>
+          <button id="navNotesBtn" type="button" class="clicky px-3.5 py-2 rounded-xl text-xs font-extrabold bg-slate-900 text-slate-300 hover:bg-slate-800 border border-slate-800">
+            📝 Notes Vault
+          </button>
+          <button id="navGameBtn" type="button" class="clicky px-3.5 py-2 rounded-xl text-xs font-extrabold bg-slate-900 text-amber-300 hover:bg-slate-800 border border-amber-500/30">
+            🔫 Revolver Game
+          </button>
+          <button id="logoutBtn" type="button" class="clicky px-3 py-2 rounded-xl text-xs font-bold bg-rose-500/10 text-rose-400 border border-rose-500/20 hover:bg-rose-500/20">
+            Exit
           </button>
         </div>
-
-        <button id="logoutBtn" type="button" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-rose-500/10 text-rose-300 border border-rose-500/20 hover:bg-rose-500/20 transition">
-          Sign Out
-        </button>
-      </div>
-
-      <!-- Mobile Home-Screen Page Dots Indicator -->
-      <div class="flex items-center justify-center gap-2 pb-2">
-        <span id="dot0" class="w-5 h-1.5 rounded-full bg-emerald-400 transition-all duration-300 cursor-pointer"></span>
-        <span id="dot1" class="w-1.5 h-1.5 rounded-full bg-slate-600 transition-all duration-300 cursor-pointer"></span>
-        <span id="dot2" class="w-1.5 h-1.5 rounded-full bg-slate-600 transition-all duration-300 cursor-pointer"></span>
-        <span class="text-[10px] text-slate-500 ml-1 hidden sm:inline">Swipe left/right or use ← → keys</span>
       </div>
     </header>
 
-    <!-- SWIPEABLE 3-SCREEN VIEWPORT -->
-    <div id="swipeViewport" class="swipe-viewport flex-1">
-      <div id="swipeTrack" class="swipe-track">
-
-        <!-- ================= SLIDE 0: PERSONAL CLOCK-IN DASHBOARD ================= -->
-        <div class="swipe-slide">
-          <main id="dashboardView" class="max-w-6xl w-full mx-auto p-4 sm:p-6 space-y-6">
-            
-            <!-- Top Stats Row -->
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-              <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-lg border border-slate-100">
-                <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Today's Study</p>
-                <p id="statTodayHours" class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1 tabular-nums">0h 00m</p>
-                <div class="w-full bg-slate-100 h-2 rounded-full mt-2.5 overflow-hidden">
-                  <div id="statProgressBar" class="bg-emerald-500 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
-                </div>
-                <p id="statTargetText" class="text-[11px] text-slate-500 mt-1.5">Target: 6h/day</p>
-              </div>
-
-              <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-lg border border-slate-100">
-                <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Sessions</p>
-                <p id="statTotalSessions" class="text-xl sm:text-2xl font-extrabold text-indigo-600 mt-1 tabular-nums">0 times</p>
-                <p class="text-[11px] text-slate-500 mt-2">Live + manual</p>
-              </div>
-
-              <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-lg border border-slate-100">
-                <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">All-Time Hours</p>
-                <p id="statAllTimeHours" class="text-xl sm:text-2xl font-extrabold text-emerald-600 mt-1 tabular-nums">0.0 hrs</p>
-                <p class="text-[11px] text-slate-500 mt-2">Cloud synced</p>
-              </div>
-
-              <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-lg border border-slate-100 cursor-pointer hover:border-indigo-300 transition" id="dashSyllabusCard">
-                <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">NEET 2027</p>
-                <p id="statSyllabusPct" class="text-xl sm:text-2xl font-extrabold text-amber-600 mt-1 tabular-nums">0%</p>
-                <p id="statSyllabusCount" class="text-[11px] text-indigo-600 font-semibold mt-2">Swipe left →</p>
-              </div>
-            </div>
-
-            <!-- Clock-In Timer & 7-Day Chart Row -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div class="bg-white rounded-2xl p-6 shadow-lg border border-slate-100 flex flex-col justify-between">
-                <div>
-                  <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-base font-extrabold text-slate-900">Office-Style Study Punch Clock</h2>
-                    <span id="punchStatusTag" class="px-2.5 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-600">Off Duty</span>
-                  </div>
-
-                  <div class="bg-slate-900 text-white rounded-2xl p-6 text-center my-4 shadow-inner">
-                    <p class="text-xs uppercase tracking-widest text-slate-400 font-semibold mb-1">Active Session Timer</p>
-                    <div id="liveTimerDisplay" class="text-4xl sm:text-5xl font-extrabold tracking-tight tabular-nums text-emerald-400">
-                      00:00:00
-                    </div>
-                    <p id="punchStartTimeText" class="text-xs text-slate-400 mt-2">Ready to clock in</p>
-                  </div>
-
-                  <div class="mb-4">
-                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Subject / Topic Note (Optional)</label>
-                    <input id="sessionSubjectInput" type="text" placeholder="e.g. NEET Biology / Rotational Motion / Organic" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
-                  </div>
-                </div>
-
-                <div class="grid grid-cols-2 gap-3 pt-2">
-                  <button id="clockInBtn" type="button" class="bg-emerald-600 hover:bg-emerald-700 disabled:opacity-40 text-white font-bold py-3.5 rounded-xl shadow-md transition">
-                    ▶ Clock In (Start)
-                  </button>
-                  <button id="clockOutBtn" type="button" disabled class="bg-rose-600 hover:bg-rose-700 disabled:opacity-40 text-white font-bold py-3.5 rounded-xl shadow-md transition">
-                    ⏹ Clock Out (Save)
-                  </button>
-                </div>
-              </div>
-
-              <div class="bg-white rounded-2xl p-6 shadow-lg border border-slate-100 flex flex-col justify-between">
-                <div class="flex items-center justify-between mb-4">
-                  <div>
-                    <h2 class="text-base font-extrabold text-slate-900">Last 7 Days Study Progress</h2>
-                    <p class="text-xs text-slate-500">Daily study hours logged</p>
-                  </div>
-                  <button id="exportCsvBtn" type="button" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition">
-                    ⬇ Export CSV
-                  </button>
-                </div>
-                <div class="h-60 w-full">
-                  <canvas id="studyChartCanvas"></canvas>
-                </div>
-              </div>
-            </div>
-
-            <!-- MANUAL STUDY TIME ENTRY CARD -->
-            <div class="bg-white rounded-2xl p-6 shadow-lg border border-indigo-100">
-              <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
-                <div>
-                  <h2 class="text-base font-extrabold text-slate-900">✍️ Log Study Session Manually</h2>
-                  <p class="text-xs text-slate-500">Forgot to turn on the timer? Add your completed study hours manually below.</p>
-                </div>
-                <span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
-                  Updates Cloud & Leaderboard
-                </span>
-              </div>
-
-              <form id="manualEntryForm" class="grid grid-cols-1 sm:grid-cols-5 gap-3 items-end">
-                <div>
-                  <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">Study Date</label>
-                  <input id="manualDate" type="date" required class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
-                </div>
-                <div class="sm:col-span-2">
-                  <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">Subject / Topic Studied</label>
-                  <input id="manualSubject" type="text" required placeholder="e.g. Chemical Bonding / Human Physiology" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
-                </div>
-                <div class="grid grid-cols-2 gap-2">
-                  <div>
-                    <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">Hours</label>
-                    <input id="manualHours" type="number" min="0" max="18" value="1" required class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 tabular-nums" />
-                  </div>
-                  <div>
-                    <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">Minutes</label>
-                    <input id="manualMinutes" type="number" min="0" max="59" value="30" required class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 tabular-nums" />
-                  </div>
-                </div>
-                <div>
-                  <button id="manualSubmitBtn" type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 px-4 rounded-xl shadow-md transition active:scale-[0.99] text-sm">
-                    + Add Session
-                  </button>
-                </div>
-              </form>
-            </div>
-
-            <!-- Recent Study Timesheet History -->
-            <div class="bg-white rounded-2xl p-6 shadow-lg border border-slate-100">
-              <h2 class="text-base font-extrabold text-slate-900 mb-4">My Study Timesheet History</h2>
-              <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse">
-                  <thead>
-                    <tr class="border-b border-slate-200 text-[11px] uppercase tracking-wider text-slate-400 bg-slate-50">
-                      <th class="py-2.5 px-4">Date</th>
-                      <th class="py-2.5 px-4">Subject / Note</th>
-                      <th class="py-2.5 px-4">Type / Time</th>
-                      <th class="py-2.5 px-4 text-right">Duration</th>
-                      <th class="py-2.5 px-4 text-right">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody id="timesheetTableBody" class="text-sm divide-y divide-slate-100">
-                    <tr><td colspan="5" class="py-6 text-center text-slate-400">No study sessions recorded yet. Clock in or log manually above!</td></tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </main>
+    <!-- ================= VIEW 1: CENTER CLOCK-IN + DOT AI ENGINE ================= -->
+    <main id="dashboardView" class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 space-y-6">
+      
+      <!-- CENTER STAGE: ZERO-DISTRACTION CLOCK-IN LAUNCHER -->
+      <div class="max-w-2xl mx-auto bg-gradient-to-b from-slate-900 to-slate-950 rounded-3xl p-7 sm:p-9 shadow-2xl border border-emerald-500/30 text-center relative overflow-hidden">
+        <div class="flex items-center justify-between mb-4">
+          <span class="text-[11px] font-extrabold uppercase tracking-widest text-emerald-400">⚡ Center Command Clock</span>
+          <span id="punchStatusTag" class="px-3 py-1 rounded-full text-xs font-bold bg-slate-800 text-slate-300">Standby</span>
         </div>
 
-        <!-- ================= SLIDE 1: NEET 2027 SYLLABUS FOLDER TREE ================= -->
-        <div class="swipe-slide">
-          <section id="syllabusView" class="max-w-6xl w-full mx-auto p-4 sm:p-6 space-y-6">
-            <div class="bg-white rounded-2xl p-6 shadow-xl border border-slate-100">
-              <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
-                <div>
-                  <div class="flex items-center gap-2">
-                    <span class="px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-800 font-extrabold text-xs">NMC / NTA Official</span>
-                    <h2 class="text-lg sm:text-xl font-extrabold text-slate-900">📚 NEET 2027 Syllabus Folder Tree</h2>
-                  </div>
-                  <p id="reassuranceMsg" class="text-xs text-slate-600 mt-1 font-medium">
-                    Tick off every sub-topic as you finish studying or revising it. Your progress is automatically saved to your Cloud ID!
-                  </p>
-                </div>
-                <div class="text-right">
-                  <span id="overallSyllabusBigPct" class="text-3xl font-extrabold text-emerald-600 tabular-nums">0%</span>
-                  <p id="overallSyllabusCounts" class="text-xs text-slate-400 font-semibold">0 / 0 sub-topics completed</p>
-                </div>
-              </div>
+        <p class="text-xs text-slate-400 mb-2">Pressing Clock In turns your entire screen pitch-black for 100% zero-distraction focus.</p>
 
-              <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden mb-5">
-                <div id="overallSyllabusBar" class="bg-gradient-to-r from-emerald-500 to-indigo-600 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
-              </div>
-
-              <div id="subjectSummaryCards" class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5"></div>
-
-              <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-100">
-                <div class="relative flex-1 min-w-[220px]">
-                  <input id="syllabusSearchInput" type="text" placeholder="🔍 Search any chapter or sub-topic (e.g. Rotational, Genetics, Thermodynamics)..." class="w-full pl-3.5 pr-4 py-2 rounded-xl border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500" />
-                </div>
-                <div class="flex items-center gap-2">
-                  <button id="expandAllFoldersBtn" type="button" class="px-3 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition">
-                    📂 Expand All
-                  </button>
-                  <button id="collapseAllFoldersBtn" type="button" class="px-3 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition">
-                    📁 Collapse
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div id="syllabusTreeContainer" class="space-y-4"></div>
-          </section>
+        <div id="liveTimerDisplay" class="mono-nums text-5xl sm:text-7xl font-black text-white tracking-tight my-5">
+          00:00:00
         </div>
 
-        <!-- ================= SLIDE 2: ATTRACTIVE & SIMPLE LEADERBOARD ================= -->
-        <div class="swipe-slide">
-          <section id="leaderboardView" class="max-w-5xl w-full mx-auto p-4 sm:p-6 space-y-6">
-            <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-xl border border-slate-100">
-              
-              <!-- Clean Header -->
-              <div class="flex flex-wrap items-center justify-between gap-3 pb-5 mb-6 border-b border-slate-100">
-                <div>
-                  <h2 class="text-xl font-extrabold text-slate-900 tracking-tight">🏆 StudyPunch Community Ranks</h2>
-                  <p class="text-xs text-slate-500 mt-0.5">Live standings ranked by total study hours & NEET 2027 consistency</p>
-                </div>
-                <div class="flex items-center gap-2">
-                  <button id="refreshLeaderboardBtn" type="button" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-900 hover:bg-slate-800 text-white shadow-sm transition active:scale-95">
-                    ↻ Sync Live
-                  </button>
-                  <button id="backToAuthBtn" type="button" class="hidden px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-800 transition">
-                    ← Login
-                  </button>
-                </div>
-              </div>
-
-              <!-- TOP 3 PODIUM SHOWCASE (Eye-Catching & Simple) -->
-              <div id="leaderboardPodium" class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6"></div>
-
-              <!-- CLEAN MINIMALIST RANKING LIST -->
-              <div class="overflow-x-auto rounded-2xl border border-slate-100">
-                <table class="w-full text-left border-collapse">
-                  <thead>
-                    <tr class="border-b border-slate-200 text-[11px] uppercase tracking-wider text-slate-400 bg-slate-50/80">
-                      <th class="py-3 px-4">Rank</th>
-                      <th class="py-3 px-4">Student</th>
-                      <th class="py-3 px-4 text-center">Sessions</th>
-                      <th class="py-3 px-4 text-center">NEET Syllabus</th>
-                      <th class="py-3 px-4 text-center">Today</th>
-                      <th class="py-3 px-4 text-right">Total Hours</th>
-                    </tr>
-                  </thead>
-                  <tbody id="globalLeaderboardBody" class="text-sm divide-y divide-slate-100">
-                    <tr><td colspan="6" class="py-8 text-center text-slate-400">Syncing rankings...</td></tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </section>
+        <div class="max-w-md mx-auto mb-6">
+          <input id="sessionSubjectInput" type="text" placeholder="What are you locking in on? (e.g. Rotational Motion / GOC)" class="w-full px-4 py-3 rounded-2xl bg-slate-950 border border-slate-800 text-white text-center text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
         </div>
 
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto">
+          <button id="clockInBtn" type="button" class="clicky w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-4 px-6 rounded-2xl shadow-[0_0_25px_rgba(16,185,129,0.35)] text-sm uppercase tracking-wider">
+            ▶ Clock In (Blackout Focus Mode)
+          </button>
+          <button id="clockOutBtn" type="button" disabled class="clicky hidden w-full bg-rose-600 hover:bg-rose-500 text-white font-black py-4 px-6 rounded-2xl shadow-lg text-sm uppercase tracking-wider">
+            ⏹ Clock Out
+          </button>
+        </div>
       </div>
-    </div>
+
+      <!-- DOT (DYNAMIC OBJECTIVE TRACKER) RECOMMENDATION CENTRE -->
+      <div class="bg-slate-900/90 rounded-3xl p-6 shadow-xl border border-indigo-500/30">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-2xl bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-indigo-400 font-black text-lg shadow-inner">
+              ◉
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h2 class="text-base font-black text-white tracking-tight">DOT — Syllabus Recommendation Centre</h2>
+                <span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">SMART NEXT-STEP ENGINE</span>
+              </div>
+              <p id="dotStatusSubtitle" class="text-xs text-slate-400">Analyzing your completed Spider-Web nodes to recommend what you should study next...</p>
+            </div>
+          </div>
+          <button id="dotRefreshBtn" type="button" class="clicky px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-indigo-300 border border-slate-700">
+            ↻ Recalculate DOT
+          </button>
+        </div>
+
+        <div id="dotRecommendationsGrid" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
+      </div>
+
+      <!-- Quick Metrics Row -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-slate-900/80 rounded-2xl p-5 border border-slate-800">
+          <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Today's Focus</p>
+          <p id="statTodayHours" class="mono-nums text-2xl font-black text-white mt-1">0h 00m</p>
+          <div class="w-full bg-slate-800 h-2 rounded-full mt-3 overflow-hidden">
+            <div id="statProgressBar" class="bg-emerald-500 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+          </div>
+          <p id="statTargetText" class="text-[11px] text-slate-500 mt-1.5">Target: 6h/day</p>
+        </div>
+
+        <div class="bg-slate-900/80 rounded-2xl p-5 border border-slate-800">
+          <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Times Studied</p>
+          <p id="statTotalSessions" class="mono-nums text-2xl font-black text-indigo-400 mt-1">0 sessions</p>
+          <p class="text-[11px] text-slate-500 mt-2">Total completed punches</p>
+        </div>
+
+        <div class="bg-slate-900/80 rounded-2xl p-5 border border-slate-800">
+          <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">All-Time Hours</p>
+          <p id="statAllTimeHours" class="mono-nums text-2xl font-black text-emerald-400 mt-1">0.0 hrs</p>
+          <p class="text-[11px] text-slate-500 mt-2">Cloud + Google Drive synced</p>
+        </div>
+
+        <div id="dashSyllabusCard" class="clicky bg-slate-900/80 rounded-2xl p-5 border border-slate-800 cursor-pointer hover:border-amber-500/50">
+          <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Spider Syllabus Web</p>
+          <p id="statSyllabusPct" class="mono-nums text-2xl font-black text-amber-400 mt-1">0%</p>
+          <p id="statSyllabusCount" class="text-[11px] text-amber-300 font-semibold mt-2">Open Spider Web →</p>
+        </div>
+      </div>
+
+      <!-- Manual Entry + 7-Day Chart Row -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Manual Study Entry -->
+        <div class="bg-slate-900/80 rounded-2xl p-6 border border-slate-800 flex flex-col justify-between">
+          <div>
+            <h3 class="text-base font-black text-white mb-1">✍️ Log Past Study Session Manually</h3>
+            <p class="text-xs text-slate-400 mb-4">Studied offline without the timer? Log it here to update DOT and Leaderboard.</p>
+            <form id="manualEntryForm" class="space-y-3">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1">Date</label>
+                  <input id="manualDate" type="date" required class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs" />
+                </div>
+                <div>
+                  <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1">Subject / Topic</label>
+                  <input id="manualSubject" type="text" required placeholder="e.g. Chemical Equilibrium" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs" />
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1">Hours</label>
+                  <input id="manualHours" type="number" min="0" max="18" value="1" required class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs mono-nums" />
+                </div>
+                <div>
+                  <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1">Minutes</label>
+                  <input id="manualMinutes" type="number" min="0" max="59" value="30" required class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs mono-nums" />
+                </div>
+              </div>
+              <button id="manualSubmitBtn" type="submit" class="clicky w-full bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold py-2.5 rounded-xl text-xs">
+                + Add Manual Session
+              </button>
+            </form>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between">
+            <span class="text-xs text-slate-400">Need a spreadsheet backup?</span>
+            <button id="exportCsvBtn" type="button" class="clicky px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-800 hover:bg-slate-700 text-slate-200">
+              ⬇ Export Timesheet CSV
+            </button>
+          </div>
+        </div>
+
+        <!-- 7-Day Chart -->
+        <div class="bg-slate-900/80 rounded-2xl p-6 border border-slate-800">
+          <h3 class="text-base font-black text-white mb-1">📊 Last 7 Days Output</h3>
+          <p class="text-xs text-slate-400 mb-4">Daily study hours logged</p>
+          <div class="h-56 w-full">
+            <canvas id="studyChartCanvas"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Sessions History -->
+      <div class="bg-slate-900/80 rounded-2xl p-6 border border-slate-800">
+        <h3 class="text-base font-black text-white mb-4">🕒 My Study Timesheet Log</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-slate-800 text-[11px] uppercase tracking-wider text-slate-400">
+                <th class="py-2.5 px-4">Date</th>
+                <th class="py-2.5 px-4">Topic</th>
+                <th class="py-2.5 px-4">Mode</th>
+                <th class="py-2.5 px-4 text-right">Duration</th>
+                <th class="py-2.5 px-4 text-right">Delete</th>
+              </tr>
+            </thead>
+            <tbody id="timesheetTableBody" class="text-xs divide-y divide-slate-800/60"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <!-- ================= VIEW 2: SPIDER-WEB SYLLABUS + TOP SEARCH BAR ================= -->
+    <section id="syllabusView" class="hidden flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 space-y-6">
+      
+      <!-- Sticky Top Search & Spider Filter Bar -->
+      <div class="bg-slate-900/95 backdrop-blur-xl rounded-3xl p-5 shadow-2xl border border-slate-800 sticky top-16 z-30">
+        <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
+          <div class="relative flex-1">
+            <input id="syllabusSearchInput" type="text" placeholder="🔍 Search NEET 2027 Spider Web (e.g. Rotational, Optics, GOC, Genetics, Thermodynamics)..." class="w-full pl-4 pr-10 py-3 rounded-2xl bg-slate-950 border border-indigo-500/40 text-white text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400" />
+          </div>
+          <div class="flex items-center gap-2">
+            <button id="expandAllFoldersBtn" type="button" class="clicky px-3.5 py-2.5 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-500 text-white">
+              🕸️ Expand Full Web
+            </button>
+            <button id="collapseAllFoldersBtn" type="button" class="clicky px-3.5 py-2.5 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-slate-300">
+              Collapse Nodes
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Visual Spider-Web Radar Canvas + Mastery Stats -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="bg-slate-900/90 rounded-3xl p-6 border border-slate-800 flex flex-col items-center justify-center">
+          <h3 class="text-sm font-black uppercase tracking-wider text-indigo-400 mb-2">🕸️ Live Spider-Web Mastery Map</h3>
+          <p class="text-[11px] text-slate-400 text-center mb-3">Each axis expands outward as you tick sub-topics</p>
+          <div class="w-full max-w-[290px] aspect-square">
+            <canvas id="spiderWebCanvas"></canvas>
+          </div>
+        </div>
+
+        <div class="lg:col-span-2 bg-slate-900/90 rounded-3xl p-6 border border-slate-800 flex flex-col justify-between">
+          <div>
+            <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+              <div>
+                <span class="px-2.5 py-1 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-extrabold text-xs">NEET 2027 Interactive Web</span>
+                <h2 class="text-xl font-black text-white mt-2">Spider-Node Syllabus Tracker</h2>
+                <p id="reassuranceMsg" class="text-xs text-slate-400 mt-1">Tick any node below to expand your spider web and feed the DOT recommendation engine.</p>
+              </div>
+              <div class="text-right">
+                <span id="overallSyllabusBigPct" class="mono-nums text-4xl font-black text-emerald-400">0%</span>
+                <p id="overallSyllabusCounts" class="text-xs text-slate-400 font-bold">0 / 0 nodes spun</p>
+              </div>
+            </div>
+
+            <div class="w-full bg-slate-950 h-3.5 rounded-full overflow-hidden mb-6 border border-slate-800">
+              <div id="overallSyllabusBar" class="bg-gradient-to-r from-indigo-500 via-emerald-400 to-amber-400 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+            </div>
+
+            <div id="subjectSummaryCards" class="grid grid-cols-1 sm:grid-cols-3 gap-4"></div>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-400">
+            <span>💡 Tip: Click **"⚡ Clock In"** next to any sub-topic node to jump straight into Blackout Focus Mode for that topic!</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hierarchical Spider-Web Nodes Container -->
+      <div id="syllabusTreeContainer" class="space-y-5"></div>
+    </section>
+
+    <!-- ================= VIEW 3: FAST CLICKY LIVE LEADERBOARD ================= -->
+    <section id="leaderboardView" class="hidden flex-1 max-w-6xl w-full mx-auto p-4 sm:p-6 space-y-6">
+      <div class="bg-slate-900/90 rounded-3xl p-6 shadow-2xl border border-slate-800">
+        <div class="flex flex-wrap items-center justify-between gap-4 pb-5 mb-5 border-b border-slate-800">
+          <div>
+            <div class="flex items-center gap-2.5">
+              <h2 class="text-xl font-black text-white">🏆 Global Live Study Arena</h2>
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 live-beacon"></span>
+                REAL-TIME SYNC
+              </span>
+            </div>
+            <p class="text-xs text-slate-400 mt-1">See which friends are 🟢 LIVE studying right now, their active subject, session count, and total hours.</p>
+          </div>
+
+          <!-- Clicky Filter Pills -->
+          <div class="flex flex-wrap items-center gap-2">
+            <button id="lbFilterAllBtn" type="button" class="clicky px-3.5 py-2 rounded-xl text-xs font-extrabold bg-indigo-600 text-white">
+              All Students
+            </button>
+            <button id="lbFilterLiveBtn" type="button" class="clicky px-3.5 py-2 rounded-xl text-xs font-extrabold bg-slate-800 text-emerald-400 border border-emerald-500/30">
+              🟢 Live Studying Now
+            </button>
+            <button id="refreshLeaderboardBtn" type="button" class="clicky px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-slate-200">
+              ⚡ Instant Ping
+            </button>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-slate-800 text-[11px] uppercase tracking-wider text-slate-400 bg-slate-950/60">
+                <th class="py-3.5 px-4">Rank</th>
+                <th class="py-3.5 px-4">Student & Live Status</th>
+                <th class="py-3.5 px-4 text-center">Times Studied</th>
+                <th class="py-3.5 px-4 text-center">Spider Web %</th>
+                <th class="py-3.5 px-4 text-center">Today</th>
+                <th class="py-3.5 px-4 text-right">Total Hours</th>
+              </tr>
+            </thead>
+            <tbody id="globalLeaderboardBody" class="text-sm divide-y divide-slate-800/60"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= VIEW 4: CLOUD & DRIVE NOTES VAULT ================= -->
+    <section id="notesView" class="hidden flex-1 max-w-6xl w-full mx-auto p-4 sm:p-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Notes Sidebar List -->
+        <div class="bg-slate-900/90 rounded-3xl p-5 border border-slate-800 flex flex-col h-[72vh]">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-base font-black text-white">📝 My Study Notes</h2>
+            <button id="newNoteBtn" type="button" class="clicky px-3 py-1.5 rounded-xl text-xs font-extrabold bg-emerald-500 text-slate-950">
+              + New Note
+            </button>
+          </div>
+          <input id="noteSearchInput" type="text" placeholder="Search notes..." class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white mb-3 focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+          <div id="notesListContainer" class="flex-1 overflow-y-auto space-y-2 pr-1"></div>
+        </div>
+
+        <!-- Note Editor -->
+        <div class="md:col-span-2 bg-slate-900/90 rounded-3xl p-6 border border-slate-800 flex flex-col h-[72vh]">
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-4 mb-4 border-b border-slate-800">
+            <input id="noteTitleInput" type="text" placeholder="Note Title (e.g. Rotational Inertia Formulas / Mistake Log)" class="flex-1 bg-transparent text-lg font-black text-white focus:outline-none" />
+            <div class="flex items-center gap-2">
+              <span id="noteSaveStatus" class="text-[11px] text-slate-400">Saved</span>
+              <button id="saveNoteBtn" type="button" class="clicky px-4 py-2 rounded-xl text-xs font-extrabold bg-indigo-600 hover:bg-indigo-500 text-white">
+                💾 Save Note
+              </button>
+              <button id="deleteNoteBtn" type="button" class="clicky px-3 py-2 rounded-xl text-xs font-bold bg-rose-500/10 text-rose-400 border border-rose-500/20">
+                Delete
+              </button>
+            </div>
+          </div>
+          <textarea id="noteBodyInput" placeholder="Write formulas, high-yield NCERT lines, or test mistakes here... Automatically syncs to your Cloud ID and Google Drive." class="flex-1 w-full bg-slate-950/70 rounded-2xl p-4 border border-slate-800 text-sm text-slate-200 leading-relaxed focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= VIEW 5: 6-CHAMBER REVOLVER STUDY ROULETTE GAME ================= -->
+    <section id="gameView" class="hidden flex-1 max-w-4xl w-full mx-auto p-4 sm:p-6">
+      <div class="bg-slate-900/95 rounded-3xl p-6 sm:p-8 border border-amber-500/30 shadow-2xl text-center">
+        <span class="px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest bg-amber-500/15 text-amber-300 border border-amber-500/30">
+          🔫 Break-Time Nerve Tester
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-black text-white mt-3">6-Chamber NEET Revolver Roulette</h2>
+        <p class="text-xs text-slate-400 max-w-lg mx-auto mt-1">
+          5 chambers are empty (+15 Luck XP). 1 chamber holds a **High-Yield NEET Bullet Question**. Survive the cylinder or defuse the bullet with the right answer!
+        </p>
+
+        <!-- Visual 6-Chamber Cylinder -->
+        <div class="my-8 flex flex-col items-center justify-center">
+          <div id="revolverCylinder" class="cylinder-spin w-48 h-48 rounded-full bg-slate-950 border-4 border-slate-700 shadow-[0_0_40px_rgba(245,158,11,0.15)] relative flex items-center justify-center">
+            <!-- Center Axis Pin -->
+            <div class="w-8 h-8 rounded-full bg-amber-500/30 border-2 border-amber-400"></div>
+            <!-- 6 Chambers positioned in a circle -->
+            <div id="chamber0" class="w-10 h-10 rounded-full bg-slate-900 border-2 border-slate-600 absolute top-3 left-1/2 -translate-x-1/2"></div>
+            <div id="chamber1" class="w-10 h-10 rounded-full bg-slate-900 border-2 border-slate-600 absolute top-11 right-4"></div>
+            <div id="chamber2" class="w-10 h-10 rounded-full bg-slate-900 border-2 border-slate-600 absolute bottom-11 right-4"></div>
+            <div id="chamber3" class="w-10 h-10 rounded-full bg-slate-900 border-2 border-slate-600 absolute bottom-3 left-1/2 -translate-x-1/2"></div>
+            <div id="chamber4" class="w-10 h-10 rounded-full bg-slate-900 border-2 border-slate-600 absolute bottom-11 left-4"></div>
+            <div id="chamber5" class="w-10 h-10 rounded-full bg-slate-900 border-2 border-slate-600 absolute top-11 left-4"></div>
+          </div>
+
+          <div class="grid grid-cols-3 gap-4 max-w-md w-full mt-6">
+            <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800">
+              <p class="text-[10px] uppercase font-bold text-slate-500">Current Chamber</p>
+              <p id="rouletteChamberText" class="mono-nums text-lg font-black text-white">1 / 6</p>
+            </div>
+            <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800">
+              <p class="text-[10px] uppercase font-bold text-slate-500">Survival Streak</p>
+              <p id="rouletteStreakText" class="mono-nums text-lg font-black text-emerald-400">0</p>
+            </div>
+            <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800">
+              <p class="text-[10px] uppercase font-bold text-slate-500">Roulette XP</p>
+              <p id="rouletteXpText" class="mono-nums text-lg font-black text-amber-400">0 XP</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="rouletteResultBanner" class="mb-6 p-4 rounded-2xl bg-slate-950 border border-slate-800 text-sm font-bold text-slate-300">
+          Spin the cylinder and pull the trigger when ready, sir.
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          <button id="spinCylinderBtn" type="button" class="clicky px-6 py-3.5 rounded-2xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-extrabold text-xs uppercase tracking-wider border border-amber-500/30">
+            🔄 Spin New Cylinder
+          </button>
+          <button id="pullTriggerBtn" type="button" class="clicky px-8 py-3.5 rounded-2xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs uppercase tracking-wider shadow-[0_0_25px_rgba(245,158,11,0.4)]">
+            🔫 Pull Trigger
+          </button>
+        </div>
+
+        <!-- Bullet Question Defusal Modal Card -->
+        <div id="bulletQuizBox" class="hidden mt-6 p-6 rounded-2xl bg-rose-950/50 border-2 border-rose-500 text-left">
+          <div class="flex items-center justify-between mb-2">
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-rose-500 text-white uppercase">💥 BANG! NEET Bullet Chamber Hit!</span>
+            <span class="text-xs text-rose-300 font-bold">Answer right to survive & gain +50 XP!</span>
+          </div>
+          <p id="bulletQuestionText" class="text-sm font-extrabold text-white my-3"></p>
+          <div id="bulletOptionsList" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5"></div>
+        </div>
+      </div>
+    </section>
   </div>
 
-  <!-- ================= FIREBASE & APPLICATION LOGIC ================= -->
+  <!-- ================= FIREBASE, GOOGLE DRIVE, DOT & SPIDER SYLLABUS ENGINE ================= -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
-    import { initializeFirestore, doc, getDoc, setDoc, collection, getDocs, onSnapshot } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+    import { getFirestore, doc, getDoc, setDoc, collection, getDocs, onSnapshot, enableIndexedDbPersistence } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
     import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
 
-    // ================= COMPLETE NEET 2027 HIERARCHICAL SYLLABUS DATA =================
+    // ================= NEET 2027 SPIDER-WEB SYLLABUS DATA =================
     const NEET_2027_SYLLABUS = [
       {
         id: "phys",
-        subject: "Physics (Class 11 & 12 — 20 Units)",
+        subject: "Physics",
         icon: "⚡",
         units: [
           {
             id: "phys_11",
-            unitName: "Class 11 Physics Folder (Units 1 – 10)",
+            unitName: "Class 11 Physics Web (Units 1–10)",
             chapters: [
-              { id: "p1", name: "Unit 1: Physics and Measurement", subtopics: ["SI Units, Fundamental & Derived Units", "Least Count & Significant Figures", "Errors in Measurements", "Dimensions of Physical Quantities & Dimensional Analysis"] },
-              { id: "p2", name: "Unit 2: Kinematics", subtopics: ["Frame of Reference, Motion in a Straight Line & Graphs", "Uniformly Accelerated Motion", "Scalars & Vectors, Vector Addition & Multiplication", "Projectile Motion & Uniform Circular Motion", "Relative Velocity"] },
-              { id: "p3", name: "Unit 3: Laws of Motion", subtopics: ["Newton's 1st, 2nd & 3rd Laws of Motion, Impulse", "Conservation of Linear Momentum", "Equilibrium of Concurrent Forces", "Static & Kinetic Friction, Rolling Friction", "Dynamics of Uniform Circular Motion & Banking of Roads"] },
-              { id: "p4", name: "Unit 4: Work, Energy and Power", subtopics: ["Work Done by Constant & Variable Force", "Kinetic & Potential Energy, Work-Energy Theorem", "Potential Energy of a Spring & Conservative Forces", "Power", "Elastic & Inelastic Collisions in 1D and 2D", "Motion in a Vertical Circle"] },
-              { id: "p5", name: "Unit 5: Rotational Motion", subtopics: ["Centre of Mass of Two-Particle System & Rigid Body", "Torque, Angular Momentum & Conservation of Angular Momentum", "Moment of Inertia & Radius of Gyration", "Parallel & Perpendicular Axes Theorems", "Equilibrium of Rigid Bodies & Equations of Rotational Motion", "Rolling Motion"] },
-              { id: "p6", name: "Unit 6: Gravitation", subtopics: ["Universal Law of Gravitation", "Acceleration Due to Gravity (Altitude & Depth Variation)", "Kepler's Laws of Planetary Motion", "Gravitational Potential Energy & Gravitational Potential", "Escape Velocity", "Orbital Velocity, Time Period & Energy of Satellite"] },
-              { id: "p7", name: "Unit 7: Properties of Solids and Liquids", subtopics: ["Elasticity, Stress-Strain, Hooke's Law & Moduli of Elasticity", "Pressure in Fluids, Pascal's Law & Viscosity (Stokes' Law)", "Streamline & Turbulent Flow, Reynolds Number & Bernoulli's Principle", "Surface Energy, Surface Tension, Drops, Bubbles & Capillary Rise", "Heat, Temperature, Thermal Expansion & Calorimetry", "Heat Transfer: Conduction, Convection & Radiation"] },
-              { id: "p8", name: "Unit 8: Thermodynamics", subtopics: ["Thermal Equilibrium & Zeroth Law of Thermodynamics", "Heat, Work & Internal Energy", "First Law of Thermodynamics", "Isothermal & Adiabatic Processes", "Second Law of Thermodynamics: Reversible & Irreversible Processes"] },
-              { id: "p9", name: "Unit 9: Kinetic Theory of Gases", subtopics: ["Equation of State of a Perfect Gas", "Kinetic Theory Assumptions & Pressure of a Gas", "RMS, Average & Most Probable Speeds", "Degrees of Freedom & Law of Equipartition of Energy", "Specific Heat Capacities of Gases & Mean Free Path"] },
-              { id: "p10", name: "Unit 10: Oscillations and Waves", subtopics: ["Periodic Motion, Time Period, Frequency & Displacement", "Simple Harmonic Motion (SHM), Phase & Energy in SHM", "Oscillations of a Spring & Simple Pendulum", "Wave Motion, Longitudinal & Transverse Waves, Speed of Wave", "Displacement Relation for Progressive Wave & Superposition Principle", "Standing Waves in Strings & Organ Pipes, Beats"] }
+              { id: "p1", name: "Unit 1: Physics and Measurement", subtopics: ["SI Units & Derived Units", "Significant Figures & Errors", "Dimensional Analysis & Applications"] },
+              { id: "p2", name: "Unit 2: Kinematics", subtopics: ["1D Motion & Graphs", "Vectors & Relative Velocity", "Projectile & Uniform Circular Motion"] },
+              { id: "p3", name: "Unit 3: Laws of Motion", subtopics: ["Newton's Laws & Impulse", "Equilibrium & Friction", "Circular Dynamics & Banking of Roads"] },
+              { id: "p4", name: "Unit 4: Work, Energy and Power", subtopics: ["Work-Energy Theorem & Springs", "Power & Vertical Circle Motion", "1D & 2D Elastic/Inelastic Collisions"] },
+              { id: "p5", name: "Unit 5: Rotational Motion", subtopics: ["Centre of Mass & Torque", "Moment of Inertia & Axes Theorems", "Angular Momentum & Rolling Motion"] },
+              { id: "p6", name: "Unit 6: Gravitation", subtopics: ["Universal Gravitation & Variation of g", "Gravitational Potential & Escape Velocity", "Kepler's Laws & Satellite Motion"] },
+              { id: "p7", name: "Unit 7: Properties of Solids & Liquids", subtopics: ["Stress-Strain & Elastic Moduli", "Viscosity, Bernoulli's Principle & Surface Tension", "Thermal Expansion, Calorimetry & Heat Transfer"] },
+              { id: "p8", name: "Unit 8: Thermodynamics", subtopics: ["Zeroth & First Law of Thermodynamics", "Isothermal & Adiabatic Processes", "Second Law & Reversible/Irreversible Processes"] },
+              { id: "p9", name: "Unit 9: Kinetic Theory of Gases", subtopics: ["Ideal Gas Pressure & RMS Speed", "Degrees of Freedom & Equipartition of Energy", "Specific Heat Capacities & Mean Free Path"] },
+              { id: "p10", name: "Unit 10: Oscillations and Waves", subtopics: ["SHM Equations, Phase & Energy", "Spring & Simple Pendulum", "Wave Superposition, Standing Waves & Beats"] }
             ]
           },
           {
             id: "phys_12",
-            unitName: "Class 12 Physics Folder (Units 11 – 20)",
+            unitName: "Class 12 Physics Web (Units 11–20)",
             chapters: [
-              { id: "p11", name: "Unit 11: Electrostatics", subtopics: ["Electric Charges, Conservation & Coulomb's Law", "Superposition Principle & Continuous Charge Distribution", "Electric Field, Field Lines & Electric Dipole in Uniform Field", "Electric Flux & Gauss's Law with Applications", "Electric Potential & Potential Energy of Dipole/System", "Conductors, Dielectrics, Capacitors (Series/Parallel & Energy)"] },
-              { id: "p12", name: "Unit 12: Current Electricity", subtopics: ["Electric Current, Drift Velocity, Mobility & Ohm's Law", "Electrical Resistance, V-I Characteristics, Resistivity & Conductivity", "Temperature Dependence of Resistance", "Internal Resistance, EMF & Combination of Cells", "Kirchhoff's Laws & Wheatstone Bridge", "Meter Bridge"] },
-              { id: "p13", name: "Unit 13: Magnetic Effects of Current and Magnetism", subtopics: ["Biot-Savart Law & Application to Circular Loop", "Ampere's Law & Application to Straight Wire and Solenoid", "Force on Moving Charge & Current-Carrying Conductor in Magnetic Field", "Force Between Two Parallel Currents & Torque on Current Loop", "Moving Coil Galvanometer & Conversion to Ammeter/Voltmeter", "Bar Magnet, Magnetic Dipole & Para-, Dia- and Ferromagnetic Substances"] },
-              { id: "p14", name: "Unit 14: Electromagnetic Induction and Alternating Currents", subtopics: ["Faraday's Law of Induction & Lenz's Law", "Eddy Currents, Self Inductance & Mutual Inductance", "Alternating Currents: Peak & RMS Value of AC/Voltage", "Reactance, Impedance & LCR Series Circuit, Resonance", "Power in AC Circuits & Wattless Current", "AC Generator and Transformer"] },
-              { id: "p15", name: "Unit 15: Electromagnetic Waves", subtopics: ["Displacement Current", "Electromagnetic Waves & Their Characteristics", "Transverse Nature of EM Waves", "Electromagnetic Spectrum (Radio to Gamma Rays) & Applications"] },
-              { id: "p16", name: "Unit 16: Optics (Ray & Wave Optics)", subtopics: ["Reflection of Light & Spherical Mirrors", "Refraction, Total Internal Reflection & Optical Fibres", "Refraction at Spherical Surfaces, Thin Lens Formula & Lensmaker's Formula", "Prism Refraction & Optical Instruments (Microscope & Telescope)", "Wavefront, Huygens' Principle & Interference", "Young's Double Slit Experiment (YDSE)", "Diffraction Due to Single Slit & Polarization (Brewster's Law, Polaroids)"] },
-              { id: "p17", name: "Unit 17: Dual Nature of Matter and Radiation", subtopics: ["Dual Nature of Radiation & Photoelectric Effect", "Hertz & Lenard's Observations, Einstein's Photoelectric Equation", "Particle Nature of Light (Photons)", "Matter Waves & de Broglie Wavelength"] },
-              { id: "p18", name: "Unit 18: Atoms and Nuclei", subtopics: ["Alpha-Particle Scattering Experiment & Rutherford's Model", "Bohr Model of Hydrogen Atom, Energy Levels & Hydrogen Spectrum", "Composition & Size of Nucleus, Atomic Masses", "Mass-Energy Relation, Mass Defect & Binding Energy per Nucleon", "Nuclear Fission and Nuclear Fusion"] },
-              { id: "p19", name: "Unit 19: Electronic Devices", subtopics: ["Energy Bands in Solids (Conductors, Insulators, Semiconductors)", "Intrinsic & Extrinsic Semiconductors (p-type and n-type)", "p-n Junction Diode: Forward & Reverse Bias I-V Characteristics", "Diode as Half-Wave & Full-Wave Rectifier", "Zener Diode as Voltage Regulator, Photodiode, LED & Solar Cell", "Logic Gates (OR, AND, NOT, NAND, NOR)"] },
-              { id: "p20", name: "Unit 20: Experimental Skills (Practical Physics)", subtopics: ["Vernier Callipers, Screw Gauge, Spherometer & Simple Pendulum", "Meter Scale, Young's Modulus, Surface Tension & Viscosity", "Speed of Sound (Resonance Tube) & Specific Heat Capacity", "Resistivity (Meter Bridge/Ohm's Law) & Galvanometer Resistance", "Focal Length of Mirrors/Lenses, Prism Plot & Refractive Index", "Characteristic Curves of p-n Diode & Zener Diode"] }
+              { id: "p11", name: "Unit 11: Electrostatics", subtopics: ["Coulomb's Law & Electric Field", "Dipole & Gauss's Law Applications", "Electrostatic Potential & Capacitors"] },
+              { id: "p12", name: "Unit 12: Current Electricity", subtopics: ["Drift Velocity, Ohm's Law & Resistivity", "Cell EMF, Kirchhoff's Laws & Wheatstone Bridge", "Meter Bridge Circuits"] },
+              { id: "p13", name: "Unit 13: Magnetic Effects & Magnetism", subtopics: ["Biot-Savart & Ampere's Law", "Force on Moving Charge & Conductors", "Galvanometer & Magnetic Materials"] },
+              { id: "p14", name: "Unit 14: EMI and Alternating Current", subtopics: ["Faraday's Law, Lenz's Law & Inductance", "LCR Series Circuit & Resonance", "Power in AC, Generators & Transformers"] },
+              { id: "p15", name: "Unit 15: Electromagnetic Waves", subtopics: ["Displacement Current & EM Wave Properties", "EM Spectrum Applications"] },
+              { id: "p16", name: "Unit 16: Optics (Ray & Wave)", subtopics: ["Mirrors, Lenses, Prism & Optical Instruments", "Wavefront, YDSE Interference & Diffraction", "Polarization & Brewster's Law"] },
+              { id: "p17", name: "Unit 17: Dual Nature of Radiation", subtopics: ["Photoelectric Effect & Einstein's Equation", "Matter Waves & de Broglie Wavelength"] },
+              { id: "p18", name: "Unit 18: Atoms and Nuclei", subtopics: ["Bohr Model & Hydrogen Spectrum", "Mass Defect, Binding Energy, Fission & Fusion"] },
+              { id: "p19", name: "Unit 19: Electronic Devices", subtopics: ["Semiconductors, p-n Diode & Rectifiers", "Zener Diode, Optoelectronics & Logic Gates"] },
+              { id: "p20", name: "Unit 20: Experimental Physics Skills", subtopics: ["Vernier Callipers, Screw Gauge & Pendulum", "Meter Bridge, Mirrors/Lenses & Diode Curves"] }
             ]
           }
         ]
       },
       {
         id: "chem",
-        subject: "Chemistry (Physical, Inorganic & Organic — 20 Units)",
+        subject: "Chemistry",
         icon: "🧪",
         units: [
           {
             id: "chem_phys",
-            unitName: "Physical Chemistry Folder (Units 1 – 7)",
+            unitName: "Physical Chemistry Web (Units 1–7)",
             chapters: [
-              { id: "c1", name: "Unit 1: Some Basic Concepts of Chemistry", subtopics: ["Matter, Laws of Chemical Combination & Dalton's Atomic Theory", "Atomic & Molecular Masses", "Mole Concept, Molar Mass & Percentage Composition", "Empirical & Molecular Formulae", "Stoichiometry & Limiting Reagent Calculations"] },
-              { id: "c2", name: "Unit 2: Atomic Structure", subtopics: ["Discovery of Subatomic Particles, Thomson & Rutherford Models", "Electromagnetic Radiation, Planck's Quantum Theory & Photoelectric Effect", "Bohr's Model of Hydrogen Atom & Line Spectra", "de Broglie Relation & Heisenberg Uncertainty Principle", "Quantum Numbers, Shapes of s, p, d Orbitals", "Aufbau Principle, Pauli Exclusion Principle & Hund's Rule"] },
-              { id: "c3", name: "Unit 3: Chemical Thermodynamics", subtopics: ["System, Surroundings, State Functions & Extensive/Intensive Properties", "First Law of Thermodynamics: Internal Energy, Work & Heat", "Enthalpy, Heat Capacity & Hess's Law of Constant Heat Summation", "Enthalpies of Bond Dissociation, Combustion, Formation, Atomization", "Second Law of Thermodynamics: Entropy (ΔS) & Gibbs Energy (ΔG)", "Spontaneity Criterion & Equilibrium Constant Relation"] },
-              { id: "c4", name: "Unit 4: Solutions", subtopics: ["Concentration Terms: Molarity, Molality, Mole Fraction, ppm", "Vapour Pressure of Solutions & Raoult's Law", "Ideal and Non-Ideal Solutions (Positive & Negative Deviations)", "Colligative Properties: Relative Lowering of Vapour Pressure, Elevation of Boiling Point, Depression of Freezing Point, Osmotic Pressure", "Van't Hoff Factor & Abnormal Molecular Mass"] },
-              { id: "c5", name: "Unit 5: Equilibrium (Chemical & Ionic)", subtopics: ["Dynamic Equilibrium, Law of Mass Action & Kp, Kc Relations", "Reaction Quotient & Le Chatelier's Principle", "Ionic Equilibrium: Acids and Bases (Arrhenius, Bronsted-Lowry, Lewis)", "Ionization of Water, pH Scale & Common Ion Effect", "Hydrolysis of Salts & Buffer Solutions", "Solubility Product (Ksp) & Applications"] },
-              { id: "c6", name: "Unit 6: Redox Reactions and Electrochemistry", subtopics: ["Oxidation Number, Balancing Redox Reactions", "Electrolytic & Metallic Conduction, Molar Conductivity & Kohlrausch's Law", "Electrochemical Cells (Galvanic & Electrolytic), Electrode Potential", "Nernst Equation & Relation between Cell EMF and Gibbs Energy", "Dry Cell, Lead Accumulator & Fuel Cells"] },
-              { id: "c7", name: "Unit 7: Chemical Kinetics", subtopics: ["Rate of Chemical Reaction & Factors Affecting Rate", "Order and Molecularity of a Reaction, Rate Law & Rate Constant", "Integrated Rate Equations & Half-Life (Zero & First Order)", "Collision Theory, Activation Energy & Arrhenius Equation"] }
+              { id: "c1", name: "Unit 1: Basic Concepts (Mole Concept)", subtopics: ["Laws of Chemical Combination", "Mole Concept, Empirical Formula & Limiting Reagent"] },
+              { id: "c2", name: "Unit 2: Atomic Structure", subtopics: ["Bohr Model & Photoelectric Effect", "de Broglie, Heisenberg & Quantum Numbers", "Electronic Configuration Rules"] },
+              { id: "c3", name: "Unit 3: Chemical Thermodynamics", subtopics: ["First Law, Enthalpy & Hess's Law", "Entropy, Gibbs Free Energy & Spontaneity"] },
+              { id: "c4", name: "Unit 4: Solutions", subtopics: ["Molarity, Molality & Raoult's Law", "Colligative Properties & Van't Hoff Factor"] },
+              { id: "c5", name: "Unit 5: Chemical & Ionic Equilibrium", subtopics: ["Kp, Kc & Le Chatelier's Principle", "Acids/Bases, pH, Buffers & Ksp Solubility"] },
+              { id: "c6", name: "Unit 6: Redox & Electrochemistry", subtopics: ["Molar Conductivity & Kohlrausch's Law", "Nernst Equation, Galvanic Cells & Batteries"] },
+              { id: "c7", name: "Unit 7: Chemical Kinetics", subtopics: ["Order & Molecularity", "Zero & First Order Integrated Equations", "Arrhenius Equation & Activation Energy"] }
             ]
           },
           {
             id: "chem_inorg",
-            unitName: "Inorganic Chemistry Folder (Units 8 – 12)",
+            unitName: "Inorganic Chemistry Web (Units 8–12)",
             chapters: [
-              { id: "c8", name: "Unit 8: Classification of Elements and Periodicity", subtopics: ["Modern Periodic Law & Present Form of Periodic Table", "s, p, d, f Block Elements Overview", "Periodic Trends: Atomic & Ionic Radii", "Ionization Enthalpy, Electron Gain Enthalpy & Electronegativity", "Valency & Oxidation States Trends"] },
-              { id: "c9", name: "Unit 9: Chemical Bonding and Molecular Structure", subtopics: ["Kossel-Lewis Approach, Ionic & Covalent Bonding, Lattice Enthalpy", "Fajans' Rules, Bond Parameters & Dipole Moment", "VSEPR Theory & Predicting Shapes of Molecules", "Valence Bond Theory, Hybridization (sp, sp2, sp3, dsp2, sp3d, sp3d2) & Resonance", "Molecular Orbital Theory (MOT) of Homonuclear Diatomic Molecules", "Hydrogen Bonding & Its Effects"] },
-              { id: "c10", name: "Unit 10: p-Block Elements (Groups 13 to 18)", subtopics: ["General Electronic Configuration & Periodic Trends of p-Block", "Unique Behaviour of First Element in Each Group (Anomalous Properties)", "Group 13 (Boron Family) & Group 14 (Carbon Family) General Trends", "Group 15 (Nitrogen Family) & Group 16 (Oxygen Family) General Trends", "Group 17 (Halogens) & Group 18 (Noble Gases) General Trends"] },
-              { id: "c11", name: "Unit 11: d- and f-Block Elements", subtopics: ["Transition Elements: Electronic Configuration, Occurrence & General Trends", "Ionization Enthalpy, Oxidation States, Atomic Radii, Colour & Magnetic Properties", "Catalytic Properties, Interstitial Compounds & Alloy Formation", "Preparation, Properties & Uses of K2Cr2O7 and KMnO4", "Lanthanoids & Lanthanoid Contraction, Actinoids Overview"] },
-              { id: "c12", name: "Unit 12: Coordination Compounds", subtopics: ["Werner's Theory, Ligands, Coordination Number & Denticity", "IUPAC Nomenclature of Mononuclear Coordination Compounds", "Isomerism (Structural & Stereoisomerism)", "Valence Bond Theory (VBT) & Crystal Field Theory (CFT - Octahedral/Tetrahedral)", "Bonding in Metal Carbonyls & Importance of Coordination Compounds"] }
+              { id: "c8", name: "Unit 8: Periodic Table & Periodicity", subtopics: ["Atomic/Ionic Radii Trends", "Ionization Enthalpy, Electron Gain & Electronegativity"] },
+              { id: "c9", name: "Unit 9: Chemical Bonding", subtopics: ["VSEPR Theory, Hybridization & Dipole Moment", "Molecular Orbital Theory (MOT) & H-Bonding"] },
+              { id: "c10", name: "Unit 10: p-Block Elements (Groups 13–18)", subtopics: ["Group 13, 14 & 15 General Trends", "Group 16, 17 & 18 Properties & Anomalies"] },
+              { id: "c11", name: "Unit 11: d- and f-Block Elements", subtopics: ["Transition Metals Properties, KMnO4 & K2Cr2O7", "Lanthanoid Contraction & Actinoids"] },
+              { id: "c12", name: "Unit 12: Coordination Compounds", subtopics: ["IUPAC Naming & Isomerism", "VBT, Crystal Field Theory (CFT) & Carbonyls"] }
             ]
           },
           {
             id: "chem_org",
-            unitName: "Organic & Practical Chemistry Folder (Units 13 – 20)",
+            unitName: "Organic Chemistry Web (Units 13–20)",
             chapters: [
-              { id: "c13", name: "Unit 13: Purification and Characterisation of Organic Compounds", subtopics: ["Purification: Crystallization, Sublimation, Distillation, Differential Extraction & Chromatography", "Qualitative Analysis: Detection of N, S, P and Halogens (Lassaigne's Test)", "Quantitative Analysis: Estimation of C, H, N, Halogens, S and P"] },
-              { id: "c14", name: "Unit 14: Some Basic Principles of Organic Chemistry (GOC)", subtopics: ["Tetravalency of Carbon, Hybridization & IUPAC Nomenclature", "Structural & Stereoisomerism (Geometrical & Optical)", "Electronic Displacement: Inductive, Electromeric, Resonance & Hyperconjugation", "Homolytic & Heterolytic Fission: Carbocations, Carbanions & Free Radicals", "Electrophiles & Nucleophiles, Types of Organic Reactions (SN1, SN2, E1, E2)"] },
-              { id: "c15", name: "Unit 15: Hydrocarbons", subtopics: ["Alkanes: Nomenclature, Conformations (Ethane/Butane), Free Radical Halogenation", "Alkenes: Geometrical Isomerism, Preparation, Electrophilic Addition (Markovnikov & Kharasch Effect), Ozonolysis", "Alkynes: Acidic Character, Preparation & Addition Reactions", "Aromatic Hydrocarbons (Benzene): Aromaticity (Huckel's Rule), Electrophilic Substitution (Nitration, Halogenation, Friedel-Crafts), Directive Influence"] },
-              { id: "c16", name: "Unit 16: Organic Compounds Containing Halogens", subtopics: ["Haloalkanes: Nomenclature, Nature of C-X Bond, Preparation", "SN1 and SN2 Mechanisms, Optical Activity & Stereochemistry", "Elimination Reactions (Zaitsev's Rule) & Reaction with Metals (Grignard Reagent)", "Haloarenes: Nucleophilic Substitution & Electrophilic Substitution", "Uses & Environmental Effects of Dichloromethane, Chloroform, Iodoform, Freons, DDT"] },
-              { id: "c17", name: "Unit 17: Organic Compounds Containing Oxygen", subtopics: ["Alcohols: Preparation, Properties, Dehydration, Lucas Test & Oxidation", "Phenols: Acidic Nature, Reimer-Tiemann, Kolbe's Reaction & Electrophilic Substitution", "Ethers: Preparation by Williamson Synthesis & Cleavage with HI", "Aldehydes & Ketones: Nucleophilic Addition, Aldol, Cannizzaro, Clemmensen, Wolff-Kishner, Tollens' & Fehling's Test, Haloform Reaction", "Carboxylic Acids: Acidic Strength, Preparation, Esterification & HVZ Reaction"] },
-              { id: "c18", name: "Unit 18: Organic Compounds Containing Nitrogen", subtopics: ["Amines: Classification, Structure, Basic Character (Gas vs Aqueous Phase)", "Preparation of Amines (Gabriel Phthalimide, Hoffmann Bromamide)", "Reactions of Amines: Carbylamine Test, Hinsberg's Test, Electrophilic Substitution of Aniline", "Diazonium Salts: Preparation, Sandmeyer, Gattermann & Coupling Reactions"] },
-              { id: "c19", name: "Unit 19: Biomolecules", subtopics: ["Carbohydrates: Classification, Glucose & Fructose Structure, Disaccharides & Polysaccharides", "Proteins: Amino Acids, Peptide Bond, Primary to Quaternary Structure, Denaturation & Enzymes", "Vitamins: Fat-Soluble vs Water-Soluble Vitamins & Deficiency Diseases", "Nucleic Acids: DNA and RNA Structure, Nucleosides, Nucleotides & Biological Functions", "Hormones (Elementary Idea)"] },
-              { id: "c20", name: "Unit 20: Principles Related to Practical Chemistry", subtopics: ["Detection of Functional Groups (Unsaturation, Alcohol, Phenol, Carbonyl, Carboxyl, Amino)", "Preparation of Inorganic & Organic Compounds (Mohr's Salt, Potash Alum, Acetanilide, Iodoform)", "Acid-Base Titrations & Redox Titrations (KMnO4 vs Oxalic Acid/Mohr's Salt)", "Qualitative Salt Analysis: Cations (Pb2+, Cu2+, Al3+, Fe3+, Zn2+, Ni2+, Ca2+, Ba2+, Mg2+, NH4+) & Anions", "Enthalpy of Solution/Neutralization & Lyophilic/Lyophobic Sols"] }
+              { id: "c13", name: "Unit 13: Purification & Analysis", subtopics: ["Distillation, Chromatography & Lassaigne's Test", "Quantitative Estimation (Dumas, Kjeldahl, Carius)"] },
+              { id: "c14", name: "Unit 14: General Organic Chemistry (GOC)", subtopics: ["IUPAC & Isomerism", "Inductive, Resonance, Hyperconjugation & Intermediates"] },
+              { id: "c15", name: "Unit 15: Hydrocarbons", subtopics: ["Alkanes Conformations & Alkenes (Markovnikov/Ozonolysis)", "Alkynes & Benzene Electrophilic Substitution"] },
+              { id: "c16", name: "Unit 16: Haloalkanes and Haloarenes", subtopics: ["SN1 vs SN2 Mechanisms & Stereochemistry", "Elimination & Grignard Reagent"] },
+              { id: "c17", name: "Unit 17: Alcohols, Phenols, Aldehydes & Acids", subtopics: ["Alcohols & Phenols (Reimer-Tiemann, Kolbe)", "Aldol, Cannizzaro, Tollens/Fehling & Carboxylic Acids"] },
+              { id: "c18", name: "Unit 18: Amines & Diazonium Salts", subtopics: ["Basicity of Amines, Hoffmann & Carbylamine", "Diazonium Sandmeyer & Coupling Reactions"] },
+              { id: "c19", name: "Unit 19: Biomolecules", subtopics: ["Carbohydrates & Proteins", "Vitamins, DNA/RNA & Enzymes"] },
+              { id: "c20", name: "Unit 20: Practical Chemistry", subtopics: ["Functional Group Tests & Salt Analysis (Cations/Anions)", "Volumetric Titrations"] }
             ]
           }
         ]
       },
       {
         id: "bio",
-        subject: "Biology (Botany & Zoology — 10 Units / 32 Chapters)",
+        subject: "Biology",
         icon: "🧬",
         units: [
           {
             id: "bio_11",
-            unitName: "Class 11 Biology Folder (Units 1 – 5)",
+            unitName: "Class 11 Biology Web (Units 1–5)",
             chapters: [
-              { id: "b1", name: "Unit 1: Diversity in Living World", subtopics: ["The Living World: What is Living, Biodiversity, Taxonomy & Binomial Nomenclature", "Biological Classification: Five Kingdom System (Monera, Protista, Fungi, Plantae, Animalia), Viruses, Viroids & Lichens", "Plant Kingdom: Algae, Bryophytes, Pteridophytes, Gymnosperms & Angiosperms", "Animal Kingdom: Basis of Classification, Non-Chordates (Porifera to Hemichordata) & Chordates (Classes)"] },
-              { id: "b2", name: "Unit 2: Structural Organisation in Animals and Plants", subtopics: ["Morphology of Flowering Plants: Root, Stem, Leaf, Inflorescence, Flower, Fruit, Seed & Families (Malvaceae, Cruciferae, Leguminosae, Compositae, Gramineae)", "Anatomy of Flowering Plants: Tissue Systems, Dicot vs Monocot Root, Stem and Leaf", "Structural Organisation in Animals: Animal Tissues Overview & Morphology/Anatomy of Frog"] },
-              { id: "b3", name: "Unit 3: Cell Structure and Function", subtopics: ["Cell: The Unit of Life — Prokaryotic vs Eukaryotic Cell, Cell Membrane, Cell Wall, Endomembrane System, Mitochondria, Plastids, Ribosomes, Cytoskeleton, Nucleus", "Biomolecules: Structure & Function of Proteins, Carbohydrates, Lipids, Nucleic Acids; Enzymes (Properties, Classification, Mechanism & Factors)", "Cell Cycle and Cell Division: Interphase, Mitosis, Meiosis & Their Significance"] },
-              { id: "b4", name: "Unit 4: Plant Physiology", subtopics: ["Photosynthesis in Higher Plants: Site, Pigments, Light Reaction, Cyclic/Non-Cyclic Photophosphorylation, Calvin (C3) & C4 Pathway, Photorespiration, Blackman's Law", "Respiration in Plants: Glycolysis, Fermentation, TCA Cycle (Krebs), Electron Transport System (ETS), ATP Balance Sheet, Amphibolic Pathway & RQ", "Plant Growth and Development: Growth Phases, Differentiation/Dedifferentiation/Redifferentiation, Plant Growth Regulators (Auxin, Gibberellin, Cytokinin, Ethylene, ABA)"] },
-              { id: "b5", name: "Unit 5: Human Physiology", subtopics: ["Breathing and Exchange of Gases: Respiratory Organs, Mechanism of Breathing, Lung Volumes/Capacities, Exchange & Transport of O2/CO2, Regulation & Disorders", "Body Fluids and Circulation: Blood, Blood Groups, Coagulation, Lymph, Human Heart Structure, Cardiac Cycle, ECG, Double Circulation & Disorders", "Excretory Products and Their Elimination: Modes of Excretion, Nephron Structure, Urine Formation, Counter-Current Mechanism, Regulation (ADH, RAAS, ANF) & Disorders", "Locomotion and Movement: Types of Movement, Muscle Structure & Sliding Filament Theory, Human Skeletal System, Joints & Disorders", "Neural Control and Coordination: Neuron, Generation & Conduction of Nerve Impulse, Central & Peripheral Nervous System", "Chemical Coordination and Integration: Endocrine Glands (Hypothalamus, Pituitary, Pineal, Thyroid, Parathyroid, Adrenal, Pancreas, Gonads), Hormone Action & Disorders"] }
+              { id: "b1", name: "Unit 1: Diversity in Living World", subtopics: ["Living World & Taxonomy", "Biological Classification (5 Kingdoms)", "Plant Kingdom", "Animal Kingdom (Phyla & Classes)"] },
+              { id: "b2", name: "Unit 2: Structural Organisation", subtopics: ["Morphology of Flowering Plants & Families", "Anatomy of Flowering Plants", "Animal Tissues & Frog"] },
+              { id: "b3", name: "Unit 3: Cell Structure and Function", subtopics: ["Cell Organelles & Endomembrane System", "Biomolecules & Enzyme Kinetics", "Mitosis & Meiosis Cell Cycle"] },
+              { id: "b4", name: "Unit 4: Plant Physiology", subtopics: ["Photosynthesis (C3, C4, Photorespiration)", "Respiration in Plants (Glycolysis, Krebs, ETS)", "Plant Growth Regulators (PGRs)"] },
+              { id: "b5", name: "Unit 5: Human Physiology", subtopics: ["Breathing & Exchange of Gases", "Body Fluids & Double Circulation", "Excretory System & Counter-Current", "Locomotion & Muscle Contraction", "Neural Control & Endocrine Coordination"] }
             ]
           },
           {
             id: "bio_12",
-            unitName: "Class 12 Biology Folder (Units 6 – 10)",
+            unitName: "Class 12 Biology Web (Units 6–10)",
             chapters: [
-              { id: "b6", name: "Unit 6: Reproduction", subtopics: ["Sexual Reproduction in Flowering Plants: Microsporogenesis, Megasporogenesis, Pollination, Double Fertilization, Endosperm, Embryo, Apomixis & Polyembryony", "Human Reproduction: Male & Female Reproductive Systems, Gametogenesis, Menstrual Cycle, Fertilization, Implantation, Pregnancy, Placenta, Parturition & Lactation", "Reproductive Health: Amniocentesis, Contraceptive Methods, MTP, STIs, Infertility & ART (IVF, ZIFT, GIFT, ICSI, AI)"] },
-              { id: "b7", name: "Unit 7: Genetics and Evolution", subtopics: ["Principles of Inheritance and Variation: Mendel's Laws, Incomplete Dominance, Codominance, Multiple Alleles, Pleiotropy, Polygenic Inheritance, Chromosomal Theory, Linkage, Sex Determination, Pedigree Analysis & Disorders (Mendelian & Chromosomal)", "Molecular Basis of Inheritance: DNA/RNA Structure, Packaging, Search for Genetic Material, Semiconservative Replication, Transcription, Genetic Code, Translation, Lac Operon, HGP & DNA Fingerprinting", "Evolution: Origin of Life (Miller's Experiment), Evidences, Adaptive Radiation, Darwin vs Mutation Theory, Hardy-Weinberg Principle, Genetic Drift & Human Evolution"] },
-              { id: "b8", name: "Unit 8: Biology and Human Welfare", subtopics: ["Human Health and Disease: Pathogens (Typhoid, Pneumonia, Common Cold, Malaria, Amoebiasis, Ascariasis, Filariasis, Ringworm), Immunity (Innate/Acquired, Active/Passive), Vaccines, AIDS, Cancer & Drug/Alcohol Abuse", "Microbes in Human Welfare: Household Products, Industrial Products (Antibiotics, Enzymes, Statins, Cyclosporin A), Sewage Treatment, Biogas Production, Biocontrol Agents & Biofertilizers"] },
-              { id: "b9", name: "Unit 9: Biotechnology and Its Applications", subtopics: ["Biotechnology: Principles and Processes — Restriction Enzymes, Cloning Vectors (pBR322, Ti Plasmid), Gel Electrophoresis, PCR, Competent Host & Bioreactors", "Biotechnology and Its Applications: Bt Cotton, RNA Interference (RNAi), Genetically Engineered Insulin, Gene Therapy (ADA Deficiency), Molecular Diagnosis, Transgenic Animals, Biopiracy & Patents"] },
-              { id: "b10", name: "Unit 10: Ecology and Environment", subtopics: ["Organisms and Populations: Population Attributes (Birth/Death Rate, Age Pyramids, Population Density), Exponential & Logistic Growth Models, Population Interactions (Predation, Competition, Parasitism, Commensalism, Mutualism)", "Ecosystem: Structure & Function, Productivity (GPP, NPP), Decomposition, Energy Flow (10% Law) & Ecological Pyramids (Number, Biomass, Energy)", "Biodiversity and Conservation: Levels & Patterns of Biodiversity, Species-Area Relationship, Loss of Biodiversity (Evil Quartet), In-situ & Ex-situ Conservation"] }
+              { id: "b6", name: "Unit 6: Reproduction", subtopics: ["Sexual Reproduction in Flowering Plants", "Human Reproduction & Gametogenesis", "Reproductive Health & ART"] },
+              { id: "b7", name: "Unit 7: Genetics and Evolution", subtopics: ["Mendelian Inheritance, Linkage & Pedigree", "Molecular Basis (Replication, Transcription, Lac Operon)", "Evolution & Hardy-Weinberg Principle"] },
+              { id: "b8", name: "Unit 8: Biology and Human Welfare", subtopics: ["Human Health, Immunity, AIDS & Cancer", "Microbes in Human Welfare"] },
+              { id: "b9", name: "Unit 9: Biotechnology", subtopics: ["rDNA Technology, PCR & Vectors", "Bt Cotton, RNAi, Insulin & Gene Therapy"] },
+              { id: "b10", name: "Unit 10: Ecology and Environment", subtopics: ["Organisms & Population Interactions", "Ecosystem Energy Flow", "Biodiversity & Conservation"] }
             ]
           }
         ]
@@ -569,14 +720,9 @@
     ];
 
     let TOTAL_SYLLABUS_TOPICS = 0;
-    NEET_2027_SYLLABUS.forEach(subj => {
-      subj.units.forEach(u => {
-        u.chapters.forEach(ch => {
-          TOTAL_SYLLABUS_TOPICS += ch.subtopics.length;
-        });
-      });
-    });
+    NEET_2027_SYLLABUS.forEach(s => s.units.forEach(u => u.chapters.forEach(ch => { TOTAL_SYLLABUS_TOPICS += ch.subtopics.length; })));
 
+    // Firebase Config
     const firebaseConfig = {
       apiKey: "AIzaSyDuOgES0lUt-MGSiM5blxxCm36W67xQK3c",
       authDomain: "studypunchone.firebaseapp.com",
@@ -591,6 +737,12 @@
     let db = null;
     let auth = null;
     let googleProvider = null;
+    let currentUser = null;
+    let timerInterval = null;
+    let studyChart = null;
+    let spiderChart = null;
+    let allCloudUsersCache = {};
+    let leaderboardLiveOnly = false;
 
     const cloudBadge = document.getElementById("cloudBadge");
     const navCloudStatus = document.getElementById("navCloudStatus");
@@ -598,42 +750,36 @@
     function setCloudStatus(online) {
       if (online) {
         cloudBadge.textContent = "Cloud Ready";
-        cloudBadge.className = "px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200";
-        navCloudStatus.textContent = "Cloud Ready";
-        navCloudStatus.className = "text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-semibold";
+        navCloudStatus.textContent = "Cloud Live";
+        navCloudStatus.className = "text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold";
       } else {
-        cloudBadge.textContent = "Offline Cache";
-        cloudBadge.className = "px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200";
-        navCloudStatus.textContent = "Offline Cache";
-        navCloudStatus.className = "text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 font-semibold";
+        cloudBadge.textContent = "Local Fallback";
+        navCloudStatus.textContent = "Local Mode";
+        navCloudStatus.className = "text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold";
       }
     }
 
     try {
       const fbApp = initializeApp(firebaseConfig);
-      // Auto-detect long-polling bypasses VPN/firewall WebChannel blocks so Cloud Ready stays connected!
-      db = initializeFirestore(fbApp, { experimentalAutoDetectLongPolling: true });
+      db = getFirestore(fbApp);
       auth = getAuth(fbApp);
       googleProvider = new GoogleAuthProvider();
+      googleProvider.addScope("https://www.googleapis.com/auth/drive.appdata");
+      enableIndexedDbPersistence(db).catch(() => {});
       setCloudStatus(true);
-    } catch (err) {
-      console.warn("Firebase init error:", err);
+    } catch (e) {
       setCloudStatus(false);
     }
 
-    function withTimeout(promise, ms = 12000) {
+    function withTimeout(promise, ms = 6500) {
       return Promise.race([
         promise,
-        new Promise((_, reject) => setTimeout(() => reject(new Error("Slow network — saved locally & retrying")), ms))
+        new Promise((_, reject) => setTimeout(() => reject(new Error("Cloud timeout")), ms))
       ]);
     }
 
     function getLocalUsersMap() {
-      try {
-        return JSON.parse(localStorage.getItem("studypunch_users_map") || "{}");
-      } catch {
-        return {};
-      }
+      try { return JSON.parse(localStorage.getItem("studypunch_users_map") || "{}"); } catch { return {}; }
     }
 
     function saveLocalUser(userObj) {
@@ -643,355 +789,295 @@
       localStorage.setItem("studypunch_current_user", JSON.stringify(userObj));
     }
 
+    // Personal Google Drive appDataFolder Sync
+    async function syncToPersonalGoogleDrive(userObj) {
+      const token = localStorage.getItem("studypunch_gdrive_token");
+      if (!token) return;
+      try {
+        const sRes = await fetch("https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&q=name='studypunch_backup.json'&fields=files(id)", {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        if (!sRes.ok) return;
+        const sData = await sRes.json();
+        const fileId = sData.files && sData.files[0] ? sData.files[0].id : null;
+        const metadata = { name: "studypunch_backup.json", ...(fileId ? {} : { parents: ["appDataFolder"] }) };
+        const form = new FormData();
+        form.append("metadata", new Blob([JSON.stringify(metadata)], { type: "application/json" }));
+        form.append("file", new Blob([JSON.stringify(userObj)], { type: "application/json" }));
+        const url = fileId
+          ? `https://www.googleapis.com/upload/drive/v3/files/${fileId}?uploadType=multipart`
+          : "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart";
+        await fetch(url, { method: fileId ? "PATCH" : "POST", headers: { Authorization: `Bearer ${token}` }, body: form });
+        document.getElementById("navDriveStatus").classList.remove("hidden");
+      } catch {}
+    }
+
     async function fetchUserFromCloud(studentId) {
       if (!db) return null;
       try {
         const snap = await withTimeout(getDoc(doc(db, "students", studentId)));
         setCloudStatus(true);
         return snap.exists() ? snap.data() : null;
-      } catch (e) {
-        console.warn("Cloud fetch retry:", e.message);
+      } catch {
         setCloudStatus(false);
         return null;
       }
     }
 
     async function saveUserToCloud(userObj) {
+      userObj.lastSeenAt = Date.now();
       saveLocalUser(userObj);
+      syncToPersonalGoogleDrive(userObj);
       if (!db) return false;
       try {
         await withTimeout(setDoc(doc(db, "students", userObj.id), userObj, { merge: true }));
         setCloudStatus(true);
         return true;
-      } catch (e) {
-        console.warn("Cloud save retry:", e.message);
+      } catch {
         setCloudStatus(false);
         return false;
       }
     }
 
-    // ================= AUTH UI & 0ms INSTANT LOGIN HANDLERS =================
-    let currentUser = null;
-    let timerInterval = null;
-    let studyChart = null;
-    let cloudLeaderboardCache = {};
+    // Real-Time Live Stream for Instant Clicky Leaderboard
+    if (db) {
+      onSnapshot(collection(db, "students"), (snapshot) => {
+        const map = getLocalUsersMap();
+        let liveCount = 0;
+        snapshot.forEach(docSnap => {
+          const u = docSnap.data();
+          map[docSnap.id] = u;
+          allCloudUsersCache[docSnap.id] = u;
+          if (u.activePunchStart) liveCount++;
+        });
+        localStorage.setItem("studypunch_users_map", JSON.stringify(map));
+        document.getElementById("navLiveCountBadge").textContent = `${liveCount} Live`;
+        setCloudStatus(true);
+        if (!document.getElementById("leaderboardView").classList.contains("hidden")) {
+          renderFastLeaderboard();
+        }
+      }, () => {});
+    }
 
+    // ================= AUTH LOGIC =================
     const authScreen = document.getElementById("authScreen");
     const appScreen = document.getElementById("appScreen");
     const authAlert = document.getElementById("authAlert");
     const signInForm = document.getElementById("signInForm");
     const createIdForm = document.getElementById("createIdForm");
-    const tabSignIn = document.getElementById("tabSignIn");
-    const tabCreateId = document.getElementById("tabCreateId");
 
     function getTodayDateString() {
       const d = new Date();
       return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
     }
-
     document.getElementById("manualDate").value = getTodayDateString();
 
-    function showAlert(msg) {
-      authAlert.textContent = msg;
-      authAlert.classList.remove("hidden");
-    }
-    function clearAlert() {
-      authAlert.classList.add("hidden");
-    }
+    function showAlert(msg) { authAlert.textContent = msg; authAlert.classList.remove("hidden"); }
+    function clearAlert() { authAlert.classList.add("hidden"); }
 
-    tabSignIn.addEventListener("click", () => {
+    document.getElementById("tabSignIn").addEventListener("click", () => {
       clearAlert();
       signInForm.classList.remove("hidden");
       createIdForm.classList.add("hidden");
-      tabSignIn.className = "py-2 text-xs font-bold rounded-lg bg-white text-slate-900 shadow-sm transition";
-      tabCreateId.className = "py-2 text-xs font-bold rounded-lg text-slate-600 hover:text-slate-900 transition";
     });
-
-    tabCreateId.addEventListener("click", () => {
+    document.getElementById("tabCreateId").addEventListener("click", () => {
       clearAlert();
       createIdForm.classList.remove("hidden");
       signInForm.classList.add("hidden");
-      tabCreateId.className = "py-2 text-xs font-bold rounded-lg bg-white text-slate-900 shadow-sm transition";
-      tabSignIn.className = "py-2 text-xs font-bold rounded-lg text-slate-600 hover:text-slate-900 transition";
     });
 
-    // 1. Create Student ID (Instant Entry + Background Cloud Sync)
     createIdForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       clearAlert();
-
       const fullName = document.getElementById("regFullName").value.trim();
       const rawId = document.getElementById("regStudentId").value.trim().toLowerCase();
       const pin = document.getElementById("regPin").value.trim();
       const pinConfirm = document.getElementById("regPinConfirm").value.trim();
       const targetHours = parseFloat(document.getElementById("regTarget").value) || 6;
 
-      if (!/^[a-z0-9_-]{3,20}$/.test(rawId)) {
-        return showAlert("Student ID must be 3–20 characters (letters, numbers, _ or -).");
-      }
-      if (!/^\d{4}$/.test(pin)) {
-        return showAlert("PIN must be exactly 4 digits.");
-      }
-      if (pin !== pinConfirm) {
-        return showAlert("PIN and Confirm PIN do not match.");
-      }
+      if (!/^[a-z0-9_-]{3,20}$/.test(rawId)) return showAlert("ID must be 3–20 chars (letters, numbers, _ or -).");
+      if (!/^\d{4}$/.test(pin)) return showAlert("PIN must be 4 digits.");
+      if (pin !== pinConfirm) return showAlert("PINs do not match.");
 
-      const btn = document.getElementById("createIdSubmitBtn");
-      btn.disabled = true;
-      btn.textContent = "Creating ID...";
+      const existing = await fetchUserFromCloud(rawId) || getLocalUsersMap()[rawId];
+      if (existing) return showAlert("Student ID already exists! Sign in instead.");
 
-      try {
-        const localMap = getLocalUsersMap();
-        if (localMap[rawId]) {
-          btn.disabled = false;
-          btn.textContent = "Create Student ID +";
-          return showAlert("That Student ID is already registered on this device! Please Sign In.");
-        }
-
-        const existingCloud = await fetchUserFromCloud(rawId);
-        if (existingCloud) {
-          btn.disabled = false;
-          btn.textContent = "Create Student ID +";
-          return showAlert("That Student ID is already taken! Please choose another or Sign In.");
-        }
-
-        const newUser = {
-          id: rawId,
-          name: fullName,
-          pin: pin,
-          authMethod: "pin",
-          targetHours: targetHours,
-          sessions: [],
-          syllabusChecked: {},
-          activePunchStart: null,
-          activeSubject: "",
-          createdAt: new Date().toISOString()
-        };
-
-        saveLocalUser(newUser);
-        loginSuccess(newUser);
-        saveUserToCloud(newUser);
-      } catch (err) {
-        showAlert("Error creating ID: " + err.message);
-      } finally {
-        btn.disabled = false;
-        btn.textContent = "Create Student ID +";
-      }
+      const newUser = {
+        id: rawId, name: fullName, pin, targetHours,
+        sessions: [], syllabusChecked: {}, notes: [], rouletteXp: 0,
+        activePunchStart: null, activeSubject: "", createdAt: new Date().toISOString()
+      };
+      await saveUserToCloud(newUser);
+      loginSuccess(newUser);
     });
 
-    // 2. 0ms Local-First Sign In with Background Cloud Sync
     signInForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       clearAlert();
-
       const rawId = document.getElementById("loginStudentId").value.trim().toLowerCase();
       const pin = document.getElementById("loginPin").value.trim();
-      const btn = document.getElementById("signInSubmitBtn");
-      btn.disabled = true;
-      btn.textContent = "Signing In...";
-
-      try {
-        const localUser = getLocalUsersMap()[rawId] || null;
-
-        // Enter dashboard in 0ms if recognized locally
-        if (localUser && (!localUser.pin || localUser.pin === pin)) {
-          saveLocalUser(localUser);
-          loginSuccess(localUser);
-
-          fetchUserFromCloud(rawId).then((cloudUser) => {
-            if (cloudUser) {
-              currentUser = cloudUser;
-              if (!currentUser.syllabusChecked) currentUser.syllabusChecked = {};
-              saveLocalUser(cloudUser);
-              renderDashboard();
-              renderSyllabusTree(document.getElementById("syllabusSearchInput").value.trim());
-            }
-          });
-          return;
-        }
-
-        // Brand-new device: fetch from Delhi cloud
-        const cloudUser = await fetchUserFromCloud(rawId);
-        if (!cloudUser) {
-          return showAlert("Student ID not found. Switch to 'Create Student ID' first.");
-        }
-        if (cloudUser.pin && cloudUser.pin !== pin) {
-          return showAlert("Incorrect 4-digit PIN. Please try again.");
-        }
-
-        saveLocalUser(cloudUser);
-        loginSuccess(cloudUser);
-      } catch (err) {
-        showAlert("Sign-in error: " + err.message);
-      } finally {
-        btn.disabled = false;
-        btn.textContent = "Sign In to StudyPunch →";
-      }
+      let userObj = await fetchUserFromCloud(rawId) || getLocalUsersMap()[rawId];
+      if (!userObj) return showAlert("Student ID not found.");
+      if (userObj.pin && userObj.pin !== pin) return showAlert("Incorrect 4-digit PIN.");
+      saveLocalUser(userObj);
+      loginSuccess(userObj);
     });
 
-    // 3. Optimistic Instant Google Login
     document.getElementById("googleLoginBtn").addEventListener("click", async () => {
       clearAlert();
-      if (!auth || !googleProvider) {
-        return showAlert("Google Auth is not initialized.");
-      }
       try {
         const result = await signInWithPopup(auth, googleProvider);
+        const cred = GoogleAuthProvider.credentialFromResult(result);
+        if (cred && cred.accessToken) {
+          localStorage.setItem("studypunch_gdrive_token", cred.accessToken);
+          document.getElementById("navDriveStatus").classList.remove("hidden");
+        }
         const gUser = result.user;
-        const cleanId = (gUser.email.split("@")[0].replace(/[^a-zA-Z0-9_-]/g, "").toLowerCase() || "user").slice(0, 20);
-
-        let userObj = getLocalUsersMap()[cleanId] || {
-          id: cleanId,
-          name: gUser.displayName || cleanId,
-          email: gUser.email || "",
-          pin: "0000",
-          authMethod: "google",
-          targetHours: 6,
-          sessions: [],
-          syllabusChecked: {},
-          activePunchStart: null,
-          activeSubject: "",
-          createdAt: new Date().toISOString()
-        };
-
-        saveLocalUser(userObj);
-        loginSuccess(userObj);
-
-        fetchUserFromCloud(cleanId).then(async (cloudData) => {
-          if (cloudData) {
-            currentUser = cloudData;
-            if (!currentUser.syllabusChecked) currentUser.syllabusChecked = {};
-            saveLocalUser(cloudData);
-            renderDashboard();
-            renderSyllabusTree(document.getElementById("syllabusSearchInput").value.trim());
-          } else {
-            await saveUserToCloud(userObj);
-          }
-        });
-      } catch (err) {
-        console.error("Google login error:", err);
-        showAlert("Google Sign-In failed: Ensure Google is enabled in Firebase Authentication & studypunchone.vercel.app is in Authorized Domains.");
-      }
-    });
-
-    // ================= MOBILE HOME-SCREEN SWIPE SLIDER MECHANISM =================
-    let currentSlideIndex = 0;
-    const swipeTrack = document.getElementById("swipeTrack");
-    const swipeViewport = document.getElementById("swipeViewport");
-    const navBtns = [
-      document.getElementById("navDashboardBtn"),
-      document.getElementById("navSyllabusBtn"),
-      document.getElementById("navLeaderboardBtn")
-    ];
-    const dots = [
-      document.getElementById("dot0"),
-      document.getElementById("dot1"),
-      document.getElementById("dot2")
-    ];
-
-    function goToSlide(index) {
-      currentSlideIndex = Math.max(0, Math.min(2, index));
-      swipeTrack.style.transform = `translateX(-${currentSlideIndex * 33.333333}%)`;
-
-      navBtns.forEach((btn, idx) => {
-        if (idx === currentSlideIndex) {
-          btn.className = idx === 2
-            ? "px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 text-white shadow-sm transition"
-            : "px-3 py-1.5 rounded-lg text-xs font-bold bg-emerald-600 text-white shadow-sm transition";
+        const cleanId = (gUser.email.split("@")[0].replace(/[^a-zA-Z0-9_-]/g, "").toLowerCase() || "student").slice(0, 20);
+        let userObj = await fetchUserFromCloud(cleanId);
+        if (!userObj) {
+          userObj = {
+            id: cleanId, name: gUser.displayName || cleanId, email: gUser.email || "",
+            pin: "0000", targetHours: 6, sessions: [], syllabusChecked: {}, notes: [], rouletteXp: 0,
+            activePunchStart: null, activeSubject: "", createdAt: new Date().toISOString()
+          };
+          await saveUserToCloud(userObj);
         } else {
-          btn.className = "px-3 py-1.5 rounded-lg text-xs font-bold text-slate-300 hover:text-white transition";
+          saveLocalUser(userObj);
         }
-      });
-
-      dots.forEach((dot, idx) => {
-        dot.className = idx === currentSlideIndex
-          ? "w-5 h-1.5 rounded-full bg-emerald-400 transition-all duration-300 cursor-pointer"
-          : "w-1.5 h-1.5 rounded-full bg-slate-600 transition-all duration-300 cursor-pointer";
-      });
-
-      if (currentSlideIndex === 1) {
-        renderSyllabusTree(document.getElementById("syllabusSearchInput").value.trim());
-      } else if (currentSlideIndex === 2) {
-        renderLeaderboardFromCache();
+        loginSuccess(userObj);
+      } catch (err) {
+        showAlert("Google Sign-In note: Ensure Google is enabled in Firebase Auth & studypunchone.vercel.app is in Authorized Domains.");
       }
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    navBtns.forEach((btn, idx) => btn.addEventListener("click", () => goToSlide(idx)));
-    dots.forEach((dot, idx) => dot.addEventListener("click", () => goToSlide(idx)));
-    document.getElementById("dashSyllabusCard").addEventListener("click", () => goToSlide(1));
-
-    // Touch Swipe Gesture Support (Mobile Home-Screen Style)
-    let touchStartX = 0;
-    let touchStartY = 0;
-    let isSwiping = false;
-
-    swipeViewport.addEventListener("touchstart", (e) => {
-      if (e.touches.length !== 1) return;
-      touchStartX = e.touches[0].clientX;
-      touchStartY = e.touches[0].clientY;
-      isSwiping = true;
-    }, { passive: true });
-
-    swipeViewport.addEventListener("touchend", (e) => {
-      if (!isSwiping) return;
-      isSwiping = false;
-      const dx = e.changedTouches[0].clientX - touchStartX;
-      const dy = e.changedTouches[0].clientY - touchStartY;
-
-      // Only trigger horizontal slide if swipe is predominantly horizontal (> 55px)
-      if (Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy) * 1.4) {
-        if (dx < 0 && currentSlideIndex < 2) {
-          goToSlide(currentSlideIndex + 1);
-        } else if (dx > 0 && currentSlideIndex > 0) {
-          goToSlide(currentSlideIndex - 1);
-        }
-      }
-    }, { passive: true });
-
-    // Keyboard Left/Right Arrow Navigation (when not typing in an input)
-    document.addEventListener("keydown", (e) => {
-      if (appScreen.classList.contains("hidden")) return;
-      if (["INPUT", "TEXTAREA"].includes(document.activeElement.tagName)) return;
-      if (e.key === "ArrowRight") goToSlide(currentSlideIndex + 1);
-      if (e.key === "ArrowLeft") goToSlide(currentSlideIndex - 1);
     });
 
-    // ================= DASHBOARD, LIVE TIMER & MANUAL ENTRY LOGIC =================
+    // ================= DASHBOARD, ZERO-DISTRACTION CLOCK & DOT ENGINE =================
+    const zeroDistractionOverlay = document.getElementById("zeroDistractionOverlay");
+
     function loginSuccess(userObj) {
       currentUser = userObj;
       if (!Array.isArray(currentUser.sessions)) currentUser.sessions = [];
-      if (!currentUser.syllabusChecked || typeof currentUser.syllabusChecked !== "object") {
-        currentUser.syllabusChecked = {};
-      }
-      document.getElementById("manualDate").value = getTodayDateString();
+      if (!currentUser.syllabusChecked) currentUser.syllabusChecked = {};
+      if (!Array.isArray(currentUser.notes)) currentUser.notes = [];
       authScreen.classList.add("hidden");
       appScreen.classList.remove("hidden");
-      document.getElementById("backToAuthBtn").classList.add("hidden");
-      goToSlide(0);
+      showView("dashboard");
       renderDashboard();
       renderSyllabusTree();
+      renderNotesVault();
     }
 
     document.getElementById("logoutBtn").addEventListener("click", () => {
       if (timerInterval) clearInterval(timerInterval);
       localStorage.removeItem("studypunch_current_user");
       currentUser = null;
+      zeroDistractionOverlay.classList.add("hidden");
       appScreen.classList.add("hidden");
       authScreen.classList.remove("hidden");
     });
 
-    function formatHMS(totalSeconds) {
-      const hrs = Math.floor(totalSeconds / 3600);
-      const mins = Math.floor((totalSeconds % 3600) / 60);
-      const secs = Math.floor(totalSeconds % 60);
-      return [hrs, mins, secs].map(v => String(v).padStart(2, "0")).join(":");
+    function formatHMS(sec) {
+      const h = Math.floor(sec / 3600);
+      const m = Math.floor((sec % 3600) / 60);
+      const s = Math.floor(sec % 60);
+      return [h, m, s].map(v => String(v).padStart(2, "0")).join(":");
     }
 
-    function getCheckedSyllabusCount(userObj) {
-      if (!userObj || !userObj.syllabusChecked) return 0;
-      return Object.values(userObj.syllabusChecked).filter(Boolean).length;
+    function getCheckedSyllabusCount(u) {
+      if (!u || !u.syllabusChecked) return 0;
+      return Object.values(u.syllabusChecked).filter(Boolean).length;
     }
+
+    // DOT (Dynamic Objective Tracker) Recommendation Algorithm
+    function renderDotRecommendations() {
+      if (!currentUser) return;
+      const checked = currentUser.syllabusChecked || {};
+      const recommendations = [];
+
+      // Find next logical uncompleted subtopic per Subject (prioritizing chapters already in progress)
+      NEET_2027_SYLLABUS.forEach(subj => {
+        let inProgressPick = null;
+        let freshStartPick = null;
+
+        subj.units.forEach(u => {
+          u.chapters.forEach(ch => {
+            let doneInChapter = 0;
+            let firstUndoneIdx = -1;
+            ch.subtopics.forEach((st, idx) => {
+              if (checked[`${ch.id}_${idx}`]) doneInChapter++;
+              else if (firstUndoneIdx === -1) firstUndoneIdx = idx;
+            });
+
+            if (firstUndoneIdx !== -1) {
+              const candidate = {
+                subject: subj.subject,
+                icon: subj.icon,
+                chapterId: ch.id,
+                chapterName: ch.name,
+                topicKey: `${ch.id}_${firstUndoneIdx}`,
+                subtopicName: ch.subtopics[firstUndoneIdx],
+                doneInChapter,
+                totalInChapter: ch.subtopics.length
+              };
+              if (doneInChapter > 0 && !inProgressPick) inProgressPick = candidate;
+              if (doneInChapter === 0 && !freshStartPick) freshStartPick = candidate;
+            }
+          });
+        });
+
+        const chosen = inProgressPick || freshStartPick;
+        if (chosen) recommendations.push(chosen);
+      });
+
+      const grid = document.getElementById("dotRecommendationsGrid");
+      if (recommendations.length === 0) {
+        grid.innerHTML = `<div class="col-span-3 p-4 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 text-emerald-300 text-xs font-bold text-center">🏆 Every single NEET 2027 node is completed! Time for full-syllabus mock tests!</div>`;
+        return;
+      }
+
+      grid.innerHTML = recommendations.map(rec => {
+        const statusTag = rec.doneInChapter > 0
+          ? `Continue Chapter (${rec.doneInChapter}/${rec.totalInChapter} done)`
+          : `Next Prerequisite Chapter`;
+        const safeTitle = `${rec.subject}: ${rec.subtopicName}`.replace(/'/g, "\\'");
+
+        return `
+          <div class="bg-slate-950/90 rounded-2xl p-4 border border-slate-800 hover:border-indigo-500/50 transition flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-2">
+                <span class="text-xs font-black text-indigo-400">${rec.icon} ${rec.subject}</span>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/15 text-indigo-300">${statusTag}</span>
+              </div>
+              <p class="text-xs font-bold text-slate-300 line-clamp-1">${rec.chapterName}</p>
+              <p class="text-sm font-black text-white mt-1">🎯 ${rec.subtopicName}</p>
+            </div>
+            <div class="grid grid-cols-2 gap-2 mt-4 pt-3 border-t border-slate-900">
+              <button type="button" onclick="startDotRecommendedClockIn('${safeTitle}')" class="clicky py-2 px-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-[11px]">
+                ▶ Clock In Now
+              </button>
+              <button type="button" onclick="markDotTopicDone('${rec.topicKey}')" class="clicky py-2 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-emerald-300 font-bold text-[11px]">
+                ✓ Mark Done
+              </button>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    window.startDotRecommendedClockIn = async function(topicLabel) {
+      document.getElementById("sessionSubjectInput").value = topicLabel;
+      await triggerClockIn(topicLabel);
+    };
+
+    window.markDotTopicDone = async function(topicKey) {
+      if (!currentUser) return;
+      currentUser.syllabusChecked[topicKey] = true;
+      renderDashboard();
+      renderSyllabusTree();
+      await saveUserToCloud(currentUser);
+    };
+
+    document.getElementById("dotRefreshBtn").addEventListener("click", renderDotRecommendations);
 
     function renderDashboard() {
       if (!currentUser) return;
@@ -1000,7 +1086,6 @@
       const todayStr = getTodayDateString();
       let todaySeconds = 0;
       let allTimeSeconds = 0;
-
       currentUser.sessions.forEach(s => {
         const dur = Number(s.durationSeconds || 0);
         allTimeSeconds += dur;
@@ -1022,96 +1107,92 @@
       const checkedCount = getCheckedSyllabusCount(currentUser);
       const syllabusPct = Math.round((checkedCount / TOTAL_SYLLABUS_TOPICS) * 100);
       document.getElementById("statSyllabusPct").textContent = `${syllabusPct}%`;
-      document.getElementById("statSyllabusCount").textContent = `${checkedCount}/${TOTAL_SYLLABUS_TOPICS} topics →`;
-
-      const clockInBtn = document.getElementById("clockInBtn");
-      const clockOutBtn = document.getElementById("clockOutBtn");
-      const punchStatusTag = document.getElementById("punchStatusTag");
-      const subjectInput = document.getElementById("sessionSubjectInput");
+      document.getElementById("statSyllabusCount").textContent = `${checkedCount}/${TOTAL_SYLLABUS_TOPICS} nodes →`;
 
       if (timerInterval) clearInterval(timerInterval);
 
       if (currentUser.activePunchStart) {
-        clockInBtn.disabled = true;
-        clockOutBtn.disabled = false;
-        subjectInput.value = currentUser.activeSubject || "";
-        punchStatusTag.textContent = "🟢 Studying Now";
-        punchStatusTag.className = "px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800";
-        const startDt = new Date(currentUser.activePunchStart);
-        document.getElementById("punchStartTimeText").textContent = `Clocked in at ${startDt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
-
+        zeroDistractionOverlay.classList.remove("hidden");
+        document.getElementById("zdSubjectDisplay").textContent = currentUser.activeSubject || "NEET Deep Focus Session";
         const updateTick = () => {
           const elapsed = Math.max(0, Math.floor((Date.now() - currentUser.activePunchStart) / 1000));
-          document.getElementById("liveTimerDisplay").textContent = formatHMS(elapsed);
+          const formatted = formatHMS(elapsed);
+          document.getElementById("liveTimerDisplay").textContent = formatted;
+          document.getElementById("zdTimerDisplay").textContent = formatted;
         };
         updateTick();
         timerInterval = setInterval(updateTick, 1000);
       } else {
-        clockInBtn.disabled = false;
-        clockOutBtn.disabled = true;
-        punchStatusTag.textContent = "Off Duty";
-        punchStatusTag.className = "px-2.5 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-600";
+        zeroDistractionOverlay.classList.add("hidden");
         document.getElementById("liveTimerDisplay").textContent = "00:00:00";
-        document.getElementById("punchStartTimeText").textContent = "Ready to clock in";
       }
 
+      renderDotRecommendations();
       renderTimesheetTable();
       renderSevenDayChart();
     }
 
-    document.getElementById("clockInBtn").addEventListener("click", async () => {
+    async function triggerClockIn(customSubject) {
       if (!currentUser || currentUser.activePunchStart) return;
+      const subj = customSubject || document.getElementById("sessionSubjectInput").value.trim() || "NEET Deep Focus";
       currentUser.activePunchStart = Date.now();
-      currentUser.activeSubject = document.getElementById("sessionSubjectInput").value.trim() || "General Study";
+      currentUser.activeSubject = subj;
+      // Enter pitch-black fullscreen mode if supported
+      try {
+        if (document.documentElement.requestFullscreen) {
+          document.documentElement.requestFullscreen().catch(() => {});
+        }
+      } catch {}
       renderDashboard();
       await saveUserToCloud(currentUser);
-    });
+    }
 
-    document.getElementById("clockOutBtn").addEventListener("click", async () => {
+    async function triggerClockOut() {
       if (!currentUser || !currentUser.activePunchStart) return;
       const startMs = currentUser.activePunchStart;
       const endMs = Date.now();
       const durationSeconds = Math.max(1, Math.floor((endMs - startMs) / 1000));
-      const subject = document.getElementById("sessionSubjectInput").value.trim() || currentUser.activeSubject || "General Study";
+      const subject = currentUser.activeSubject || "NEET Deep Focus";
 
-      const newSession = {
+      currentUser.sessions.unshift({
         date: getTodayDateString(),
-        subject: subject,
+        subject,
         startTime: new Date(startMs).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         endTime: new Date(endMs).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        durationSeconds: durationSeconds,
+        durationSeconds,
         entryType: "live",
         timestamp: endMs
-      };
-
-      currentUser.sessions.unshift(newSession);
+      });
       currentUser.activePunchStart = null;
       currentUser.activeSubject = "";
       document.getElementById("sessionSubjectInput").value = "";
 
+      try {
+        if (document.fullscreenElement && document.exitFullscreen) {
+          document.exitFullscreen().catch(() => {});
+        }
+      } catch {}
+
       renderDashboard();
       await saveUserToCloud(currentUser);
-    });
+    }
 
+    document.getElementById("clockInBtn").addEventListener("click", () => triggerClockIn());
+    document.getElementById("clockOutBtn").addEventListener("click", triggerClockOut);
+    document.getElementById("zdClockOutBtn").addEventListener("click", triggerClockOut);
+
+    // Manual Study Entry
     document.getElementById("manualEntryForm").addEventListener("submit", async (e) => {
       e.preventDefault();
       if (!currentUser) return;
-
       const dateVal = document.getElementById("manualDate").value || getTodayDateString();
-      const subjectVal = document.getElementById("manualSubject").value.trim() || "Manual Study Session";
+      const subjectVal = document.getElementById("manualSubject").value.trim() || "Manual Study";
       const hrs = parseInt(document.getElementById("manualHours").value, 10) || 0;
       const mins = parseInt(document.getElementById("manualMinutes").value, 10) || 0;
-
       const totalSeconds = (hrs * 3600) + (mins * 60);
-      if (totalSeconds <= 0) {
-        return alert("Please enter at least 1 minute of study time.");
-      }
+      if (totalSeconds <= 0) return alert("Enter at least 1 minute.");
 
-      const btn = document.getElementById("manualSubmitBtn");
-      btn.disabled = true;
-      btn.textContent = "Saving...";
-
-      const manualSession = {
+      currentUser.sessions.unshift({
         date: dateVal,
         subject: subjectVal,
         startTime: "Manual",
@@ -1119,50 +1200,36 @@
         durationSeconds: totalSeconds,
         entryType: "manual",
         timestamp: Date.now()
-      };
-
-      currentUser.sessions.unshift(manualSession);
+      });
       document.getElementById("manualSubject").value = "";
-
       renderDashboard();
       await saveUserToCloud(currentUser);
-
-      btn.disabled = false;
-      btn.textContent = "+ Add Session";
     });
 
-    window.deleteStudySession = async function(index) {
-      if (!currentUser || !currentUser.sessions[index]) return;
-      if (!confirm("Remove this study session from your history?")) return;
-      currentUser.sessions.splice(index, 1);
+    window.deleteStudySession = async function(idx) {
+      if (!currentUser || !currentUser.sessions[idx]) return;
+      currentUser.sessions.splice(idx, 1);
       renderDashboard();
       await saveUserToCloud(currentUser);
     };
 
     function renderTimesheetTable() {
       const tbody = document.getElementById("timesheetTableBody");
-      if (!currentUser.sessions || currentUser.sessions.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-slate-400">No study sessions recorded yet. Clock in or log manually above!</td></tr>`;
+      if (!currentUser.sessions.length) {
+        tbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-slate-500">No study sessions yet. Clock in above!</td></tr>`;
         return;
       }
-      tbody.innerHTML = currentUser.sessions.slice(0, 40).map((s, idx) => {
+      tbody.innerHTML = currentUser.sessions.slice(0, 25).map((s, idx) => {
         const mins = Math.round((s.durationSeconds || 0) / 60);
-        const hrsText = (s.durationSeconds / 3600).toFixed(2);
-        const isManual = s.entryType === "manual" || s.startTime === "Manual";
-        const typeBadge = isManual
-          ? `<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">✍️ Manual Entry</span>`
-          : `<span class="text-slate-500 text-xs tabular-nums">⏱️ ${s.startTime || "-"} – ${s.endTime || "-"}</span>`;
-
+        const hrs = (s.durationSeconds / 3600).toFixed(2);
         return `
-          <tr class="hover:bg-slate-50">
-            <td class="py-3 px-4 font-medium text-slate-800">${s.date}</td>
-            <td class="py-3 px-4 text-slate-600">${s.subject || "General Study"}</td>
-            <td class="py-3 px-4">${typeBadge}</td>
-            <td class="py-3 px-4 text-right font-bold text-emerald-600 tabular-nums">${mins} min (${hrsText}h)</td>
+          <tr class="hover:bg-slate-800/40">
+            <td class="py-3 px-4 font-semibold text-slate-300">${s.date}</td>
+            <td class="py-3 px-4 text-white font-medium">${s.subject}</td>
+            <td class="py-3 px-4 text-slate-400">${s.entryType === "manual" ? "✍️ Manual" : `⏱️ ${s.startTime}–${s.endTime}`}</td>
+            <td class="py-3 px-4 text-right mono-nums font-bold text-emerald-400">${mins}m (${hrs}h)</td>
             <td class="py-3 px-4 text-right">
-              <button onclick="deleteStudySession(${idx})" class="text-xs font-semibold text-rose-500 hover:text-rose-700 px-2 py-1 rounded hover:bg-rose-50 transition" title="Delete session">
-                ✕
-              </button>
+              <button onclick="deleteStudySession(${idx})" class="text-rose-400 hover:text-rose-300 px-2">✕</button>
             </td>
           </tr>
         `;
@@ -1173,174 +1240,138 @@
       const ctx = document.getElementById("studyChartCanvas").getContext("2d");
       const labels = [];
       const dataHours = [];
-
       for (let i = 6; i >= 0; i--) {
         const d = new Date();
         d.setDate(d.getDate() - i);
         const dStr = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
-        labels.push(d.toLocaleDateString([], { weekday: 'short', day: 'numeric' }));
-
-        let daySecs = 0;
-        currentUser.sessions.forEach(s => {
-          if (s.date === dStr) daySecs += Number(s.durationSeconds || 0);
-        });
-        dataHours.push(Number((daySecs / 3600).toFixed(2)));
+        labels.push(d.toLocaleDateString([], { weekday: 'short' }));
+        let secs = 0;
+        currentUser.sessions.forEach(s => { if (s.date === dStr) secs += Number(s.durationSeconds || 0); });
+        dataHours.push(Number((secs / 3600).toFixed(2)));
       }
-
       if (studyChart) studyChart.destroy();
       studyChart = new Chart(ctx, {
         type: "bar",
-        data: {
-          labels,
-          datasets: [{
-            label: "Study Hours",
-            data: dataHours,
-            backgroundColor: "#10b981",
-            borderRadius: 8
-          }]
-        },
+        data: { labels, datasets: [{ data: dataHours, backgroundColor: "#10b981", borderRadius: 8 }] },
         options: {
-          responsive: true,
-          maintainAspectRatio: false,
+          responsive: true, maintainAspectRatio: false,
           plugins: { legend: { display: false } },
-          scales: { y: { beginAtZero: true } }
+          scales: {
+            x: { ticks: { color: "#94a3b8" }, grid: { display: false } },
+            y: { beginAtZero: true, ticks: { color: "#94a3b8" }, grid: { color: "rgba(148,163,184,0.1)" } }
+          }
         }
       });
     }
 
     document.getElementById("exportCsvBtn").addEventListener("click", () => {
-      if (!currentUser || !currentUser.sessions.length) return alert("No study sessions to export yet!");
-      const rows = [["Date", "Subject", "Entry Type", "Start Time", "End Time", "Duration (Seconds)", "Duration (Hours)"]];
-      currentUser.sessions.forEach(s => {
-        rows.push([
-          s.date,
-          `"${(s.subject || "").replace(/"/g, '""')}"`,
-          s.entryType || "live",
-          s.startTime,
-          s.endTime,
-          s.durationSeconds,
-          (s.durationSeconds / 3600).toFixed(2)
-        ]);
-      });
-      const csvContent = "data:text/csv;charset=utf-8," + rows.map(r => r.join(",")).join("\n");
+      if (!currentUser || !currentUser.sessions.length) return alert("No sessions to export.");
+      const rows = [["Date", "Subject", "Type", "Duration Hours"]];
+      currentUser.sessions.forEach(s => rows.push([s.date, `"${s.subject}"`, s.entryType || "live", (s.durationSeconds / 3600).toFixed(2)]));
       const link = document.createElement("a");
-      link.setAttribute("href", encodeURI(csvContent));
-      link.setAttribute("download", `studypunch_${currentUser.id}_timesheet.csv`);
-      document.body.appendChild(link);
+      link.href = encodeURI("data:text/csv;charset=utf-8," + rows.map(r => r.join(",")).join("\n"));
+      link.download = `studypunch_${currentUser.id}.csv`;
       link.click();
-      document.body.removeChild(link);
     });
 
-    // ================= NEET 2027 LINE-FOLDER SYLLABUS TREE LOGIC =================
-    const openFoldersState = {
-      phys: true,
-      chem: true,
-      bio: true,
-      phys_11: true,
-      phys_12: false,
-      chem_phys: true,
-      chem_inorg: false,
-      chem_org: false,
-      bio_11: true,
-      bio_12: false
-    };
+    // ================= SPIDER-WEB SYLLABUS ENGINE =================
+    const openFoldersState = { phys: true, chem: true, bio: true, phys_11: true, chem_phys: true, bio_11: true };
 
-    window.toggleFolderNode = function(folderKey) {
-      openFoldersState[folderKey] = !openFoldersState[folderKey];
+    window.toggleFolderNode = function(key) {
+      openFoldersState[key] = !openFoldersState[key];
       renderSyllabusTree(document.getElementById("syllabusSearchInput").value.trim());
     };
 
     window.toggleSubtopicCheck = async function(topicKey) {
       if (!currentUser) return;
-      if (!currentUser.syllabusChecked) currentUser.syllabusChecked = {};
-      if (currentUser.syllabusChecked[topicKey]) {
-        delete currentUser.syllabusChecked[topicKey];
-      } else {
-        currentUser.syllabusChecked[topicKey] = true;
-      }
+      if (currentUser.syllabusChecked[topicKey]) delete currentUser.syllabusChecked[topicKey];
+      else currentUser.syllabusChecked[topicKey] = true;
       renderSyllabusTree(document.getElementById("syllabusSearchInput").value.trim());
       renderDashboard();
       await saveUserToCloud(currentUser);
     };
 
-    window.toggleWholeChapter = async function(chapterId, checkAll) {
+    window.toggleWholeChapter = async function(chId, checkAll) {
       if (!currentUser) return;
-      if (!currentUser.syllabusChecked) currentUser.syllabusChecked = {};
-      NEET_2027_SYLLABUS.forEach(subj => {
-        subj.units.forEach(u => {
-          u.chapters.forEach(ch => {
-            if (ch.id === chapterId) {
-              ch.subtopics.forEach((_, idx) => {
-                const key = `${ch.id}_${idx}`;
-                if (checkAll) {
-                  currentUser.syllabusChecked[key] = true;
-                } else {
-                  delete currentUser.syllabusChecked[key];
-                }
-              });
-            }
+      NEET_2027_SYLLABUS.forEach(s => s.units.forEach(u => u.chapters.forEach(ch => {
+        if (ch.id === chId) {
+          ch.subtopics.forEach((_, idx) => {
+            if (checkAll) currentUser.syllabusChecked[`${ch.id}_${idx}`] = true;
+            else delete currentUser.syllabusChecked[`${ch.id}_${idx}`];
           });
-        });
-      });
-      openFoldersState[chapterId] = true;
+        }
+      })));
+      openFoldersState[chId] = true;
       renderSyllabusTree(document.getElementById("syllabusSearchInput").value.trim());
       renderDashboard();
       await saveUserToCloud(currentUser);
     };
 
-    document.getElementById("syllabusSearchInput").addEventListener("input", (e) => {
-      renderSyllabusTree(e.target.value.trim());
-    });
-
+    document.getElementById("syllabusSearchInput").addEventListener("input", (e) => renderSyllabusTree(e.target.value.trim()));
     document.getElementById("expandAllFoldersBtn").addEventListener("click", () => {
-      NEET_2027_SYLLABUS.forEach(s => {
-        openFoldersState[s.id] = true;
-        s.units.forEach(u => {
-          openFoldersState[u.id] = true;
-          u.chapters.forEach(ch => { openFoldersState[ch.id] = true; });
-        });
-      });
+      NEET_2027_SYLLABUS.forEach(s => { openFoldersState[s.id] = true; s.units.forEach(u => { openFoldersState[u.id] = true; u.chapters.forEach(ch => { openFoldersState[ch.id] = true; }); }); });
+      renderSyllabusTree(document.getElementById("syllabusSearchInput").value.trim());
+    });
+    document.getElementById("collapseAllFoldersBtn").addEventListener("click", () => {
+      NEET_2027_SYLLABUS.forEach(s => s.units.forEach(u => u.chapters.forEach(ch => { openFoldersState[ch.id] = false; })));
       renderSyllabusTree(document.getElementById("syllabusSearchInput").value.trim());
     });
 
-    document.getElementById("collapseAllFoldersBtn").addEventListener("click", () => {
-      NEET_2027_SYLLABUS.forEach(s => {
-        openFoldersState[s.id] = true;
-        s.units.forEach(u => {
-          openFoldersState[u.id] = true;
-          u.chapters.forEach(ch => { openFoldersState[ch.id] = false; });
-        });
+    function renderSpiderWebRadar(radarLabels, radarPcts) {
+      const ctx = document.getElementById("spiderWebCanvas").getContext("2d");
+      if (spiderChart) spiderChart.destroy();
+      spiderChart = new Chart(ctx, {
+        type: "radar",
+        data: {
+          labels: radarLabels,
+          datasets: [{
+            label: "Spider Web %",
+            data: radarPcts,
+            backgroundColor: "rgba(16, 185, 129, 0.22)",
+            borderColor: "#10b981",
+            pointBackgroundColor: "#6366f1",
+            pointBorderColor: "#fff",
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            r: {
+              min: 0, max: 100,
+              angleLines: { color: "rgba(99, 102, 241, 0.25)" },
+              grid: { color: "rgba(148, 163, 184, 0.2)" },
+              pointLabels: { color: "#e2e8f0", font: { size: 10, weight: "bold" } },
+              ticks: { display: false }
+            }
+          }
+        }
       });
-      renderSyllabusTree(document.getElementById("syllabusSearchInput").value.trim());
-    });
+    }
 
     function renderSyllabusTree(searchQuery = "") {
       if (!currentUser) return;
       const checkedMap = currentUser.syllabusChecked || {};
       const q = searchQuery.toLowerCase();
-
       let overallDone = 0;
       const subjectStats = [];
+      const radarLabels = [];
+      const radarPcts = [];
 
       const treeHtml = NEET_2027_SYLLABUS.map(subj => {
-        let subjTotal = 0;
-        let subjDone = 0;
+        let subjTotal = 0, subjDone = 0;
 
         const unitsHtml = subj.units.map(u => {
-          let unitTotal = 0;
-          let unitDone = 0;
+          let unitTotal = 0, unitDone = 0;
 
           const chaptersHtml = u.chapters.map(ch => {
             const chTotal = ch.subtopics.length;
             let chDone = 0;
-            ch.subtopics.forEach((_, idx) => {
-              if (checkedMap[`${ch.id}_${idx}`]) chDone++;
-            });
+            ch.subtopics.forEach((_, idx) => { if (checkedMap[`${ch.id}_${idx}`]) chDone++; });
 
-            unitTotal += chTotal;
-            unitDone += chDone;
-            subjTotal += chTotal;
-            subjDone += chDone;
+            unitTotal += chTotal; unitDone += chDone;
+            subjTotal += chTotal; subjDone += chDone;
             overallDone += chDone;
 
             const chMatches = !q || ch.name.toLowerCase().includes(q) || ch.subtopics.some(st => st.toLowerCase().includes(q));
@@ -1354,293 +1385,388 @@
               const key = `${ch.id}_${idx}`;
               const isDone = Boolean(checkedMap[key]);
               if (q && !ch.name.toLowerCase().includes(q) && !stName.toLowerCase().includes(q)) return "";
+              const safeTopic = `${subj.subject}: ${stName}`.replace(/'/g, "\\'");
 
               return `
-                <div class="tree-leaf flex items-center justify-between py-2 px-3 rounded-xl hover:bg-slate-50 transition group">
+                <div class="spider-node flex items-center justify-between gap-2 py-2 px-3 rounded-xl hover:bg-slate-800/60 transition">
                   <label class="flex items-center gap-3 cursor-pointer flex-1 select-none">
-                    <input type="checkbox" ${isDone ? "checked" : ""} onchange="toggleSubtopicCheck('${key}')" class="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 cursor-pointer" />
-                    <span class="text-xs sm:text-sm ${isDone ? 'line-through text-slate-400 font-medium' : 'text-slate-700 font-medium'}">
-                      📄 ${stName}
+                    <input type="checkbox" ${isDone ? "checked" : ""} onchange="toggleSubtopicCheck('${key}')" class="w-4 h-4 rounded accent-emerald-500 cursor-pointer" />
+                    <span class="text-xs sm:text-sm ${isDone ? 'line-through text-slate-500' : 'text-slate-200 font-medium'}">
+                      🕸️ ${stName}
                     </span>
                   </label>
-                  <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${isDone ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-400'}">
-                    ${isDone ? "✓ Assured" : "Pending"}
-                  </span>
+                  <button type="button" onclick="startDotRecommendedClockIn('${safeTopic}')" class="clicky px-2.5 py-1 rounded-lg text-[10px] font-extrabold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500 hover:text-black">
+                    ⚡ Clock In
+                  </button>
                 </div>
               `;
             }).join("");
 
             return `
-              <div class="tree-leaf my-2">
-                <div class="bg-slate-50/80 hover:bg-slate-100/80 border border-slate-200/80 rounded-xl p-3 transition">
+              <div class="spider-node my-2.5">
+                <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-3">
                   <div class="flex flex-wrap items-center justify-between gap-2">
-                    <button type="button" onclick="toggleFolderNode('${ch.id}')" class="flex items-center gap-2 text-left font-bold text-xs sm:text-sm text-slate-800 flex-1">
-                      <span class="text-base">${isChOpen ? "📂" : "📁"}</span>
+                    <button type="button" onclick="toggleFolderNode('${ch.id}')" class="flex items-center gap-2 text-left font-bold text-xs sm:text-sm text-white flex-1">
+                      <span>${isChOpen ? "🕸️" : "🕷️"}</span>
                       <span>${ch.name}</span>
-                      <span class="ml-1 px-2 py-0.5 text-[10px] rounded-full font-extrabold ${allChecked ? 'bg-emerald-100 text-emerald-800' : 'bg-white text-slate-600 border border-slate-200'}">
+                      <span class="ml-1 px-2 py-0.5 text-[10px] rounded-full font-extrabold ${allChecked ? 'bg-emerald-500/20 text-emerald-300' : 'bg-slate-800 text-slate-400'}">
                         ${chDone}/${chTotal} (${chPct}%)
                       </span>
                     </button>
-                    <button type="button" onclick="toggleWholeChapter('${ch.id}', ${!allChecked})" class="text-[11px] font-bold px-2.5 py-1 rounded-lg ${allChecked ? 'bg-slate-200 text-slate-700 hover:bg-slate-300' : 'bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100'} transition">
-                      ${allChecked ? "Uncheck Chapter" : "✓ Tick All"}
+                    <button type="button" onclick="toggleWholeChapter('${ch.id}', ${!allChecked})" class="clicky text-[10px] font-bold px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700">
+                      ${allChecked ? "Reset Node" : "✓ Tick Web"}
                     </button>
                   </div>
-                  ${isChOpen ? `<div class="tree-branch mt-2 space-y-1">${subtopicsHtml}</div>` : ""}
+                  ${isChOpen ? `<div class="spider-hub mt-2 space-y-1">${subtopicsHtml}</div>` : ""}
                 </div>
               </div>
             `;
           }).join("");
 
-          if (!chaptersHtml.trim()) return "";
           const unitPct = unitTotal ? Math.round((unitDone / unitTotal) * 100) : 0;
+          radarLabels.push(u.unitName.split(" Web")[0].replace("Class ", "Cl."));
+          radarPcts.push(unitPct);
+
+          if (!chaptersHtml.trim()) return "";
           const isUnitOpen = q ? true : Boolean(openFoldersState[u.id]);
 
           return `
-            <div class="tree-leaf my-3">
-              <div class="bg-white border border-slate-200 rounded-2xl p-3.5 shadow-sm">
+            <div class="spider-node my-3">
+              <div class="bg-slate-900 border border-slate-800 rounded-2xl p-3.5">
                 <button type="button" onclick="toggleFolderNode('${u.id}')" class="w-full flex items-center justify-between text-left">
-                  <div class="flex items-center gap-2.5">
-                    <span class="text-lg">${isUnitOpen ? "📂" : "📁"}</span>
-                    <span class="font-extrabold text-sm text-slate-900">${u.unitName}</span>
-                  </div>
-                  <div class="flex items-center gap-2">
-                    <span class="text-xs font-bold text-indigo-600 tabular-nums">${unitDone}/${unitTotal} (${unitPct}%)</span>
-                    <span class="text-xs text-slate-400">${isUnitOpen ? "▼" : "▶"}</span>
-                  </div>
+                  <span class="font-extrabold text-sm text-indigo-300">🕸️ ${u.unitName}</span>
+                  <span class="mono-nums text-xs font-bold text-emerald-400">${unitDone}/${unitTotal} (${unitPct}%)</span>
                 </button>
-                ${isUnitOpen ? `<div class="tree-branch mt-3">${chaptersHtml}</div>` : ""}
+                ${isUnitOpen ? `<div class="spider-hub mt-3">${chaptersHtml}</div>` : ""}
               </div>
             </div>
           `;
         }).join("");
 
         const subjPct = subjTotal ? Math.round((subjDone / subjTotal) * 100) : 0;
-        subjectStats.push({ name: subj.subject.split(" (")[0], icon: subj.icon, done: subjDone, total: subjTotal, pct: subjPct });
+        subjectStats.push({ name: subj.subject, icon: subj.icon, done: subjDone, total: subjTotal, pct: subjPct });
 
         if (!unitsHtml.trim()) return "";
         const isSubjOpen = q ? true : Boolean(openFoldersState[subj.id]);
 
         return `
-          <div class="bg-white rounded-2xl p-5 shadow-lg border border-slate-100">
-            <button type="button" onclick="toggleFolderNode('${subj.id}')" class="w-full flex flex-wrap items-center justify-between gap-3 text-left">
+          <div class="bg-slate-900/90 rounded-3xl p-5 border border-slate-800">
+            <button type="button" onclick="toggleFolderNode('${subj.id}')" class="w-full flex items-center justify-between text-left">
               <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-xl shadow-sm">
-                  ${subj.icon}
-                </div>
+                <span class="text-2xl">${subj.icon}</span>
                 <div>
-                  <h3 class="text-base font-extrabold text-slate-900">${isSubjOpen ? "📂" : "📁"} ${subj.subject}</h3>
-                  <p class="text-xs text-slate-500">${subjDone} of ${subjTotal} sub-topics mastered</p>
+                  <h3 class="text-base font-black text-white">${subj.subject} Spider Web</h3>
+                  <p class="text-xs text-slate-400">${subjDone} of ${subjTotal} nodes connected</p>
                 </div>
               </div>
-              <div class="flex items-center gap-3">
-                <div class="w-28 bg-slate-100 h-2.5 rounded-full overflow-hidden hidden sm:block">
-                  <div class="bg-emerald-500 h-full rounded-full" style="width: ${subjPct}%"></div>
-                </div>
-                <span class="px-3 py-1 rounded-xl bg-emerald-50 text-emerald-700 font-extrabold text-xs tabular-nums border border-emerald-200">
-                  ${subjPct}% Done
-                </span>
-              </div>
+              <span class="mono-nums px-3 py-1 rounded-xl bg-emerald-500/15 text-emerald-300 font-black text-xs border border-emerald-500/30">${subjPct}%</span>
             </button>
-            ${isSubjOpen ? `<div class="tree-branch mt-4">${unitsHtml}</div>` : ""}
+            ${isSubjOpen ? `<div class="spider-hub mt-4">${unitsHtml}</div>` : ""}
           </div>
         `;
       }).join("");
 
       const overallPct = Math.round((overallDone / TOTAL_SYLLABUS_TOPICS) * 100);
       document.getElementById("overallSyllabusBigPct").textContent = `${overallPct}%`;
-      document.getElementById("overallSyllabusCounts").textContent = `${overallDone} / ${TOTAL_SYLLABUS_TOPICS} sub-topics completed`;
+      document.getElementById("overallSyllabusCounts").textContent = `${overallDone} / ${TOTAL_SYLLABUS_TOPICS} nodes spun`;
       document.getElementById("overallSyllabusBar").style.width = `${overallPct}%`;
 
-      const reassuranceEl = document.getElementById("reassuranceMsg");
-      if (overallPct === 0) {
-        reassuranceEl.textContent = "🌱 Start ticking off sub-topics inside any subject folder below—every single tick moves you closer to your medical college seat!";
-      } else if (overallPct < 35) {
-        reassuranceEl.textContent = `💪 Solid momentum! You have already locked in ${overallDone} NEET 2027 sub-topics (${overallPct}%). Stay consistent one chapter at a time!`;
-      } else if (overallPct < 75) {
-        reassuranceEl.textContent = `🔥 Strong command! ${overallDone} sub-topics (${overallPct}%) are under your belt. Keep revising and ticking folders!`;
-      } else {
-        reassuranceEl.textContent = `🏆 Exam-Ready Champion! ${overallPct}% of the entire NEET 2027 syllabus is completed and reassured!`;
-      }
-
       document.getElementById("subjectSummaryCards").innerHTML = subjectStats.map(st => `
-        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-between">
+        <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-between">
           <div>
-            <p class="text-xs font-extrabold text-slate-800">${st.icon} ${st.name}</p>
-            <p class="text-[11px] text-slate-500 mt-0.5 tabular-nums">${st.done} / ${st.total} sub-topics</p>
+            <p class="text-xs font-extrabold text-white">${st.icon} ${st.name}</p>
+            <p class="text-[11px] text-slate-400 mono-nums">${st.done}/${st.total} nodes</p>
           </div>
-          <span class="text-lg font-extrabold text-indigo-600 tabular-nums">${st.pct}%</span>
+          <span class="mono-nums text-lg font-black text-emerald-400">${st.pct}%</span>
         </div>
       `).join("");
 
-      document.getElementById("syllabusTreeContainer").innerHTML = treeHtml || `<div class="bg-white rounded-2xl p-8 text-center text-slate-400">No chapters or sub-topics match your search.</div>`;
+      document.getElementById("syllabusTreeContainer").innerHTML = treeHtml || `<div class="p-8 text-center text-slate-500">No spider nodes match your search.</div>`;
+      renderSpiderWebRadar(radarLabels, radarPcts);
     }
 
-    // ================= EYE-CATCHING & SIMPLE LIVE LEADERBOARD =================
-    document.getElementById("authOpenLeaderboardBtn").addEventListener("click", () => {
-      authScreen.classList.add("hidden");
-      appScreen.classList.remove("hidden");
-      document.getElementById("backToAuthBtn").classList.remove("hidden");
-      goToSlide(2);
-      loadGlobalLeaderboard();
-    });
-
-    document.getElementById("backToAuthBtn").addEventListener("click", () => {
-      appScreen.classList.add("hidden");
-      authScreen.classList.remove("hidden");
-    });
-
-    document.getElementById("refreshLeaderboardBtn").addEventListener("click", loadGlobalLeaderboard);
-
-    // Live Real-Time Stream (Keeps Leaderboard & Current User Updated Automatically)
-    if (db) {
-      onSnapshot(collection(db, "students"), (snapshot) => {
-        const localMap = getLocalUsersMap();
-        snapshot.forEach((docSnap) => {
-          const data = docSnap.data();
-          cloudLeaderboardCache[docSnap.id] = data;
-          localMap[docSnap.id] = data;
-
-          if (currentUser && docSnap.id === currentUser.id) {
-            currentUser = data;
-            if (!currentUser.syllabusChecked) currentUser.syllabusChecked = {};
-            localStorage.setItem("studypunch_current_user", JSON.stringify(currentUser));
-            renderDashboard();
-          }
-        });
-        localStorage.setItem("studypunch_users_map", JSON.stringify(localMap));
-        setCloudStatus(true);
-        renderLeaderboardFromCache();
-      }, (err) => {
-        console.warn("Live stream waiting:", err.message);
-      });
-    }
-
-    async function loadGlobalLeaderboard() {
-      if (db) {
-        try {
-          const snap = await withTimeout(getDocs(collection(db, "students")));
-          snap.forEach(docSnap => {
-            cloudLeaderboardCache[docSnap.id] = docSnap.data();
-          });
-          setCloudStatus(true);
-        } catch (err) {
-          console.warn("Leaderboard manual refresh fallback:", err.message);
-        }
-      }
-      renderLeaderboardFromCache();
-    }
-
-    function renderLeaderboardFromCache() {
-      const combinedUsers = { ...getLocalUsersMap(), ...cloudLeaderboardCache };
+    // ================= FAST CLICKY LIVE LEADERBOARD =================
+    function renderFastLeaderboard() {
+      const tbody = document.getElementById("globalLeaderboardBody");
+      const combined = { ...getLocalUsersMap(), ...allCloudUsersCache };
       const todayStr = getTodayDateString();
 
-      const leaderboardList = Object.values(combinedUsers).map(u => {
+      let list = Object.values(combined).map(u => {
         const sessions = Array.isArray(u.sessions) ? u.sessions : [];
-        let totalSecs = 0;
-        let todaySecs = 0;
+        let totalSecs = 0, todaySecs = 0;
         sessions.forEach(s => {
           const d = Number(s.durationSeconds || 0);
           totalSecs += d;
           if (s.date === todayStr) todaySecs += d;
         });
-        const checkedTopics = getCheckedSyllabusCount(u);
-        const syllabusPct = Math.round((checkedTopics / TOTAL_SYLLABUS_TOPICS) * 100);
+        // Add live active elapsed time if currently studying!
+        const isLive = Boolean(u.activePunchStart);
+        const liveElapsed = isLive ? Math.max(0, Math.floor((Date.now() - u.activePunchStart) / 1000)) : 0;
+
+        const checkedCount = getCheckedSyllabusCount(u);
+        const syllabusPct = Math.round((checkedCount / TOTAL_SYLLABUS_TOPICS) * 100);
 
         return {
           id: u.id || "student",
           name: u.name || u.id || "Student",
           studyCount: sessions.length,
-          syllabusPct: syllabusPct,
-          todayHours: (todaySecs / 3600).toFixed(1),
-          totalHours: parseFloat((totalSecs / 3600).toFixed(2)),
-          isStudyingNow: Boolean(u.activePunchStart)
+          syllabusPct,
+          todayHours: ((todaySecs + liveElapsed) / 3600).toFixed(1),
+          totalHours: parseFloat(((totalSecs + liveElapsed) / 3600).toFixed(2)),
+          isLive,
+          activeSubject: u.activeSubject || "Deep Focus",
+          liveMins: Math.floor(liveElapsed / 60)
         };
       });
 
-      leaderboardList.sort((a, b) => (b.totalHours - a.totalHours) || (b.studyCount - a.studyCount) || (b.syllabusPct - a.syllabusPct));
+      if (leaderboardLiveOnly) list = list.filter(u => u.isLive);
 
-      const podiumEl = document.getElementById("leaderboardPodium");
-      const tbody = document.getElementById("globalLeaderboardBody");
+      // Sort: Live students get priority visibility when tied, then total hours
+      list.sort((a, b) => (b.totalHours - a.totalHours) || (b.isLive - a.isLive) || (b.studyCount - a.studyCount));
 
-      if (leaderboardList.length === 0) {
-        podiumEl.innerHTML = "";
-        tbody.innerHTML = `<tr><td colspan="6" class="py-8 text-center text-slate-400">No students registered yet. Create the first ID!</td></tr>`;
+      const liveTotal = Object.values(combined).filter(u => u.activePunchStart).length;
+      document.getElementById("navLiveCountBadge").textContent = `${liveTotal} Live`;
+
+      if (!list.length) {
+        tbody.innerHTML = `<tr><td colspan="6" class="py-8 text-center text-slate-500">${leaderboardLiveOnly ? "No friends are clocked in right now. Be the first to go LIVE!" : "No students found."}</td></tr>`;
         return;
       }
 
-      // Render Clean Top 3 Podium Cards
-      const podiumStyles = [
-        { medal: "🥇", ring: "border-amber-200 bg-gradient-to-b from-amber-50/80 to-white", badge: "bg-amber-100 text-amber-800" },
-        { medal: "🥈", ring: "border-slate-200 bg-gradient-to-b from-slate-50 to-white", badge: "bg-slate-200 text-slate-700" },
-        { medal: "🥉", ring: "border-orange-200 bg-gradient-to-b from-orange-50/70 to-white", badge: "bg-orange-100 text-orange-800" }
-      ];
-
-      podiumEl.innerHTML = leaderboardList.slice(0, 3).map((u, idx) => {
-        const st = podiumStyles[idx];
-        const isMe = currentUser && currentUser.id === u.id;
-        return `
-          <div class="rounded-2xl p-4 border ${st.ring} shadow-sm flex flex-col justify-between">
-            <div class="flex items-start justify-between gap-2">
-              <div class="flex items-center gap-2.5">
-                <span class="text-2xl">${st.medal}</span>
-                <div>
-                  <p class="font-extrabold text-sm text-slate-900 leading-tight">
-                    ${u.name} ${isMe ? '<span class="text-[10px] text-emerald-600">(You)</span>' : ''}
-                  </p>
-                  <p class="text-[11px] text-slate-400">@${u.id}</p>
-                </div>
-              </div>
-              <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold ${st.badge}">#${idx + 1}</span>
-            </div>
-
-            <div class="mt-4 pt-3 border-t border-slate-100 flex items-end justify-between">
-              <div>
-                <p class="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Total Study</p>
-                <p class="text-lg font-extrabold text-emerald-600 tabular-nums">${u.totalHours.toFixed(1)} hrs</p>
-              </div>
-              <div class="text-right">
-                <span class="text-[11px] font-bold text-indigo-600">${u.syllabusPct}% NEET</span>
-                ${u.isStudyingNow ? '<div class="text-[10px] font-bold text-emerald-600 mt-0.5">🟢 Live Now</div>' : ''}
-              </div>
-            </div>
-          </div>
-        `;
-      }).join("");
-
-      // Render Clean Full Rankings Table
-      tbody.innerHTML = leaderboardList.map((u, index) => {
-        const isMe = currentUser && currentUser.id === u.id;
-        const rankLabel = index === 0 ? "🥇 1" : index === 1 ? "🥈 2" : index === 2 ? "🥉 3" : `${index + 1}`;
-        const liveDot = u.isStudyingNow ? `<span class="ml-1.5 inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse" title="Studying Now"></span>` : "";
+      tbody.innerHTML = list.map((u, i) => {
+        const rankBadge = i === 0 ? "🥇 #1" : i === 1 ? "🥈 #2" : i === 2 ? "🥉 #3" : `#${i + 1}`;
+        const statusPill = u.isLive
+          ? `<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+               <span class="w-2 h-2 rounded-full bg-emerald-400 live-beacon"></span>
+               LIVE NOW • ${u.activeSubject} (${u.liveMins}m)
+             </span>`
+          : `<span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-slate-800 text-slate-400">Offline</span>`;
 
         return `
-          <tr class="${isMe ? 'bg-emerald-50/50' : 'hover:bg-slate-50/80'} transition">
-            <td class="py-3.5 px-4 font-extrabold text-slate-700 tabular-nums">${rankLabel}</td>
+          <tr class="hover:bg-slate-800/50 transition">
+            <td class="py-3.5 px-4 font-black text-indigo-400 mono-nums">${rankBadge}</td>
             <td class="py-3.5 px-4">
-              <div class="font-bold text-slate-900 flex items-center">
-                ${u.name} ${isMe ? '<span class="ml-1.5 px-1.5 py-0.5 text-[10px] rounded bg-emerald-100 text-emerald-800">You</span>' : ''} ${liveDot}
-              </div>
-              <div class="text-xs text-slate-400">@${u.id}</div>
-            </td>
-            <td class="py-3.5 px-4 text-center">
-              <span class="text-xs font-semibold text-slate-600 tabular-nums">${u.studyCount}</span>
-            </td>
-            <td class="py-3.5 px-4 text-center">
-              <div class="inline-flex items-center gap-1.5">
-                <div class="w-12 bg-slate-100 h-1.5 rounded-full overflow-hidden hidden sm:block">
-                  <div class="bg-indigo-500 h-full rounded-full" style="width: ${u.syllabusPct}%"></div>
-                </div>
-                <span class="text-xs font-bold text-indigo-600 tabular-nums">${u.syllabusPct}%</span>
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="font-extrabold text-white">${u.name}</span>
+                <span class="text-xs text-slate-500">@${u.id}</span>
+                ${statusPill}
               </div>
             </td>
-            <td class="py-3.5 px-4 text-center font-medium text-slate-600 tabular-nums">${u.todayHours}h</td>
-            <td class="py-3.5 px-4 text-right font-extrabold text-emerald-600 tabular-nums">${u.totalHours.toFixed(1)} hrs</td>
+            <td class="py-3.5 px-4 text-center">
+              <span class="px-2.5 py-1 rounded-lg bg-indigo-500/15 text-indigo-300 font-bold text-xs mono-nums">${u.studyCount}x</span>
+            </td>
+            <td class="py-3.5 px-4 text-center">
+              <span class="px-2.5 py-1 rounded-lg bg-amber-500/15 text-amber-300 font-bold text-xs mono-nums">${u.syllabusPct}%</span>
+            </td>
+            <td class="py-3.5 px-4 text-center font-bold text-slate-300 mono-nums">${u.todayHours}h</td>
+            <td class="py-3.5 px-4 text-right font-black text-emerald-400 mono-nums">${u.totalHours.toFixed(1)} hrs</td>
           </tr>
         `;
       }).join("");
     }
 
-    // Auto-login if session saved on device
+    document.getElementById("lbFilterAllBtn").addEventListener("click", () => {
+      leaderboardLiveOnly = false;
+      renderFastLeaderboard();
+    });
+    document.getElementById("lbFilterLiveBtn").addEventListener("click", () => {
+      leaderboardLiveOnly = true;
+      renderFastLeaderboard();
+    });
+    document.getElementById("refreshLeaderboardBtn").addEventListener("click", async () => {
+      if (db) {
+        try {
+          const snap = await withTimeout(getDocs(collection(db, "students")), 5000);
+          snap.forEach(d => { allCloudUsersCache[d.id] = d.data(); });
+        } catch {}
+      }
+      renderFastLeaderboard();
+    });
+
+    // ================= NOTES VAULT ENGINE =================
+    let activeNoteId = null;
+
+    function renderNotesVault(filterText = "") {
+      if (!currentUser) return;
+      if (!Array.isArray(currentUser.notes)) currentUser.notes = [];
+      const listEl = document.getElementById("notesListContainer");
+      const q = filterText.toLowerCase();
+
+      const filtered = currentUser.notes.filter(n => !q || (n.title || "").toLowerCase().includes(q) || (n.body || "").toLowerCase().includes(q));
+
+      if (!filtered.length) {
+        listEl.innerHTML = `<p class="text-xs text-slate-500 text-center py-8">No notes yet. Click "+ New Note" above!</p>`;
+      } else {
+        listEl.innerHTML = filtered.map(n => `
+          <button type="button" onclick="selectNoteItem('${n.id}')" class="clicky w-full text-left p-3 rounded-2xl border ${n.id === activeNoteId ? 'bg-indigo-600/20 border-indigo-500 text-white' : 'bg-slate-950 border-slate-800 text-slate-300 hover:bg-slate-800'}">
+            <p class="text-xs font-extrabold truncate">${n.title || "Untitled Note"}</p>
+            <p class="text-[10px] text-slate-400 truncate mt-0.5">${n.body || "Empty note..."}</p>
+          </button>
+        `).join("");
+      }
+
+      const activeNote = currentUser.notes.find(n => n.id === activeNoteId) || currentUser.notes[0];
+      if (activeNote) {
+        activeNoteId = activeNote.id;
+        document.getElementById("noteTitleInput").value = activeNote.title || "";
+        document.getElementById("noteBodyInput").value = activeNote.body || "";
+      } else {
+        activeNoteId = null;
+        document.getElementById("noteTitleInput").value = "";
+        document.getElementById("noteBodyInput").value = "";
+      }
+    }
+
+    window.selectNoteItem = function(id) {
+      activeNoteId = id;
+      renderNotesVault(document.getElementById("noteSearchInput").value.trim());
+    };
+
+    document.getElementById("newNoteBtn").addEventListener("click", async () => {
+      if (!currentUser) return;
+      const newNote = { id: "note_" + Date.now(), title: "New NEET Note", body: "", updatedAt: Date.now() };
+      currentUser.notes.unshift(newNote);
+      activeNoteId = newNote.id;
+      renderNotesVault();
+      await saveUserToCloud(currentUser);
+    });
+
+    document.getElementById("saveNoteBtn").addEventListener("click", async () => {
+      if (!currentUser) return;
+      const title = document.getElementById("noteTitleInput").value.trim() || "Untitled Note";
+      const body = document.getElementById("noteBodyInput").value;
+
+      if (!activeNoteId) {
+        const created = { id: "note_" + Date.now(), title, body, updatedAt: Date.now() };
+        currentUser.notes.unshift(created);
+        activeNoteId = created.id;
+      } else {
+        const target = currentUser.notes.find(n => n.id === activeNoteId);
+        if (target) { target.title = title; target.body = body; target.updatedAt = Date.now(); }
+      }
+      document.getElementById("noteSaveStatus").textContent = "✓ Synced to Cloud";
+      renderNotesVault();
+      await saveUserToCloud(currentUser);
+    });
+
+    document.getElementById("deleteNoteBtn").addEventListener("click", async () => {
+      if (!currentUser || !activeNoteId) return;
+      currentUser.notes = currentUser.notes.filter(n => n.id !== activeNoteId);
+      activeNoteId = currentUser.notes[0] ? currentUser.notes[0].id : null;
+      renderNotesVault();
+      await saveUserToCloud(currentUser);
+    });
+
+    document.getElementById("noteSearchInput").addEventListener("input", (e) => renderNotesVault(e.target.value.trim()));
+
+    // ================= 6-CHAMBER REVOLVER STUDY ROULETTE GAME =================
+    const NEET_BULLET_QUESTIONS = [
+      { q: "Which cranial nerve has the longest distribution in the human body?", opts: ["Vagus Nerve (X)", "Optic Nerve (II)", "Trigeminal (V)", "Facial (VII)"], ans: 0 },
+      { q: "Dimension of Planck's constant (h) is the same as that of:", opts: ["Angular Momentum", "Linear Momentum", "Force", "Power"], ans: 0 },
+      { q: "Which compound gives a positive Iodoform test?", opts: ["Ethanol (CH3CH2OH)", "Methanol (CH3OH)", "Methanal (HCHO)", "Diethyl ether"], ans: 0 },
+      { q: "Pacemaker of the human heart is:", opts: ["SA Node", "AV Node", "Bundle of His", "Purkinje Fibres"], ans: 0 },
+      { q: "In an isothermal expansion of an ideal gas, ΔU (change in internal energy) is:", opts: ["Zero", "Positive", "Negative", "Infinite"], ans: 0 },
+      { q: "Which hormone is responsible for milk ejection (let-down reflex)?", opts: ["Oxytocin", "Prolactin", "Estrogen", "FSH"], ans: 0 }
+    ];
+
+    let bulletPosition = Math.floor(Math.random() * 6);
+    let currentChamber = 0;
+    let survivalStreak = 0;
+    let cylinderAngle = 0;
+
+    function updateCylinderVisuals(hitIndex = -1) {
+      for (let i = 0; i < 6; i++) {
+        const el = document.getElementById(`chamber${i}`);
+        if (i === hitIndex) el.className = "w-10 h-10 rounded-full bg-rose-600 border-2 border-white absolute " + el.className.split("absolute ")[1];
+        else if (i < currentChamber) el.className = "w-10 h-10 rounded-full bg-emerald-500/30 border-2 border-emerald-400 absolute " + el.className.split("absolute ")[1];
+        else el.className = "w-10 h-10 rounded-full bg-slate-900 border-2 border-slate-600 absolute " + el.className.split("absolute ")[1];
+      }
+      document.getElementById("rouletteChamberText").textContent = `${Math.min(6, currentChamber + 1)} / 6`;
+      document.getElementById("rouletteStreakText").textContent = String(survivalStreak);
+      document.getElementById("rouletteXpText").textContent = `${(currentUser && currentUser.rouletteXp) || 0} XP`;
+    }
+
+    document.getElementById("spinCylinderBtn").addEventListener("click", () => {
+      bulletPosition = Math.floor(Math.random() * 6);
+      currentChamber = 0;
+      cylinderAngle += 720;
+      document.getElementById("revolverCylinder").style.transform = `rotate(${cylinderAngle}deg)`;
+      document.getElementById("bulletQuizBox").classList.add("hidden");
+      document.getElementById("pullTriggerBtn").disabled = false;
+      document.getElementById("rouletteResultBanner").textContent = "🔄 Cylinder spun! 6 fresh chambers loaded. Pull the trigger!";
+      updateCylinderVisuals();
+    });
+
+    document.getElementById("pullTriggerBtn").addEventListener("click", async () => {
+      cylinderAngle += 60;
+      document.getElementById("revolverCylinder").style.transform = `rotate(${cylinderAngle}deg)`;
+
+      if (currentChamber === bulletPosition) {
+        // Bullet Chamber Hit! Trigger NEET Defusal Quiz
+        updateCylinderVisuals(currentChamber);
+        document.getElementById("pullTriggerBtn").disabled = true;
+        document.getElementById("rouletteResultBanner").textContent = "💥 CHAMBER FIRED! Defuse the NEET Bullet below to keep your streak alive!";
+        const qObj = NEET_BULLET_QUESTIONS[Math.floor(Math.random() * NEET_BULLET_QUESTIONS.length)];
+        document.getElementById("bulletQuestionText").textContent = qObj.q;
+        document.getElementById("bulletOptionsList").innerHTML = qObj.opts.map((opt, idx) => `
+          <button type="button" onclick="answerBulletQuiz(${idx === qObj.ans})" class="clicky p-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-rose-500/40 text-xs font-bold text-white text-left">
+            ${opt}
+          </button>
+        `).join("");
+        document.getElementById("bulletQuizBox").classList.remove("hidden");
+      } else {
+        // Safe Click!
+        currentChamber++;
+        survivalStreak++;
+        if (currentUser) {
+          currentUser.rouletteXp = (currentUser.rouletteXp || 0) + 15;
+          saveUserToCloud(currentUser);
+        }
+        document.getElementById("rouletteResultBanner").textContent = `😮‍💨 *CLICK!* Chamber ${currentChamber} was empty! +15 XP earned.`;
+        updateCylinderVisuals();
+      }
+    });
+
+    window.answerBulletQuiz = async function(isCorrect) {
+      document.getElementById("bulletQuizBox").classList.add("hidden");
+      if (isCorrect) {
+        survivalStreak++;
+        if (currentUser) {
+          currentUser.rouletteXp = (currentUser.rouletteXp || 0) + 50;
+          await saveUserToCloud(currentUser);
+        }
+        document.getElementById("rouletteResultBanner").textContent = "🛡️ BULLET DEFUSED! Correct NEET answer (+50 XP)! Spin cylinder for next round.";
+      } else {
+        survivalStreak = 0;
+        document.getElementById("rouletteResultBanner").textContent = "💀 Wrong answer! Streak reset to 0. Spin the cylinder to try again!";
+      }
+      updateCylinderVisuals();
+    };
+
+    // ================= NAVIGATION CONTROLLER =================
+    const views = {
+      dashboard: document.getElementById("dashboardView"),
+      syllabus: document.getElementById("syllabusView"),
+      leaderboard: document.getElementById("leaderboardView"),
+      notes: document.getElementById("notesView"),
+      game: document.getElementById("gameView")
+    };
+
+    function showView(name) {
+      Object.keys(views).forEach(k => views[k].classList.toggle("hidden", k !== name));
+      if (name === "syllabus") renderSyllabusTree(document.getElementById("syllabusSearchInput").value.trim());
+      if (name === "leaderboard") renderFastLeaderboard();
+      if (name === "notes") renderNotesVault();
+      if (name === "game") updateCylinderVisuals();
+    }
+
+    document.getElementById("navDashboardBtn").addEventListener("click", () => showView("dashboard"));
+    document.getElementById("navSyllabusBtn").addEventListener("click", () => showView("syllabus"));
+    document.getElementById("dashSyllabusCard").addEventListener("click", () => showView("syllabus"));
+    document.getElementById("navLeaderboardBtn").addEventListener("click", () => showView("leaderboard"));
+    document.getElementById("navNotesBtn").addEventListener("click", () => showView("notes"));
+    document.getElementById("navGameBtn").addEventListener("click", () => showView("game"));
+
+    // Auto-Login on Page Load
     const saved = localStorage.getItem("studypunch_current_user");
     if (saved) {
       try {
@@ -1650,10 +1776,8 @@
           fetchUserFromCloud(parsed.id).then(cloudData => {
             if (cloudData) {
               currentUser = cloudData;
-              if (!currentUser.syllabusChecked) currentUser.syllabusChecked = {};
               saveLocalUser(cloudData);
               renderDashboard();
-              renderSyllabusTree(document.getElementById("syllabusSearchInput").value.trim());
             }
           });
         }
