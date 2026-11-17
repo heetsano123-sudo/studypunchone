@@ -3,19 +3,50 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>StudyPunch — Zero-Distraction Clock, DOT AI, Spider Syllabus & Multiplayer Revolver</title>
+  <title>StudyPunch — Tactical NEET 2027 Command Center & Web Analytics</title>
+  <meta name="description" content="StudyPunch is a cloud-synced NEET 2027 preparation command center featuring a Zero-Distraction Blackout Punch Clock, DOT AI Syllabus Recommender, 4-Chart Web Analytics, Spider-Web Topic Tracker, Live Friend Leaderboard, and 6-Chamber Study Roulette." />
+  <meta name="theme-color" content="#10b981" />
+  <meta property="og:title" content="StudyPunch — Tactical NEET 2027 Study Hub & Live Arena" />
+  <meta property="og:description" content="Clock in with zero distractions, track the entire NEET 2027 syllabus on an interactive Spider Web, analyze multi-chart telemetry, and compete live with friends." />
+  <meta property="og:url" content="https://studypunchone.vercel.app" />
+  <meta property="og:type" content="website" />
+
+  <!-- Custom StudyPunch Tactical Sunset & Emerald SVG Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%230f172a'/%3E%3Cstop offset='50%25' stop-color='%231e1b4b'/%3E%3Cstop offset='100%25' stop-color='%23020617'/%3E%3C/linearGradient%3E%3ClinearGradient id='accent' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2310b981'/%3E%3Cstop offset='100%25' stop-color='%23f59e0b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='24' fill='url(%23bg)' stroke='url(%23accent)' stroke-width='5'/%3E%3Ccircle cx='50' cy='52' r='30' fill='none' stroke='%2310b981' stroke-width='4' stroke-dasharray='150 40'/%3E%3Cpath d='M42 20 H58 M50 20 V26' stroke='%23f59e0b' stroke-width='5' stroke-linecap='round'/%3E%3Cpath d='M54 34 L40 54 H52 L46 72 L62 50 H50 Z' fill='url(%23accent)'/%3E%3C/svg%3E" />
+
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,600;1,800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet" />
   <style>
+    /* Obsidian Cyber-Medical & Sunset Gold Theme */
     body {
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background: radial-gradient(circle at top, #0f172a 0%, #020617 100%);
+      background-color: #020617;
+      background-image: 
+        radial-gradient(at 50% 0%, rgba(99, 102, 241, 0.16) 0px, transparent 55%),
+        radial-gradient(at 90% 10%, rgba(16, 185, 129, 0.12) 0px, transparent 45%),
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 36px 36px, 36px 36px;
       min-height: 100vh;
       color: #f8fafc;
       overflow-x: hidden;
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #020617;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #10b981;
     }
     .mono-nums {
       font-family: 'JetBrains Mono', monospace;
@@ -68,7 +99,7 @@
     }
   </style>
 </head>
-<body class="antialiased selection:bg-emerald-500 selection:text-black">
+<body class="antialiased selection:bg-emerald-500 selection:text-black flex flex-col min-h-screen">
 
   <!-- ================= PITCH-BLACK ZERO-DISTRACTION OVERLAY ================= -->
   <div id="zeroDistractionOverlay" class="hidden fixed inset-0 bg-black z-[100] flex flex-col items-center justify-center p-6 select-none">
@@ -96,22 +127,38 @@
   </div>
 
   <!-- ================= AUTHENTICATION SCREEN ================= -->
-  <div id="authScreen" class="min-h-screen flex flex-col items-center justify-center p-4">
+  <div id="authScreen" class="flex-1 flex flex-col items-center justify-center p-4">
     <div class="bg-slate-900/90 backdrop-blur-xl rounded-3xl shadow-2xl w-full max-w-md p-7 sm:p-8 border border-slate-800">
       
       <div class="flex items-center justify-between mb-6">
         <div class="flex items-center gap-3">
-          <div class="w-11 h-11 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-extrabold text-xl shadow-sm">
-            ⚡
+          <!-- Custom StudyPunch SVG Emblem -->
+          <div class="w-12 h-12 rounded-2xl bg-slate-950 border border-emerald-500/40 flex items-center justify-center shadow-[0_0_20px_rgba(16,185,129,0.25)] overflow-hidden p-1.5">
+            <svg viewBox="0 0 100 100" class="w-full h-full">
+              <defs>
+                <linearGradient id="spGradAuth" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#10b981" />
+                  <stop offset="100%" stop-color="#f59e0b" />
+                </linearGradient>
+              </defs>
+              <circle cx="50" cy="54" r="34" fill="none" stroke="url(#spGradAuth)" stroke-width="7" stroke-dasharray="170 40" stroke-linecap="round"/>
+              <path d="M40 16 H60 M50 16 V23" stroke="#f59e0b" stroke-width="7" stroke-linecap="round"/>
+              <path d="M55 32 L38 55 H51 L45 76 L64 51 H51 Z" fill="url(#spGradAuth)"/>
+            </svg>
           </div>
           <div>
             <h1 class="text-xl font-black text-white tracking-tight">StudyPunch</h1>
-            <p class="text-xs text-slate-400">DOT AI • Spider Syllabus • Live Arena</p>
+            <p class="text-xs text-slate-400">DOT AI • Web Analytics • Live Arena</p>
           </div>
         </div>
         <span id="cloudBadge" class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
           Cloud Ready
         </span>
+      </div>
+
+      <!-- Theme Description Banner -->
+      <div class="mb-5 p-3 rounded-2xl bg-slate-950/90 border border-slate-800/80 text-[11px] text-slate-400 leading-relaxed">
+        ⚡ <strong class="text-slate-200">NEET 2027 Command Hub:</strong> Zero-Distraction Blackout Timer, DOT AI Next-Topic Engine, 4-Chart Web Telemetry, Spider Syllabus & Multiplayer Revolver Quiz.
       </div>
 
       <button id="googleLoginBtn" type="button" class="clicky w-full flex items-center justify-center gap-3 bg-white hover:bg-slate-100 text-slate-900 font-bold py-3 px-4 rounded-xl shadow-md mb-4">
@@ -181,13 +228,24 @@
   </div>
 
   <!-- ================= MAIN APPLICATION SHELL ================= -->
-  <div id="appScreen" class="hidden min-h-screen flex flex-col">
+  <div id="appScreen" class="hidden flex-1 flex flex-col">
     <!-- Top Tactical Navigation Bar -->
     <header class="bg-slate-950/90 backdrop-blur-lg border-b border-slate-800/80 sticky top-0 z-40">
       <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
         <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-xl bg-emerald-500/15 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-black">
-            ⚡
+          <!-- Custom StudyPunch SVG Emblem -->
+          <div class="w-10 h-10 rounded-xl bg-slate-950 border border-emerald-500/40 flex items-center justify-center shadow-[0_0_15px_rgba(16,185,129,0.25)] overflow-hidden p-1.5">
+            <svg viewBox="0 0 100 100" class="w-full h-full">
+              <defs>
+                <linearGradient id="spGradNav" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#10b981" />
+                  <stop offset="100%" stop-color="#f59e0b" />
+                </linearGradient>
+              </defs>
+              <circle cx="50" cy="54" r="34" fill="none" stroke="url(#spGradNav)" stroke-width="7" stroke-dasharray="170 40" stroke-linecap="round"/>
+              <path d="M40 16 H60 M50 16 V23" stroke="#f59e0b" stroke-width="7" stroke-linecap="round"/>
+              <path d="M55 32 L38 55 H51 L45 76 L64 51 H51 Z" fill="url(#spGradNav)"/>
+            </svg>
           </div>
           <div>
             <div class="flex items-center gap-2">
@@ -201,7 +259,7 @@
 
         <div class="flex flex-wrap items-center gap-1.5">
           <button id="navDashboardBtn" type="button" class="clicky px-3.5 py-2 rounded-xl text-xs font-extrabold bg-emerald-600 text-white shadow-sm">
-            ⏱️ Clock-In & DOT
+            ⏱️ Clock-In & Analytics
           </button>
           <button id="navSyllabusBtn" type="button" class="clicky px-3.5 py-2 rounded-xl text-xs font-extrabold bg-slate-900 text-slate-300 hover:bg-slate-800 border border-slate-800">
             🕸️ Spider Syllabus
@@ -223,9 +281,10 @@
       </div>
     </header>
 
-    <!-- ================= VIEW 1: CENTER CLOCK-IN + DOT AI ENGINE ================= -->
+    <!-- ================= VIEW 1: CENTER CLOCK-IN + DOT AI + MULTI-CHART WEB ANALYTICS ================= -->
     <main id="dashboardView" class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 space-y-6">
       
+      <!-- CENTER STAGE: ZERO-DISTRACTION CLOCK-IN LAUNCHER -->
       <div class="max-w-2xl mx-auto bg-gradient-to-b from-slate-900 to-slate-950 rounded-3xl p-7 sm:p-9 shadow-2xl border border-emerald-500/30 text-center relative overflow-hidden">
         <div class="flex items-center justify-between mb-4">
           <span class="text-[11px] font-extrabold uppercase tracking-widest text-emerald-400">⚡ Center Command Clock</span>
@@ -239,7 +298,7 @@
         </div>
 
         <div class="max-w-md mx-auto mb-6">
-          <input id="sessionSubjectInput" type="text" placeholder="What are you locking in on? (e.g. Rotational Motion / GOC)" class="w-full px-4 py-3 rounded-2xl bg-slate-950 border border-slate-800 text-white text-center text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+          <input id="sessionSubjectInput" type="text" placeholder="What are you locking in on? (e.g. Physics: Rotational Motion / Bio: Genetics)" class="w-full px-4 py-3 rounded-2xl bg-slate-950 border border-slate-800 text-white text-center text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
         </div>
 
         <div class="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto">
@@ -275,6 +334,7 @@
         <div id="dotRecommendationsGrid" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
       </div>
 
+      <!-- Quick Metrics Row -->
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="bg-slate-900/80 rounded-2xl p-5 border border-slate-800">
           <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Today's Focus</p>
@@ -304,21 +364,66 @@
         </div>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- ================= EXPANDED WEB ANALYTICS SUITE (3 CHARTS) ================= -->
+      <div class="bg-slate-900/90 rounded-3xl p-6 border border-slate-800 shadow-xl space-y-6">
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-4">
+          <div>
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-widest bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">Live Web Telemetry</span>
+            <h3 class="text-lg font-black text-white mt-1">📊 Multi-Chart Study Performance Analysis</h3>
+          </div>
+          <p class="text-xs text-slate-400">Automatically analyzes your sessions by day, subject balance, and 14-day momentum</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Chart 1: Last 7 Days Daily Output Bar Chart -->
+          <div class="bg-slate-950/80 rounded-2xl p-5 border border-slate-800/80 flex flex-col justify-between">
+            <div>
+              <h4 class="text-sm font-extrabold text-white">1. Last 7 Days Study Output</h4>
+              <p class="text-[11px] text-slate-400 mb-3">Daily hours logged vs consistency</p>
+            </div>
+            <div class="h-56 w-full">
+              <canvas id="studyChartCanvas"></canvas>
+            </div>
+          </div>
+
+          <!-- Chart 2: Subject Time-Split Doughnut Chart -->
+          <div class="bg-slate-950/80 rounded-2xl p-5 border border-slate-800/80 flex flex-col justify-between">
+            <div>
+              <h4 class="text-sm font-extrabold text-white">2. Subject Time Distribution</h4>
+              <p class="text-[11px] text-slate-400 mb-3">Physics vs Chemistry vs Biology vs General</p>
+            </div>
+            <div class="h-56 w-full flex items-center justify-center">
+              <canvas id="subjectDoughnutCanvas"></canvas>
+            </div>
+          </div>
+
+          <!-- Chart 3: 14-Day Study Velocity & Target Trend Line Chart -->
+          <div class="bg-slate-950/80 rounded-2xl p-5 border border-slate-800/80 flex flex-col justify-between">
+            <div>
+              <h4 class="text-sm font-extrabold text-white">3. 14-Day Study Velocity Curve</h4>
+              <p class="text-[11px] text-slate-400 mb-3">2-week momentum trajectory (hours/day)</p>
+            </div>
+            <div class="h-56 w-full">
+              <canvas id="velocityLineCanvas"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Manual Entry + Timesheet History Row -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div class="bg-slate-900/80 rounded-2xl p-6 border border-slate-800 flex flex-col justify-between">
           <div>
             <h3 class="text-base font-black text-white mb-1">✍️ Log Past Study Session Manually</h3>
-            <p class="text-xs text-slate-400 mb-4">Studied offline without the timer? Log it here to update DOT and Leaderboard.</p>
+            <p class="text-xs text-slate-400 mb-4">Include "Physics", "Chem", or "Bio" in the topic name to feed the Subject Doughnut chart!</p>
             <form id="manualEntryForm" class="space-y-3">
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                  <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1">Date</label>
-                  <input id="manualDate" type="date" required class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs" />
-                </div>
-                <div>
-                  <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1">Subject / Topic</label>
-                  <input id="manualSubject" type="text" required placeholder="e.g. Chemical Equilibrium" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs" />
-                </div>
+              <div>
+                <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1">Date</label>
+                <input id="manualDate" type="date" required class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs" />
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1">Subject / Topic</label>
+                <input id="manualSubject" type="text" required placeholder="e.g. Physics: Rotational Motion" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs" />
               </div>
               <div class="grid grid-cols-2 gap-3">
                 <div>
@@ -337,42 +442,34 @@
           </div>
 
           <div class="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between">
-            <span class="text-xs text-slate-400">Need a spreadsheet backup?</span>
+            <span class="text-xs text-slate-400">Spreadsheet backup:</span>
             <button id="exportCsvBtn" type="button" class="clicky px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-800 hover:bg-slate-700 text-slate-200">
-              ⬇ Export Timesheet CSV
+              ⬇ Export CSV
             </button>
           </div>
         </div>
 
-        <div class="bg-slate-900/80 rounded-2xl p-6 border border-slate-800">
-          <h3 class="text-base font-black text-white mb-1">📊 Last 7 Days Output</h3>
-          <p class="text-xs text-slate-400 mb-4">Daily study hours logged</p>
-          <div class="h-56 w-full">
-            <canvas id="studyChartCanvas"></canvas>
+        <div class="lg:col-span-2 bg-slate-900/80 rounded-2xl p-6 border border-slate-800">
+          <h3 class="text-base font-black text-white mb-4">🕒 My Study Timesheet Log</h3>
+          <div class="overflow-x-auto max-h-80">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="border-b border-slate-800 text-[11px] uppercase tracking-wider text-slate-400">
+                  <th class="py-2.5 px-4">Date</th>
+                  <th class="py-2.5 px-4">Topic</th>
+                  <th class="py-2.5 px-4">Mode</th>
+                  <th class="py-2.5 px-4 text-right">Duration</th>
+                  <th class="py-2.5 px-4 text-right">Delete</th>
+                </tr>
+              </thead>
+              <tbody id="timesheetTableBody" class="text-xs divide-y divide-slate-800/60"></tbody>
+            </table>
           </div>
-        </div>
-      </div>
-
-      <div class="bg-slate-900/80 rounded-2xl p-6 border border-slate-800">
-        <h3 class="text-base font-black text-white mb-4">🕒 My Study Timesheet Log</h3>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left border-collapse">
-            <thead>
-              <tr class="border-b border-slate-800 text-[11px] uppercase tracking-wider text-slate-400">
-                <th class="py-2.5 px-4">Date</th>
-                <th class="py-2.5 px-4">Topic</th>
-                <th class="py-2.5 px-4">Mode</th>
-                <th class="py-2.5 px-4 text-right">Duration</th>
-                <th class="py-2.5 px-4 text-right">Delete</th>
-              </tr>
-            </thead>
-            <tbody id="timesheetTableBody" class="text-xs divide-y divide-slate-800/60"></tbody>
-          </table>
         </div>
       </div>
     </main>
 
-    <!-- ================= VIEW 2: SPIDER-WEB SYLLABUS + TOP SEARCH BAR ================= -->
+    <!-- ================= VIEW 2: SPIDER-WEB SYLLABUS + RADAR & BAR ANALYTICS ================= -->
     <section id="syllabusView" class="hidden flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 space-y-6">
       
       <div class="bg-slate-900/95 backdrop-blur-xl rounded-3xl p-5 shadow-2xl border border-slate-800 sticky top-16 z-30">
@@ -391,11 +488,12 @@
         </div>
       </div>
 
+      <!-- Visual Spider-Web Radar + Subject Mastery Horizontal Bar Chart -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div class="bg-slate-900/90 rounded-3xl p-6 border border-slate-800 flex flex-col items-center justify-center">
-          <h3 class="text-sm font-black uppercase tracking-wider text-indigo-400 mb-2">🕸️ Live Spider-Web Mastery Map</h3>
-          <p class="text-[11px] text-slate-400 text-center mb-3">Each axis expands outward as you tick sub-topics</p>
-          <div class="w-full max-w-[290px] aspect-square">
+          <h3 class="text-sm font-black uppercase tracking-wider text-indigo-400 mb-1">🕸️ Spider-Web Radar Map</h3>
+          <p class="text-[11px] text-slate-400 text-center mb-3">7-Axis Unit Mastery Footprint</p>
+          <div class="w-full max-w-[270px] aspect-square">
             <canvas id="spiderWebCanvas"></canvas>
           </div>
         </div>
@@ -405,7 +503,7 @@
             <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
               <div>
                 <span class="px-2.5 py-1 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-extrabold text-xs">NEET 2027 Interactive Web</span>
-                <h2 class="text-xl font-black text-white mt-2">Spider-Node Syllabus Tracker</h2>
+                <h2 class="text-xl font-black text-white mt-2">Spider-Node Syllabus Telemetry</h2>
                 <p id="reassuranceMsg" class="text-xs text-slate-400 mt-1">Tick any node below to expand your spider web and feed the DOT recommendation engine.</p>
               </div>
               <div class="text-right">
@@ -414,15 +512,19 @@
               </div>
             </div>
 
-            <div class="w-full bg-slate-950 h-3.5 rounded-full overflow-hidden mb-6 border border-slate-800">
+            <div class="w-full bg-slate-950 h-3.5 rounded-full overflow-hidden mb-5 border border-slate-800">
               <div id="overallSyllabusBar" class="bg-gradient-to-r from-indigo-500 via-emerald-400 to-amber-400 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
             </div>
 
-            <div id="subjectSummaryCards" class="grid grid-cols-1 sm:grid-cols-3 gap-4"></div>
-          </div>
+            <div id="subjectSummaryCards" class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5"></div>
 
-          <div class="mt-6 pt-4 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-400">
-            <span>💡 Tip: Click **"⚡ Clock In"** next to any sub-topic node to jump straight into Blackout Focus Mode for that topic!</span>
+            <!-- Chart 4: Subject Syllabus Completion Bar Chart -->
+            <div class="bg-slate-950/70 rounded-2xl p-4 border border-slate-800/80">
+              <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">📊 Subject-Wise Syllabus Completion Breakdown</p>
+              <div class="h-32 w-full">
+                <canvas id="syllabusSubjectBarCanvas"></canvas>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -511,10 +613,7 @@
     <!-- ================= VIEW 5: MULTIPLAYER & TOPIC-TARGETED REVOLVER ROULETTE ================= -->
     <section id="gameView" class="hidden flex-1 max-w-6xl w-full mx-auto p-4 sm:p-6 space-y-6">
       
-      <!-- Top Control Deck: Add Players + Select Subject & Topic Bullets -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        
-        <!-- Panel A: Multiplayer Table Roster (+ Add Player Button) -->
         <div class="bg-slate-900/95 rounded-3xl p-6 border border-amber-500/30 shadow-xl flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between mb-3">
@@ -527,7 +626,6 @@
               </button>
             </div>
 
-            <!-- Add Player Input & Button -->
             <form id="addPlayerForm" class="flex gap-2 mb-4">
               <input id="newPlayerNameInput" type="text" maxlength="18" placeholder="Enter friend's name (e.g. Aarav, Riya)..." class="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
               <button type="submit" class="clicky px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs whitespace-nowrap shadow-md">
@@ -535,7 +633,6 @@
               </button>
             </form>
 
-            <!-- Active Players List -->
             <div id="playersListContainer" class="space-y-2 max-h-52 overflow-y-auto pr-1"></div>
           </div>
 
@@ -544,13 +641,11 @@
           </p>
         </div>
 
-        <!-- Panel B: Subject & Topic Bullet Selector Buttons -->
         <div class="bg-slate-900/95 rounded-3xl p-6 border border-indigo-500/30 shadow-xl flex flex-col justify-between">
           <div>
             <span class="text-[10px] font-black uppercase tracking-widest text-indigo-400">🎯 Custom Ammunition Loader</span>
             <h3 class="text-lg font-black text-white mb-3">Select Subject & Topic for Bullet Questions</h3>
 
-            <!-- Subject Filter Buttons -->
             <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">1. Choose Subject</label>
             <div id="gameSubjectBtnGroup" class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
               <button type="button" data-subj="ALL" class="game-subj-btn clicky py-2.5 px-3 rounded-xl text-xs font-black bg-indigo-600 text-white border border-indigo-400">
@@ -567,7 +662,6 @@
               </button>
             </div>
 
-            <!-- Topic Filter Buttons -->
             <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">2. Choose Specific Topic</label>
             <div id="gameTopicBtnGroup" class="flex flex-wrap gap-2"></div>
           </div>
@@ -579,7 +673,6 @@
         </div>
       </div>
 
-      <!-- Center Arena: Revolving Cylinder & Trigger Showdown -->
       <div class="bg-slate-900/95 rounded-3xl p-6 sm:p-8 border border-amber-500/30 shadow-2xl text-center">
         <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-xs font-black uppercase tracking-wider">
           <span>🔫 Current Turn:</span>
@@ -629,7 +722,6 @@
           </button>
         </div>
 
-        <!-- Bullet Question Defusal Modal Box with 10s Countdown -->
         <div id="bulletQuizBox" class="hidden mt-6 p-6 rounded-2xl bg-rose-950/60 border-2 border-rose-500 text-left shadow-2xl">
           <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
             <div class="flex items-center gap-2">
@@ -649,7 +741,14 @@
     </section>
   </div>
 
-  <!-- ================= FIREBASE, GOOGLE DRIVE, DOT & MULTIPLAYER GAME ENGINE ================= -->
+  <!-- ================= GLOBAL SIGNATURE FOOTER (ITALIC HEET) ================= -->
+  <footer class="w-full py-5 px-4 border-t border-slate-900/90 bg-slate-950/80 text-center mt-auto">
+    <p class="text-xs text-slate-500 tracking-wide">
+      StudyPunch Tactical NEET 2027 Command Hub • Crafted by <i class="font-extrabold text-emerald-400 tracking-wider text-sm">heet</i>
+    </p>
+  </footer>
+
+  <!-- ================= FIREBASE, GOOGLE DRIVE, DOT & MULTI-CHART ANALYTICS ENGINE ================= -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
     import { getFirestore, doc, getDoc, setDoc, collection, getDocs, onSnapshot, enableIndexedDbPersistence } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
@@ -792,8 +891,14 @@
     let googleProvider = null;
     let currentUser = null;
     let timerInterval = null;
+
+    // Chart.js Instances
     let studyChart = null;
+    let subjectDoughnutChart = null;
+    let velocityLineChart = null;
     let spiderChart = null;
+    let syllabusSubjectBarChart = null;
+
     let allCloudUsersCache = {};
     let leaderboardLiveOnly = false;
 
@@ -1010,7 +1115,6 @@
       if (!Array.isArray(currentUser.sessions)) currentUser.sessions = [];
       if (!currentUser.syllabusChecked) currentUser.syllabusChecked = {};
       if (!Array.isArray(currentUser.notes)) currentUser.notes = [];
-      // Initialize first player in Revolver Game with logged-in user's name
       if (partyPlayers.length === 1 && partyPlayers[0].name === "Player 1") {
         partyPlayers[0].name = currentUser.name || "Player 1";
       }
@@ -1183,7 +1287,7 @@
 
       renderDotRecommendations();
       renderTimesheetTable();
-      renderSevenDayChart();
+      renderMultiChartWebAnalytics();
     }
 
     async function triggerClockIn(customSubject) {
@@ -1288,29 +1392,133 @@
       }).join("");
     }
 
-    function renderSevenDayChart() {
-      const ctx = document.getElementById("studyChartCanvas").getContext("2d");
-      const labels = [];
-      const dataHours = [];
+    // ================= MULTI-CHART WEB ANALYTICS ENGINE =================
+    function classifySessionSubject(subjText = "") {
+      const t = subjText.toLowerCase();
+      if (t.includes("phys") || t.includes("rotat") || t.includes("optic") || t.includes("kinemat") || t.includes("electro") || t.includes("magnet") || t.includes("mechanics") || t.includes("shm") || t.includes("wave")) {
+        return "Physics";
+      }
+      if (t.includes("chem") || t.includes("goc") || t.includes("organic") || t.includes("inorganic") || t.includes("mole") || t.includes("equilib") || t.includes("thermo") || t.includes("kinetic") || t.includes("bond") || t.includes("block")) {
+        return "Chemistry";
+      }
+      if (t.includes("bio") || t.includes("botan") || t.includes("zool") || t.includes("genet") || t.includes("cell") || t.includes("plant") || t.includes("human") || t.includes("ecolog") || t.includes("reprod") || t.includes("biotech")) {
+        return "Biology";
+      }
+      return "General / Mock";
+    }
+
+    function renderMultiChartWebAnalytics() {
+      // 1. Last 7 Days Bar Chart
+      const ctx7 = document.getElementById("studyChartCanvas").getContext("2d");
+      const labels7 = [];
+      const dataHours7 = [];
       for (let i = 6; i >= 0; i--) {
         const d = new Date();
         d.setDate(d.getDate() - i);
         const dStr = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
-        labels.push(d.toLocaleDateString([], { weekday: 'short' }));
+        labels7.push(d.toLocaleDateString([], { weekday: 'short' }));
         let secs = 0;
         currentUser.sessions.forEach(s => { if (s.date === dStr) secs += Number(s.durationSeconds || 0); });
-        dataHours.push(Number((secs / 3600).toFixed(2)));
+        dataHours7.push(Number((secs / 3600).toFixed(2)));
       }
       if (studyChart) studyChart.destroy();
-      studyChart = new Chart(ctx, {
+      studyChart = new Chart(ctx7, {
         type: "bar",
-        data: { labels, datasets: [{ data: dataHours, backgroundColor: "#10b981", borderRadius: 8 }] },
+        data: { labels: labels7, datasets: [{ label: "Hours", data: dataHours7, backgroundColor: "#10b981", borderRadius: 8 }] },
         options: {
           responsive: true, maintainAspectRatio: false,
           plugins: { legend: { display: false } },
           scales: {
-            x: { ticks: { color: "#94a3b8" }, grid: { display: false } },
-            y: { beginAtZero: true, ticks: { color: "#94a3b8" }, grid: { color: "rgba(148,163,184,0.1)" } }
+            x: { ticks: { color: "#94a3b8", font: { size: 10 } }, grid: { display: false } },
+            y: { beginAtZero: true, ticks: { color: "#94a3b8", font: { size: 10 } }, grid: { color: "rgba(148,163,184,0.08)" } }
+          }
+        }
+      });
+
+      // 2. Subject Time-Split Doughnut Chart
+      const ctxDoughnut = document.getElementById("subjectDoughnutCanvas").getContext("2d");
+      const bucketSecs = { "Physics": 0, "Chemistry": 0, "Biology": 0, "General / Mock": 0 };
+      currentUser.sessions.forEach(s => {
+        const cat = classifySessionSubject(s.subject);
+        bucketSecs[cat] += Number(s.durationSeconds || 0);
+      });
+      const doughnutVals = Object.values(bucketSecs).map(sec => Number((sec / 3600).toFixed(2)));
+      const totalLogged = doughnutVals.reduce((a, b) => a + b, 0);
+
+      if (subjectDoughnutChart) subjectDoughnutChart.destroy();
+      subjectDoughnutChart = new Chart(ctxDoughnut, {
+        type: "doughnut",
+        data: {
+          labels: ["⚡ Physics", "🧪 Chemistry", "🧬 Biology", "🎯 General/Mock"],
+          datasets: [{
+            data: totalLogged > 0 ? doughnutVals : [1, 1, 1, 1],
+            backgroundColor: ["#6366f1", "#f59e0b", "#10b981", "#64748b"],
+            borderColor: "#020617",
+            borderWidth: 3
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          cutout: "64%",
+          plugins: {
+            legend: {
+              position: "bottom",
+              labels: { color: "#cbd5e1", font: { size: 10, weight: "bold" }, boxWidth: 10, padding: 10 }
+            }
+          }
+        }
+      });
+
+      // 3. 14-Day Study Velocity & Target Line Chart
+      const ctx14 = document.getElementById("velocityLineCanvas").getContext("2d");
+      const labels14 = [];
+      const dataHours14 = [];
+      const targetLine14 = [];
+      const userTarget = currentUser.targetHours || 6;
+
+      for (let i = 13; i >= 0; i--) {
+        const d = new Date();
+        d.setDate(d.getDate() - i);
+        const dStr = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+        labels14.push(d.getDate() + "/" + (d.getMonth() + 1));
+        let secs = 0;
+        currentUser.sessions.forEach(s => { if (s.date === dStr) secs += Number(s.durationSeconds || 0); });
+        dataHours14.push(Number((secs / 3600).toFixed(2)));
+        targetLine14.push(userTarget);
+      }
+
+      if (velocityLineChart) velocityLineChart.destroy();
+      velocityLineChart = new Chart(ctx14, {
+        type: "line",
+        data: {
+          labels: labels14,
+          datasets: [
+            {
+              label: "Daily Hours",
+              data: dataHours14,
+              borderColor: "#6366f1",
+              backgroundColor: "rgba(99, 102, 241, 0.18)",
+              fill: true,
+              tension: 0.35,
+              pointRadius: 3,
+              pointBackgroundColor: "#10b981"
+            },
+            {
+              label: "Target",
+              data: targetLine14,
+              borderColor: "rgba(245, 158, 11, 0.45)",
+              borderDash: [5, 5],
+              pointRadius: 0,
+              fill: false
+            }
+          ]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { ticks: { color: "#94a3b8", font: { size: 9 } }, grid: { display: false } },
+            y: { beginAtZero: true, ticks: { color: "#94a3b8", font: { size: 10 } }, grid: { color: "rgba(148,163,184,0.08)" } }
           }
         }
       });
@@ -1369,7 +1577,7 @@
       renderSyllabusTree(document.getElementById("syllabusSearchInput").value.trim());
     });
 
-    function renderSpiderWebRadar(radarLabels, radarPcts) {
+    function renderSpiderWebRadarAndBars(radarLabels, radarPcts, subjectStats) {
       const ctx = document.getElementById("spiderWebCanvas").getContext("2d");
       if (spiderChart) spiderChart.destroy();
       spiderChart = new Chart(ctx, {
@@ -1394,9 +1602,35 @@
               min: 0, max: 100,
               angleLines: { color: "rgba(99, 102, 241, 0.25)" },
               grid: { color: "rgba(148, 163, 184, 0.2)" },
-              pointLabels: { color: "#e2e8f0", font: { size: 10, weight: "bold" } },
+              pointLabels: { color: "#e2e8f0", font: { size: 9, weight: "bold" } },
               ticks: { display: false }
             }
+          }
+        }
+      });
+
+      // Chart 4: Subject Syllabus Completion Horizontal Bar Chart
+      const barCtx = document.getElementById("syllabusSubjectBarCanvas").getContext("2d");
+      if (syllabusSubjectBarChart) syllabusSubjectBarChart.destroy();
+      syllabusSubjectBarChart = new Chart(barCtx, {
+        type: "bar",
+        data: {
+          labels: subjectStats.map(s => `${s.icon} ${s.name}`),
+          datasets: [{
+            label: "Completed %",
+            data: subjectStats.map(s => s.pct),
+            backgroundColor: ["#6366f1", "#f59e0b", "#10b981"],
+            borderRadius: 6
+          }]
+        },
+        options: {
+          indexAxis: "y",
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { min: 0, max: 100, ticks: { color: "#94a3b8", font: { size: 10 } }, grid: { color: "rgba(148,163,184,0.08)" } },
+            y: { ticks: { color: "#f8fafc", font: { size: 11, weight: "bold" } }, grid: { display: false } }
           }
         }
       });
@@ -1534,7 +1768,7 @@
       `).join("");
 
       document.getElementById("syllabusTreeContainer").innerHTML = treeHtml || `<div class="p-8 text-center text-slate-500">No spider nodes match your search.</div>`;
-      renderSpiderWebRadar(radarLabels, radarPcts);
+      renderSpiderWebRadarAndBars(radarLabels, radarPcts, subjectStats);
     }
 
     // ================= FAST CLICKY LIVE LEADERBOARD =================
@@ -1709,36 +1943,27 @@
 
     // ================= MULTIPLAYER & SUBJECT/TOPIC REVOLVER ROULETTE ENGINE =================
     const NEET_BULLET_BANK = [
-      // Physics — Mechanics
       { subject: "Physics", topic: "Mechanics", q: "Dimension of Planck's constant (h) is identical to that of:", opts: ["Angular Momentum", "Linear Momentum", "Torque", "Impulse"], ans: 0 },
       { subject: "Physics", topic: "Mechanics", q: "Moment of inertia of a uniform solid sphere of mass M and radius R about its diameter is:", opts: ["(2/5) MR²", "(2/3) MR²", "(1/2) MR²", "(7/5) MR²"], ans: 0 },
       { subject: "Physics", topic: "Mechanics", q: "Escape velocity from Earth's surface is approximately:", opts: ["11.2 km/s", "7.9 km/s", "9.8 km/s", "15.0 km/s"], ans: 0 },
-      // Physics — Electrodynamics
       { subject: "Physics", topic: "Electrodynamics", q: "At resonance in a series LCR circuit, the phase difference between current and voltage is:", opts: ["0°", "90°", "45°", "180°"], ans: 0 },
       { subject: "Physics", topic: "Electrodynamics", q: "SI unit of Magnetic Flux is:", opts: ["Weber (Wb)", "Tesla (T)", "Henry (H)", "Gauss"], ans: 0 },
-      // Physics — Optics & Modern
       { subject: "Physics", topic: "Optics & Modern", q: "In Young's Double Slit Experiment, if slit separation is halved, fringe width becomes:", opts: ["Doubled", "Halved", "Four times", "Unchanged"], ans: 0 },
       { subject: "Physics", topic: "Optics & Modern", q: "Which logic gate is known as a Universal Gate?", opts: ["NAND Gate", "OR Gate", "AND Gate", "XOR Gate"], ans: 0 },
 
-      // Chemistry — Physical
       { subject: "Chemistry", topic: "Physical Chemistry", q: "In an isothermal expansion of an ideal gas, ΔU (change in internal energy) is:", opts: ["Zero", "Positive", "Negative", "Equal to work done"], ans: 0 },
       { subject: "Chemistry", topic: "Physical Chemistry", q: "Unit of rate constant for a Zero Order reaction is:", opts: ["mol L⁻¹ s⁻¹", "s⁻¹", "L mol⁻¹ s⁻¹", "mol² L⁻² s⁻¹"], ans: 0 },
       { subject: "Chemistry", topic: "Physical Chemistry", q: "Which concentration term is independent of temperature?", opts: ["Molality (m)", "Molarity (M)", "Normality (N)", "Formality"], ans: 0 },
-      // Chemistry — Inorganic
       { subject: "Chemistry", topic: "Inorganic Chemistry", q: "According to VSEPR theory, the shape of XeF4 is:", opts: ["Square Planar", "Tetrahedral", "See-Saw", "Octahedral"], ans: 0 },
       { subject: "Chemistry", topic: "Inorganic Chemistry", q: "Which element has the highest electronegativity in the periodic table?", opts: ["Fluorine (F)", "Oxygen (O)", "Chlorine (Cl)", "Nitrogen (N)"], ans: 0 },
-      // Chemistry — Organic
       { subject: "Chemistry", topic: "Organic Chemistry", q: "Which of the following compounds gives a positive Iodoform test?", opts: ["Ethanol (CH3CH2OH)", "Methanol (CH3OH)", "Formaldehyde (HCHO)", "Diethyl ether"], ans: 0 },
       { subject: "Chemistry", topic: "Organic Chemistry", q: "Conversion of Phenol to Salicylaldehyde using CHCl3 and NaOH is called:", opts: ["Reimer-Tiemann Reaction", "Kolbe's Reaction", "Wurtz Reaction", "Cannizzaro Reaction"], ans: 0 },
 
-      // Biology — Cell & Plant
       { subject: "Biology", topic: "Cell & Plant Biology", q: "Which cell organelle is known as the 'Suicidal Bag' of the cell?", opts: ["Lysosome", "Ribosome", "Peroxisome", "Golgi Apparatus"], ans: 0 },
       { subject: "Biology", topic: "Cell & Plant Biology", q: "First stable product of CO2 fixation in C4 pathway (Hatch-Slack cycle) is:", opts: ["Oxaloacetic acid (OAA)", "PGA (3-phosphoglyceric acid)", "RuBP", "Malic acid"], ans: 0 },
-      // Biology — Human Physiology
       { subject: "Biology", topic: "Human Physiology", q: "Natural pacemaker of the human heart is:", opts: ["SA Node", "AV Node", "Bundle of His", "Purkinje Fibres"], ans: 0 },
       { subject: "Biology", topic: "Human Physiology", q: "Which cranial nerve has the longest and widest distribution in the body?", opts: ["Vagus Nerve (X)", "Optic Nerve (II)", "Facial Nerve (VII)", "Trigeminal (V)"], ans: 0 },
       { subject: "Biology", topic: "Human Physiology", q: "Which hormone causes milk ejection (let-down reflex) from mammary glands?", opts: ["Oxytocin", "Prolactin", "Progesterone", "Relaxin"], ans: 0 },
-      // Biology — Genetics & Biotech
       { subject: "Biology", topic: "Genetics & Biotech", q: "Thermostable DNA polymerase (Taq polymerase) used in PCR is isolated from:", opts: ["Thermus aquaticus", "Escherichia coli", "Bacillus thuringiensis", "Agrobacterium"], ans: 0 },
       { subject: "Biology", topic: "Genetics & Biotech", q: "In Lac Operon, lactose acts as an:", opts: ["Inducer", "Repressor", "Corepressor", "Operator"], ans: 0 }
     ];
@@ -1760,7 +1985,6 @@
     let cylinderAngle = 0;
     let bulletCountdownInterval = null;
 
-    // Render Multiplayer Roster
     function renderPlayersRoster() {
       const container = document.getElementById("playersListContainer");
       const alivePlayers = partyPlayers.filter(p => p.hearts > 0);
@@ -1828,7 +2052,6 @@
       updateCylinderVisuals();
     });
 
-    // Render Subject & Topic Selector Buttons
     function renderGameTopicButtons() {
       const topics = TOPIC_MAP_BY_SUBJECT[selectedGameSubject] || TOPIC_MAP_BY_SUBJECT.ALL;
       if (!topics.includes(selectedGameTopic)) selectedGameTopic = "ALL";
@@ -1909,7 +2132,6 @@
       const activePlayer = partyPlayers[currentTurnIndex] || partyPlayers[0];
       const qObj = pickFilteredBulletQuestion();
 
-      // Shuffle options while tracking correct answer
       const indexedOpts = qObj.opts.map((text, idx) => ({ text, isCorrect: idx === qObj.ans }));
       indexedOpts.sort(() => Math.random() - 0.5);
 
@@ -1998,7 +2220,6 @@
       renderPlayersRoster();
     };
 
-    // Initialize Topic Buttons & Roster
     renderGameTopicButtons();
     renderPlayersRoster();
 
@@ -2013,6 +2234,7 @@
 
     function showView(name) {
       Object.keys(views).forEach(k => views[k].classList.toggle("hidden", k !== name));
+      if (name === "dashboard") renderMultiChartWebAnalytics();
       if (name === "syllabus") renderSyllabusTree(document.getElementById("syllabusSearchInput").value.trim());
       if (name === "leaderboard") renderFastLeaderboard();
       if (name === "notes") renderNotesVault();
