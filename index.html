@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>StudyPunch — Zero-Distraction Clock, DOT AI, Spider Syllabus & Live Arena</title>
+  <title>StudyPunch — Zero-Distraction Clock, DOT AI, Spider Syllabus & Multiplayer Revolver</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -21,14 +21,12 @@
       font-family: 'JetBrains Mono', monospace;
       font-variant-numeric: tabular-nums;
     }
-    /* Tactile Clicky UI Feel */
     .clicky {
       transition: transform 0.1s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.15s ease, background-color 0.15s ease;
     }
     .clicky:active {
       transform: scale(0.95) translateY(1px);
     }
-    /* Spider-Web Thread Connectors */
     .spider-hub {
       position: relative;
       border-left: 2px solid rgba(99, 102, 241, 0.45);
@@ -58,7 +56,6 @@
       background: #6366f1;
       box-shadow: 0 0 8px #6366f1;
     }
-    /* Live Pulsing Beacon */
     @keyframes pulseGlow {
       0%, 100% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
       50% { transform: scale(1.08); opacity: 0.9; box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
@@ -66,7 +63,6 @@
     .live-beacon {
       animation: pulseGlow 1.8s infinite;
     }
-    /* Revolving Cylinder Animation */
     .cylinder-spin {
       transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
     }
@@ -118,7 +114,6 @@
         </span>
       </div>
 
-      <!-- One-Click Google Account Login + Personal Drive Sync -->
       <button id="googleLoginBtn" type="button" class="clicky w-full flex items-center justify-center gap-3 bg-white hover:bg-slate-100 text-slate-900 font-bold py-3 px-4 rounded-xl shadow-md mb-4">
         <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5" alt="Google" />
         <span>Continue with Google (Auto Drive Sync)</span>
@@ -141,7 +136,6 @@
 
       <div id="authAlert" class="hidden mb-4 p-3 rounded-xl text-xs font-semibold bg-rose-950/80 text-rose-300 border border-rose-500/30"></div>
 
-      <!-- SIGN IN FORM -->
       <form id="signInForm" class="space-y-4">
         <div>
           <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1">Student ID</label>
@@ -156,7 +150,6 @@
         </button>
       </form>
 
-      <!-- CREATE ID FORM -->
       <form id="createIdForm" class="hidden space-y-3.5">
         <div>
           <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1">Full Name</label>
@@ -206,7 +199,6 @@
           </div>
         </div>
 
-        <!-- Fast Clicky Navigation Tabs -->
         <div class="flex flex-wrap items-center gap-1.5">
           <button id="navDashboardBtn" type="button" class="clicky px-3.5 py-2 rounded-xl text-xs font-extrabold bg-emerald-600 text-white shadow-sm">
             ⏱️ Clock-In & DOT
@@ -222,7 +214,7 @@
             📝 Notes Vault
           </button>
           <button id="navGameBtn" type="button" class="clicky px-3.5 py-2 rounded-xl text-xs font-extrabold bg-slate-900 text-amber-300 hover:bg-slate-800 border border-amber-500/30">
-            🔫 Revolver Game
+            🔫 Revolver Party Game
           </button>
           <button id="logoutBtn" type="button" class="clicky px-3 py-2 rounded-xl text-xs font-bold bg-rose-500/10 text-rose-400 border border-rose-500/20 hover:bg-rose-500/20">
             Exit
@@ -234,7 +226,6 @@
     <!-- ================= VIEW 1: CENTER CLOCK-IN + DOT AI ENGINE ================= -->
     <main id="dashboardView" class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 space-y-6">
       
-      <!-- CENTER STAGE: ZERO-DISTRACTION CLOCK-IN LAUNCHER -->
       <div class="max-w-2xl mx-auto bg-gradient-to-b from-slate-900 to-slate-950 rounded-3xl p-7 sm:p-9 shadow-2xl border border-emerald-500/30 text-center relative overflow-hidden">
         <div class="flex items-center justify-between mb-4">
           <span class="text-[11px] font-extrabold uppercase tracking-widest text-emerald-400">⚡ Center Command Clock</span>
@@ -284,7 +275,6 @@
         <div id="dotRecommendationsGrid" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
       </div>
 
-      <!-- Quick Metrics Row -->
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="bg-slate-900/80 rounded-2xl p-5 border border-slate-800">
           <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Today's Focus</p>
@@ -314,9 +304,7 @@
         </div>
       </div>
 
-      <!-- Manual Entry + 7-Day Chart Row -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <!-- Manual Study Entry -->
         <div class="bg-slate-900/80 rounded-2xl p-6 border border-slate-800 flex flex-col justify-between">
           <div>
             <h3 class="text-base font-black text-white mb-1">✍️ Log Past Study Session Manually</h3>
@@ -356,7 +344,6 @@
           </div>
         </div>
 
-        <!-- 7-Day Chart -->
         <div class="bg-slate-900/80 rounded-2xl p-6 border border-slate-800">
           <h3 class="text-base font-black text-white mb-1">📊 Last 7 Days Output</h3>
           <p class="text-xs text-slate-400 mb-4">Daily study hours logged</p>
@@ -366,7 +353,6 @@
         </div>
       </div>
 
-      <!-- Recent Sessions History -->
       <div class="bg-slate-900/80 rounded-2xl p-6 border border-slate-800">
         <h3 class="text-base font-black text-white mb-4">🕒 My Study Timesheet Log</h3>
         <div class="overflow-x-auto">
@@ -389,7 +375,6 @@
     <!-- ================= VIEW 2: SPIDER-WEB SYLLABUS + TOP SEARCH BAR ================= -->
     <section id="syllabusView" class="hidden flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 space-y-6">
       
-      <!-- Sticky Top Search & Spider Filter Bar -->
       <div class="bg-slate-900/95 backdrop-blur-xl rounded-3xl p-5 shadow-2xl border border-slate-800 sticky top-16 z-30">
         <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
           <div class="relative flex-1">
@@ -406,7 +391,6 @@
         </div>
       </div>
 
-      <!-- Visual Spider-Web Radar Canvas + Mastery Stats -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div class="bg-slate-900/90 rounded-3xl p-6 border border-slate-800 flex flex-col items-center justify-center">
           <h3 class="text-sm font-black uppercase tracking-wider text-indigo-400 mb-2">🕸️ Live Spider-Web Mastery Map</h3>
@@ -443,7 +427,6 @@
         </div>
       </div>
 
-      <!-- Hierarchical Spider-Web Nodes Container -->
       <div id="syllabusTreeContainer" class="space-y-5"></div>
     </section>
 
@@ -462,7 +445,6 @@
             <p class="text-xs text-slate-400 mt-1">See which friends are 🟢 LIVE studying right now, their active subject, session count, and total hours.</p>
           </div>
 
-          <!-- Clicky Filter Pills -->
           <div class="flex flex-wrap items-center gap-2">
             <button id="lbFilterAllBtn" type="button" class="clicky px-3.5 py-2 rounded-xl text-xs font-extrabold bg-indigo-600 text-white">
               All Students
@@ -497,7 +479,6 @@
     <!-- ================= VIEW 4: CLOUD & DRIVE NOTES VAULT ================= -->
     <section id="notesView" class="hidden flex-1 max-w-6xl w-full mx-auto p-4 sm:p-6">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- Notes Sidebar List -->
         <div class="bg-slate-900/90 rounded-3xl p-5 border border-slate-800 flex flex-col h-[72vh]">
           <div class="flex items-center justify-between mb-4">
             <h2 class="text-base font-black text-white">📝 My Study Notes</h2>
@@ -509,7 +490,6 @@
           <div id="notesListContainer" class="flex-1 overflow-y-auto space-y-2 pr-1"></div>
         </div>
 
-        <!-- Note Editor -->
         <div class="md:col-span-2 bg-slate-900/90 rounded-3xl p-6 border border-slate-800 flex flex-col h-[72vh]">
           <div class="flex flex-wrap items-center justify-between gap-2 pb-4 mb-4 border-b border-slate-800">
             <input id="noteTitleInput" type="text" placeholder="Note Title (e.g. Rotational Inertia Formulas / Mistake Log)" class="flex-1 bg-transparent text-lg font-black text-white focus:outline-none" />
@@ -528,23 +508,87 @@
       </div>
     </section>
 
-    <!-- ================= VIEW 5: 6-CHAMBER REVOLVER STUDY ROULETTE GAME ================= -->
-    <section id="gameView" class="hidden flex-1 max-w-4xl w-full mx-auto p-4 sm:p-6">
-      <div class="bg-slate-900/95 rounded-3xl p-6 sm:p-8 border border-amber-500/30 shadow-2xl text-center">
-        <span class="px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest bg-amber-500/15 text-amber-300 border border-amber-500/30">
-          🔫 Break-Time Nerve Tester
-        </span>
-        <h2 class="text-2xl sm:text-3xl font-black text-white mt-3">6-Chamber NEET Revolver Roulette</h2>
-        <p class="text-xs text-slate-400 max-w-lg mx-auto mt-1">
-          5 chambers are empty (+15 Luck XP). 1 chamber holds a **High-Yield NEET Bullet Question**. Survive the cylinder or defuse the bullet with the right answer!
-        </p>
+    <!-- ================= VIEW 5: MULTIPLAYER & TOPIC-TARGETED REVOLVER ROULETTE ================= -->
+    <section id="gameView" class="hidden flex-1 max-w-6xl w-full mx-auto p-4 sm:p-6 space-y-6">
+      
+      <!-- Top Control Deck: Add Players + Select Subject & Topic Bullets -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        
+        <!-- Panel A: Multiplayer Table Roster (+ Add Player Button) -->
+        <div class="bg-slate-900/95 rounded-3xl p-6 border border-amber-500/30 shadow-xl flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <div>
+                <span class="text-[10px] font-black uppercase tracking-widest text-amber-400">👥 Party Table Roster</span>
+                <h3 class="text-lg font-black text-white">Players in the Circle</h3>
+              </div>
+              <button id="resetPlayersBtn" type="button" class="clicky px-3 py-1.5 rounded-xl text-[11px] font-bold bg-slate-800 hover:bg-slate-700 text-slate-300">
+                ↻ Heal All (Reset Hearts)
+              </button>
+            </div>
 
-        <!-- Visual 6-Chamber Cylinder -->
-        <div class="my-8 flex flex-col items-center justify-center">
-          <div id="revolverCylinder" class="cylinder-spin w-48 h-48 rounded-full bg-slate-950 border-4 border-slate-700 shadow-[0_0_40px_rgba(245,158,11,0.15)] relative flex items-center justify-center">
-            <!-- Center Axis Pin -->
+            <!-- Add Player Input & Button -->
+            <form id="addPlayerForm" class="flex gap-2 mb-4">
+              <input id="newPlayerNameInput" type="text" maxlength="18" placeholder="Enter friend's name (e.g. Aarav, Riya)..." class="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
+              <button type="submit" class="clicky px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs whitespace-nowrap shadow-md">
+                + Add Player
+              </button>
+            </form>
+
+            <!-- Active Players List -->
+            <div id="playersListContainer" class="space-y-2 max-h-52 overflow-y-auto pr-1"></div>
+          </div>
+
+          <p class="text-[11px] text-slate-400 mt-3 pt-3 border-t border-slate-800">
+            💡 Each trigger pull passes the revolver to the next surviving player. Wrong answers cost **1 Heart (💔)**!
+          </p>
+        </div>
+
+        <!-- Panel B: Subject & Topic Bullet Selector Buttons -->
+        <div class="bg-slate-900/95 rounded-3xl p-6 border border-indigo-500/30 shadow-xl flex flex-col justify-between">
+          <div>
+            <span class="text-[10px] font-black uppercase tracking-widest text-indigo-400">🎯 Custom Ammunition Loader</span>
+            <h3 class="text-lg font-black text-white mb-3">Select Subject & Topic for Bullet Questions</h3>
+
+            <!-- Subject Filter Buttons -->
+            <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">1. Choose Subject</label>
+            <div id="gameSubjectBtnGroup" class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
+              <button type="button" data-subj="ALL" class="game-subj-btn clicky py-2.5 px-3 rounded-xl text-xs font-black bg-indigo-600 text-white border border-indigo-400">
+                🌐 All Subjects
+              </button>
+              <button type="button" data-subj="Physics" class="game-subj-btn clicky py-2.5 px-3 rounded-xl text-xs font-bold bg-slate-950 text-slate-300 border border-slate-800 hover:bg-slate-800">
+                ⚡ Physics
+              </button>
+              <button type="button" data-subj="Chemistry" class="game-subj-btn clicky py-2.5 px-3 rounded-xl text-xs font-bold bg-slate-950 text-slate-300 border border-slate-800 hover:bg-slate-800">
+                🧪 Chemistry
+              </button>
+              <button type="button" data-subj="Biology" class="game-subj-btn clicky py-2.5 px-3 rounded-xl text-xs font-bold bg-slate-950 text-slate-300 border border-slate-800 hover:bg-slate-800">
+                🧬 Biology
+              </button>
+            </div>
+
+            <!-- Topic Filter Buttons -->
+            <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">2. Choose Specific Topic</label>
+            <div id="gameTopicBtnGroup" class="flex flex-wrap gap-2"></div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-xs">
+            <span class="text-slate-400">Loaded Bullet Deck:</span>
+            <span id="loadedDeckBadge" class="px-2.5 py-1 rounded-lg bg-indigo-500/20 text-indigo-300 font-black">All Subjects • All Topics</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Center Arena: Revolving Cylinder & Trigger Showdown -->
+      <div class="bg-slate-900/95 rounded-3xl p-6 sm:p-8 border border-amber-500/30 shadow-2xl text-center">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-xs font-black uppercase tracking-wider">
+          <span>🔫 Current Turn:</span>
+          <span id="currentTurnPlayerName" class="text-white underline decoration-amber-400">Player 1</span>
+        </div>
+
+        <div class="my-7 flex flex-col items-center justify-center">
+          <div id="revolverCylinder" class="cylinder-spin w-48 h-48 rounded-full bg-slate-950 border-4 border-slate-700 shadow-[0_0_45px_rgba(245,158,11,0.18)] relative flex items-center justify-center">
             <div class="w-8 h-8 rounded-full bg-amber-500/30 border-2 border-amber-400"></div>
-            <!-- 6 Chambers positioned in a circle -->
             <div id="chamber0" class="w-10 h-10 rounded-full bg-slate-900 border-2 border-slate-600 absolute top-3 left-1/2 -translate-x-1/2"></div>
             <div id="chamber1" class="w-10 h-10 rounded-full bg-slate-900 border-2 border-slate-600 absolute top-11 right-4"></div>
             <div id="chamber2" class="w-10 h-10 rounded-full bg-slate-900 border-2 border-slate-600 absolute bottom-11 right-4"></div>
@@ -555,48 +599,57 @@
 
           <div class="grid grid-cols-3 gap-4 max-w-md w-full mt-6">
             <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800">
-              <p class="text-[10px] uppercase font-bold text-slate-500">Current Chamber</p>
+              <p class="text-[10px] uppercase font-bold text-slate-500">Chamber</p>
               <p id="rouletteChamberText" class="mono-nums text-lg font-black text-white">1 / 6</p>
             </div>
             <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800">
-              <p class="text-[10px] uppercase font-bold text-slate-500">Survival Streak</p>
+              <p class="text-[10px] uppercase font-bold text-slate-500">Table Streak</p>
               <p id="rouletteStreakText" class="mono-nums text-lg font-black text-emerald-400">0</p>
             </div>
             <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800">
-              <p class="text-[10px] uppercase font-bold text-slate-500">Roulette XP</p>
+              <p class="text-[10px] uppercase font-bold text-slate-500">Your Total XP</p>
               <p id="rouletteXpText" class="mono-nums text-lg font-black text-amber-400">0 XP</p>
             </div>
           </div>
         </div>
 
-        <div id="rouletteResultBanner" class="mb-6 p-4 rounded-2xl bg-slate-950 border border-slate-800 text-sm font-bold text-slate-300">
-          Spin the cylinder and pull the trigger when ready, sir.
+        <div id="rouletteResultBanner" class="mb-6 p-4 rounded-2xl bg-slate-950 border border-slate-800 text-sm font-bold text-slate-200">
+          Add players, pick your Subject & Topic above, and pull the trigger!
         </div>
 
-        <!-- Action Buttons -->
         <div class="flex flex-wrap items-center justify-center gap-4">
           <button id="spinCylinderBtn" type="button" class="clicky px-6 py-3.5 rounded-2xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-extrabold text-xs uppercase tracking-wider border border-amber-500/30">
-            🔄 Spin New Cylinder
+            🔄 Spin Cylinder
           </button>
           <button id="pullTriggerBtn" type="button" class="clicky px-8 py-3.5 rounded-2xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs uppercase tracking-wider shadow-[0_0_25px_rgba(245,158,11,0.4)]">
             🔫 Pull Trigger
           </button>
+          <button id="forceQuestionBtn" type="button" class="clicky px-5 py-3.5 rounded-2xl bg-rose-600/20 hover:bg-rose-600/30 text-rose-300 font-extrabold text-xs uppercase tracking-wider border border-rose-500/30">
+            ⚡ Instant Topic Quiz
+          </button>
         </div>
 
-        <!-- Bullet Question Defusal Modal Card -->
-        <div id="bulletQuizBox" class="hidden mt-6 p-6 rounded-2xl bg-rose-950/50 border-2 border-rose-500 text-left">
-          <div class="flex items-center justify-between mb-2">
-            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-rose-500 text-white uppercase">💥 BANG! NEET Bullet Chamber Hit!</span>
-            <span class="text-xs text-rose-300 font-bold">Answer right to survive & gain +50 XP!</span>
+        <!-- Bullet Question Defusal Modal Box with 10s Countdown -->
+        <div id="bulletQuizBox" class="hidden mt-6 p-6 rounded-2xl bg-rose-950/60 border-2 border-rose-500 text-left shadow-2xl">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-rose-500 text-white uppercase">💥 LIVE BULLET CHAMBER HIT!</span>
+              <span id="bulletTopicTag" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-900 text-amber-300 border border-amber-500/30">Physics • Mechanics</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-extrabold text-rose-300">⏱️ Defuse in:</span>
+              <span id="bulletCountdownText" class="mono-nums px-2.5 py-0.5 rounded-lg bg-rose-600 text-white font-black text-xs">10s</span>
+            </div>
           </div>
-          <p id="bulletQuestionText" class="text-sm font-extrabold text-white my-3"></p>
+          <p id="bulletTargetPlayerText" class="text-xs font-bold text-amber-300 mb-1"></p>
+          <p id="bulletQuestionText" class="text-base font-extrabold text-white my-3"></p>
           <div id="bulletOptionsList" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5"></div>
         </div>
       </div>
     </section>
   </div>
 
-  <!-- ================= FIREBASE, GOOGLE DRIVE, DOT & SPIDER SYLLABUS ENGINE ================= -->
+  <!-- ================= FIREBASE, GOOGLE DRIVE, DOT & MULTIPLAYER GAME ENGINE ================= -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
     import { getFirestore, doc, getDoc, setDoc, collection, getDocs, onSnapshot, enableIndexedDbPersistence } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
@@ -789,7 +842,6 @@
       localStorage.setItem("studypunch_current_user", JSON.stringify(userObj));
     }
 
-    // Personal Google Drive appDataFolder Sync
     async function syncToPersonalGoogleDrive(userObj) {
       const token = localStorage.getItem("studypunch_gdrive_token");
       if (!token) return;
@@ -839,7 +891,6 @@
       }
     }
 
-    // Real-Time Live Stream for Instant Clicky Leaderboard
     if (db) {
       onSnapshot(collection(db, "students"), (snapshot) => {
         const map = getLocalUsersMap();
@@ -959,12 +1010,17 @@
       if (!Array.isArray(currentUser.sessions)) currentUser.sessions = [];
       if (!currentUser.syllabusChecked) currentUser.syllabusChecked = {};
       if (!Array.isArray(currentUser.notes)) currentUser.notes = [];
+      // Initialize first player in Revolver Game with logged-in user's name
+      if (partyPlayers.length === 1 && partyPlayers[0].name === "Player 1") {
+        partyPlayers[0].name = currentUser.name || "Player 1";
+      }
       authScreen.classList.add("hidden");
       appScreen.classList.remove("hidden");
       showView("dashboard");
       renderDashboard();
       renderSyllabusTree();
       renderNotesVault();
+      renderPlayersRoster();
     }
 
     document.getElementById("logoutBtn").addEventListener("click", () => {
@@ -988,13 +1044,11 @@
       return Object.values(u.syllabusChecked).filter(Boolean).length;
     }
 
-    // DOT (Dynamic Objective Tracker) Recommendation Algorithm
     function renderDotRecommendations() {
       if (!currentUser) return;
       const checked = currentUser.syllabusChecked || {};
       const recommendations = [];
 
-      // Find next logical uncompleted subtopic per Subject (prioritizing chapters already in progress)
       NEET_2027_SYLLABUS.forEach(subj => {
         let inProgressPick = null;
         let freshStartPick = null;
@@ -1137,7 +1191,6 @@
       const subj = customSubject || document.getElementById("sessionSubjectInput").value.trim() || "NEET Deep Focus";
       currentUser.activePunchStart = Date.now();
       currentUser.activeSubject = subj;
-      // Enter pitch-black fullscreen mode if supported
       try {
         if (document.documentElement.requestFullscreen) {
           document.documentElement.requestFullscreen().catch(() => {});
@@ -1181,7 +1234,6 @@
     document.getElementById("clockOutBtn").addEventListener("click", triggerClockOut);
     document.getElementById("zdClockOutBtn").addEventListener("click", triggerClockOut);
 
-    // Manual Study Entry
     document.getElementById("manualEntryForm").addEventListener("submit", async (e) => {
       e.preventDefault();
       if (!currentUser) return;
@@ -1499,7 +1551,6 @@
           totalSecs += d;
           if (s.date === todayStr) todaySecs += d;
         });
-        // Add live active elapsed time if currently studying!
         const isLive = Boolean(u.activePunchStart);
         const liveElapsed = isLive ? Math.max(0, Math.floor((Date.now() - u.activePunchStart) / 1000)) : 0;
 
@@ -1520,8 +1571,6 @@
       });
 
       if (leaderboardLiveOnly) list = list.filter(u => u.isLive);
-
-      // Sort: Live students get priority visibility when tied, then total hours
       list.sort((a, b) => (b.totalHours - a.totalHours) || (b.isLive - a.isLive) || (b.studyCount - a.studyCount));
 
       const liveTotal = Object.values(combined).filter(u => u.activePunchStart).length;
@@ -1658,20 +1707,173 @@
 
     document.getElementById("noteSearchInput").addEventListener("input", (e) => renderNotesVault(e.target.value.trim()));
 
-    // ================= 6-CHAMBER REVOLVER STUDY ROULETTE GAME =================
-    const NEET_BULLET_QUESTIONS = [
-      { q: "Which cranial nerve has the longest distribution in the human body?", opts: ["Vagus Nerve (X)", "Optic Nerve (II)", "Trigeminal (V)", "Facial (VII)"], ans: 0 },
-      { q: "Dimension of Planck's constant (h) is the same as that of:", opts: ["Angular Momentum", "Linear Momentum", "Force", "Power"], ans: 0 },
-      { q: "Which compound gives a positive Iodoform test?", opts: ["Ethanol (CH3CH2OH)", "Methanol (CH3OH)", "Methanal (HCHO)", "Diethyl ether"], ans: 0 },
-      { q: "Pacemaker of the human heart is:", opts: ["SA Node", "AV Node", "Bundle of His", "Purkinje Fibres"], ans: 0 },
-      { q: "In an isothermal expansion of an ideal gas, ΔU (change in internal energy) is:", opts: ["Zero", "Positive", "Negative", "Infinite"], ans: 0 },
-      { q: "Which hormone is responsible for milk ejection (let-down reflex)?", opts: ["Oxytocin", "Prolactin", "Estrogen", "FSH"], ans: 0 }
+    // ================= MULTIPLAYER & SUBJECT/TOPIC REVOLVER ROULETTE ENGINE =================
+    const NEET_BULLET_BANK = [
+      // Physics — Mechanics
+      { subject: "Physics", topic: "Mechanics", q: "Dimension of Planck's constant (h) is identical to that of:", opts: ["Angular Momentum", "Linear Momentum", "Torque", "Impulse"], ans: 0 },
+      { subject: "Physics", topic: "Mechanics", q: "Moment of inertia of a uniform solid sphere of mass M and radius R about its diameter is:", opts: ["(2/5) MR²", "(2/3) MR²", "(1/2) MR²", "(7/5) MR²"], ans: 0 },
+      { subject: "Physics", topic: "Mechanics", q: "Escape velocity from Earth's surface is approximately:", opts: ["11.2 km/s", "7.9 km/s", "9.8 km/s", "15.0 km/s"], ans: 0 },
+      // Physics — Electrodynamics
+      { subject: "Physics", topic: "Electrodynamics", q: "At resonance in a series LCR circuit, the phase difference between current and voltage is:", opts: ["0°", "90°", "45°", "180°"], ans: 0 },
+      { subject: "Physics", topic: "Electrodynamics", q: "SI unit of Magnetic Flux is:", opts: ["Weber (Wb)", "Tesla (T)", "Henry (H)", "Gauss"], ans: 0 },
+      // Physics — Optics & Modern
+      { subject: "Physics", topic: "Optics & Modern", q: "In Young's Double Slit Experiment, if slit separation is halved, fringe width becomes:", opts: ["Doubled", "Halved", "Four times", "Unchanged"], ans: 0 },
+      { subject: "Physics", topic: "Optics & Modern", q: "Which logic gate is known as a Universal Gate?", opts: ["NAND Gate", "OR Gate", "AND Gate", "XOR Gate"], ans: 0 },
+
+      // Chemistry — Physical
+      { subject: "Chemistry", topic: "Physical Chemistry", q: "In an isothermal expansion of an ideal gas, ΔU (change in internal energy) is:", opts: ["Zero", "Positive", "Negative", "Equal to work done"], ans: 0 },
+      { subject: "Chemistry", topic: "Physical Chemistry", q: "Unit of rate constant for a Zero Order reaction is:", opts: ["mol L⁻¹ s⁻¹", "s⁻¹", "L mol⁻¹ s⁻¹", "mol² L⁻² s⁻¹"], ans: 0 },
+      { subject: "Chemistry", topic: "Physical Chemistry", q: "Which concentration term is independent of temperature?", opts: ["Molality (m)", "Molarity (M)", "Normality (N)", "Formality"], ans: 0 },
+      // Chemistry — Inorganic
+      { subject: "Chemistry", topic: "Inorganic Chemistry", q: "According to VSEPR theory, the shape of XeF4 is:", opts: ["Square Planar", "Tetrahedral", "See-Saw", "Octahedral"], ans: 0 },
+      { subject: "Chemistry", topic: "Inorganic Chemistry", q: "Which element has the highest electronegativity in the periodic table?", opts: ["Fluorine (F)", "Oxygen (O)", "Chlorine (Cl)", "Nitrogen (N)"], ans: 0 },
+      // Chemistry — Organic
+      { subject: "Chemistry", topic: "Organic Chemistry", q: "Which of the following compounds gives a positive Iodoform test?", opts: ["Ethanol (CH3CH2OH)", "Methanol (CH3OH)", "Formaldehyde (HCHO)", "Diethyl ether"], ans: 0 },
+      { subject: "Chemistry", topic: "Organic Chemistry", q: "Conversion of Phenol to Salicylaldehyde using CHCl3 and NaOH is called:", opts: ["Reimer-Tiemann Reaction", "Kolbe's Reaction", "Wurtz Reaction", "Cannizzaro Reaction"], ans: 0 },
+
+      // Biology — Cell & Plant
+      { subject: "Biology", topic: "Cell & Plant Biology", q: "Which cell organelle is known as the 'Suicidal Bag' of the cell?", opts: ["Lysosome", "Ribosome", "Peroxisome", "Golgi Apparatus"], ans: 0 },
+      { subject: "Biology", topic: "Cell & Plant Biology", q: "First stable product of CO2 fixation in C4 pathway (Hatch-Slack cycle) is:", opts: ["Oxaloacetic acid (OAA)", "PGA (3-phosphoglyceric acid)", "RuBP", "Malic acid"], ans: 0 },
+      // Biology — Human Physiology
+      { subject: "Biology", topic: "Human Physiology", q: "Natural pacemaker of the human heart is:", opts: ["SA Node", "AV Node", "Bundle of His", "Purkinje Fibres"], ans: 0 },
+      { subject: "Biology", topic: "Human Physiology", q: "Which cranial nerve has the longest and widest distribution in the body?", opts: ["Vagus Nerve (X)", "Optic Nerve (II)", "Facial Nerve (VII)", "Trigeminal (V)"], ans: 0 },
+      { subject: "Biology", topic: "Human Physiology", q: "Which hormone causes milk ejection (let-down reflex) from mammary glands?", opts: ["Oxytocin", "Prolactin", "Progesterone", "Relaxin"], ans: 0 },
+      // Biology — Genetics & Biotech
+      { subject: "Biology", topic: "Genetics & Biotech", q: "Thermostable DNA polymerase (Taq polymerase) used in PCR is isolated from:", opts: ["Thermus aquaticus", "Escherichia coli", "Bacillus thuringiensis", "Agrobacterium"], ans: 0 },
+      { subject: "Biology", topic: "Genetics & Biotech", q: "In Lac Operon, lactose acts as an:", opts: ["Inducer", "Repressor", "Corepressor", "Operator"], ans: 0 }
     ];
 
+    const TOPIC_MAP_BY_SUBJECT = {
+      ALL: ["ALL", "Mechanics", "Electrodynamics", "Optics & Modern", "Physical Chemistry", "Inorganic Chemistry", "Organic Chemistry", "Cell & Plant Biology", "Human Physiology", "Genetics & Biotech"],
+      Physics: ["ALL", "Mechanics", "Electrodynamics", "Optics & Modern"],
+      Chemistry: ["ALL", "Physical Chemistry", "Inorganic Chemistry", "Organic Chemistry"],
+      Biology: ["ALL", "Cell & Plant Biology", "Human Physiology", "Genetics & Biotech"]
+    };
+
+    let selectedGameSubject = "ALL";
+    let selectedGameTopic = "ALL";
+    let partyPlayers = [{ id: "p_1", name: "Player 1", hearts: 3, score: 0 }];
+    let currentTurnIndex = 0;
     let bulletPosition = Math.floor(Math.random() * 6);
     let currentChamber = 0;
     let survivalStreak = 0;
     let cylinderAngle = 0;
+    let bulletCountdownInterval = null;
+
+    // Render Multiplayer Roster
+    function renderPlayersRoster() {
+      const container = document.getElementById("playersListContainer");
+      const alivePlayers = partyPlayers.filter(p => p.hearts > 0);
+      if (alivePlayers.length > 0 && (!partyPlayers[currentTurnIndex] || partyPlayers[currentTurnIndex].hearts <= 0)) {
+        currentTurnIndex = partyPlayers.findIndex(p => p.hearts > 0);
+      }
+      const activePlayer = partyPlayers[currentTurnIndex] || partyPlayers[0];
+      document.getElementById("currentTurnPlayerName").textContent = activePlayer ? activePlayer.name : "No Survivors";
+
+      container.innerHTML = partyPlayers.map((p, idx) => {
+        const isTurn = idx === currentTurnIndex && p.hearts > 0;
+        const heartsStr = p.hearts > 0 ? "❤️".repeat(p.hearts) + "🖤".repeat(3 - p.hearts) : "💀 ELIMINATED";
+        return `
+          <div class="flex items-center justify-between px-3.5 py-2.5 rounded-2xl border ${isTurn ? 'bg-amber-500/15 border-amber-400 text-white' : 'bg-slate-950 border-slate-800 text-slate-300'}">
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-black">${isTurn ? "🔫" : "👤"} ${p.name}</span>
+              ${isTurn ? `<span class="px-2 py-0.2 rounded-full text-[9px] font-black bg-amber-400 text-black uppercase">Hold Gun</span>` : ""}
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-xs">${heartsStr}</span>
+              <span class="mono-nums text-xs font-extrabold text-emerald-400">${p.score} pts</span>
+              ${partyPlayers.length > 1 ? `<button type="button" onclick="removePartyPlayer('${p.id}')" class="text-slate-500 hover:text-rose-400 text-xs font-bold">✕</button>` : ""}
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function advanceToNextPlayer() {
+      const alive = partyPlayers.filter(p => p.hearts > 0);
+      if (alive.length === 0) return;
+      for (let step = 1; step <= partyPlayers.length; step++) {
+        const candidateIdx = (currentTurnIndex + step) % partyPlayers.length;
+        if (partyPlayers[candidateIdx].hearts > 0) {
+          currentTurnIndex = candidateIdx;
+          break;
+        }
+      }
+      renderPlayersRoster();
+    }
+
+    document.getElementById("addPlayerForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const input = document.getElementById("newPlayerNameInput");
+      const name = input.value.trim();
+      if (!name) return;
+      partyPlayers.push({ id: "p_" + Date.now(), name, hearts: 3, score: 0 });
+      input.value = "";
+      renderPlayersRoster();
+    });
+
+    window.removePartyPlayer = function(id) {
+      if (partyPlayers.length <= 1) return;
+      partyPlayers = partyPlayers.filter(p => p.id !== id);
+      currentTurnIndex = 0;
+      renderPlayersRoster();
+    };
+
+    document.getElementById("resetPlayersBtn").addEventListener("click", () => {
+      partyPlayers.forEach(p => { p.hearts = 3; p.score = 0; });
+      currentTurnIndex = 0;
+      survivalStreak = 0;
+      document.getElementById("rouletteResultBanner").textContent = "❤️ All players healed to 3 Hearts! Spin and pull the trigger!";
+      renderPlayersRoster();
+      updateCylinderVisuals();
+    });
+
+    // Render Subject & Topic Selector Buttons
+    function renderGameTopicButtons() {
+      const topics = TOPIC_MAP_BY_SUBJECT[selectedGameSubject] || TOPIC_MAP_BY_SUBJECT.ALL;
+      if (!topics.includes(selectedGameTopic)) selectedGameTopic = "ALL";
+
+      const container = document.getElementById("gameTopicBtnGroup");
+      container.innerHTML = topics.map(t => {
+        const active = t === selectedGameTopic;
+        return `
+          <button type="button" onclick="selectGameTopic('${t}')" class="clicky px-3 py-1.5 rounded-xl text-xs font-extrabold border ${active ? 'bg-amber-500 text-slate-950 border-amber-400 shadow-sm' : 'bg-slate-950 text-slate-300 border-slate-800 hover:bg-slate-800'}">
+            ${t === "ALL" ? "🎯 All Topics" : t}
+          </button>
+        `;
+      }).join("");
+
+      document.getElementById("loadedDeckBadge").textContent = `${selectedGameSubject === "ALL" ? "All Subjects" : selectedGameSubject} • ${selectedGameTopic === "ALL" ? "All Topics" : selectedGameTopic}`;
+    }
+
+    window.selectGameTopic = function(topicName) {
+      selectedGameTopic = topicName;
+      renderGameTopicButtons();
+    };
+
+    document.querySelectorAll(".game-subj-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        selectedGameSubject = btn.getAttribute("data-subj");
+        document.querySelectorAll(".game-subj-btn").forEach(b => {
+          const isMatch = b.getAttribute("data-subj") === selectedGameSubject;
+          b.className = isMatch
+            ? "game-subj-btn clicky py-2.5 px-3 rounded-xl text-xs font-black bg-indigo-600 text-white border border-indigo-400"
+            : "game-subj-btn clicky py-2.5 px-3 rounded-xl text-xs font-bold bg-slate-950 text-slate-300 border border-slate-800 hover:bg-slate-800";
+        });
+        selectedGameTopic = "ALL";
+        renderGameTopicButtons();
+      });
+    });
+
+    function pickFilteredBulletQuestion() {
+      let pool = NEET_BULLET_BANK.filter(q => {
+        const subjOk = selectedGameSubject === "ALL" || q.subject === selectedGameSubject;
+        const topOk = selectedGameTopic === "ALL" || q.topic === selectedGameTopic;
+        return subjOk && topOk;
+      });
+      if (!pool.length) pool = NEET_BULLET_BANK;
+      return pool[Math.floor(Math.random() * pool.length)];
+    }
 
     function updateCylinderVisuals(hitIndex = -1) {
       for (let i = 0; i < 6; i++) {
@@ -1685,62 +1887,120 @@
       document.getElementById("rouletteXpText").textContent = `${(currentUser && currentUser.rouletteXp) || 0} XP`;
     }
 
-    document.getElementById("spinCylinderBtn").addEventListener("click", () => {
+    function spinNewCylinder() {
+      if (bulletCountdownInterval) clearInterval(bulletCountdownInterval);
       bulletPosition = Math.floor(Math.random() * 6);
       currentChamber = 0;
       cylinderAngle += 720;
       document.getElementById("revolverCylinder").style.transform = `rotate(${cylinderAngle}deg)`;
       document.getElementById("bulletQuizBox").classList.add("hidden");
       document.getElementById("pullTriggerBtn").disabled = false;
-      document.getElementById("rouletteResultBanner").textContent = "🔄 Cylinder spun! 6 fresh chambers loaded. Pull the trigger!";
       updateCylinderVisuals();
+    }
+
+    document.getElementById("spinCylinderBtn").addEventListener("click", () => {
+      spinNewCylinder();
+      const activePlayer = partyPlayers[currentTurnIndex] || partyPlayers[0];
+      document.getElementById("rouletteResultBanner").textContent = `🔄 Cylinder spun! 6 fresh chambers loaded for ${activePlayer.name}.`;
     });
 
+    function launchBulletQuestionModal() {
+      if (bulletCountdownInterval) clearInterval(bulletCountdownInterval);
+      const activePlayer = partyPlayers[currentTurnIndex] || partyPlayers[0];
+      const qObj = pickFilteredBulletQuestion();
+
+      // Shuffle options while tracking correct answer
+      const indexedOpts = qObj.opts.map((text, idx) => ({ text, isCorrect: idx === qObj.ans }));
+      indexedOpts.sort(() => Math.random() - 0.5);
+
+      document.getElementById("bulletTopicTag").textContent = `${qObj.subject} • ${qObj.topic}`;
+      document.getElementById("bulletTargetPlayerText").textContent = `🔫 ${activePlayer.name} must answer before the timer hits 0s or lose 1 Heart (💔)!`;
+      document.getElementById("bulletQuestionText").textContent = qObj.q;
+      document.getElementById("bulletOptionsList").innerHTML = indexedOpts.map(item => `
+        <button type="button" onclick="answerBulletQuiz(${item.isCorrect})" class="clicky p-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-rose-500/40 text-xs font-bold text-white text-left">
+          ${item.text}
+        </button>
+      `).join("");
+
+      document.getElementById("bulletQuizBox").classList.remove("hidden");
+
+      let secondsLeft = 10;
+      const timerEl = document.getElementById("bulletCountdownText");
+      timerEl.textContent = `${secondsLeft}s`;
+      bulletCountdownInterval = setInterval(() => {
+        secondsLeft--;
+        timerEl.textContent = `${secondsLeft}s`;
+        if (secondsLeft <= 0) {
+          clearInterval(bulletCountdownInterval);
+          window.answerBulletQuiz(false, true);
+        }
+      }, 1000);
+    }
+
     document.getElementById("pullTriggerBtn").addEventListener("click", async () => {
+      const alivePlayers = partyPlayers.filter(p => p.hearts > 0);
+      if (alivePlayers.length === 0) {
+        return alert("All players are out of hearts! Click 'Heal All' to start a new match.");
+      }
+
+      const activePlayer = partyPlayers[currentTurnIndex] || partyPlayers[0];
       cylinderAngle += 60;
       document.getElementById("revolverCylinder").style.transform = `rotate(${cylinderAngle}deg)`;
 
       if (currentChamber === bulletPosition) {
-        // Bullet Chamber Hit! Trigger NEET Defusal Quiz
         updateCylinderVisuals(currentChamber);
         document.getElementById("pullTriggerBtn").disabled = true;
-        document.getElementById("rouletteResultBanner").textContent = "💥 CHAMBER FIRED! Defuse the NEET Bullet below to keep your streak alive!";
-        const qObj = NEET_BULLET_QUESTIONS[Math.floor(Math.random() * NEET_BULLET_QUESTIONS.length)];
-        document.getElementById("bulletQuestionText").textContent = qObj.q;
-        document.getElementById("bulletOptionsList").innerHTML = qObj.opts.map((opt, idx) => `
-          <button type="button" onclick="answerBulletQuiz(${idx === qObj.ans})" class="clicky p-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-rose-500/40 text-xs font-bold text-white text-left">
-            ${opt}
-          </button>
-        `).join("");
-        document.getElementById("bulletQuizBox").classList.remove("hidden");
+        document.getElementById("rouletteResultBanner").textContent = `💥 BANG! Chamber ${currentChamber + 1} fired on ${activePlayer.name}! Defuse the NEET question now!`;
+        launchBulletQuestionModal();
       } else {
-        // Safe Click!
         currentChamber++;
         survivalStreak++;
+        activePlayer.score += 15;
         if (currentUser) {
           currentUser.rouletteXp = (currentUser.rouletteXp || 0) + 15;
           saveUserToCloud(currentUser);
         }
-        document.getElementById("rouletteResultBanner").textContent = `😮‍💨 *CLICK!* Chamber ${currentChamber} was empty! +15 XP earned.`;
+        const prevName = activePlayer.name;
+        advanceToNextPlayer();
+        const nextPlayer = partyPlayers[currentTurnIndex] || partyPlayers[0];
+        document.getElementById("rouletteResultBanner").textContent = `😮‍💨 *CLICK!* ${prevName} survived Chamber ${currentChamber} (+15 pts)! Passing gun to ${nextPlayer.name}...`;
         updateCylinderVisuals();
       }
     });
 
-    window.answerBulletQuiz = async function(isCorrect) {
+    document.getElementById("forceQuestionBtn").addEventListener("click", () => {
+      document.getElementById("pullTriggerBtn").disabled = true;
+      launchBulletQuestionModal();
+    });
+
+    window.answerBulletQuiz = async function(isCorrect, timedOut = false) {
+      if (bulletCountdownInterval) clearInterval(bulletCountdownInterval);
       document.getElementById("bulletQuizBox").classList.add("hidden");
+      const activePlayer = partyPlayers[currentTurnIndex] || partyPlayers[0];
+
       if (isCorrect) {
         survivalStreak++;
+        activePlayer.score += 50;
         if (currentUser) {
           currentUser.rouletteXp = (currentUser.rouletteXp || 0) + 50;
           await saveUserToCloud(currentUser);
         }
-        document.getElementById("rouletteResultBanner").textContent = "🛡️ BULLET DEFUSED! Correct NEET answer (+50 XP)! Spin cylinder for next round.";
+        document.getElementById("rouletteResultBanner").textContent = `🛡️ BULLET DEFUSED! ${activePlayer.name} answered right (+50 pts)! Auto-spinning cylinder for next player...`;
       } else {
         survivalStreak = 0;
-        document.getElementById("rouletteResultBanner").textContent = "💀 Wrong answer! Streak reset to 0. Spin the cylinder to try again!";
+        activePlayer.hearts = Math.max(0, activePlayer.hearts - 1);
+        const reason = timedOut ? "⏱️ TIME UP!" : "💀 WRONG ANSWER!";
+        document.getElementById("rouletteResultBanner").textContent = `${reason} ${activePlayer.name} lost 1 Heart (💔)! Auto-spinning cylinder for next turn...`;
       }
-      updateCylinderVisuals();
+
+      advanceToNextPlayer();
+      spinNewCylinder();
+      renderPlayersRoster();
     };
+
+    // Initialize Topic Buttons & Roster
+    renderGameTopicButtons();
+    renderPlayersRoster();
 
     // ================= NAVIGATION CONTROLLER =================
     const views = {
@@ -1756,7 +2016,11 @@
       if (name === "syllabus") renderSyllabusTree(document.getElementById("syllabusSearchInput").value.trim());
       if (name === "leaderboard") renderFastLeaderboard();
       if (name === "notes") renderNotesVault();
-      if (name === "game") updateCylinderVisuals();
+      if (name === "game") {
+        renderGameTopicButtons();
+        renderPlayersRoster();
+        updateCylinderVisuals();
+      }
     }
 
     document.getElementById("navDashboardBtn").addEventListener("click", () => showView("dashboard"));
