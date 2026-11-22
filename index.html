@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>StudyPunch — Executive NEET 2027 Command Atelier & 3D Web</title>
-  <meta name="description" content="StudyPunch NEET 2027 command hub with Interactive 3D Spider-Web Progress Graph, Centralized Settings, Live Focus Wallpapers (Aurora, Snowfall, Rain), 3 Web Themes, Doomsday Chronograph, NCERT Class 11 & 12 Tracker, DOT AI, and Multiplayer Revolver." />
+  <meta name="description" content="StudyPunch NEET 2027 command hub with 3D Animated Entry Intro, Interactive 3D Spider-Web Progress Graph, Centralized Settings, Live Focus Wallpapers (Aurora, Snowfall, Rain), 3 Web Themes, Doomsday Chronograph, NCERT Class 11 & 12 Tracker, DOT AI, and Multiplayer Revolver." />
   <meta name="theme-color" content="#09090b" />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2309090b'/%3E%3Cstop offset='100%25' stop-color='%2318181b'/%3E%3C/linearGradient%3E%3ClinearGradient id='gold' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23f3e5ab'/%3E%3Cstop offset='50%25' stop-color='%23d4af37'/%3E%3Cstop offset='100%25' stop-color='%23aa771c'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='24' fill='url(%23bg)' stroke='url(%23gold)' stroke-width='4'/%3E%3Ccircle cx='50' cy='52' r='31' fill='none' stroke='url(%23gold)' stroke-width='3.5' stroke-dasharray='165 30'/%3E%3Cpath d='M42 18 H58 M50 18 V24' stroke='%23d4af37' stroke-width='4.5' stroke-linecap='round'/%3E%3Cpath d='M54 33 L39 54 H51 L46 73 L63 50 H51 Z' fill='url(%23gold)'/%3E%3C/svg%3E" />
 
@@ -81,16 +81,111 @@
     .spider-node { position: relative; }
     .spider-node::before { content: ""; position: absolute; left: -1.15rem; top: 50%; width: 0.9rem; height: 1px; background: var(--spider-line); }
     .spider-node::after { content: ""; position: absolute; left: -1.32rem; top: calc(50% - 2.5px); width: 5px; height: 5px; border-radius: 9999px; background: var(--spider-dot); box-shadow: 0 0 8px var(--spider-dot); }
+
     @keyframes pulseBeacon { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.12); opacity: 0.85; } }
     .doomsday-beacon { animation: pulseBeacon 1s infinite; }
     @keyframes liveEmerald { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.08); opacity: 0.9; } }
     .live-beacon { animation: liveEmerald 1.8s infinite; }
     .cylinder-spin { transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1); }
+
+    /* ================= 3D ANIMATED INTRO & ONBOARDING STYLES ================= */
+    #introSplashOverlay {
+      perspective: 1100px;
+      transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .intro-3d-stage {
+      transform-style: preserve-3d;
+      animation: introTitleFlyIn 1.15s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes introTitleFlyIn {
+      0% { opacity: 0; transform: translateZ(-260px) rotateX(38deg) scale(0.75); }
+      100% { opacity: 1; transform: translateZ(0px) rotateX(0deg) scale(1); }
+    }
+    #byHeetBadge {
+      opacity: 0;
+      transform: scale(0.88) translateY(8px);
+      transition: opacity 0.1s ease, transform 0.1s ease;
+    }
+    #byHeetBadge.show-half-sec {
+      opacity: 1;
+      transform: scale(1) translateY(0px);
+    }
   </style>
 </head>
 <body class="antialiased selection:bg-amber-400 selection:text-black flex flex-col min-h-screen">
 
-  <!-- CENTRALIZED SETTINGS & CUSTOMIZATION DRAWER -->
+  <!-- ================= 3D ANIMATED INTRO SPLASH (PLAYS ON EVERY ENTRY) ================= -->
+  <div id="introSplashOverlay" class="fixed inset-0 z-[200] bg-[#040406] flex flex-col items-center justify-center overflow-hidden select-none">
+    <canvas id="intro3dCanvas" class="fixed inset-0 w-full h-full pointer-events-none"></canvas>
+
+    <div class="relative z-10 text-center px-6 intro-3d-stage flex flex-col items-center">
+      <div class="w-20 h-20 rounded-3xl bg-black/80 border border-[#d4af37]/50 flex items-center justify-center shadow-[0_0_50px_rgba(212,175,55,0.3)] mb-5 p-3">
+        <svg viewBox="0 0 100 100" class="w-full h-full">
+          <defs>
+            <linearGradient id="spGradIntro" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#fde68a" />
+              <stop offset="50%" stop-color="#d4af37" />
+              <stop offset="100%" stop-color="#e11d48" />
+            </linearGradient>
+          </defs>
+          <circle cx="50" cy="54" r="34" fill="none" stroke="url(#spGradIntro)" stroke-width="6" stroke-dasharray="170 40" stroke-linecap="round"/>
+          <path d="M40 16 H60 M50 16 V23" stroke="#d4af37" stroke-width="6" stroke-linecap="round"/>
+          <path d="M55 32 L38 55 H51 L45 76 L64 51 H51 Z" fill="url(#spGradIntro)"/>
+        </svg>
+      </div>
+
+      <p class="text-[10px] font-extrabold uppercase tracking-[0.4em] text-zinc-400 mb-2">NEET 2027 Command Atelier</p>
+      <h1 class="font-serif-luxury text-5xl sm:text-6xl font-bold theme-gradient-text tracking-tight drop-shadow-[0_12px_35px_rgba(0,0,0,0.95)]">
+        StudyPunch
+      </h1>
+
+      <!-- Flashes for EXACTLY 0.5 Seconds (500ms) -->
+      <div id="byHeetBadge" class="mt-5 px-5 py-1.5 rounded-full bg-black/85 border border-[#d4af37]/40 shadow-[0_0_25px_rgba(212,175,55,0.25)]">
+        <span class="text-xs uppercase tracking-[0.28em] text-zinc-400">by </span>
+        <i class="font-serif-luxury italic font-bold text-lg text-[#fde68a] tracking-widest">heet</i>
+      </div>
+    </div>
+
+    <button id="skipIntroBtn" type="button" class="clicky fixed bottom-6 right-6 z-20 px-3.5 py-1.5 rounded-xl bg-white/5 hover:bg-white/15 border border-white/10 text-[10px] font-bold uppercase tracking-widest text-zinc-400 hover:text-white">
+      Skip ›
+    </button>
+  </div>
+
+  <!-- ================= NEW USER INTERACTIVE INTRODUCTION MODAL ================= -->
+  <div id="newUserIntroModal" class="hidden fixed inset-0 z-[150] bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="luxury-card rounded-3xl w-full max-w-md p-6 sm:p-8 border border-white/20 shadow-2xl text-center relative overflow-hidden">
+      <div class="flex items-center justify-between mb-4">
+        <span id="tourStepCounter" class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-[0.2em] bg-white/10 text-zinc-300 border border-white/15">
+          Welcome • 1 / 4
+        </span>
+        <button id="tourSkipBtn" type="button" class="text-xs font-semibold text-zinc-500 hover:text-white">Skip Tour</button>
+      </div>
+
+      <div id="tourSlideIcon" class="w-16 h-16 mx-auto rounded-2xl bg-black/80 border border-white/15 flex items-center justify-center text-3xl shadow-lg mb-4">
+        ⏱️
+      </div>
+
+      <h2 id="tourSlideTitle" class="font-serif-luxury text-2xl font-bold text-white tracking-tight mb-2">
+        Welcome to StudyPunch
+      </h2>
+      <p id="tourSlideDesc" class="text-xs sm:text-sm text-zinc-300 leading-relaxed min-h-[76px]">
+        Your all-in-one NEET 2027 command center.
+      </p>
+
+      <div id="tourDotsRow" class="flex items-center justify-center gap-2 my-6"></div>
+
+      <div class="flex items-center justify-between gap-3">
+        <button id="tourPrevBtn" type="button" class="clicky px-4 py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 text-xs font-bold">
+          ← Back
+        </button>
+        <button id="tourNextBtn" type="button" class="clicky flex-1 py-2.5 px-5 rounded-xl theme-btn-primary text-xs font-extrabold uppercase tracking-wider">
+          Next →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= CENTRALIZED SETTINGS & CUSTOMIZATION DRAWER ================= -->
   <div id="settingsModal" class="hidden fixed inset-0 z-[110] bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
     <div class="luxury-card rounded-3xl w-full max-w-lg max-h-[88vh] flex flex-col overflow-hidden border border-white/15 shadow-2xl">
       <div class="px-6 py-4 border-b border-white/10 flex items-center justify-between bg-black/40">
@@ -161,15 +256,16 @@
         </div>
 
         <div class="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-2">
-          <button type="button" id="installPwaBtn" class="hidden clicky px-3.5 py-2 rounded-xl text-xs font-bold theme-btn-primary">📲 Install App to Home Screen</button>
-          <button type="button" id="settingsExportCsvBtn" class="clicky px-3.5 py-2 rounded-xl text-xs font-semibold bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-800">⬇ Export Study CSV Backup</button>
+          <button type="button" id="replayTourBtn" class="clicky px-3.5 py-2 rounded-xl text-xs font-semibold bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-800">📖 Replay App Guide</button>
+          <button type="button" id="installPwaBtn" class="hidden clicky px-3.5 py-2 rounded-xl text-xs font-bold theme-btn-primary">📲 Install App</button>
+          <button type="button" id="settingsExportCsvBtn" class="clicky px-3.5 py-2 rounded-xl text-xs font-semibold bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-800">⬇ Export CSV</button>
           <span id="settingsSavedToast" class="text-[11px] font-bold text-emerald-400 opacity-0 transition-opacity">✓ Saved</span>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- PITCH-BLACK + LIVE AMBIENT FOCUS OVERLAY -->
+  <!-- ================= PITCH-BLACK + LIVE AMBIENT FOCUS OVERLAY ================= -->
   <div id="zeroDistractionOverlay" class="hidden fixed inset-0 bg-black z-[100] flex flex-col items-center justify-center p-6 select-none overflow-hidden">
     <canvas id="focusWallpaperCanvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
     <div class="relative z-10 max-w-xl w-full text-center space-y-7">
@@ -200,7 +296,7 @@
     </div>
   </div>
 
-  <!-- AUTHENTICATION SCREEN -->
+  <!-- ================= AUTHENTICATION SCREEN ================= -->
   <div id="authScreen" class="flex-1 flex flex-col items-center justify-center p-4">
     <div class="luxury-card rounded-3xl w-full max-w-md p-7 sm:p-9">
       <div class="flex items-center justify-between mb-6">
@@ -283,7 +379,7 @@
     </footer>
   </div>
 
-  <!-- MAIN APPLICATION SHELL (6-PAGE SWIPEABLE MOBILE SYSTEM) -->
+  <!-- ================= MAIN APPLICATION SHELL (6-PAGE SWIPEABLE MOBILE SYSTEM) ================= -->
   <div id="appScreen" class="hidden flex-1 flex flex-col h-screen overflow-hidden">
     <header class="bg-black/80 backdrop-blur-xl border-b border-white/10 z-40 shrink-0">
       <div class="max-w-7xl mx-auto px-4 py-2.5 flex items-center justify-between gap-2">
@@ -328,7 +424,7 @@
 
     <div id="phoneSliderViewport" class="phone-slider-viewport flex-1">
 
-      <!-- SLIDE 0: COMMAND CENTER (DOOMSDAY + CLOCK-IN + DOT AI + 3 CHARTS) -->
+      <!-- SLIDE 0: COMMAND CENTER -->
       <main id="dashboardView" class="phone-screen-slide p-4 sm:p-6">
         <div class="max-w-7xl mx-auto space-y-6">
           <div id="doomsdayClockContainer" class="doomsday-panel rounded-3xl p-6 sm:p-8 relative overflow-hidden">
@@ -524,7 +620,7 @@
               <div>
                 <div class="flex items-center gap-2">
                   <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-[0.2em] bg-white/10 text-zinc-200 border border-white/15">Interactive 3D Hologram</span>
-                  <span id="spider3dRankBadge" class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-amber-500/20 text-amber-200 border border-amber-400/30">Rank: Initiate</span>
+                  <span id="spider3dRankBadge" class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-amber-500/20 text-amber-200 border border-amber-400/30">Rank: Initiate ⚡</span>
                 </div>
                 <h2 class="font-serif-luxury text-2xl sm:text-3xl font-bold text-white mt-1.5">🌐 3D Spider-Web Mastery Observatory</h2>
                 <p class="text-xs text-zinc-400 mt-0.5">Drag to orbit 360° in real 3D space. Every NCERT topic you tick expands your holographic crystal outward.</p>
@@ -736,7 +832,7 @@
     import { getFirestore, doc, getDoc, setDoc, collection, getDocs, onSnapshot } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
     import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
 
-    // ================= GLOBAL STATE (DECLARED FIRST TO PREVENT TDZ ERRORS) =================
+    // ================= 1. GLOBAL STATE (HOISTED FIRST) =================
     let db = null, auth = null, googleProvider = null, currentUser = null, timerInterval = null;
     let studyChart = null, subjectDoughnutChart = null, velocityLineChart = null, syllabusSubjectBarChart = null;
     let allCloudUsersCache = {}, leaderboardLiveOnly = false, activeNoteId = null;
@@ -754,7 +850,81 @@
       night:  { bar: "#818cf8", line: "#38bdf8", lineFill: "rgba(56, 189, 248, 0.16)", rgb: "129, 140, 248" }
     };
 
-    // ================= COMPACT GRANULAR NCERT CLASS 11 & 12 SYLLABUS PARSER =================
+    // ================= 2. 3D ANIMATED ENTRY INTRO (0.5s "BY HEET" FLASH) =================
+    (function run3dEntryIntro() {
+      const overlay = document.getElementById("introSplashOverlay");
+      const canvas = document.getElementById("intro3dCanvas");
+      const byHeet = document.getElementById("byHeetBadge");
+      const skipBtn = document.getElementById("skipIntroBtn");
+      if (!overlay || !canvas) return;
+
+      const ctx = canvas.getContext("2d");
+      let w = canvas.width = window.innerWidth;
+      let h = canvas.height = window.innerHeight;
+      let animId = null, finished = false, angle = 0;
+
+      const stars = Array.from({ length: 110 }, () => ({
+        x: (Math.random() - 0.5) * 1400, y: (Math.random() - 0.5) * 1000, z: Math.random() * 900 + 80
+      }));
+      const verts = [[0, -1, 0], [1, 0, 0], [0, 0, 1], [-1, 0, 0], [0, 0, -1], [0, 1, 0]];
+      const edges = [[0,1],[0,2],[0,3],[0,4],[5,1],[5,2],[5,3],[5,4],[1,2],[2,3],[3,4],[4,1]];
+
+      function drawIntroFrame() {
+        if (finished) return;
+        ctx.fillStyle = "rgba(4, 4, 6, 0.38)";
+        ctx.fillRect(0, 0, w, h);
+        const cx = w / 2, cy = h / 2;
+
+        stars.forEach(s => {
+          s.z -= 9;
+          if (s.z <= 20) { s.x = (Math.random() - 0.5) * 1400; s.y = (Math.random() - 0.5) * 1000; s.z = 920; }
+          const scale = 320 / s.z;
+          ctx.beginPath();
+          ctx.arc(cx + s.x * scale, cy + s.y * scale, Math.max(0.6, scale * 1.6), 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(253, 230, 138, ${Math.min(0.85, scale * 0.55)})`;
+          ctx.fill();
+        });
+
+        angle += 0.025;
+        const cosY = Math.cos(angle), sinY = Math.sin(angle);
+        const cosX = Math.cos(angle * 0.55), sinX = Math.sin(angle * 0.55);
+        const size = Math.min(w, h) * 0.24;
+
+        const proj = verts.map(([vx, vy, vz]) => {
+          const x1 = vx * cosY - vz * sinY, z1 = vx * sinY + vz * cosY;
+          const y2 = vy * cosX - z1 * sinX, z2 = vy * sinX + z1 * cosX;
+          const sc = 420 / (420 + z2 * size + 200);
+          return [cx + x1 * size * sc, cy + y2 * size * sc];
+        });
+
+        ctx.strokeStyle = "rgba(212, 175, 55, 0.35)";
+        ctx.lineWidth = 1.6;
+        edges.forEach(([a, b]) => {
+          ctx.beginPath(); ctx.moveTo(proj[a][0], proj[a][1]); ctx.lineTo(proj[b][0], proj[b][1]); ctx.stroke();
+        });
+
+        animId = requestAnimationFrame(drawIntroFrame);
+      }
+
+      function closeIntro() {
+        if (finished) return;
+        finished = true;
+        if (animId) cancelAnimationFrame(animId);
+        overlay.style.opacity = "0";
+        overlay.style.transform = "scale(1.06)";
+        setTimeout(() => { overlay.classList.add("hidden"); }, 560);
+      }
+
+      drawIntroFrame();
+      // Show "by heet" at 1.4s and hide it EXACTLY 0.5s (500ms) later at 1.9s
+      const t1 = setTimeout(() => { if (byHeet && !finished) byHeet.classList.add("show-half-sec"); }, 1400);
+      const t2 = setTimeout(() => { if (byHeet) byHeet.classList.remove("show-half-sec"); }, 1900);
+      const t3 = setTimeout(closeIntro, 2250);
+
+      skipBtn.addEventListener("click", () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); closeIntro(); });
+    })();
+
+    // ================= 3. GRANULAR NCERT CLASS 11 & 12 SYLLABUS =================
     const mkCh = (arr) => arr.map(([id, name, sub]) => ({ id, name, subtopics: sub.split("|") }));
     const NEET_2027_SYLLABUS = [
       {
@@ -869,7 +1039,7 @@
     let TOTAL_SYLLABUS_TOPICS = 0;
     NEET_2027_SYLLABUS.forEach(s => s.units.forEach(u => u.chapters.forEach(ch => { TOTAL_SYLLABUS_TOPICS += ch.subtopics.length; })));
 
-    // ================= FIREBASE SETUP =================
+    // ================= 4. FIREBASE SETUP =================
     const firebaseConfig = {
       apiKey: "AIzaSyDuOgES0lUt-MGSiM5blxxCm36W67xQK3c",
       authDomain: "studypunchone.firebaseapp.com",
@@ -919,7 +1089,7 @@
       catch { setCloudStatus(false); return false; }
     }
 
-    // ================= SETTINGS, THEMES & DOOMSDAY TOGGLE =================
+    // ================= 5. SETTINGS, THEMES & DOOMSDAY TOGGLE =================
     function flashSettingsSaved() {
       const toast = document.getElementById("settingsSavedToast");
       if (!toast) return;
@@ -977,7 +1147,6 @@
       await saveUserToCloud(currentUser);
     });
 
-    // PWA Manifest & Install
     try {
       const manifestObj = {
         name: "StudyPunch — NEET 2027 Command Hub", short_name: "StudyPunch", start_url: ".", display: "standalone",
@@ -994,7 +1163,7 @@
     window.addEventListener("beforeinstallprompt", (e) => { e.preventDefault(); deferredInstallPrompt = e; installPwaBtn.classList.remove("hidden"); });
     installPwaBtn.addEventListener("click", async () => { if (!deferredInstallPrompt) return; deferredInstallPrompt.prompt(); await deferredInstallPrompt.userChoice; deferredInstallPrompt = null; installPwaBtn.classList.add("hidden"); });
 
-    // ================= DOOMSDAY CHRONOGRAPH (02 MAY 2027) =================
+    // ================= 6. DOOMSDAY CHRONOGRAPH (02 MAY 2027) =================
     const NEET_2027_EXAM_TIMESTAMP = new Date("2027-05-02T14:00:00+05:30").getTime();
     function updateDoomsdayChronograph() {
       const diffMs = Math.max(0, NEET_2027_EXAM_TIMESTAMP - Date.now());
@@ -1017,7 +1186,7 @@
     updateDoomsdayChronograph();
     setInterval(updateDoomsdayChronograph, 1000);
 
-    // ================= LIVE FOCUS WALLPAPER & AMBIENT SOUND ENGINE =================
+    // ================= 7. LIVE FOCUS WALLPAPER & AMBIENT SOUND ENGINE =================
     const zeroDistractionOverlay = document.getElementById("zeroDistractionOverlay");
     const wpCanvas = document.getElementById("focusWallpaperCanvas");
     const wpCtx = wpCanvas.getContext("2d");
@@ -1137,11 +1306,49 @@
     document.getElementById("toggleAmbientAudioBtn").addEventListener("click", () => isAmbientSoundOn ? stopAmbientSound() : startAmbientSound());
     document.getElementById("settingsAudioToggleBtn").addEventListener("click", () => { isAmbientSoundOn ? stopAmbientSound() : startAmbientSound(); flashSettingsSaved(); });
 
-    // Apply initial theme & wallpaper safely now that state is initialized
     window.setWebTheme(activeWebTheme, true);
     window.setFocusWallpaper(currentFocusWallpaper, true);
 
-    // ================= REAL-TIME CLOUD LEADERBOARD SUBSCRIPTION =================
+    // ================= 8. NEW USER INTERACTIVE INTRODUCTION TOUR =================
+    const TOUR_SLIDES = [
+      { icon: "⏱️", title: "Sanctuary Focus & Doomsday Clock", desc: "Clock in to enter pitch-black Focus Mode with Live Aurora, Snowfall, or Rain wallpapers and optional rain white-noise—while your Doomsday Clock counts down every second to NEET 2027 (02 May 2027)." },
+      { icon: "🌐", title: "NCERT Checklist & 3D Spider Web", desc: "Swipe right to tick off 80+ NCERT Class 11 & 12 chapters. Watch your interactive 3D Spider-Web crystal expand in real time while DOT AI recommends your highest-yield next topic." },
+      { icon: "🏆", title: "Live Study Arena & Notes Vault", desc: "Compete in real time on the Global Live Leaderboard to see who is studying right now, and save high-yield NCERT formulas or test mistakes in your Cloud-synced Notes Vault." },
+      { icon: "🔫", title: "Revolver Party & ⚙️ Settings", desc: "Challenge friends in the 6-Chamber NCERT Revolver Game with custom players and chapter quizzes. Tap ⚙️ Settings anytime to switch between Sunset, Flora & Fauna, and Night Sky themes!" }
+    ];
+
+    let tourIndex = 0;
+    const tourModal = document.getElementById("newUserIntroModal");
+
+    function renderTourSlide() {
+      const s = TOUR_SLIDES[tourIndex];
+      document.getElementById("tourStepCounter").textContent = `Welcome • ${tourIndex + 1} / ${TOUR_SLIDES.length}`;
+      document.getElementById("tourSlideIcon").textContent = s.icon;
+      document.getElementById("tourSlideTitle").textContent = s.title;
+      document.getElementById("tourSlideDesc").textContent = s.desc;
+      document.getElementById("tourPrevBtn").classList.toggle("invisible", tourIndex === 0);
+      document.getElementById("tourNextBtn").textContent = tourIndex === TOUR_SLIDES.length - 1 ? "Let's Lock In 🚀" : "Next →";
+      document.getElementById("tourDotsRow").innerHTML = TOUR_SLIDES.map((_, i) => `<span class="h-1.5 rounded-full transition-all duration-300 ${i === tourIndex ? 'w-7 bg-white' : 'w-2 bg-zinc-700'}"></span>`).join("");
+    }
+
+    function finishNewUserTour() {
+      tourModal.classList.add("hidden");
+      if (currentUser) localStorage.setItem("studypunch_tour_seen_" + currentUser.id, "true");
+    }
+
+    function maybeLaunchNewUserTour(force = false) {
+      if (!currentUser) return;
+      const seenKey = "studypunch_tour_seen_" + currentUser.id;
+      const isNewAccount = !localStorage.getItem(seenKey) && (!currentUser.sessions || currentUser.sessions.length === 0);
+      if (force || isNewAccount) { tourIndex = 0; renderTourSlide(); tourModal.classList.remove("hidden"); }
+    }
+
+    document.getElementById("tourPrevBtn").addEventListener("click", () => { if (tourIndex > 0) { tourIndex--; renderTourSlide(); } });
+    document.getElementById("tourNextBtn").addEventListener("click", () => { if (tourIndex < TOUR_SLIDES.length - 1) { tourIndex++; renderTourSlide(); } else finishNewUserTour(); });
+    document.getElementById("tourSkipBtn").addEventListener("click", finishNewUserTour);
+    document.getElementById("replayTourBtn").addEventListener("click", () => { settingsModal.classList.add("hidden"); maybeLaunchNewUserTour(true); });
+
+    // ================= 9. REAL-TIME CLOUD LEADERBOARD SUBSCRIPTION =================
     if (db) {
       try {
         onSnapshot(collection(db, "students"), (snapshot) => {
@@ -1161,7 +1368,7 @@
       } catch {}
     }
 
-    // ================= AUTH HANDLERS =================
+    // ================= 10. AUTH HANDLERS =================
     const authScreen = document.getElementById("authScreen"), appScreen = document.getElementById("appScreen"), authAlert = document.getElementById("authAlert");
     const signInForm = document.getElementById("signInForm"), createIdForm = document.getElementById("createIdForm");
 
@@ -1227,11 +1434,11 @@
       try { const result = await signInWithPopup(auth, googleProvider); await handleGoogleUserObject(result.user); }
       catch (err) {
         if (err && (err.code === "auth/popup-blocked" || err.code === "auth/cancelled-popup-request")) signInWithRedirect(auth, googleProvider).catch(() => {});
-        else showAlert("Google Sign-In error (" + (err.code || "auth") + "): Ensure Google is enabled in Firebase Authentication & studypunchone.vercel.app is in Authorized Domains.");
+        else showAlert("Google Sign-In error (" + (err.code || "auth") + "): Make sure Google is enabled in Firebase Authentication & studypunchone.vercel.app is in Authorized Domains.");
       } finally { btn.disabled = false; }
     });
 
-    // ================= DASHBOARD, CLOCK-IN & DOT AI =================
+    // ================= 11. DASHBOARD, CLOCK-IN & DOT AI =================
     function loginSuccess(userObj) {
       currentUser = userObj;
       if (!Array.isArray(currentUser.sessions)) currentUser.sessions = [];
@@ -1252,6 +1459,7 @@
       updateCylinderVisuals();
       start3dSpiderWebLoop();
       slideToScreen(0);
+      maybeLaunchNewUserTour();
     }
 
     document.getElementById("logoutBtn").addEventListener("click", () => {
@@ -1446,7 +1654,7 @@
     document.getElementById("exportCsvBtn").addEventListener("click", exportCsvFile);
     document.getElementById("settingsExportCsvBtn").addEventListener("click", exportCsvFile);
 
-    // ================= MULTI-CHART WEB ANALYTICS =================
+    // ================= 12. MULTI-CHART WEB ANALYTICS =================
     function classifySessionSubject(subjText = "") {
       const t = subjText.toLowerCase();
       if (t.includes("phys") || t.includes("rotat") || t.includes("optic") || t.includes("kinemat") || t.includes("electro") || t.includes("magnet") || t.includes("mechanics") || t.includes("shm") || t.includes("wave")) return "Physics";
@@ -1502,7 +1710,7 @@
       });
     }
 
-    // ================= NCERT SYLLABUS & 3D SPIDER-WEB DATA =================
+    // ================= 13. NCERT SYLLABUS & 3D SPIDER-WEB DATA =================
     const openFoldersState = { phys: true, chem: true, bio: true, phys_11: true, chem_11: true, bio_11: true };
     let spider3dOverallPct = 0;
     let spider3dAxesData = [
@@ -1678,7 +1886,7 @@
       document.getElementById("syllabusTreeContainer").innerHTML = treeHtml || `<div class="p-8 text-center text-zinc-500">No NCERT chapters or sub-topics match your search.</div>`;
     }
 
-    // ================= INTERACTIVE 3D VOLUMETRIC SPIDER-WEB ENGINE =================
+    // ================= 14. INTERACTIVE 3D VOLUMETRIC SPIDER-WEB ENGINE =================
     const s3dCanvas = document.getElementById("spider3dCanvas");
     const s3dCtx = s3dCanvas.getContext("2d");
     let rotX = 0.45, rotY = 0.35, zoom3d = 1.0, autoRotate3d = true;
@@ -1742,7 +1950,6 @@
       const pal = THEME_CHART_PALETTE[activeWebTheme] || THEME_CHART_PALETTE.sunset;
       const axes = spider3dAxesData, n = axes.length;
 
-      // Equator ring vectors in 3D (X-Z horizontal plane) + Top/Bottom 3D Y poles
       const dirs = axes.map((_, i) => {
         const angle = (i / n) * Math.PI * 2;
         return { dx: Math.cos(angle), dy: 0, dz: Math.sin(angle) };
@@ -1751,7 +1958,6 @@
       const outerBot = project3D(0,  maxR * 0.72, 0, cx, cy, fov);
       const centerPt = project3D(0, 0, 0, cx, cy, fov);
 
-      // 4 Concentric 3D spider-web rings + vertical crystal struts
       [0.25, 0.5, 0.75, 1.0].forEach((ringFrac, rIdx) => {
         const ringPts = dirs.map(d => project3D(d.dx * maxR * ringFrac, 0, d.dz * maxR * ringFrac, cx, cy, fov));
         s3dCtx.beginPath();
@@ -1762,7 +1968,6 @@
         s3dCtx.stroke();
       });
 
-      // Outer wireframe bipyramid cage & radial spokes
       const masteryPts = [];
       dirs.forEach((d, i) => {
         const outerPt = project3D(d.dx * maxR, 0, d.dz * maxR, cx, cy, fov);
@@ -1785,27 +1990,23 @@
         s3dCtx.fillText(`${axes[i].label} (${axes[i].pct}%)`, lblPt.px, lblPt.py);
       });
 
-      // Vertical central mastery spine (Top Peak & Bottom Anchor scale with Overall Mastery %)
       const peakFrac = Math.max(0.18, spider3dOverallPct / 100);
       const mTop = project3D(0, -maxR * 0.72 * peakFrac, 0, cx, cy, fov);
       const mBot = project3D(0,  maxR * 0.72 * peakFrac, 0, cx, cy, fov);
 
-      // Draw translucent 3D crystal facets (Top pyramid + Bottom pyramid)
       for (let i = 0; i < n; i++) {
         const pA = masteryPts[i], pB = masteryPts[(i + 1) % n];
-        // Upper facet
         s3dCtx.beginPath();
         s3dCtx.moveTo(mTop.px, mTop.py); s3dCtx.lineTo(pA.px, pA.py); s3dCtx.lineTo(pB.px, pB.py); s3dCtx.closePath();
         s3dCtx.fillStyle = `rgba(${pal.rgb}, 0.17)`; s3dCtx.fill();
         s3dCtx.strokeStyle = `rgba(${pal.rgb}, 0.75)`; s3dCtx.lineWidth = 1.4; s3dCtx.stroke();
-        // Lower facet
+
         s3dCtx.beginPath();
         s3dCtx.moveTo(mBot.px, mBot.py); s3dCtx.lineTo(pA.px, pA.py); s3dCtx.lineTo(pB.px, pB.py); s3dCtx.closePath();
         s3dCtx.fillStyle = `rgba(${pal.rgb}, 0.10)`; s3dCtx.fill();
         s3dCtx.strokeStyle = `rgba(${pal.rgb}, 0.45)`; s3dCtx.lineWidth = 1.0; s3dCtx.stroke();
       }
 
-      // Glowing 3D nodes on all 6 axes + Top Apex
       [...masteryPts, mTop, mBot].forEach(pt => {
         s3dCtx.beginPath();
         s3dCtx.arc(pt.px, pt.py, Math.max(3.5, 5.8 * pt.scale), 0, Math.PI * 2);
@@ -1826,7 +2027,7 @@
       if (!s3dAnimId) render3dSpiderWebFrame();
     }
 
-    // ================= LIVE LEADERBOARD =================
+    // ================= 15. LIVE LEADERBOARD =================
     function renderFastLeaderboard() {
       const tbody = document.getElementById("globalLeaderboardBody");
       const combined = { ...getLocalUsersMap(), ...allCloudUsersCache };
@@ -1871,7 +2072,7 @@
       renderFastLeaderboard();
     });
 
-    // ================= NOTES VAULT =================
+    // ================= 16. NOTES VAULT =================
     function renderNotesVault(filterText = "") {
       if (!currentUser) return;
       if (!Array.isArray(currentUser.notes)) currentUser.notes = [];
@@ -1898,7 +2099,7 @@
     document.getElementById("deleteNoteBtn").addEventListener("click", async () => { if (!currentUser || !activeNoteId) return; currentUser.notes = currentUser.notes.filter(n => n.id !== activeNoteId); activeNoteId = currentUser.notes[0] ? currentUser.notes[0].id : null; renderNotesVault(); await saveUserToCloud(currentUser); });
     document.getElementById("noteSearchInput").addEventListener("input", (e) => renderNotesVault(e.target.value.trim()));
 
-    // ================= MULTIPLAYER REVOLVER GAME =================
+    // ================= 17. MULTIPLAYER REVOLVER GAME =================
     const NEET_BULLET_BANK = [
       { subject: "Physics", topic: "Units & Kinematics", q: "Dimension of Planck's constant (h) is identical to that of:", opts: ["Angular Momentum", "Linear Momentum", "Torque", "Impulse"], ans: 0 },
       { subject: "Physics", topic: "Units & Kinematics", q: "At the highest point of an oblique projectile path, the angle between velocity and acceleration is:", opts: ["90°", "0°", "180°", "45°"], ans: 0 },
@@ -2080,7 +2281,7 @@
       advanceToNextPlayer(); spinNewCylinder(); renderPlayersRoster();
     };
 
-    // ================= 6-SLIDE MOBILE SCREEN SLIDING CONTROLLER =================
+    // ================= 18. 6-SLIDE MOBILE SCREEN SLIDING CONTROLLER =================
     const phoneSliderViewport = document.getElementById("phoneSliderViewport");
     const SCREEN_TITLES = [
       "Swipe ⇄ • 1/6 Command & Telemetry",
@@ -2147,7 +2348,7 @@
     document.getElementById("navNotesBtn").addEventListener("click", () => window.slideToScreen(4));
     document.getElementById("navGameBtn").addEventListener("click", () => window.slideToScreen(5));
 
-    // Auto-Login on Page Load
+    // ================= 19. AUTO-LOGIN ON PAGE LOAD =================
     const saved = localStorage.getItem("studypunch_current_user");
     if (saved) {
       try {
