@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="sunset">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>StudyPunch — Executive NEET 2027 Doomsday Chronograph & NCERT Spider Syllabus</title>
-  <meta name="description" content="StudyPunch is an executive cloud-synced NEET 2027 command center featuring a Doomsday Chronograph to 02 May 2027, Granular NCERT Class 11 & 12 Spider-Web Syllabus, Mobile Sliding Screens, Zero-Distraction Blackout Clock-In, DOT AI Recommender, and 4-Chart Telemetry." />
-  <meta name="theme-color" content="#050507" />
-  <meta property="og:title" content="StudyPunch — Executive NEET 2027 Doomsday Chronograph & NCERT Syllabus" />
-  <meta property="og:description" content="Every second counts toward 02 May 2027. Swipe between your Doomsday Chronograph, Zero-Distraction Clock, Granular NCERT Spider-Web Syllabus, and Live Arena." />
+  <title>StudyPunch — Executive NEET 2027 Command Atelier</title>
+  <meta name="description" content="StudyPunch is an executive cloud-synced NEET 2027 command center with 3 Web Themes (Sunset, Flora & Fauna, Night Sky), Optional Doomsday Chronograph to 02 May 2027, Granular NCERT Class 11 & 12 Spider-Web Syllabus, DOT AI, and 4-Chart Telemetry." />
+  <meta name="theme-color" content="#09090b" />
+  <meta property="og:title" content="StudyPunch — Executive NEET 2027 Command Atelier" />
+  <meta property="og:description" content="Switch between Sunset, Flora & Fauna, and Night Sky themes, toggle your Doomsday Clock to 02 May 2027, and master the NCERT NEET 2027 syllabus." />
   <meta property="og:url" content="https://studypunchone.vercel.app" />
   <meta property="og:type" content="website" />
 
-  <!-- Custom StudyPunch Obsidian & Champagne Gold SVG Favicon -->
+  <!-- Custom StudyPunch SVG Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2309090b'/%3E%3Cstop offset='100%25' stop-color='%2318181b'/%3E%3C/linearGradient%3E%3ClinearGradient id='gold' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23f3e5ab'/%3E%3Cstop offset='50%25' stop-color='%23d4af37'/%3E%3Cstop offset='100%25' stop-color='%23aa771c'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='24' fill='url(%23bg)' stroke='url(%23gold)' stroke-width='4'/%3E%3Ccircle cx='50' cy='52' r='31' fill='none' stroke='url(%23gold)' stroke-width='3.5' stroke-dasharray='165 30'/%3E%3Cpath d='M42 18 H58 M50 18 V24' stroke='%23d4af37' stroke-width='4.5' stroke-linecap='round'/%3E%3Cpath d='M54 33 L39 54 H51 L46 73 L63 50 H51 Z' fill='url(%23gold)'/%3E%3C/svg%3E" />
 
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
@@ -20,57 +20,86 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600;1,800&family=JetBrains+Mono:wght@500;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet" />
   <style>
-    /* ================= OBSIDIAN & CHAMPAGNE GOLD LUXURY THEME ================= */
-    :root {
-      --gold-light: #f3e5ab;
-      --gold-mid: #d4af37;
-      --gold-dark: #aa771c;
-      --obsidian: #050507;
-      --charcoal: #0c0d10;
+    /* ================= 3 WEB-ONLY DYNAMIC THEMES ================= */
+    :root, [data-theme="sunset"] {
+      --bg-base: #090608;
+      --bg-glow-1: rgba(245, 158, 11, 0.16);
+      --bg-glow-2: rgba(244, 63, 94, 0.12);
+      --card-bg: linear-gradient(180deg, rgba(24, 15, 19, 0.92) 0%, rgba(12, 8, 11, 0.96) 100%);
+      --card-border: rgba(245, 158, 11, 0.25);
+      --accent-start: #fde68a;
+      --accent-mid: #f59e0b;
+      --accent-end: #e11d48;
+      --btn-text: #090608;
+      --spider-line: rgba(245, 158, 11, 0.42);
+      --spider-dot: #f59e0b;
     }
+    [data-theme="flora"] {
+      --bg-base: #040a07;
+      --bg-glow-1: rgba(16, 185, 129, 0.16);
+      --bg-glow-2: rgba(132, 204, 22, 0.11);
+      --card-bg: linear-gradient(180deg, rgba(11, 24, 18, 0.92) 0%, rgba(6, 14, 10, 0.96) 100%);
+      --card-border: rgba(16, 185, 129, 0.26);
+      --accent-start: #a7f3d0;
+      --accent-mid: #10b981;
+      --accent-end: #84cc16;
+      --btn-text: #040a07;
+      --spider-line: rgba(16, 185, 129, 0.42);
+      --spider-dot: #10b981;
+    }
+    [data-theme="night"] {
+      --bg-base: #04060d;
+      --bg-glow-1: rgba(99, 102, 241, 0.18);
+      --bg-glow-2: rgba(56, 189, 248, 0.12);
+      --card-bg: linear-gradient(180deg, rgba(13, 17, 32, 0.92) 0%, rgba(7, 10, 20, 0.96) 100%);
+      --card-border: rgba(129, 140, 248, 0.26);
+      --accent-start: #e0e7ff;
+      --accent-mid: #818cf8;
+      --accent-end: #38bdf8;
+      --btn-text: #04060d;
+      --spider-line: rgba(129, 140, 248, 0.42);
+      --spider-dot: #818cf8;
+    }
+
     body {
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background-color: #050507;
+      background-color: var(--bg-base);
       background-image: 
-        radial-gradient(ellipse at 50% -10%, rgba(212, 175, 55, 0.11) 0%, transparent 60%),
-        radial-gradient(ellipse at 85% 20%, rgba(220, 38, 38, 0.06) 0%, transparent 45%),
-        radial-gradient(circle at 15% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 45%);
+        radial-gradient(ellipse at 50% -10%, var(--bg-glow-1) 0%, transparent 60%),
+        radial-gradient(ellipse at 85% 25%, var(--bg-glow-2) 0%, transparent 50%),
+        radial-gradient(circle at 15% 85%, var(--bg-glow-1) 0%, transparent 45%);
       color: #f4f4f5;
       overflow-x: hidden;
+      transition: background-color 0.35s ease;
     }
     .font-serif-luxury {
       font-family: 'Playfair Display', Georgia, serif;
     }
-    .gold-text {
-      background: linear-gradient(135deg, #f3e5ab 0%, #d4af37 50%, #b8860b 100%);
+    .theme-gradient-text {
+      background: linear-gradient(135deg, var(--accent-start) 0%, var(--accent-mid) 55%, var(--accent-end) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+    .theme-btn-primary {
+      background: linear-gradient(135deg, var(--accent-start) 0%, var(--accent-mid) 60%, var(--accent-end) 100%);
+      color: var(--btn-text);
+      box-shadow: 0 8px 25px -6px var(--bg-glow-1);
+    }
     .luxury-card {
-      background: linear-gradient(180deg, rgba(18, 19, 24, 0.92) 0%, rgba(10, 11, 14, 0.96) 100%);
-      border: 1px solid rgba(212, 175, 55, 0.16);
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
       box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.85), inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(20px);
+      transition: border-color 0.3s ease, background 0.3s ease;
     }
     .doomsday-panel {
-      background: radial-gradient(circle at 50% 0%, rgba(185, 28, 28, 0.14) 0%, rgba(12, 12, 15, 0.98) 70%);
-      border: 1px solid rgba(212, 175, 55, 0.32);
-      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.95), 0 0 40px rgba(212, 175, 55, 0.06);
+      background: radial-gradient(circle at 50% 0%, rgba(185, 28, 28, 0.16) 0%, rgba(10, 10, 14, 0.98) 72%);
+      border: 1px solid var(--card-border);
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.95);
     }
-    ::-webkit-scrollbar {
-      width: 5px;
-      height: 5px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #050507;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #27272a;
-      border-radius: 9999px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #d4af37;
-    }
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg-base); }
+    ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 9999px; }
 
     /* ================= MOBILE PHONE SCREEN SLIDING SYSTEM ================= */
     .phone-slider-viewport {
@@ -83,9 +112,7 @@
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
     }
-    .phone-slider-viewport::-webkit-scrollbar {
-      display: none;
-    }
+    .phone-slider-viewport::-webkit-scrollbar { display: none; }
     .phone-screen-slide {
       flex: 0 0 100vw;
       width: 100vw;
@@ -102,20 +129,17 @@
       font-variant-numeric: tabular-nums;
     }
     .clicky {
-      transition: transform 0.12s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+      transition: transform 0.12s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, border-color 0.2s ease;
     }
-    .clicky:active {
-      transform: scale(0.96) translateY(1px);
-    }
+    .clicky:active { transform: scale(0.96) translateY(1px); }
+
     .spider-hub {
       position: relative;
-      border-left: 1px solid rgba(212, 175, 55, 0.35);
+      border-left: 1px solid var(--spider-line);
       margin-left: 1.15rem;
       padding-left: 1.15rem;
     }
-    .spider-node {
-      position: relative;
-    }
+    .spider-node { position: relative; }
     .spider-node::before {
       content: "";
       position: absolute;
@@ -123,7 +147,7 @@
       top: 50%;
       width: 0.9rem;
       height: 1px;
-      background: linear-gradient(90deg, rgba(212, 175, 55, 0.45), rgba(16, 185, 129, 0.5));
+      background: var(--spider-line);
     }
     .spider-node::after {
       content: "";
@@ -133,41 +157,35 @@
       width: 5px;
       height: 5px;
       border-radius: 9999px;
-      background: #d4af37;
-      box-shadow: 0 0 8px rgba(212, 175, 55, 0.8);
+      background: var(--spider-dot);
+      box-shadow: 0 0 8px var(--spider-dot);
     }
     @keyframes pulseBeacon {
       0%, 100% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); }
       50% { transform: scale(1.12); opacity: 0.85; box-shadow: 0 0 0 8px rgba(220, 38, 38, 0); }
     }
-    .doomsday-beacon {
-      animation: pulseBeacon 1s infinite;
-    }
+    .doomsday-beacon { animation: pulseBeacon 1s infinite; }
     @keyframes liveEmerald {
       0%, 100% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
       50% { transform: scale(1.08); opacity: 0.9; box-shadow: 0 0 0 7px rgba(16, 185, 129, 0); }
     }
-    .live-beacon {
-      animation: liveEmerald 1.8s infinite;
-    }
-    .cylinder-spin {
-      transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
-    }
+    .live-beacon { animation: liveEmerald 1.8s infinite; }
+    .cylinder-spin { transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1); }
   </style>
 </head>
-<body class="antialiased selection:bg-[#d4af37] selection:text-black flex flex-col min-h-screen">
+<body class="antialiased selection:bg-amber-400 selection:text-black flex flex-col min-h-screen">
 
   <!-- ================= PITCH-BLACK ZERO-DISTRACTION OVERLAY ================= -->
   <div id="zeroDistractionOverlay" class="hidden fixed inset-0 bg-black z-[100] flex flex-col items-center justify-center p-6 select-none">
     <div class="max-w-xl w-full text-center space-y-8">
-      <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-zinc-950 border border-[#d4af37]/40 text-[#f3e5ab] text-[11px] font-bold tracking-[0.2em] uppercase">
+      <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-zinc-950 border border-white/20 text-zinc-200 text-[11px] font-bold tracking-[0.2em] uppercase">
         <span class="w-2 h-2 rounded-full bg-emerald-400 live-beacon"></span>
         SANCTUARY FOCUS MODE • LOCKED IN
       </div>
 
       <div>
         <p id="zdSubjectDisplay" class="font-serif-luxury italic text-lg sm:text-xl text-zinc-400 tracking-wide mb-3">NEET 2027 Deep Study Session</p>
-        <div id="zdTimerDisplay" class="mono-nums text-6xl sm:text-8xl font-extrabold text-white tracking-tight drop-shadow-[0_0_40px_rgba(212,175,55,0.22)]">
+        <div id="zdTimerDisplay" class="mono-nums text-6xl sm:text-8xl font-extrabold text-white tracking-tight">
           00:00:00
         </div>
         <p id="zdDoomsdayMini" class="mono-nums text-xs text-rose-400/90 mt-4 tracking-widest uppercase">
@@ -190,7 +208,7 @@
       
       <div class="flex items-center justify-between mb-6">
         <div class="flex items-center gap-3.5">
-          <div class="w-12 h-12 rounded-2xl bg-black border border-[#d4af37]/50 flex items-center justify-center shadow-[0_0_25px_rgba(212,175,55,0.18)] overflow-hidden p-1.5">
+          <div class="w-12 h-12 rounded-2xl bg-black border border-white/15 flex items-center justify-center shadow-lg overflow-hidden p-1.5">
             <svg viewBox="0 0 100 100" class="w-full h-full">
               <defs>
                 <linearGradient id="spGradAuth" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -205,24 +223,13 @@
             </svg>
           </div>
           <div>
-            <h1 class="font-serif-luxury text-2xl font-bold gold-text tracking-tight">StudyPunch</h1>
+            <h1 class="font-serif-luxury text-2xl font-bold theme-gradient-text tracking-tight">StudyPunch</h1>
             <p class="text-[11px] text-zinc-400 tracking-widest uppercase">NEET 2027 Executive Atelier</p>
           </div>
         </div>
         <span id="cloudBadge" class="px-3 py-1 rounded-full text-[11px] font-semibold bg-emerald-950/60 text-emerald-300 border border-emerald-500/30">
           Cloud Ready
         </span>
-      </div>
-
-      <!-- Mini Doomsday Clock Preview on Login Screen -->
-      <div class="mb-5 p-3.5 rounded-2xl bg-black/80 border border-rose-500/30 text-center">
-        <div class="flex items-center justify-center gap-2 mb-1">
-          <span class="w-2 h-2 rounded-full bg-rose-500 doomsday-beacon"></span>
-          <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-rose-400">NEET 2027 Doomsday Clock • 02 May 2027</span>
-        </div>
-        <p id="authDoomsdayPreview" class="mono-nums text-xs sm:text-sm font-extrabold text-[#f3e5ab] tracking-wider">
-          --s : --m : --h : ---d remaining
-        </p>
       </div>
 
       <button id="googleLoginBtn" type="button" class="clicky w-full flex items-center justify-center gap-3 bg-zinc-100 hover:bg-white text-zinc-950 font-bold py-3 px-4 rounded-xl shadow-lg mb-4 text-sm">
@@ -237,7 +244,7 @@
       </div>
 
       <div class="grid grid-cols-2 bg-black p-1 rounded-xl mb-5 border border-zinc-800/80">
-        <button id="tabSignIn" type="button" class="clicky py-2 text-xs font-bold rounded-lg bg-zinc-900 text-[#f3e5ab] border border-[#d4af37]/30 shadow-sm">
+        <button id="tabSignIn" type="button" class="clicky py-2 text-xs font-bold rounded-lg bg-zinc-900 text-white border border-white/15 shadow-sm">
           Student Sign In
         </button>
         <button id="tabCreateId" type="button" class="clicky py-2 text-xs font-bold rounded-lg text-zinc-400 hover:text-white">
@@ -250,13 +257,13 @@
       <form id="signInForm" class="space-y-4">
         <div>
           <label class="block text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400 mb-1.5">Student ID</label>
-          <input id="loginStudentId" type="text" required placeholder="e.g. heet16" class="w-full px-3.5 py-2.5 rounded-xl bg-black border border-zinc-800 text-white focus:outline-none focus:border-[#d4af37] text-sm" />
+          <input id="loginStudentId" type="text" required placeholder="e.g. heet16" class="w-full px-3.5 py-2.5 rounded-xl bg-black border border-zinc-800 text-white focus:outline-none focus:border-amber-400 text-sm" />
         </div>
         <div>
           <label class="block text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400 mb-1.5">4-Digit PIN</label>
-          <input id="loginPin" type="password" inputmode="numeric" maxlength="4" required placeholder="••••" class="w-full px-3.5 py-2.5 rounded-xl bg-black border border-zinc-800 text-white focus:outline-none focus:border-[#d4af37] text-sm tracking-widest" />
+          <input id="loginPin" type="password" inputmode="numeric" maxlength="4" required placeholder="••••" class="w-full px-3.5 py-2.5 rounded-xl bg-black border border-zinc-800 text-white focus:outline-none focus:border-amber-400 text-sm tracking-widest" />
         </div>
-        <button id="signInSubmitBtn" type="submit" class="clicky w-full bg-gradient-to-r from-[#d4af37] to-[#b8860b] hover:from-[#f3e5ab] hover:to-[#d4af37] text-black font-extrabold py-3 rounded-xl shadow-lg text-xs uppercase tracking-[0.15em]">
+        <button id="signInSubmitBtn" type="submit" class="clicky w-full theme-btn-primary font-extrabold py-3 rounded-xl text-xs uppercase tracking-[0.15em]">
           Enter Command Atelier →
         </button>
       </form>
@@ -264,27 +271,27 @@
       <form id="createIdForm" class="hidden space-y-3.5">
         <div>
           <label class="block text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400 mb-1">Full Name</label>
-          <input id="regFullName" type="text" required placeholder="e.g. Heet Soni" class="w-full px-3.5 py-2.5 rounded-xl bg-black border border-zinc-800 text-white focus:outline-none focus:border-[#d4af37] text-sm" />
+          <input id="regFullName" type="text" required placeholder="e.g. Heet Soni" class="w-full px-3.5 py-2.5 rounded-xl bg-black border border-zinc-800 text-white focus:outline-none focus:border-amber-400 text-sm" />
         </div>
         <div>
           <label class="block text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400 mb-1">Choose Student ID</label>
-          <input id="regStudentId" type="text" required placeholder="e.g. heet16" class="w-full px-3.5 py-2.5 rounded-xl bg-black border border-zinc-800 text-white focus:outline-none focus:border-[#d4af37] text-sm" />
+          <input id="regStudentId" type="text" required placeholder="e.g. heet16" class="w-full px-3.5 py-2.5 rounded-xl bg-black border border-zinc-800 text-white focus:outline-none focus:border-amber-400 text-sm" />
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400 mb-1">4-Digit PIN</label>
-            <input id="regPin" type="password" inputmode="numeric" maxlength="4" required placeholder="••••" class="w-full px-3.5 py-2.5 rounded-xl bg-black border border-zinc-800 text-white focus:outline-none focus:border-[#d4af37] text-sm tracking-widest" />
+            <input id="regPin" type="password" inputmode="numeric" maxlength="4" required placeholder="••••" class="w-full px-3.5 py-2.5 rounded-xl bg-black border border-zinc-800 text-white focus:outline-none focus:border-amber-400 text-sm tracking-widest" />
           </div>
           <div>
             <label class="block text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400 mb-1">Confirm PIN</label>
-            <input id="regPinConfirm" type="password" inputmode="numeric" maxlength="4" required placeholder="••••" class="w-full px-3.5 py-2.5 rounded-xl bg-black border border-zinc-800 text-white focus:outline-none focus:border-[#d4af37] text-sm tracking-widest" />
+            <input id="regPinConfirm" type="password" inputmode="numeric" maxlength="4" required placeholder="••••" class="w-full px-3.5 py-2.5 rounded-xl bg-black border border-zinc-800 text-white focus:outline-none focus:border-amber-400 text-sm tracking-widest" />
           </div>
         </div>
         <div>
           <label class="block text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400 mb-1">Daily Target (Hours)</label>
-          <input id="regTarget" type="number" min="1" max="18" step="0.5" value="6" required class="w-full px-3.5 py-2.5 rounded-xl bg-black border border-zinc-800 text-white focus:outline-none focus:border-[#d4af37] text-sm" />
+          <input id="regTarget" type="number" min="1" max="18" step="0.5" value="6" required class="w-full px-3.5 py-2.5 rounded-xl bg-black border border-zinc-800 text-white focus:outline-none focus:border-amber-400 text-sm" />
         </div>
-        <button id="createIdSubmitBtn" type="submit" class="clicky w-full bg-gradient-to-r from-[#d4af37] to-[#b8860b] hover:from-[#f3e5ab] hover:to-[#d4af37] text-black font-extrabold py-3 rounded-xl shadow-lg text-xs uppercase tracking-[0.15em]">
+        <button id="createIdSubmitBtn" type="submit" class="clicky w-full theme-btn-primary font-extrabold py-3 rounded-xl text-xs uppercase tracking-[0.15em]">
           Create Student ID +
         </button>
       </form>
@@ -292,7 +299,7 @@
 
     <footer class="mt-6 text-center">
       <p class="text-xs text-zinc-500 tracking-wider">
-        StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold text-[#d4af37] tracking-widest text-base">heet</i>
+        StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i>
       </p>
     </footer>
   </div>
@@ -300,11 +307,11 @@
   <!-- ================= MAIN APPLICATION SHELL (SWIPEABLE MOBILE SCREEN SYSTEM) ================= -->
   <div id="appScreen" class="hidden flex-1 flex flex-col h-screen overflow-hidden">
     
-    <!-- Top Classy Header + Screen Pagination Dots -->
-    <header class="bg-[#070709]/95 backdrop-blur-xl border-b border-[#d4af37]/20 z-40 shrink-0">
-      <div class="max-w-7xl mx-auto px-4 py-2.5 flex items-center justify-between gap-2">
-        <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-xl bg-black border border-[#d4af37]/50 flex items-center justify-center shadow-[0_0_15px_rgba(212,175,55,0.2)] overflow-hidden p-1.5">
+    <!-- Top Header: Brand + Web-Only 3-Theme Switcher + Doomsday Clock Toggle + PWA Install -->
+    <header class="bg-black/80 backdrop-blur-xl border-b border-white/10 z-40 shrink-0">
+      <div class="max-w-7xl mx-auto px-3 sm:px-4 py-2.5 flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-black border border-white/20 flex items-center justify-center shadow-md overflow-hidden p-1.5">
             <svg viewBox="0 0 100 100" class="w-full h-full">
               <defs>
                 <linearGradient id="spGradNav" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -319,98 +326,104 @@
             </svg>
           </div>
           <div>
-            <div class="flex items-center gap-2">
-              <span class="font-serif-luxury font-bold gold-text tracking-tight text-base sm:text-lg">StudyPunch</span>
-              <span id="navCloudStatus" class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-950/80 text-emerald-300 border border-emerald-500/30 font-semibold">Cloud Live</span>
-              <span id="navDriveStatus" class="hidden text-[10px] px-2 py-0.5 rounded-full bg-amber-950/60 text-[#f3e5ab] border border-[#d4af37]/30 font-semibold sm:inline-block">Drive Synced</span>
+            <div class="flex items-center gap-1.5">
+              <span class="font-serif-luxury font-bold theme-gradient-text tracking-tight text-base">StudyPunch</span>
+              <span id="navCloudStatus" class="text-[9px] px-2 py-0.5 rounded-full bg-emerald-950/80 text-emerald-300 border border-emerald-500/30 font-semibold">Cloud Live</span>
+              <span id="navDriveStatus" class="hidden text-[9px] px-2 py-0.5 rounded-full bg-white/10 text-zinc-200 border border-white/20 font-semibold md:inline-block">Drive Synced</span>
             </div>
-            <p id="welcomeUserText" class="text-[11px] text-zinc-400 truncate max-w-[160px] sm:max-w-xs">Logged in</p>
+            <p id="welcomeUserText" class="text-[10px] text-zinc-400 truncate max-w-[140px] sm:max-w-xs">Logged in</p>
           </div>
         </div>
 
-        <!-- Center Mobile Home-Screen Pagination Pill Dots + Current Screen Title -->
-        <div class="flex flex-col items-center">
-          <div class="flex items-center gap-2">
-            <button type="button" onclick="slideToScreen(0)" id="dotIndicator0" class="h-1.5 w-7 rounded-full bg-[#d4af37] transition-all duration-300" title="Screen 1: Doomsday Clock & Analytics"></button>
-            <button type="button" onclick="slideToScreen(1)" id="dotIndicator1" class="h-1.5 w-2 rounded-full bg-zinc-700 hover:bg-zinc-500 transition-all duration-300" title="Screen 2: NCERT Spider Syllabus"></button>
-            <button type="button" onclick="slideToScreen(2)" id="dotIndicator2" class="h-1.5 w-2 rounded-full bg-zinc-700 hover:bg-zinc-500 transition-all duration-300" title="Screen 3: Live Arena"></button>
-            <button type="button" onclick="slideToScreen(3)" id="dotIndicator3" class="h-1.5 w-2 rounded-full bg-zinc-700 hover:bg-zinc-500 transition-all duration-300" title="Screen 4: Notes Vault"></button>
-            <button type="button" onclick="slideToScreen(4)" id="dotIndicator4" class="h-1.5 w-2 rounded-full bg-zinc-700 hover:bg-zinc-500 transition-all duration-300" title="Screen 5: Revolver Party"></button>
-          </div>
-          <span id="activeScreenLabel" class="text-[10px] font-semibold text-zinc-400 mt-1 tracking-[0.15em] uppercase">Swipe ⇄ • 1/5 Chronometer & Telemetry</span>
+        <!-- Center: Web-Only 3-Theme Switcher (Sunset / Flora & Fauna / Night Sky) -->
+        <div class="flex items-center gap-1 bg-zinc-950/90 p-1 rounded-xl border border-white/10" title="Switch Web Theme">
+          <button type="button" onclick="setWebTheme('sunset')" id="themeBtnSunset" data-theme-opt="sunset" class="theme-pill clicky px-2 py-1 rounded-lg text-[10px] font-bold bg-amber-500/20 text-amber-200 border border-amber-400/40">
+            🌅 Sunset
+          </button>
+          <button type="button" onclick="setWebTheme('flora')" id="themeBtnFlora" data-theme-opt="flora" class="theme-pill clicky px-2 py-1 rounded-lg text-[10px] font-semibold text-zinc-400 hover:text-white">
+            🌿 Flora &amp; Fauna
+          </button>
+          <button type="button" onclick="setWebTheme('night')" id="themeBtnNight" data-theme-opt="night" class="theme-pill clicky px-2 py-1 rounded-lg text-[10px] font-semibold text-zinc-400 hover:text-white">
+            🌌 Night Sky
+          </button>
         </div>
 
-        <!-- Right Quick Arrow Controls + Exit -->
+        <!-- Right: Doomsday Clock Show/Hide Option + PWA Install + Exit -->
         <div class="flex items-center gap-1.5">
-          <button type="button" id="prevSlideBtn" class="clicky hidden sm:flex w-8 h-8 rounded-xl bg-zinc-900 border border-zinc-800 items-center justify-center text-zinc-300 hover:text-[#d4af37]" title="Slide Left (←)">
-            ‹
+          <button type="button" id="toggleDoomsdayBtn" class="clicky px-2.5 py-1.5 rounded-xl text-[10px] font-bold bg-zinc-900 hover:bg-zinc-800 text-rose-300 border border-rose-500/30 flex items-center gap-1" title="Show or Hide NEET 2027 Doomsday Clock">
+            <span>⏳</span>
+            <span id="toggleDoomsdayLabel">Hide Doomsday</span>
           </button>
-          <button type="button" id="nextSlideBtn" class="clicky hidden sm:flex w-8 h-8 rounded-xl bg-zinc-900 border border-zinc-800 items-center justify-center text-zinc-300 hover:text-[#d4af37]" title="Slide Right (→)">
-            ›
+          <button type="button" id="installPwaBtn" class="hidden clicky px-2.5 py-1.5 rounded-xl text-[10px] font-bold theme-btn-primary">
+            📲 Install App
           </button>
-          <button id="logoutBtn" type="button" class="clicky px-3 py-1.5 rounded-xl text-xs font-semibold bg-zinc-900 text-zinc-300 border border-zinc-800 hover:border-rose-500/40 hover:text-rose-300">
+          <button id="logoutBtn" type="button" class="clicky px-2.5 py-1.5 rounded-xl text-[10px] font-semibold bg-zinc-900 text-zinc-300 border border-zinc-800 hover:border-rose-500/40 hover:text-rose-300">
             Exit
           </button>
         </div>
+      </div>
+
+      <!-- Sub-header Pagination Dots -->
+      <div class="max-w-7xl mx-auto px-4 pb-1.5 flex items-center justify-center gap-3">
+        <div class="flex items-center gap-1.5">
+          <button type="button" onclick="slideToScreen(0)" id="dotIndicator0" class="h-1.5 w-7 rounded-full bg-white transition-all duration-300"></button>
+          <button type="button" onclick="slideToScreen(1)" id="dotIndicator1" class="h-1.5 w-2 rounded-full bg-zinc-700 transition-all duration-300"></button>
+          <button type="button" onclick="slideToScreen(2)" id="dotIndicator2" class="h-1.5 w-2 rounded-full bg-zinc-700 transition-all duration-300"></button>
+          <button type="button" onclick="slideToScreen(3)" id="dotIndicator3" class="h-1.5 w-2 rounded-full bg-zinc-700 transition-all duration-300"></button>
+          <button type="button" onclick="slideToScreen(4)" id="dotIndicator4" class="h-1.5 w-2 rounded-full bg-zinc-700 transition-all duration-300"></button>
+        </div>
+        <span id="activeScreenLabel" class="text-[9px] font-semibold text-zinc-400 tracking-[0.15em] uppercase">Swipe ⇄ • 1/5 Command &amp; Telemetry</span>
       </div>
     </header>
 
     <!-- ================= HORIZONTAL SWIPEABLE MOBILE VIEWPORT (5 SCREENS) ================= -->
     <div id="phoneSliderViewport" class="phone-slider-viewport flex-1">
 
-      <!-- === SLIDE 0: DOOMSDAY CHRONOGRAPH + CENTER CLOCK-IN + DOT AI + 3 CHARTS === -->
+      <!-- === SLIDE 0: OPTIONAL DOOMSDAY CLOCK + CENTER CLOCK-IN + DOT AI + 3 CHARTS === -->
       <main id="dashboardView" class="phone-screen-slide p-4 sm:p-6">
         <div class="max-w-7xl mx-auto space-y-6">
           
-          <!-- ================= NEET 2027 DOOMSDAY CHRONOGRAPH (SECONDS → DAYS) ================= -->
-          <div class="doomsday-panel rounded-3xl p-6 sm:p-8 relative overflow-hidden">
+          <!-- OPTIONAL DOOMSDAY CHRONOGRAPH (SECONDS → DAYS TO 02 MAY 2027) -->
+          <div id="doomsdayClockContainer" class="doomsday-panel rounded-3xl p-6 sm:p-8 relative overflow-hidden">
             <div class="flex flex-wrap items-center justify-between gap-3 mb-5 border-b border-zinc-800/80 pb-4">
               <div class="flex items-center gap-3">
                 <span class="w-3 h-3 rounded-full bg-rose-600 doomsday-beacon"></span>
                 <div>
-                  <span class="text-[10px] font-extrabold uppercase tracking-[0.25em] text-rose-400">DOOMSDAY CHRONOGRAPH • IRREVERSIBLE COUNTDOWN</span>
+                  <span class="text-[10px] font-extrabold uppercase tracking-[0.25em] text-rose-400">DOOMSDAY CHRONOGRAPH • OPTIONAL VIEW</span>
                   <h2 class="font-serif-luxury text-xl sm:text-2xl font-bold text-white tracking-tight">NEET 2027 Examination — 02 May 2027</h2>
                 </div>
               </div>
               <div class="text-right">
-                <span id="doomsdayStatusBadge" class="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-[0.18em] bg-rose-950/90 text-rose-300 border border-rose-500/40">
+                <span class="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-[0.18em] bg-rose-950/90 text-rose-300 border border-rose-500/40">
                   T-MINUS CRITICAL
                 </span>
-                <p id="doomsdayElapsedText" class="mono-nums text-[11px] text-zinc-400 mt-1">Exam Bell: 02 May 2027 • 14:00 IST</p>
+                <p class="mono-nums text-[11px] text-zinc-400 mt-1">Exam Bell: 02 May 2027 • 14:00 IST</p>
               </div>
             </div>
 
-            <!-- 4-Chamber Horology Readout: SECONDS → MINUTES → HOURS → DAYS -->
+            <!-- 4-Chamber Readout: SECONDS → MINUTES → HOURS → DAYS -->
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-5 text-center my-2">
-              <div class="bg-black/90 rounded-2xl p-4 sm:p-5 border border-rose-500/40 shadow-[inset_0_0_25px_rgba(225,29,72,0.12)] relative overflow-hidden">
+              <div class="bg-black/90 rounded-2xl p-4 sm:p-5 border border-rose-500/40 relative overflow-hidden">
                 <p class="text-[10px] font-extrabold uppercase tracking-[0.25em] text-rose-400 mb-1">01 • Seconds</p>
-                <div id="ddSeconds" class="mono-nums text-4xl sm:text-6xl font-black text-rose-500 tracking-tighter">
-                  00
-                </div>
+                <div id="ddSeconds" class="mono-nums text-4xl sm:text-6xl font-black text-rose-500 tracking-tighter">00</div>
                 <p class="text-[10px] text-zinc-500 mt-1 uppercase tracking-widest">Heartbeats</p>
               </div>
 
-              <div class="bg-black/80 rounded-2xl p-4 sm:p-5 border border-[#d4af37]/30">
-                <p class="text-[10px] font-extrabold uppercase tracking-[0.25em] text-[#d4af37] mb-1">02 • Minutes</p>
-                <div id="ddMinutes" class="mono-nums text-4xl sm:text-6xl font-black text-[#f3e5ab] tracking-tighter">
-                  00
-                </div>
+              <div class="bg-black/80 rounded-2xl p-4 sm:p-5 border border-white/10">
+                <p class="text-[10px] font-extrabold uppercase tracking-[0.25em] theme-gradient-text mb-1">02 • Minutes</p>
+                <div id="ddMinutes" class="mono-nums text-4xl sm:text-6xl font-black text-white tracking-tighter">00</div>
                 <p class="text-[10px] text-zinc-500 mt-1 uppercase tracking-widest">60s Cycles</p>
               </div>
 
-              <div class="bg-black/80 rounded-2xl p-4 sm:p-5 border border-[#d4af37]/30">
-                <p class="text-[10px] font-extrabold uppercase tracking-[0.25em] text-[#d4af37] mb-1">03 • Hours</p>
-                <div id="ddHours" class="mono-nums text-4xl sm:text-6xl font-black text-white tracking-tighter">
-                  00
-                </div>
+              <div class="bg-black/80 rounded-2xl p-4 sm:p-5 border border-white/10">
+                <p class="text-[10px] font-extrabold uppercase tracking-[0.25em] theme-gradient-text mb-1">03 • Hours</p>
+                <div id="ddHours" class="mono-nums text-4xl sm:text-6xl font-black text-white tracking-tighter">00</div>
                 <p class="text-[10px] text-zinc-500 mt-1 uppercase tracking-widest">Today's Window</p>
               </div>
 
-              <div class="bg-black/80 rounded-2xl p-4 sm:p-5 border border-[#d4af37]/45 shadow-[0_0_25px_rgba(212,175,55,0.08)]">
-                <p class="text-[10px] font-extrabold uppercase tracking-[0.25em] text-[#d4af37] mb-1">04 • Days</p>
-                <div id="ddDays" class="mono-nums text-4xl sm:text-6xl font-black gold-text tracking-tighter">
-                  000
-                </div>
+              <div class="bg-black/80 rounded-2xl p-4 sm:p-5 border border-white/20">
+                <p class="text-[10px] font-extrabold uppercase tracking-[0.25em] theme-gradient-text mb-1">04 • Days</p>
+                <div id="ddDays" class="mono-nums text-4xl sm:text-6xl font-black theme-gradient-text tracking-tighter">000</div>
                 <p class="text-[10px] text-zinc-500 mt-1 uppercase tracking-widest">Until 02 May '27</p>
               </div>
             </div>
@@ -418,10 +431,10 @@
             <div class="mt-5 pt-4 border-t border-zinc-800/80">
               <div class="flex flex-wrap items-center justify-between text-[11px] text-zinc-400 mb-2">
                 <span>60-Second Chronometer Sweep</span>
-                <span id="ddTotalHoursLeft" class="mono-nums font-bold text-[#f3e5ab]">Total Hours Left: -- hrs</span>
+                <span id="ddTotalHoursLeft" class="mono-nums font-bold theme-gradient-text">Total Hours Left: -- hrs</span>
               </div>
               <div class="w-full bg-black h-1.5 rounded-full overflow-hidden border border-zinc-800">
-                <div id="ddSecondSweepBar" class="bg-gradient-to-r from-[#d4af37] via-amber-500 to-rose-600 h-full transition-all duration-300" style="width: 100%"></div>
+                <div id="ddSecondSweepBar" class="bg-gradient-to-r from-amber-400 via-orange-500 to-rose-600 h-full transition-all duration-300" style="width: 100%"></div>
               </div>
             </div>
           </div>
@@ -429,8 +442,8 @@
           <!-- CENTER STAGE: ZERO-DISTRACTION CLOCK-IN LAUNCHER -->
           <div class="max-w-2xl mx-auto luxury-card rounded-3xl p-6 sm:p-8 text-center relative overflow-hidden">
             <div class="flex items-center justify-between mb-3">
-              <span class="text-[10px] font-extrabold uppercase tracking-[0.22em] text-[#d4af37]">⚡ Sanctuary Focus Chronometer</span>
-              <span id="punchStatusTag" class="px-3 py-1 rounded-full text-[11px] font-semibold bg-zinc-900 text-zinc-300 border border-zinc-800">Standby</span>
+              <span class="text-[10px] font-extrabold uppercase tracking-[0.22em] theme-gradient-text">⚡ Sanctuary Focus Chronometer</span>
+              <span id="punchStatusTag" class="px-3 py-1 rounded-full text-[11px] font-semibold bg-black/80 text-zinc-300 border border-white/10">Standby</span>
             </div>
 
             <p class="text-xs text-zinc-400 mb-2">Entering Focus Mode dims the world to pitch-black so only your timer remains.</p>
@@ -440,11 +453,11 @@
             </div>
 
             <div class="max-w-md mx-auto mb-5">
-              <input id="sessionSubjectInput" type="text" placeholder="Specify your NCERT objective (e.g. Physics: Rotational Motion / Bio: Genetics)" class="w-full px-4 py-3 rounded-2xl bg-black border border-zinc-800 text-white text-center text-sm focus:outline-none focus:border-[#d4af37]" />
+              <input id="sessionSubjectInput" type="text" placeholder="Specify your NCERT objective (e.g. Physics: Rotational Motion / Bio: Genetics)" class="w-full px-4 py-3 rounded-2xl bg-black/80 border border-zinc-800 text-white text-center text-sm focus:outline-none focus:border-amber-400" />
             </div>
 
             <div class="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto">
-              <button id="clockInBtn" type="button" class="clicky w-full bg-gradient-to-r from-[#d4af37] to-[#b8860b] hover:from-[#f3e5ab] hover:to-[#d4af37] text-black font-extrabold py-4 px-6 rounded-2xl shadow-[0_0_25px_rgba(212,175,55,0.28)] text-xs uppercase tracking-[0.18em]">
+              <button id="clockInBtn" type="button" class="clicky w-full theme-btn-primary font-extrabold py-4 px-6 rounded-2xl text-xs uppercase tracking-[0.18em]">
                 ▶ Clock In • Blackout Focus Mode
               </button>
               <button id="clockOutBtn" type="button" disabled class="clicky hidden w-full bg-rose-700 hover:bg-rose-600 text-white font-extrabold py-4 px-6 rounded-2xl shadow-lg text-xs uppercase tracking-[0.18em]">
@@ -457,18 +470,18 @@
           <div class="luxury-card rounded-3xl p-6">
             <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
               <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-2xl bg-black border border-[#d4af37]/40 flex items-center justify-center text-[#d4af37] font-black text-lg">
+                <div class="w-10 h-10 rounded-2xl bg-black/80 border border-white/15 flex items-center justify-center theme-gradient-text font-black text-lg">
                   ◉
                 </div>
                 <div>
                   <div class="flex items-center gap-2">
                     <h2 class="font-serif-luxury text-lg font-bold text-white tracking-tight">DOT — Curated NCERT Next-Step Atelier</h2>
-                    <span class="px-2 py-0.5 rounded-md text-[9px] font-extrabold tracking-widest bg-[#d4af37]/15 text-[#f3e5ab] border border-[#d4af37]/30">AI PATHFINDER</span>
+                    <span class="px-2 py-0.5 rounded-md text-[9px] font-extrabold tracking-widest bg-white/10 text-zinc-200 border border-white/15">AI PATHFINDER</span>
                   </div>
-                  <p id="dotStatusSubtitle" class="text-xs text-zinc-400">Analyzing your NCERT Class 11 & 12 Spider-Web nodes to prescribe your next topic...</p>
+                  <p id="dotStatusSubtitle" class="text-xs text-zinc-400">Analyzing your NCERT Class 11 &amp; 12 Spider-Web nodes to prescribe your next topic...</p>
                 </div>
               </div>
-              <button id="dotRefreshBtn" type="button" class="clicky px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-zinc-900 hover:bg-zinc-800 text-[#f3e5ab] border border-zinc-800">
+              <button id="dotRefreshBtn" type="button" class="clicky px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-black/80 hover:bg-zinc-900 text-zinc-200 border border-white/15">
                 ↻ Recalibrate DOT
               </button>
             </div>
@@ -482,14 +495,14 @@
               <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400">Today's Focus</p>
               <p id="statTodayHours" class="mono-nums text-2xl font-black text-white mt-1">0h 00m</p>
               <div class="w-full bg-black h-1.5 rounded-full mt-3 overflow-hidden border border-zinc-800">
-                <div id="statProgressBar" class="bg-gradient-to-r from-[#d4af37] to-emerald-400 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+                <div id="statProgressBar" class="theme-btn-primary h-full rounded-full transition-all duration-300" style="width: 0%"></div>
               </div>
               <p id="statTargetText" class="text-[11px] text-zinc-500 mt-1.5">Target: 6h/day</p>
             </div>
 
             <div class="luxury-card rounded-2xl p-5">
               <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400">Times Studied</p>
-              <p id="statTotalSessions" class="mono-nums text-2xl font-black text-[#f3e5ab] mt-1">0 sessions</p>
+              <p id="statTotalSessions" class="mono-nums text-2xl font-black theme-gradient-text mt-1">0 sessions</p>
               <p class="text-[11px] text-zinc-500 mt-2">Completed focus sessions</p>
             </div>
 
@@ -499,18 +512,18 @@
               <p class="text-[11px] text-zinc-500 mt-2">Cloud + Drive synchronized</p>
             </div>
 
-            <div id="dashSyllabusCard" class="clicky luxury-card rounded-2xl p-5 cursor-pointer hover:border-[#d4af37]/60">
+            <div id="dashSyllabusCard" class="clicky luxury-card rounded-2xl p-5 cursor-pointer hover:border-white/40">
               <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400">NCERT Spider Web</p>
-              <p id="statSyllabusPct" class="mono-nums text-2xl font-black gold-text mt-1">0%</p>
-              <p id="statSyllabusCount" class="text-[11px] text-[#f3e5ab] font-medium mt-2">Slide to NCERT Web →</p>
+              <p id="statSyllabusPct" class="mono-nums text-2xl font-black theme-gradient-text mt-1">0%</p>
+              <p id="statSyllabusCount" class="text-[11px] text-zinc-300 font-medium mt-2">Slide to NCERT Web →</p>
             </div>
           </div>
 
           <!-- EXPANDED WEB ANALYTICS SUITE (3 CHARTS) -->
           <div class="luxury-card rounded-3xl p-6 space-y-6">
-            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-zinc-800/80 pb-4">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-4">
               <div>
-                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] bg-[#d4af37]/15 text-[#f3e5ab] border border-[#d4af37]/30">Executive Web Telemetry</span>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] bg-white/10 text-zinc-200 border border-white/15">Executive Web Telemetry</span>
                 <h3 class="font-serif-luxury text-xl font-bold text-white mt-1">Multi-Chart Performance Diagnostics</h3>
               </div>
               <p class="text-xs text-zinc-400">Daily output, subject distribution, and 14-day preparation velocity</p>
@@ -554,35 +567,35 @@
             <div class="luxury-card rounded-2xl p-6 flex flex-col justify-between">
               <div>
                 <h3 class="font-serif-luxury text-lg font-bold text-white mb-1">✍️ Manual Study Ledger</h3>
-                <p class="text-xs text-zinc-400 mb-4">Log offline NCERT book sessions manually to update your telemetry & leaderboard.</p>
+                <p class="text-xs text-zinc-400 mb-4">Log offline NCERT book sessions manually to update your telemetry &amp; leaderboard.</p>
                 <form id="manualEntryForm" class="space-y-3">
                   <div>
                     <label class="block text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-1">Date</label>
-                    <input id="manualDate" type="date" required class="w-full px-3 py-2 rounded-xl bg-black border border-zinc-800 text-white text-xs" />
+                    <input id="manualDate" type="date" required class="w-full px-3 py-2 rounded-xl bg-black/80 border border-zinc-800 text-white text-xs" />
                   </div>
                   <div>
                     <label class="block text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-1">Subject / NCERT Chapter</label>
-                    <input id="manualSubject" type="text" required placeholder="e.g. Physics: Rotational Motion" class="w-full px-3 py-2 rounded-xl bg-black border border-zinc-800 text-white text-xs" />
+                    <input id="manualSubject" type="text" required placeholder="e.g. Physics: Rotational Motion" class="w-full px-3 py-2 rounded-xl bg-black/80 border border-zinc-800 text-white text-xs" />
                   </div>
                   <div class="grid grid-cols-2 gap-3">
                     <div>
                       <label class="block text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-1">Hours</label>
-                      <input id="manualHours" type="number" min="0" max="18" value="1" required class="w-full px-3 py-2 rounded-xl bg-black border border-zinc-800 text-white text-xs mono-nums" />
+                      <input id="manualHours" type="number" min="0" max="18" value="1" required class="w-full px-3 py-2 rounded-xl bg-black/80 border border-zinc-800 text-white text-xs mono-nums" />
                     </div>
                     <div>
                       <label class="block text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-1">Minutes</label>
-                      <input id="manualMinutes" type="number" min="0" max="59" value="30" required class="w-full px-3 py-2 rounded-xl bg-black border border-zinc-800 text-white text-xs mono-nums" />
+                      <input id="manualMinutes" type="number" min="0" max="59" value="30" required class="w-full px-3 py-2 rounded-xl bg-black/80 border border-zinc-800 text-white text-xs mono-nums" />
                     </div>
                   </div>
-                  <button id="manualSubmitBtn" type="submit" class="clicky w-full bg-zinc-900 hover:bg-zinc-800 text-[#f3e5ab] border border-[#d4af37]/40 font-bold py-2.5 rounded-xl text-xs uppercase tracking-wider">
+                  <button id="manualSubmitBtn" type="submit" class="clicky w-full theme-btn-primary font-bold py-2.5 rounded-xl text-xs uppercase tracking-wider">
                     + Record Manual Entry
                   </button>
                 </form>
               </div>
 
-              <div class="mt-6 pt-4 border-t border-zinc-800/80 flex items-center justify-between">
+              <div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-between">
                 <span class="text-xs text-zinc-500">Export archive:</span>
-                <button id="exportCsvBtn" type="button" class="clicky px-3 py-1.5 rounded-lg text-xs font-semibold bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800">
+                <button id="exportCsvBtn" type="button" class="clicky px-3 py-1.5 rounded-lg text-xs font-semibold bg-black/80 hover:bg-zinc-900 text-zinc-300 border border-zinc-800">
                   ⬇ Download CSV
                 </button>
               </div>
@@ -608,7 +621,7 @@
           </div>
 
           <div class="pt-4 text-center">
-            <p class="text-xs text-zinc-500 tracking-wider">StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold text-[#d4af37] tracking-widest text-base">heet</i></p>
+            <p class="text-xs text-zinc-500 tracking-wider">StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p>
           </div>
         </div>
       </main>
@@ -620,13 +633,13 @@
           <div class="luxury-card rounded-3xl p-4 sm:p-5 sticky top-0 z-20">
             <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
               <div class="relative flex-1">
-                <input id="syllabusSearchInput" type="text" placeholder="🔍 Search 83 NCERT Chapters & 260+ Sub-Topics (e.g. Krebs Cycle, Aldol, Gauss Law, Frog, Lac Operon)..." class="w-full pl-4 pr-10 py-3 rounded-2xl bg-black border border-[#d4af37]/30 text-white text-sm focus:outline-none focus:border-[#d4af37]" />
+                <input id="syllabusSearchInput" type="text" placeholder="🔍 Search 83 NCERT Chapters & 260+ Sub-Topics (e.g. Krebs Cycle, Aldol, Gauss Law, Frog, Lac Operon)..." class="w-full pl-4 pr-10 py-3 rounded-2xl bg-black/80 border border-white/15 text-white text-sm focus:outline-none focus:border-amber-400" />
               </div>
               <div class="flex items-center gap-2">
-                <button id="expandAllFoldersBtn" type="button" class="clicky px-4 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-[#d4af37] to-[#b8860b] text-black">
+                <button id="expandAllFoldersBtn" type="button" class="clicky px-4 py-2.5 rounded-xl text-xs font-bold theme-btn-primary">
                   🕸️ Expand All NCERT Chapters
                 </button>
-                <button id="collapseAllFoldersBtn" type="button" class="clicky px-3.5 py-2.5 rounded-xl text-xs font-semibold bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800">
+                <button id="collapseAllFoldersBtn" type="button" class="clicky px-3.5 py-2.5 rounded-xl text-xs font-semibold bg-black/80 hover:bg-zinc-900 text-zinc-300 border border-zinc-800">
                   Collapse Chapters
                 </button>
               </div>
@@ -635,8 +648,8 @@
 
           <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div class="luxury-card rounded-3xl p-6 flex flex-col items-center justify-center">
-              <h3 class="text-xs font-extrabold uppercase tracking-[0.2em] text-[#d4af37] mb-1">🕸️ NCERT Spider-Web Radar</h3>
-              <p class="text-[11px] text-zinc-500 text-center mb-3">Class 11 & 12 Unit Mastery Footprint</p>
+              <h3 class="text-xs font-extrabold uppercase tracking-[0.2em] theme-gradient-text mb-1">🕸️ NCERT Spider-Web Radar</h3>
+              <p class="text-[11px] text-zinc-500 text-center mb-3">Class 11 &amp; 12 Unit Mastery Footprint</p>
               <div class="w-full max-w-[270px] aspect-square">
                 <canvas id="spiderWebCanvas"></canvas>
               </div>
@@ -646,18 +659,18 @@
               <div>
                 <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
                   <div>
-                    <span class="px-2.5 py-1 rounded-lg bg-[#d4af37]/15 text-[#f3e5ab] border border-[#d4af37]/30 font-bold text-[10px] tracking-widest uppercase">Complete NCERT Class 11 & 12 Blueprint</span>
+                    <span class="px-2.5 py-1 rounded-lg bg-white/10 text-zinc-200 border border-white/15 font-bold text-[10px] tracking-widest uppercase">Complete NCERT Class 11 &amp; 12 Blueprint</span>
                     <h2 class="font-serif-luxury text-2xl font-bold text-white mt-2">NCERT Spider-Node Syllabus Telemetry</h2>
                     <p id="reassuranceMsg" class="text-xs text-zinc-400 mt-1">Tick any NCERT sub-topic node below to expand your spider web and calibrate DOT recommendations.</p>
                   </div>
                   <div class="text-right">
-                    <span id="overallSyllabusBigPct" class="mono-nums text-4xl font-black gold-text">0%</span>
+                    <span id="overallSyllabusBigPct" class="mono-nums text-4xl font-black theme-gradient-text">0%</span>
                     <p id="overallSyllabusCounts" class="text-xs text-zinc-400 font-semibold">0 / 0 NCERT nodes spun</p>
                   </div>
                 </div>
 
                 <div class="w-full bg-black h-3 rounded-full overflow-hidden mb-5 border border-zinc-800">
-                  <div id="overallSyllabusBar" class="bg-gradient-to-r from-[#aa771c] via-[#d4af37] to-emerald-400 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+                  <div id="overallSyllabusBar" class="theme-btn-primary h-full rounded-full transition-all duration-500" style="width: 0%"></div>
                 </div>
 
                 <div id="subjectSummaryCards" class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5"></div>
@@ -675,7 +688,7 @@
           <div id="syllabusTreeContainer" class="space-y-5"></div>
 
           <div class="pt-4 text-center">
-            <p class="text-xs text-zinc-500 tracking-wider">StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold text-[#d4af37] tracking-widest text-base">heet</i></p>
+            <p class="text-xs text-zinc-500 tracking-wider">StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p>
           </div>
         </div>
       </section>
@@ -684,7 +697,7 @@
       <section id="leaderboardView" class="phone-screen-slide p-4 sm:p-6">
         <div class="max-w-6xl mx-auto space-y-6">
           <div class="luxury-card rounded-3xl p-6">
-            <div class="flex flex-wrap items-center justify-between gap-4 pb-5 mb-5 border-b border-zinc-800">
+            <div class="flex flex-wrap items-center justify-between gap-4 pb-5 mb-5 border-b border-white/10">
               <div>
                 <div class="flex items-center gap-2.5">
                   <h2 class="font-serif-luxury text-2xl font-bold text-white">🏆 Global Live Study Arena</h2>
@@ -697,13 +710,13 @@
               </div>
 
               <div class="flex flex-wrap items-center gap-2">
-                <button id="lbFilterAllBtn" type="button" class="clicky px-3.5 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-[#d4af37] to-[#b8860b] text-black">
+                <button id="lbFilterAllBtn" type="button" class="clicky px-3.5 py-2 rounded-xl text-xs font-bold theme-btn-primary">
                   All Scholars
                 </button>
-                <button id="lbFilterLiveBtn" type="button" class="clicky px-3.5 py-2 rounded-xl text-xs font-bold bg-zinc-900 text-emerald-400 border border-emerald-500/30">
+                <button id="lbFilterLiveBtn" type="button" class="clicky px-3.5 py-2 rounded-xl text-xs font-bold bg-black/80 text-emerald-400 border border-emerald-500/30">
                   🟢 Live Studying Now
                 </button>
-                <button id="refreshLeaderboardBtn" type="button" class="clicky px-3.5 py-2 rounded-xl text-xs font-semibold bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800">
+                <button id="refreshLeaderboardBtn" type="button" class="clicky px-3.5 py-2 rounded-xl text-xs font-semibold bg-black/80 hover:bg-zinc-900 text-zinc-300 border border-zinc-800">
                   ⚡ Instant Sync
                 </button>
               </div>
@@ -714,7 +727,7 @@
                 <thead>
                   <tr class="border-b border-zinc-800 text-[10px] uppercase tracking-[0.18em] text-zinc-400 bg-black/60">
                     <th class="py-3.5 px-4">Rank</th>
-                    <th class="py-3.5 px-4">Scholar & Live Status</th>
+                    <th class="py-3.5 px-4">Scholar &amp; Live Status</th>
                     <th class="py-3.5 px-4 text-center">Sessions</th>
                     <th class="py-3.5 px-4 text-center">NCERT Web %</th>
                     <th class="py-3.5 px-4 text-center">Today</th>
@@ -727,7 +740,7 @@
           </div>
 
           <div class="pt-4 text-center">
-            <p class="text-xs text-zinc-500 tracking-wider">StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold text-[#d4af37] tracking-widest text-base">heet</i></p>
+            <p class="text-xs text-zinc-500 tracking-wider">StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p>
           </div>
         </div>
       </section>
@@ -739,20 +752,20 @@
             <div class="luxury-card rounded-3xl p-5 flex flex-col h-[68vh]">
               <div class="flex items-center justify-between mb-4">
                 <h2 class="font-serif-luxury text-lg font-bold text-white">📝 Private Notes Vault</h2>
-                <button id="newNoteBtn" type="button" class="clicky px-3 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-[#d4af37] to-[#b8860b] text-black">
+                <button id="newNoteBtn" type="button" class="clicky px-3 py-1.5 rounded-xl text-xs font-bold theme-btn-primary">
                   + New Note
                 </button>
               </div>
-              <input id="noteSearchInput" type="text" placeholder="Search notes..." class="w-full px-3 py-2 rounded-xl bg-black border border-zinc-800 text-xs text-white mb-3 focus:outline-none focus:border-[#d4af37]" />
+              <input id="noteSearchInput" type="text" placeholder="Search notes..." class="w-full px-3 py-2 rounded-xl bg-black/80 border border-zinc-800 text-xs text-white mb-3 focus:outline-none focus:border-amber-400" />
               <div id="notesListContainer" class="flex-1 overflow-y-auto space-y-2 pr-1"></div>
             </div>
 
             <div class="md:col-span-2 luxury-card rounded-3xl p-6 flex flex-col h-[68vh]">
-              <div class="flex flex-wrap items-center justify-between gap-2 pb-4 mb-4 border-b border-zinc-800">
+              <div class="flex flex-wrap items-center justify-between gap-2 pb-4 mb-4 border-b border-white/10">
                 <input id="noteTitleInput" type="text" placeholder="Note Title (e.g. NCERT Biology Exceptions / Physics Formulas)" class="flex-1 bg-transparent font-serif-luxury text-xl font-bold text-white focus:outline-none" />
                 <div class="flex items-center gap-2">
                   <span id="noteSaveStatus" class="text-[11px] text-zinc-500">Saved</span>
-                  <button id="saveNoteBtn" type="button" class="clicky px-4 py-2 rounded-xl text-xs font-bold bg-zinc-900 hover:bg-zinc-800 text-[#f3e5ab] border border-[#d4af37]/40">
+                  <button id="saveNoteBtn" type="button" class="clicky px-4 py-2 rounded-xl text-xs font-bold theme-btn-primary">
                     💾 Save Note
                   </button>
                   <button id="deleteNoteBtn" type="button" class="clicky px-3 py-2 rounded-xl text-xs font-semibold bg-rose-950/50 text-rose-300 border border-rose-500/30">
@@ -760,17 +773,17 @@
                   </button>
                 </div>
               </div>
-              <textarea id="noteBodyInput" placeholder="Record high-yield NCERT lines, reaction mechanisms, or mock test errors... Automatically syncs to your Cloud ID and Google Drive." class="flex-1 w-full bg-black/70 rounded-2xl p-4 border border-zinc-800 text-sm text-zinc-200 leading-relaxed focus:outline-none focus:border-[#d4af37] resize-none"></textarea>
+              <textarea id="noteBodyInput" placeholder="Record high-yield NCERT lines, reaction mechanisms, or mock test errors... Automatically syncs to your Cloud ID and Google Drive." class="flex-1 w-full bg-black/70 rounded-2xl p-4 border border-zinc-800 text-sm text-zinc-200 leading-relaxed focus:outline-none focus:border-amber-400 resize-none"></textarea>
             </div>
           </div>
 
           <div class="pt-2 text-center">
-            <p class="text-xs text-zinc-500 tracking-wider">StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold text-[#d4af37] tracking-widest text-base">heet</i></p>
+            <p class="text-xs text-zinc-500 tracking-wider">StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p>
           </div>
         </div>
       </section>
 
-      <!-- === SLIDE 4: MULTIPLAYER & TOPIC-TARGETED REVOLVER ROULETTE === -->
+      <!-- === SLIDE 4: EXPANDED MULTIPLAYER & CHAPTER-TARGETED REVOLVER ROULETTE === -->
       <section id="gameView" class="phone-screen-slide p-4 sm:p-6">
         <div class="max-w-6xl mx-auto space-y-6">
           
@@ -779,17 +792,17 @@
               <div>
                 <div class="flex items-center justify-between mb-3">
                   <div>
-                    <span class="text-[10px] font-extrabold uppercase tracking-[0.2em] text-[#d4af37]">👥 Lounge Table Roster</span>
+                    <span class="text-[10px] font-extrabold uppercase tracking-[0.2em] theme-gradient-text">👥 Lounge Table Roster</span>
                     <h3 class="font-serif-luxury text-lg font-bold text-white">Players in the Circle</h3>
                   </div>
-                  <button id="resetPlayersBtn" type="button" class="clicky px-3 py-1.5 rounded-xl text-[11px] font-semibold bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800">
+                  <button id="resetPlayersBtn" type="button" class="clicky px-3 py-1.5 rounded-xl text-[11px] font-semibold bg-black/80 hover:bg-zinc-900 text-zinc-300 border border-zinc-800">
                     ↻ Heal All Hearts
                   </button>
                 </div>
 
                 <form id="addPlayerForm" class="flex gap-2 mb-4">
-                  <input id="newPlayerNameInput" type="text" maxlength="18" placeholder="Add friend's name (e.g. Aarav, Riya)..." class="flex-1 px-3.5 py-2.5 rounded-xl bg-black border border-zinc-800 text-xs text-white focus:outline-none focus:border-[#d4af37]" />
-                  <button type="submit" class="clicky px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#d4af37] to-[#b8860b] text-black font-extrabold text-xs whitespace-nowrap shadow-md">
+                  <input id="newPlayerNameInput" type="text" maxlength="18" placeholder="Add friend's name (e.g. Aarav, Riya)..." class="flex-1 px-3.5 py-2.5 rounded-xl bg-black/80 border border-zinc-800 text-xs text-white focus:outline-none focus:border-amber-400" />
+                  <button type="submit" class="clicky px-4 py-2.5 rounded-xl theme-btn-primary font-extrabold text-xs whitespace-nowrap">
                     + Add Player
                   </button>
                 </form>
@@ -797,52 +810,52 @@
                 <div id="playersListContainer" class="space-y-2 max-h-52 overflow-y-auto pr-1"></div>
               </div>
 
-              <p class="text-[11px] text-zinc-500 mt-3 pt-3 border-t border-zinc-800">
+              <p class="text-[11px] text-zinc-500 mt-3 pt-3 border-t border-white/10">
                 💡 Each trigger pull passes the revolver to the next surviving player. Wrong answers cost **1 Heart (💔)**!
               </p>
             </div>
 
             <div class="luxury-card rounded-3xl p-6 flex flex-col justify-between">
               <div>
-                <span class="text-[10px] font-extrabold uppercase tracking-[0.2em] text-[#d4af37]">🎯 Custom Ammunition Loader</span>
-                <h3 class="font-serif-luxury text-lg font-bold text-white mb-3">Select Subject & Topic for Bullet Questions</h3>
+                <span class="text-[10px] font-extrabold uppercase tracking-[0.2em] theme-gradient-text">🎯 NCERT Chapter Ammunition Loader</span>
+                <h3 class="font-serif-luxury text-lg font-bold text-white mb-3">Select Subject &amp; NCERT Chapter for Bullet Questions</h3>
 
                 <label class="block text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-1.5">1. Choose Subject</label>
                 <div id="gameSubjectBtnGroup" class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
-                  <button type="button" data-subj="ALL" class="game-subj-btn clicky py-2.5 px-3 rounded-xl text-xs font-bold bg-gradient-to-r from-[#d4af37] to-[#b8860b] text-black">
+                  <button type="button" data-subj="ALL" class="game-subj-btn clicky py-2.5 px-3 rounded-xl text-xs font-bold theme-btn-primary">
                     🌐 All Subjects
                   </button>
-                  <button type="button" data-subj="Physics" class="game-subj-btn clicky py-2.5 px-3 rounded-xl text-xs font-semibold bg-black text-zinc-300 border border-zinc-800 hover:bg-zinc-900">
+                  <button type="button" data-subj="Physics" class="game-subj-btn clicky py-2.5 px-3 rounded-xl text-xs font-semibold bg-black/80 text-zinc-300 border border-zinc-800 hover:bg-zinc-900">
                     ⚡ Physics
                   </button>
-                  <button type="button" data-subj="Chemistry" class="game-subj-btn clicky py-2.5 px-3 rounded-xl text-xs font-semibold bg-black text-zinc-300 border border-zinc-800 hover:bg-zinc-900">
+                  <button type="button" data-subj="Chemistry" class="game-subj-btn clicky py-2.5 px-3 rounded-xl text-xs font-semibold bg-black/80 text-zinc-300 border border-zinc-800 hover:bg-zinc-900">
                     🧪 Chemistry
                   </button>
-                  <button type="button" data-subj="Biology" class="game-subj-btn clicky py-2.5 px-3 rounded-xl text-xs font-semibold bg-black text-zinc-300 border border-zinc-800 hover:bg-zinc-900">
+                  <button type="button" data-subj="Biology" class="game-subj-btn clicky py-2.5 px-3 rounded-xl text-xs font-semibold bg-black/80 text-zinc-300 border border-zinc-800 hover:bg-zinc-900">
                     🧬 Biology
                   </button>
                 </div>
 
-                <label class="block text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-1.5">2. Choose Specific Topic</label>
-                <div id="gameTopicBtnGroup" class="flex flex-wrap gap-2"></div>
+                <label class="block text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-1.5">2. Choose NCERT Chapter / Unit</label>
+                <div id="gameTopicBtnGroup" class="flex flex-wrap gap-1.5 max-h-36 overflow-y-auto pr-1"></div>
               </div>
 
-              <div class="mt-4 pt-3 border-t border-zinc-800 flex items-center justify-between text-xs">
+              <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-xs">
                 <span class="text-zinc-500">Loaded Bullet Deck:</span>
-                <span id="loadedDeckBadge" class="px-2.5 py-1 rounded-lg bg-[#d4af37]/15 text-[#f3e5ab] border border-[#d4af37]/30 font-bold">All Subjects • All Topics</span>
+                <span id="loadedDeckBadge" class="px-2.5 py-1 rounded-lg bg-white/10 text-zinc-200 border border-white/15 font-bold">All Subjects • All Chapters</span>
               </div>
             </div>
           </div>
 
           <div class="luxury-card rounded-3xl p-6 sm:p-8 text-center">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black border border-[#d4af37]/40 text-[#f3e5ab] text-xs font-bold uppercase tracking-wider">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/80 border border-white/15 text-zinc-200 text-xs font-bold uppercase tracking-wider">
               <span>🔫 Current Turn:</span>
-              <span id="currentTurnPlayerName" class="text-white underline decoration-[#d4af37]">Player 1</span>
+              <span id="currentTurnPlayerName" class="theme-gradient-text font-black">Player 1</span>
             </div>
 
             <div class="my-7 flex flex-col items-center justify-center">
-              <div id="revolverCylinder" class="cylinder-spin w-48 h-48 rounded-full bg-black border-4 border-zinc-700 shadow-[0_0_45px_rgba(212,175,55,0.15)] relative flex items-center justify-center">
-                <div class="w-8 h-8 rounded-full bg-[#d4af37]/20 border-2 border-[#d4af37]"></div>
+              <div id="revolverCylinder" class="cylinder-spin w-48 h-48 rounded-full bg-black border-4 border-zinc-700 shadow-2xl relative flex items-center justify-center">
+                <div class="w-8 h-8 rounded-full bg-white/10 border-2 border-amber-400"></div>
                 <div id="chamber0" class="w-10 h-10 rounded-full bg-zinc-950 border-2 border-zinc-600 absolute top-3 left-1/2 -translate-x-1/2"></div>
                 <div id="chamber1" class="w-10 h-10 rounded-full bg-zinc-950 border-2 border-zinc-600 absolute top-11 right-4"></div>
                 <div id="chamber2" class="w-10 h-10 rounded-full bg-zinc-950 border-2 border-zinc-600 absolute bottom-11 right-4"></div>
@@ -862,24 +875,24 @@
                 </div>
                 <div class="bg-black/80 p-3 rounded-2xl border border-zinc-800">
                   <p class="text-[10px] uppercase font-bold text-zinc-500">Your Total XP</p>
-                  <p id="rouletteXpText" class="mono-nums text-lg font-black gold-text">0 XP</p>
+                  <p id="rouletteXpText" class="mono-nums text-lg font-black theme-gradient-text">0 XP</p>
                 </div>
               </div>
             </div>
 
             <div id="rouletteResultBanner" class="mb-6 p-4 rounded-2xl bg-black/80 border border-zinc-800 text-sm font-semibold text-zinc-200">
-              Add players, pick your Subject & Topic above, and pull the trigger!
+              Add players, pick your Subject &amp; NCERT Chapter above, and pull the trigger!
             </div>
 
             <div class="flex flex-wrap items-center justify-center gap-4">
-              <button id="spinCylinderBtn" type="button" class="clicky px-6 py-3.5 rounded-2xl bg-zinc-900 hover:bg-zinc-800 text-[#f3e5ab] font-bold text-xs uppercase tracking-wider border border-[#d4af37]/30">
+              <button id="spinCylinderBtn" type="button" class="clicky px-6 py-3.5 rounded-2xl bg-black/80 hover:bg-zinc-900 text-zinc-200 font-bold text-xs uppercase tracking-wider border border-white/15">
                 🔄 Spin Cylinder
               </button>
-              <button id="pullTriggerBtn" type="button" class="clicky px-8 py-3.5 rounded-2xl bg-gradient-to-r from-[#d4af37] to-[#b8860b] text-black font-extrabold text-xs uppercase tracking-wider shadow-[0_0_25px_rgba(212,175,55,0.3)]">
+              <button id="pullTriggerBtn" type="button" class="clicky px-8 py-3.5 rounded-2xl theme-btn-primary font-extrabold text-xs uppercase tracking-wider">
                 🔫 Pull Trigger
               </button>
               <button id="forceQuestionBtn" type="button" class="clicky px-5 py-3.5 rounded-2xl bg-rose-950/50 hover:bg-rose-900/60 text-rose-300 font-bold text-xs uppercase tracking-wider border border-rose-500/30">
-                ⚡ Instant Topic Quiz
+                ⚡ Instant Chapter Quiz
               </button>
             </div>
 
@@ -887,21 +900,21 @@
               <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
                 <div class="flex items-center gap-2">
                   <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-rose-600 text-white uppercase">💥 LIVE BULLET CHAMBER HIT!</span>
-                  <span id="bulletTopicTag" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-black text-[#f3e5ab] border border-[#d4af37]/30">Physics • Mechanics</span>
+                  <span id="bulletTopicTag" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-black text-amber-200 border border-white/15">Physics • Rotational Motion</span>
                 </div>
                 <div class="flex items-center gap-2">
                   <span class="text-xs font-bold text-rose-300">⏱️ Defuse in:</span>
-                  <span id="bulletCountdownText" class="mono-nums px-2.5 py-0.5 rounded-lg bg-rose-600 text-white font-black text-xs">10s</span>
+                  <span id="bulletCountdownText" class="mono-nums px-2.5 py-0.5 rounded-lg bg-rose-600 text-white font-black text-xs">12s</span>
                 </div>
               </div>
-              <p id="bulletTargetPlayerText" class="text-xs font-bold text-[#f3e5ab] mb-1"></p>
+              <p id="bulletTargetPlayerText" class="text-xs font-bold text-amber-200 mb-1"></p>
               <p id="bulletQuestionText" class="text-base font-bold text-white my-3"></p>
               <div id="bulletOptionsList" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5"></div>
             </div>
           </div>
 
           <div class="pt-4 text-center">
-            <p class="text-xs text-zinc-500 tracking-wider">StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold text-[#d4af37] tracking-widest text-base">heet</i></p>
+            <p class="text-xs text-zinc-500 tracking-wider">StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p>
           </div>
         </div>
       </section>
@@ -909,11 +922,11 @@
     </div>
 
     <!-- ================= FLOATING MOBILE HOME-SCREEN DOCK ================= -->
-    <nav class="bg-[#070709]/95 backdrop-blur-xl border-t border-[#d4af37]/20 px-2 py-2 z-40 shrink-0">
+    <nav class="bg-black/90 backdrop-blur-xl border-t border-white/10 px-2 py-2 z-40 shrink-0">
       <div class="max-w-xl mx-auto grid grid-cols-5 gap-1.5">
-        <button id="navDashboardBtn" type="button" class="clicky flex flex-col items-center justify-center py-2 px-1 rounded-2xl bg-[#d4af37]/15 text-[#f3e5ab] border border-[#d4af37]/40 font-bold text-[10px] sm:text-xs">
-          <span class="text-base leading-none mb-1">⏳</span>
-          <span class="truncate">Doomsday</span>
+        <button id="navDashboardBtn" type="button" class="clicky flex flex-col items-center justify-center py-2 px-1 rounded-2xl bg-white/10 text-white border border-white/25 font-bold text-[10px] sm:text-xs">
+          <span class="text-base leading-none mb-1">⏱️</span>
+          <span class="truncate">Command</span>
         </button>
         <button id="navSyllabusBtn" type="button" class="clicky flex flex-col items-center justify-center py-2 px-1 rounded-2xl bg-zinc-900/70 text-zinc-400 border border-transparent hover:text-white font-semibold text-[10px] sm:text-xs">
           <span class="text-base leading-none mb-1">🕸️</span>
@@ -928,7 +941,7 @@
           <span class="text-base leading-none mb-1">📝</span>
           <span class="truncate">Notes</span>
         </button>
-        <button id="navGameBtn" type="button" class="clicky flex flex-col items-center justify-center py-2 px-1 rounded-2xl bg-zinc-900/70 text-[#d4af37]/80 border border-transparent hover:text-[#f3e5ab] font-semibold text-[10px] sm:text-xs">
+        <button id="navGameBtn" type="button" class="clicky flex flex-col items-center justify-center py-2 px-1 rounded-2xl bg-zinc-900/70 text-zinc-400 border border-transparent hover:text-white font-semibold text-[10px] sm:text-xs">
           <span class="text-base leading-none mb-1">🔫</span>
           <span class="truncate">Revolver</span>
         </button>
@@ -937,13 +950,104 @@
 
   </div>
 
-  <!-- ================= FIREBASE, DOOMSDAY CLOCK, FULL NCERT SYLLABUS & SLIDER ENGINE ================= -->
+  <!-- ================= FIREBASE, 3-THEME ENGINE, PWA, DOOMSDAY & NCERT SYLLABUS ================= -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
     import { getFirestore, doc, getDoc, setDoc, collection, getDocs, onSnapshot, enableIndexedDbPersistence } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
     import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
 
-    // ================= NEET 2027 DOOMSDAY CHRONOGRAPH ENGINE (02 MAY 2027) =================
+    // ================= 1. WEB-ONLY 3-THEME ENGINE (SUNSET, FLORA & FAUNA, NIGHT SKY) =================
+    const THEME_CHART_PALETTE = {
+      sunset: { bar: "#f59e0b", line: "#fb7185", lineFill: "rgba(251, 113, 133, 0.16)", radar: "#f59e0b", radarFill: "rgba(245, 158, 11, 0.22)" },
+      flora:  { bar: "#10b981", line: "#84cc16", lineFill: "rgba(132, 204, 22, 0.16)", radar: "#10b981", radarFill: "rgba(16, 185, 129, 0.22)" },
+      night:  { bar: "#818cf8", line: "#38bdf8", lineFill: "rgba(56, 189, 248, 0.16)", radar: "#818cf8", radarFill: "rgba(129, 140, 248, 0.22)" }
+    };
+
+    let activeWebTheme = localStorage.getItem("studypunch_web_theme") || "sunset";
+
+    window.setWebTheme = function(themeName) {
+      if (!THEME_CHART_PALETTE[themeName]) themeName = "sunset";
+      activeWebTheme = themeName;
+      document.documentElement.setAttribute("data-theme", themeName);
+      localStorage.setItem("studypunch_web_theme", themeName);
+
+      document.querySelectorAll(".theme-pill").forEach(btn => {
+        const opt = btn.getAttribute("data-theme-opt");
+        if (opt === themeName) {
+          btn.className = "theme-pill clicky px-2 py-1 rounded-lg text-[10px] font-bold bg-white/15 text-white border border-white/30 shadow-sm";
+        } else {
+          btn.className = "theme-pill clicky px-2 py-1 rounded-lg text-[10px] font-semibold text-zinc-400 hover:text-white";
+        }
+      });
+
+      if (typeof currentUser !== "undefined" && currentUser) {
+        renderMultiChartWebAnalytics();
+        renderSyllabusTree(document.getElementById("syllabusSearchInput")?.value.trim() || "");
+      }
+    };
+    window.setWebTheme(activeWebTheme);
+
+    // ================= 2. OPTIONAL DOOMSDAY CLOCK SHOW / HIDE TOGGLE =================
+    let isDoomsdayVisible = localStorage.getItem("studypunch_doomsday_visible") !== "false";
+
+    function applyDoomsdayVisibility() {
+      const box = document.getElementById("doomsdayClockContainer");
+      const label = document.getElementById("toggleDoomsdayLabel");
+      if (!box || !label) return;
+      if (isDoomsdayVisible) {
+        box.classList.remove("hidden");
+        label.textContent = "Hide Doomsday";
+      } else {
+        box.classList.add("hidden");
+        label.textContent = "Show Doomsday";
+      }
+    }
+    applyDoomsdayVisibility();
+
+    document.getElementById("toggleDoomsdayBtn").addEventListener("click", () => {
+      isDoomsdayVisible = !isDoomsdayVisible;
+      localStorage.setItem("studypunch_doomsday_visible", String(isDoomsdayVisible));
+      applyDoomsdayVisibility();
+    });
+
+    // ================= 3. PROGRESSIVE WEB APP (PWA) INSTALL SUPPORT =================
+    try {
+      const manifestObj = {
+        name: "StudyPunch — NEET 2027 Command Hub",
+        short_name: "StudyPunch",
+        start_url: ".",
+        display: "standalone",
+        background_color: "#050507",
+        theme_color: "#09090b",
+        icons: [{
+          src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='42' fill='%2309090b'/%3E%3Ccircle cx='96' cy='100' r='60' fill='none' stroke='%23d4af37' stroke-width='9'/%3E%3Cpath d='M104 62 L74 106 H98 L88 144 L122 96 H98 Z' fill='%23f59e0b'/%3E%3C/svg%3E",
+          sizes: "192x192",
+          type: "image/svg+xml"
+        }]
+      };
+      const manifestBlob = new Blob([JSON.stringify(manifestObj)], { type: "application/manifest+json" });
+      const manifestLink = document.createElement("link");
+      manifestLink.rel = "manifest";
+      manifestLink.href = URL.createObjectURL(manifestBlob);
+      document.head.appendChild(manifestLink);
+    } catch {}
+
+    let deferredInstallPrompt = null;
+    const installPwaBtn = document.getElementById("installPwaBtn");
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredInstallPrompt = e;
+      installPwaBtn.classList.remove("hidden");
+    });
+    installPwaBtn.addEventListener("click", async () => {
+      if (!deferredInstallPrompt) return;
+      deferredInstallPrompt.prompt();
+      await deferredInstallPrompt.userChoice;
+      deferredInstallPrompt = null;
+      installPwaBtn.classList.add("hidden");
+    });
+
+    // ================= 4. NEET 2027 DOOMSDAY CHRONOGRAPH (02 MAY 2027) =================
     const NEET_2027_EXAM_TIMESTAMP = new Date("2027-05-02T14:00:00+05:30").getTime();
 
     function updateDoomsdayChronograph() {
@@ -969,7 +1073,6 @@
       const elDay = document.getElementById("ddDays");
       const elSweep = document.getElementById("ddSecondSweepBar");
       const elTotHrs = document.getElementById("ddTotalHoursLeft");
-      const elAuthPrev = document.getElementById("authDoomsdayPreview");
       const elZdMini = document.getElementById("zdDoomsdayMini");
 
       if (elSec) elSec.textContent = secStr;
@@ -978,14 +1081,13 @@
       if (elDay) elDay.textContent = dayStr;
       if (elSweep) elSweep.style.width = `${((60 - seconds) / 60) * 100}%`;
       if (elTotHrs) elTotHrs.textContent = `Total Hours Left: ${totalHours.toLocaleString()} hrs`;
-      if (elAuthPrev) elAuthPrev.textContent = `${secStr}s : ${minStr}m : ${hrStr}h : ${dayStr}d remaining`;
       if (elZdMini) elZdMini.textContent = `DOOMSDAY T-MINUS: ${secStr}s : ${minStr}m : ${hrStr}h : ${dayStr}d`;
     }
 
     updateDoomsdayChronograph();
     setInterval(updateDoomsdayChronograph, 1000);
 
-    // ================= COMPLETE GRANULAR NCERT CLASS 11 & 12 NEET 2027 SYLLABUS =================
+    // ================= 5. GRANULAR NCERT CLASS 11 & 12 NEET 2027 SYLLABUS =================
     const NEET_2027_SYLLABUS = [
       {
         id: "phys",
@@ -1014,7 +1116,7 @@
           },
           {
             id: "phys_12",
-            unitName: "NCERT Class 12 Physics (Chapters 1 – 14 + Practical)",
+            unitName: "NCERT Class 12 Physics (Chapters 1 – 14)",
             chapters: [
               { id: "p12_1", name: "Ch 1: Electric Charges and Fields", subtopics: ["Electric Charge, Conductors, Insulators & Basic Properties", "Coulomb's Law & Forces Between Multiple Charges (Superposition)", "Electric Field, Electric Field Lines & Electric Flux", "Electric Dipole: Field on Axial & Equatorial Lines, Torque in Uniform Field", "Continuous Charge Distribution & Gauss's Law with Applications"] },
               { id: "p12_2", name: "Ch 2: Electrostatic Potential and Capacitance", subtopics: ["Electrostatic Potential, Potential Due to Point Charge, Dipole & System", "Equipotential Surfaces & Relation Between Field and Potential", "Potential Energy of System of Charges & Dipole in External Field", "Electrostatics of Conductors, Dielectrics & Polarisation", "Capacitors & Capacitance: Parallel Plate Capacitor with/without Dielectric", "Combination of Capacitors (Series/Parallel) & Energy Stored in Capacitor"] },
@@ -1147,7 +1249,6 @@
     let currentUser = null;
     let timerInterval = null;
 
-    // Chart.js Instances
     let studyChart = null;
     let subjectDoughnutChart = null;
     let velocityLineChart = null;
@@ -1164,11 +1265,11 @@
       if (online) {
         cloudBadge.textContent = "Cloud Ready";
         navCloudStatus.textContent = "Cloud Live";
-        navCloudStatus.className = "text-[10px] px-2 py-0.5 rounded-full bg-emerald-950/80 text-emerald-300 border border-emerald-500/30 font-semibold";
+        navCloudStatus.className = "text-[9px] px-2 py-0.5 rounded-full bg-emerald-950/80 text-emerald-300 border border-emerald-500/30 font-semibold";
       } else {
         cloudBadge.textContent = "Local Fallback";
         navCloudStatus.textContent = "Local Mode";
-        navCloudStatus.className = "text-[10px] px-2 py-0.5 rounded-full bg-amber-950/80 text-amber-300 border border-amber-500/30 font-semibold";
+        navCloudStatus.className = "text-[9px] px-2 py-0.5 rounded-full bg-amber-950/80 text-amber-300 border border-amber-500/30 font-semibold";
       }
     }
 
@@ -1373,6 +1474,7 @@
       }
       authScreen.classList.add("hidden");
       appScreen.classList.remove("hidden");
+      applyDoomsdayVisibility();
       renderDashboard();
       renderSyllabusTree();
       renderFastLeaderboard();
@@ -1456,17 +1558,17 @@
         const safeTitle = `${rec.subject}: ${rec.subtopicName}`.replace(/'/g, "\\'");
 
         return `
-          <div class="bg-black/80 rounded-2xl p-4 border border-zinc-800 hover:border-[#d4af37]/50 transition flex flex-col justify-between">
+          <div class="bg-black/75 rounded-2xl p-4 border border-zinc-800 hover:border-white/25 transition flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between gap-2 mb-2">
-                <span class="text-xs font-bold text-[#d4af37]">${rec.icon} ${rec.subject}</span>
-                <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#d4af37]/10 text-[#f3e5ab] border border-[#d4af37]/20">${statusTag}</span>
+                <span class="text-xs font-bold theme-gradient-text">${rec.icon} ${rec.subject}</span>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-white/10 text-zinc-200 border border-white/10">${statusTag}</span>
               </div>
               <p class="text-xs font-medium text-zinc-400 line-clamp-1">${rec.chapterName}</p>
               <p class="text-sm font-bold text-white mt-1">🎯 ${rec.subtopicName}</p>
             </div>
             <div class="grid grid-cols-2 gap-2 mt-4 pt-3 border-t border-zinc-900">
-              <button type="button" onclick="startDotRecommendedClockIn('${safeTitle}')" class="clicky py-2 px-3 rounded-xl bg-gradient-to-r from-[#d4af37] to-[#b8860b] text-black font-extrabold text-[11px]">
+              <button type="button" onclick="startDotRecommendedClockIn('${safeTitle}')" class="clicky py-2 px-3 rounded-xl theme-btn-primary font-extrabold text-[11px]">
                 ▶ Clock In
               </button>
               <button type="button" onclick="markDotTopicDone('${rec.topicKey}')" class="clicky py-2 px-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-emerald-300 border border-zinc-800 font-semibold text-[11px]">
@@ -1635,11 +1737,11 @@
         const mins = Math.round((s.durationSeconds || 0) / 60);
         const hrs = (s.durationSeconds / 3600).toFixed(2);
         return `
-          <tr class="hover:bg-zinc-900/50">
+          <tr class="hover:bg-white/5">
             <td class="py-3 px-4 font-semibold text-zinc-300">${s.date}</td>
             <td class="py-3 px-4 text-white font-medium">${s.subject}</td>
             <td class="py-3 px-4 text-zinc-400">${s.entryType === "manual" ? "✍️ Manual" : `⏱️ ${s.startTime}–${s.endTime}`}</td>
-            <td class="py-3 px-4 text-right mono-nums font-bold text-[#f3e5ab]">${mins}m (${hrs}h)</td>
+            <td class="py-3 px-4 text-right mono-nums font-bold theme-gradient-text">${mins}m (${hrs}h)</td>
             <td class="py-3 px-4 text-right">
               <button onclick="deleteStudySession(${idx})" class="text-rose-400 hover:text-rose-300 px-2">✕</button>
             </td>
@@ -1664,6 +1766,7 @@
     }
 
     function renderMultiChartWebAnalytics() {
+      const pal = THEME_CHART_PALETTE[activeWebTheme] || THEME_CHART_PALETTE.sunset;
       const ctx7 = document.getElementById("studyChartCanvas").getContext("2d");
       const labels7 = [];
       const dataHours7 = [];
@@ -1679,7 +1782,7 @@
       if (studyChart) studyChart.destroy();
       studyChart = new Chart(ctx7, {
         type: "bar",
-        data: { labels: labels7, datasets: [{ label: "Hours", data: dataHours7, backgroundColor: "#d4af37", borderRadius: 6 }] },
+        data: { labels: labels7, datasets: [{ label: "Hours", data: dataHours7, backgroundColor: pal.bar, borderRadius: 6 }] },
         options: {
           responsive: true, maintainAspectRatio: false,
           plugins: { legend: { display: false } },
@@ -1706,7 +1809,7 @@
           labels: ["⚡ Physics", "🧪 Chemistry", "🧬 Biology", "🎯 General/Mock"],
           datasets: [{
             data: totalLogged > 0 ? doughnutVals : [1, 1, 1, 1],
-            backgroundColor: ["#818cf8", "#d4af37", "#10b981", "#52525b"],
+            backgroundColor: ["#818cf8", "#f59e0b", "#10b981", "#52525b"],
             borderColor: "#050507",
             borderWidth: 3
           }]
@@ -1749,17 +1852,17 @@
             {
               label: "Daily Hours",
               data: dataHours14,
-              borderColor: "#d4af37",
-              backgroundColor: "rgba(212, 175, 55, 0.14)",
+              borderColor: pal.line,
+              backgroundColor: pal.lineFill,
               fill: true,
               tension: 0.35,
               pointRadius: 3,
-              pointBackgroundColor: "#f3e5ab"
+              pointBackgroundColor: pal.bar
             },
             {
               label: "Target",
               data: targetLine14,
-              borderColor: "rgba(225, 29, 72, 0.45)",
+              borderColor: "rgba(255, 255, 255, 0.3)",
               borderDash: [5, 5],
               pointRadius: 0,
               fill: false
@@ -1831,6 +1934,7 @@
     });
 
     function renderSpiderWebRadarAndBars(radarLabels, radarPcts, subjectStats) {
+      const pal = THEME_CHART_PALETTE[activeWebTheme] || THEME_CHART_PALETTE.sunset;
       const ctx = document.getElementById("spiderWebCanvas").getContext("2d");
       if (spiderChart) spiderChart.destroy();
       spiderChart = new Chart(ctx, {
@@ -1840,9 +1944,9 @@
           datasets: [{
             label: "NCERT Mastery %",
             data: radarPcts,
-            backgroundColor: "rgba(212, 175, 55, 0.22)",
-            borderColor: "#d4af37",
-            pointBackgroundColor: "#f3e5ab",
+            backgroundColor: pal.radarFill,
+            borderColor: pal.radar,
+            pointBackgroundColor: "#ffffff",
             pointBorderColor: "#050507",
             borderWidth: 2
           }]
@@ -1853,8 +1957,8 @@
           scales: {
             r: {
               min: 0, max: 100,
-              angleLines: { color: "rgba(212, 175, 55, 0.2)" },
-              grid: { color: "rgba(161, 161, 170, 0.15)" },
+              angleLines: { color: "rgba(255, 255, 255, 0.14)" },
+              grid: { color: "rgba(161, 161, 170, 0.14)" },
               pointLabels: { color: "#e4e4e7", font: { size: 9, weight: "bold" } },
               ticks: { display: false }
             }
@@ -1871,7 +1975,7 @@
           datasets: [{
             label: "Completed %",
             data: subjectStats.map(s => s.pct),
-            backgroundColor: ["#818cf8", "#d4af37", "#10b981"],
+            backgroundColor: ["#818cf8", "#f59e0b", "#10b981"],
             borderRadius: 6
           }]
         },
@@ -1926,14 +2030,14 @@
               const safeTopic = `${subj.subject}: ${stName}`.replace(/'/g, "\\'");
 
               return `
-                <div class="spider-node flex items-center justify-between gap-2 py-2 px-3 rounded-xl hover:bg-zinc-900/70 transition">
+                <div class="spider-node flex items-center justify-between gap-2 py-2 px-3 rounded-xl hover:bg-white/5 transition">
                   <label class="flex items-center gap-3 cursor-pointer flex-1 select-none">
-                    <input type="checkbox" ${isDone ? "checked" : ""} onchange="toggleSubtopicCheck('${key}')" class="w-4 h-4 rounded accent-[#d4af37] cursor-pointer shrink-0" />
+                    <input type="checkbox" ${isDone ? "checked" : ""} onchange="toggleSubtopicCheck('${key}')" class="w-4 h-4 rounded accent-amber-400 cursor-pointer shrink-0" />
                     <span class="text-xs sm:text-sm ${isDone ? 'line-through text-zinc-500' : 'text-zinc-200 font-medium'}">
                       ${stName}
                     </span>
                   </label>
-                  <button type="button" onclick="startDotRecommendedClockIn('${safeTopic}')" class="clicky shrink-0 px-2.5 py-1 rounded-lg text-[10px] font-bold bg-[#d4af37]/15 text-[#f3e5ab] border border-[#d4af37]/30 hover:bg-[#d4af37] hover:text-black">
+                  <button type="button" onclick="startDotRecommendedClockIn('${safeTopic}')" class="clicky shrink-0 px-2.5 py-1 rounded-lg text-[10px] font-bold bg-white/10 text-zinc-200 border border-white/15 hover:bg-white hover:text-black">
                     ⚡ Clock In
                   </button>
                 </div>
@@ -1942,7 +2046,7 @@
 
             return `
               <div class="spider-node my-2.5">
-                <div class="bg-black/80 border border-zinc-800 rounded-2xl p-3">
+                <div class="bg-black/75 border border-zinc-800 rounded-2xl p-3">
                   <div class="flex flex-wrap items-center justify-between gap-2">
                     <button type="button" onclick="toggleFolderNode('${ch.id}')" class="flex items-center gap-2 text-left font-bold text-xs sm:text-sm text-white flex-1">
                       <span>${isChOpen ? "📂" : "📁"}</span>
@@ -1970,9 +2074,9 @@
 
           return `
             <div class="spider-node my-3">
-              <div class="bg-zinc-950 border border-zinc-800/90 rounded-2xl p-3.5">
+              <div class="bg-black/60 border border-zinc-800/90 rounded-2xl p-3.5">
                 <button type="button" onclick="toggleFolderNode('${u.id}')" class="w-full flex items-center justify-between text-left">
-                  <span class="font-bold text-sm text-[#f3e5ab]">🕸️ ${u.unitName}</span>
+                  <span class="font-bold text-sm theme-gradient-text">🕸️ ${u.unitName}</span>
                   <span class="mono-nums text-xs font-bold text-emerald-400">${unitDone}/${unitTotal} (${unitPct}%)</span>
                 </button>
                 ${isUnitOpen ? `<div class="spider-hub mt-3">${chaptersHtml}</div>` : ""}
@@ -1997,7 +2101,7 @@
                   <p class="text-xs text-zinc-400">${subjDone} of ${subjTotal} NCERT sub-topics mastered</p>
                 </div>
               </div>
-              <span class="mono-nums px-3 py-1 rounded-xl bg-[#d4af37]/15 text-[#f3e5ab] font-bold text-xs border border-[#d4af37]/30">${subjPct}%</span>
+              <span class="mono-nums px-3 py-1 rounded-xl bg-white/10 theme-gradient-text font-bold text-xs border border-white/15">${subjPct}%</span>
             </button>
             ${isSubjOpen ? `<div class="spider-hub mt-4">${unitsHtml}</div>` : ""}
           </div>
@@ -2010,12 +2114,12 @@
       document.getElementById("overallSyllabusBar").style.width = `${overallPct}%`;
 
       document.getElementById("subjectSummaryCards").innerHTML = subjectStats.map(st => `
-        <div class="p-4 rounded-2xl bg-black/80 border border-zinc-800 flex items-center justify-between">
+        <div class="p-4 rounded-2xl bg-black/75 border border-zinc-800 flex items-center justify-between">
           <div>
             <p class="text-xs font-bold text-white">${st.icon} ${st.name}</p>
             <p class="text-[11px] text-zinc-500 mono-nums">${st.done}/${st.total} nodes</p>
           </div>
-          <span class="mono-nums text-lg font-black gold-text">${st.pct}%</span>
+          <span class="mono-nums text-lg font-black theme-gradient-text">${st.pct}%</span>
         </div>
       `).join("");
 
@@ -2077,8 +2181,8 @@
           : `<span class="px-2 py-0.5 rounded-full text-[10px] font-medium bg-zinc-900 text-zinc-500">Offline</span>`;
 
         return `
-          <tr class="hover:bg-zinc-900/50 transition">
-            <td class="py-3.5 px-4 font-bold text-[#d4af37] mono-nums">${rankBadge}</td>
+          <tr class="hover:bg-white/5 transition">
+            <td class="py-3.5 px-4 font-bold theme-gradient-text mono-nums">${rankBadge}</td>
             <td class="py-3.5 px-4">
               <div class="flex flex-wrap items-center gap-2">
                 <span class="font-bold text-white">${u.name}</span>
@@ -2090,7 +2194,7 @@
               <span class="px-2.5 py-1 rounded-lg bg-zinc-900 text-zinc-300 border border-zinc-800 font-semibold text-xs mono-nums">${u.studyCount}x</span>
             </td>
             <td class="py-3.5 px-4 text-center">
-              <span class="px-2.5 py-1 rounded-lg bg-[#d4af37]/15 text-[#f3e5ab] border border-[#d4af37]/30 font-semibold text-xs mono-nums">${u.syllabusPct}%</span>
+              <span class="px-2.5 py-1 rounded-lg bg-white/10 text-zinc-200 border border-white/15 font-semibold text-xs mono-nums">${u.syllabusPct}%</span>
             </td>
             <td class="py-3.5 px-4 text-center font-semibold text-zinc-300 mono-nums">${u.todayHours}h</td>
             <td class="py-3.5 px-4 text-right font-extrabold text-emerald-400 mono-nums">${u.totalHours.toFixed(1)} hrs</td>
@@ -2132,7 +2236,7 @@
         listEl.innerHTML = `<p class="text-xs text-zinc-500 text-center py-8">No notes yet. Click "+ New Note" above.</p>`;
       } else {
         listEl.innerHTML = filtered.map(n => `
-          <button type="button" onclick="selectNoteItem('${n.id}')" class="clicky w-full text-left p-3 rounded-2xl border ${n.id === activeNoteId ? 'bg-[#d4af37]/15 border-[#d4af37]/50 text-white' : 'bg-black border-zinc-800 text-zinc-300 hover:bg-zinc-900'}">
+          <button type="button" onclick="selectNoteItem('${n.id}')" class="clicky w-full text-left p-3 rounded-2xl border ${n.id === activeNoteId ? 'bg-white/15 border-white/30 text-white' : 'bg-black/75 border-zinc-800 text-zinc-300 hover:bg-zinc-900'}">
             <p class="text-xs font-bold truncate">${n.title || "Untitled Note"}</p>
             <p class="text-[10px] text-zinc-500 truncate mt-0.5">${n.body || "Empty note..."}</p>
           </button>
@@ -2193,38 +2297,48 @@
 
     document.getElementById("noteSearchInput").addEventListener("input", (e) => renderNotesVault(e.target.value.trim()));
 
-    // ================= MULTIPLAYER & SUBJECT/TOPIC REVOLVER ROULETTE ENGINE =================
+    // ================= EXPANDED NCERT CHAPTER-SPECIFIC REVOLVER QUESTION BANK =================
     const NEET_BULLET_BANK = [
-      { subject: "Physics", topic: "Mechanics", q: "Dimension of Planck's constant (h) is identical to that of:", opts: ["Angular Momentum", "Linear Momentum", "Torque", "Impulse"], ans: 0 },
-      { subject: "Physics", topic: "Mechanics", q: "Moment of inertia of a uniform solid sphere of mass M and radius R about its diameter is:", opts: ["(2/5) MR²", "(2/3) MR²", "(1/2) MR²", "(7/5) MR²"], ans: 0 },
-      { subject: "Physics", topic: "Mechanics", q: "Escape velocity from Earth's surface is approximately:", opts: ["11.2 km/s", "7.9 km/s", "9.8 km/s", "15.0 km/s"], ans: 0 },
-      { subject: "Physics", topic: "Electrodynamics", q: "At resonance in a series LCR circuit, the phase difference between current and voltage is:", opts: ["0°", "90°", "45°", "180°"], ans: 0 },
-      { subject: "Physics", topic: "Electrodynamics", q: "SI unit of Magnetic Flux is:", opts: ["Weber (Wb)", "Tesla (T)", "Henry (H)", "Gauss"], ans: 0 },
-      { subject: "Physics", topic: "Optics & Modern", q: "In Young's Double Slit Experiment, if slit separation is halved, fringe width becomes:", opts: ["Doubled", "Halved", "Four times", "Unchanged"], ans: 0 },
-      { subject: "Physics", topic: "Optics & Modern", q: "Which logic gate is known as a Universal Gate?", opts: ["NAND Gate", "OR Gate", "AND Gate", "XOR Gate"], ans: 0 },
+      { subject: "Physics", topic: "Units & Kinematics", q: "Dimension of Planck's constant (h) is identical to that of:", opts: ["Angular Momentum", "Linear Momentum", "Torque", "Impulse"], ans: 0 },
+      { subject: "Physics", topic: "Units & Kinematics", q: "At the highest point of an oblique projectile path, the angle between velocity and acceleration is:", opts: ["90°", "0°", "180°", "45°"], ans: 0 },
+      { subject: "Physics", topic: "Rotational & Gravitation", q: "Moment of inertia of a uniform solid sphere of mass M and radius R about its diameter is:", opts: ["(2/5) MR²", "(2/3) MR²", "(1/2) MR²", "(7/5) MR²"], ans: 0 },
+      { subject: "Physics", topic: "Rotational & Gravitation", q: "Escape velocity from Earth's surface (11.2 km/s) depends on the mass of the projected body (m) as:", opts: ["m⁰ (Independent of m)", "m¹", "√m", "1/m"], ans: 0 },
+      { subject: "Physics", topic: "Thermodynamics & SHM", q: "For a diatomic rigid gas molecule at room temperature, the molar specific heat at constant volume (Cv) is:", opts: ["(5/2) R", "(3/2) R", "(7/2) R", "(9/2) R"], ans: 0 },
+      { subject: "Physics", topic: "Thermodynamics & SHM", q: "In Simple Harmonic Motion, acceleration is maximum at:", opts: ["Extreme positions", "Mean position", "Half of amplitude", "Everywhere constant"], ans: 0 },
+      { subject: "Physics", topic: "Electrostatics & Current", q: "If a dielectric slab of constant K is inserted between plates of an isolated charged capacitor, its potential difference:", opts: ["Decreases by factor K", "Increases by factor K", "Remains unchanged", "Becomes zero"], ans: 0 },
+      { subject: "Physics", topic: "Electrostatics & Current", q: "A Wheatstone bridge is most sensitive when all four resistances are:", opts: ["Of the same order of magnitude", "Very large", "Zero", "In geometric progression"], ans: 0 },
+      { subject: "Physics", topic: "Magnetism, EMI & AC", q: "At resonance in a series LCR circuit, the phase difference between current and voltage is:", opts: ["0°", "90°", "45°", "180°"], ans: 0 },
+      { subject: "Physics", topic: "Magnetism, EMI & AC", q: "Lenz's law is a direct consequence of the law of conservation of:", opts: ["Energy", "Charge", "Linear Momentum", "Angular Momentum"], ans: 0 },
+      { subject: "Physics", topic: "Optics & Modern Physics", q: "In Young's Double Slit Experiment, if slit separation is halved, fringe width becomes:", opts: ["Doubled", "Halved", "Four times", "Unchanged"], ans: 0 },
+      { subject: "Physics", topic: "Optics & Modern Physics", q: "Which logic gate gives output 1 only when both inputs are 0?", opts: ["NOR Gate", "NAND Gate", "XOR Gate", "AND Gate"], ans: 0 },
 
-      { subject: "Chemistry", topic: "Physical Chemistry", q: "In an isothermal expansion of an ideal gas, ΔU (change in internal energy) is:", opts: ["Zero", "Positive", "Negative", "Equal to work done"], ans: 0 },
-      { subject: "Chemistry", topic: "Physical Chemistry", q: "Unit of rate constant for a Zero Order reaction is:", opts: ["mol L⁻¹ s⁻¹", "s⁻¹", "L mol⁻¹ s⁻¹", "mol² L⁻² s⁻¹"], ans: 0 },
-      { subject: "Chemistry", topic: "Physical Chemistry", q: "Which concentration term is independent of temperature?", opts: ["Molality (m)", "Molarity (M)", "Normality (N)", "Formality"], ans: 0 },
-      { subject: "Chemistry", topic: "Inorganic Chemistry", q: "According to VSEPR theory, the shape of XeF4 is:", opts: ["Square Planar", "Tetrahedral", "See-Saw", "Octahedral"], ans: 0 },
-      { subject: "Chemistry", topic: "Inorganic Chemistry", q: "Which element has the highest electronegativity in the periodic table?", opts: ["Fluorine (F)", "Oxygen (O)", "Chlorine (Cl)", "Nitrogen (N)"], ans: 0 },
-      { subject: "Chemistry", topic: "Organic Chemistry", q: "Which of the following compounds gives a positive Iodoform test?", opts: ["Ethanol (CH3CH2OH)", "Methanol (CH3OH)", "Formaldehyde (HCHO)", "Diethyl ether"], ans: 0 },
-      { subject: "Chemistry", topic: "Organic Chemistry", q: "Conversion of Phenol to Salicylaldehyde using CHCl3 and NaOH is called:", opts: ["Reimer-Tiemann Reaction", "Kolbe's Reaction", "Wurtz Reaction", "Cannizzaro Reaction"], ans: 0 },
+      { subject: "Chemistry", topic: "Atomic & Thermodynamics", q: "Maximum number of electrons that can be accommodated in a subshell with azimuthal quantum number l = 3 is:", opts: ["14", "10", "6", "18"], ans: 0 },
+      { subject: "Chemistry", topic: "Atomic & Thermodynamics", q: "For a spontaneous process at all temperatures, the signs of ΔH and ΔS must be:", opts: ["ΔH < 0 and ΔS > 0", "ΔH > 0 and ΔS < 0", "ΔH < 0 and ΔS < 0", "ΔH > 0 and ΔS > 0"], ans: 0 },
+      { subject: "Chemistry", topic: "Equilibrium & Kinetics", q: "Unit of rate constant for a Zero Order reaction is:", opts: ["mol L⁻¹ s⁻¹", "s⁻¹", "L mol⁻¹ s⁻¹", "mol² L⁻² s⁻¹"], ans: 0 },
+      { subject: "Chemistry", topic: "Equilibrium & Kinetics", q: "Which concentration term is completely independent of temperature?", opts: ["Molality (m)", "Molarity (M)", "Normality (N)", "Volume %"], ans: 0 },
+      { subject: "Chemistry", topic: "Bonding & Coordination", q: "According to VSEPR theory, the molecular geometry of XeF4 is:", opts: ["Square Planar", "Tetrahedral", "See-Saw", "Octahedral"], ans: 0 },
+      { subject: "Chemistry", topic: "Bonding & Coordination", q: "Which of the following is an ambidentate ligand?", opts: ["NO2⁻ (Nitrito)", "NH3 (Ammine)", "en (Ethane-1,2-diamine)", "H2O (Aqua)"], ans: 0 },
+      { subject: "Chemistry", topic: "Organic & Biomolecules", q: "Conversion of Phenol to Salicylaldehyde using CHCl3 and aqueous NaOH is called:", opts: ["Reimer-Tiemann Reaction", "Kolbe's Reaction", "Wurtz Reaction", "Cannizzaro Reaction"], ans: 0 },
+      { subject: "Chemistry", topic: "Organic & Biomolecules", q: "Which of the following compounds gives a positive Iodoform test?", opts: ["Ethanol (CH3CH2OH)", "Methanol (CH3OH)", "Formaldehyde (HCHO)", "Diethyl ether"], ans: 0 },
+      { subject: "Chemistry", topic: "Organic & Biomolecules", q: "Which vitamin deficiency causes Pernicious Anaemia?", opts: ["Vitamin B12 (Cyanocobalamin)", "Vitamin C (Ascorbic acid)", "Vitamin B1 (Thiamine)", "Vitamin K"], ans: 0 },
 
-      { subject: "Biology", topic: "Cell & Plant Biology", q: "Which cell organelle is known as the 'Suicidal Bag' of the cell?", opts: ["Lysosome", "Ribosome", "Peroxisome", "Golgi Apparatus"], ans: 0 },
-      { subject: "Biology", topic: "Cell & Plant Biology", q: "First stable product of CO2 fixation in C4 pathway (Hatch-Slack cycle) is:", opts: ["Oxaloacetic acid (OAA)", "PGA (3-phosphoglyceric acid)", "RuBP", "Malic acid"], ans: 0 },
-      { subject: "Biology", topic: "Human Physiology", q: "Natural pacemaker of the human heart is:", opts: ["SA Node", "AV Node", "Bundle of His", "Purkinje Fibres"], ans: 0 },
-      { subject: "Biology", topic: "Human Physiology", q: "Which cranial nerve has the longest and widest distribution in the body?", opts: ["Vagus Nerve (X)", "Optic Nerve (II)", "Facial Nerve (VII)", "Trigeminal (V)"], ans: 0 },
+      { subject: "Biology", topic: "Diversity & Cell Biology", q: "Which cell organelle is known as the 'Suicidal Bag' of the eukaryotic cell?", opts: ["Lysosome", "Ribosome", "Peroxisome", "Golgi Apparatus"], ans: 0 },
+      { subject: "Biology", topic: "Diversity & Cell Biology", q: "Crossing over between non-sister chromatids of homologous chromosomes occurs during:", opts: ["Pachytene", "Zygotene", "Leptotene", "Diakinesis"], ans: 0 },
+      { subject: "Biology", topic: "Plant Physiology", q: "First stable product of CO2 fixation in C4 pathway (Hatch-Slack cycle) is:", opts: ["Oxaloacetic acid (OAA)", "3-Phosphoglyceric acid (PGA)", "RuBP", "Malic acid"], ans: 0 },
+      { subject: "Biology", topic: "Plant Physiology", q: "Which plant hormone promotes bolting (internode elongation) in beet and cabbages?", opts: ["Gibberellins", "Abscisic Acid", "Ethylene", "Auxin"], ans: 0 },
+      { subject: "Biology", topic: "Human Physiology", q: "Natural pacemaker of the human heart is:", opts: ["SA Node (Sino-atrial node)", "AV Node", "Bundle of His", "Purkinje Fibres"], ans: 0 },
       { subject: "Biology", topic: "Human Physiology", q: "Which hormone causes milk ejection (let-down reflex) from mammary glands?", opts: ["Oxytocin", "Prolactin", "Progesterone", "Relaxin"], ans: 0 },
-      { subject: "Biology", topic: "Genetics & Biotech", q: "Thermostable DNA polymerase (Taq polymerase) used in PCR is isolated from:", opts: ["Thermus aquaticus", "Escherichia coli", "Bacillus thuringiensis", "Agrobacterium"], ans: 0 },
-      { subject: "Biology", topic: "Genetics & Biotech", q: "In Lac Operon, lactose acts as an:", opts: ["Inducer", "Repressor", "Corepressor", "Operator"], ans: 0 }
+      { subject: "Biology", topic: "Genetics & Evolution", q: "In the Lac Operon, lactose acts as an:", opts: ["Inducer", "Repressor", "Corepressor", "Operator"], ans: 0 },
+      { subject: "Biology", topic: "Genetics & Evolution", q: "Which chromosomal disorder is caused by an additional copy of chromosome number 21 (Trisomy 21)?", opts: ["Down's Syndrome", "Klinefelter's Syndrome", "Turner's Syndrome", "Phenylketonuria"], ans: 0 },
+      { subject: "Biology", topic: "Biotech & Ecology", q: "Thermostable DNA polymerase (Taq polymerase) used in PCR is isolated from:", opts: ["Thermus aquaticus", "Escherichia coli", "Bacillus thuringiensis", "Agrobacterium"], ans: 0 },
+      { subject: "Biology", topic: "Biotech & Ecology", q: "According to Lindeman's law, how much energy is transferred to the next higher trophic level?", opts: ["10%", "90%", "50%", "1%"], ans: 0 }
     ];
 
     const TOPIC_MAP_BY_SUBJECT = {
-      ALL: ["ALL", "Mechanics", "Electrodynamics", "Optics & Modern", "Physical Chemistry", "Inorganic Chemistry", "Organic Chemistry", "Cell & Plant Biology", "Human Physiology", "Genetics & Biotech"],
-      Physics: ["ALL", "Mechanics", "Electrodynamics", "Optics & Modern"],
-      Chemistry: ["ALL", "Physical Chemistry", "Inorganic Chemistry", "Organic Chemistry"],
-      Biology: ["ALL", "Cell & Plant Biology", "Human Physiology", "Genetics & Biotech"]
+      ALL: ["ALL", "Units & Kinematics", "Rotational & Gravitation", "Thermodynamics & SHM", "Electrostatics & Current", "Magnetism, EMI & AC", "Optics & Modern Physics", "Atomic & Thermodynamics", "Equilibrium & Kinetics", "Bonding & Coordination", "Organic & Biomolecules", "Diversity & Cell Biology", "Plant Physiology", "Human Physiology", "Genetics & Evolution", "Biotech & Ecology"],
+      Physics: ["ALL", "Units & Kinematics", "Rotational & Gravitation", "Thermodynamics & SHM", "Electrostatics & Current", "Magnetism, EMI & AC", "Optics & Modern Physics"],
+      Chemistry: ["ALL", "Atomic & Thermodynamics", "Equilibrium & Kinetics", "Bonding & Coordination", "Organic & Biomolecules"],
+      Biology: ["ALL", "Diversity & Cell Biology", "Plant Physiology", "Human Physiology", "Genetics & Evolution", "Biotech & Ecology"]
     };
 
     let selectedGameSubject = "ALL";
@@ -2250,10 +2364,10 @@
         const isTurn = idx === currentTurnIndex && p.hearts > 0;
         const heartsStr = p.hearts > 0 ? "❤️".repeat(p.hearts) + "🖤".repeat(3 - p.hearts) : "💀 ELIMINATED";
         return `
-          <div class="flex items-center justify-between px-3.5 py-2.5 rounded-2xl border ${isTurn ? 'bg-[#d4af37]/15 border-[#d4af37]/60 text-white' : 'bg-black border-zinc-800 text-zinc-300'}">
+          <div class="flex items-center justify-between px-3.5 py-2.5 rounded-2xl border ${isTurn ? 'bg-white/15 border-white/40 text-white' : 'bg-black/75 border-zinc-800 text-zinc-300'}">
             <div class="flex items-center gap-2">
               <span class="text-xs font-bold">${isTurn ? "🔫" : "👤"} ${p.name}</span>
-              ${isTurn ? `<span class="px-2 py-0.2 rounded-full text-[9px] font-black bg-[#d4af37] text-black uppercase">Hold Gun</span>` : ""}
+              ${isTurn ? `<span class="px-2 py-0.2 rounded-full text-[9px] font-black theme-btn-primary uppercase">Hold Gun</span>` : ""}
             </div>
             <div class="flex items-center gap-3">
               <span class="text-xs">${heartsStr}</span>
@@ -2312,13 +2426,13 @@
       container.innerHTML = topics.map(t => {
         const active = t === selectedGameTopic;
         return `
-          <button type="button" onclick="selectGameTopic('${t}')" class="clicky px-3 py-1.5 rounded-xl text-xs font-bold border ${active ? 'bg-gradient-to-r from-[#d4af37] to-[#b8860b] text-black border-[#f3e5ab] shadow-sm' : 'bg-black text-zinc-300 border-zinc-800 hover:bg-zinc-900'}">
-            ${t === "ALL" ? "🎯 All Topics" : t}
+          <button type="button" onclick="selectGameTopic('${t}')" class="clicky px-3 py-1.5 rounded-xl text-xs font-bold border ${active ? 'theme-btn-primary border-white/30' : 'bg-black/80 text-zinc-300 border-zinc-800 hover:bg-zinc-900'}">
+            ${t === "ALL" ? "🎯 All Chapters" : t}
           </button>
         `;
       }).join("");
 
-      document.getElementById("loadedDeckBadge").textContent = `${selectedGameSubject === "ALL" ? "All Subjects" : selectedGameSubject} • ${selectedGameTopic === "ALL" ? "All Topics" : selectedGameTopic}`;
+      document.getElementById("loadedDeckBadge").textContent = `${selectedGameSubject === "ALL" ? "All Subjects" : selectedGameSubject} • ${selectedGameTopic === "ALL" ? "All Chapters" : selectedGameTopic}`;
     }
 
     window.selectGameTopic = function(topicName) {
@@ -2332,8 +2446,8 @@
         document.querySelectorAll(".game-subj-btn").forEach(b => {
           const isMatch = b.getAttribute("data-subj") === selectedGameSubject;
           b.className = isMatch
-            ? "game-subj-btn clicky py-2.5 px-3 rounded-xl text-xs font-bold bg-gradient-to-r from-[#d4af37] to-[#b8860b] text-black"
-            : "game-subj-btn clicky py-2.5 px-3 rounded-xl text-xs font-semibold bg-black text-zinc-300 border border-zinc-800 hover:bg-zinc-900";
+            ? "game-subj-btn clicky py-2.5 px-3 rounded-xl text-xs font-bold theme-btn-primary"
+            : "game-subj-btn clicky py-2.5 px-3 rounded-xl text-xs font-semibold bg-black/80 text-zinc-300 border border-zinc-800 hover:bg-zinc-900";
         });
         selectedGameTopic = "ALL";
         renderGameTopicButtons();
@@ -2398,7 +2512,7 @@
 
       document.getElementById("bulletQuizBox").classList.remove("hidden");
 
-      let secondsLeft = 10;
+      let secondsLeft = 12;
       const timerEl = document.getElementById("bulletCountdownText");
       timerEl.textContent = `${secondsLeft}s`;
       bulletCountdownInterval = setInterval(() => {
@@ -2475,7 +2589,7 @@
     // ================= MOBILE SCREEN SLIDING CONTROLLER =================
     const phoneSliderViewport = document.getElementById("phoneSliderViewport");
     const SCREEN_TITLES = [
-      "Swipe ⇄ • 1/5 Chronometer & Telemetry",
+      "Swipe ⇄ • 1/5 Command & Telemetry",
       "Swipe ⇄ • 2/5 NCERT Spider Web",
       "Swipe ⇄ • 3/5 Live Arena",
       "Swipe ⇄ • 4/5 Notes Vault",
@@ -2492,19 +2606,20 @@
 
     function updateActiveSlideIndicators(idx) {
       currentSlideIndex = idx;
-      document.getElementById("activeScreenLabel").textContent = SCREEN_TITLES[idx] || SCREEN_TITLES[0];
+      const lbl = document.getElementById("activeScreenLabel");
+      if (lbl) lbl.textContent = SCREEN_TITLES[idx] || SCREEN_TITLES[0];
 
       for (let i = 0; i < 5; i++) {
         const dot = document.getElementById(`dotIndicator${i}`);
         if (dot) {
           dot.className = i === idx
-            ? "h-1.5 w-7 rounded-full bg-[#d4af37] transition-all duration-300 shadow-[0_0_10px_rgba(212,175,55,0.7)]"
+            ? "h-1.5 w-7 rounded-full bg-white transition-all duration-300 shadow-[0_0_10px_rgba(255,255,255,0.7)]"
             : "h-1.5 w-2 rounded-full bg-zinc-700 hover:bg-zinc-500 transition-all duration-300";
         }
         const btn = navButtons[i];
         if (btn) {
           if (i === idx) {
-            btn.className = "clicky flex flex-col items-center justify-center py-2 px-1 rounded-2xl bg-[#d4af37]/15 text-[#f3e5ab] border border-[#d4af37]/40 font-bold text-[10px] sm:text-xs relative shadow-sm";
+            btn.className = "clicky flex flex-col items-center justify-center py-2 px-1 rounded-2xl bg-white/15 text-white border border-white/30 font-bold text-[10px] sm:text-xs relative shadow-sm";
           } else {
             btn.className = "clicky flex flex-col items-center justify-center py-2 px-1 rounded-2xl bg-zinc-900/70 text-zinc-400 border border-transparent hover:text-white font-semibold text-[10px] sm:text-xs relative";
           }
@@ -2543,9 +2658,6 @@
       if (e.key === "ArrowRight") window.slideToScreen(currentSlideIndex + 1);
       if (e.key === "ArrowLeft") window.slideToScreen(currentSlideIndex - 1);
     });
-
-    document.getElementById("prevSlideBtn").addEventListener("click", () => window.slideToScreen(currentSlideIndex - 1));
-    document.getElementById("nextSlideBtn").addEventListener("click", () => window.slideToScreen(currentSlideIndex + 1));
 
     document.getElementById("navDashboardBtn").addEventListener("click", () => window.slideToScreen(0));
     document.getElementById("navSyllabusBtn").addEventListener("click", () => window.slideToScreen(1));
