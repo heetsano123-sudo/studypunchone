@@ -3,218 +3,97 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>StudyPunch — Executive NEET 2027 Command Atelier & 3D Web</title>
-  <meta name="description" content="StudyPunch NEET 2027 command hub with 3D Animated Entry Intro, Interactive 3D Spider-Web Progress Graph, Centralized Settings, Live Focus Wallpapers (Aurora, Snowfall, Rain), 3 Web Themes, Doomsday Chronograph, NCERT Class 11 & 12 Tracker, DOT AI, and Multiplayer Revolver." />
+  <title>StudyPunch — Executive NEET 2027 Command Atelier</title>
   <meta name="theme-color" content="#09090b" />
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2309090b'/%3E%3Cstop offset='100%25' stop-color='%2318181b'/%3E%3C/linearGradient%3E%3ClinearGradient id='gold' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23f3e5ab'/%3E%3Cstop offset='50%25' stop-color='%23d4af37'/%3E%3Cstop offset='100%25' stop-color='%23aa771c'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='24' fill='url(%23bg)' stroke='url(%23gold)' stroke-width='4'/%3E%3Ccircle cx='50' cy='52' r='31' fill='none' stroke='url(%23gold)' stroke-width='3.5' stroke-dasharray='165 30'/%3E%3Cpath d='M42 18 H58 M50 18 V24' stroke='%23d4af37' stroke-width='4.5' stroke-linecap='round'/%3E%3Cpath d='M54 33 L39 54 H51 L46 73 L63 50 H51 Z' fill='url(%23gold)'/%3E%3C/svg%3E" />
-
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%2309090b' stroke='%23d4af37' stroke-width='4'/%3E%3Ccircle cx='50' cy='52' r='31' fill='none' stroke='%23d4af37' stroke-width='3.5' stroke-dasharray='165 30'/%3E%3Cpath d='M54 33 L39 54 H51 L46 73 L63 50 H51 Z' fill='%23f59e0b'/%3E%3C/svg%3E" />
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600;1,800&family=JetBrains+Mono:wght@500;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;0,700;0,800;1,700&family=JetBrains+Mono:wght@600;800&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet" />
   <style>
-    :root, [data-theme="sunset"] {
-      --bg-base: #090608; --bg-glow-1: rgba(245, 158, 11, 0.16); --bg-glow-2: rgba(244, 63, 94, 0.12);
-      --card-bg: linear-gradient(180deg, rgba(24, 15, 19, 0.92) 0%, rgba(12, 8, 11, 0.96) 100%);
-      --card-border: rgba(245, 158, 11, 0.25); --accent-start: #fde68a; --accent-mid: #f59e0b; --accent-end: #e11d48;
-      --btn-text: #090608; --spider-line: rgba(245, 158, 11, 0.42); --spider-dot: #f59e0b;
-    }
-    [data-theme="flora"] {
-      --bg-base: #040a07; --bg-glow-1: rgba(16, 185, 129, 0.16); --bg-glow-2: rgba(132, 204, 22, 0.11);
-      --card-bg: linear-gradient(180deg, rgba(11, 24, 18, 0.92) 0%, rgba(6, 14, 10, 0.96) 100%);
-      --card-border: rgba(16, 185, 129, 0.26); --accent-start: #a7f3d0; --accent-mid: #10b981; --accent-end: #84cc16;
-      --btn-text: #040a07; --spider-line: rgba(16, 185, 129, 0.42); --spider-dot: #10b981;
-    }
-    [data-theme="night"] {
-      --bg-base: #04060d; --bg-glow-1: rgba(99, 102, 241, 0.18); --bg-glow-2: rgba(56, 189, 248, 0.12);
-      --card-bg: linear-gradient(180deg, rgba(13, 17, 32, 0.92) 0%, rgba(7, 10, 20, 0.96) 100%);
-      --card-border: rgba(129, 140, 248, 0.26); --accent-start: #e0e7ff; --accent-mid: #818cf8; --accent-end: #38bdf8;
-      --btn-text: #04060d; --spider-line: rgba(129, 140, 248, 0.42); --spider-dot: #818cf8;
-    }
-    body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background-color: var(--bg-base);
-      background-image:
-        radial-gradient(ellipse at 50% -10%, var(--bg-glow-1) 0%, transparent 60%),
-        radial-gradient(ellipse at 85% 25%, var(--bg-glow-2) 0%, transparent 50%),
-        radial-gradient(circle at 15% 85%, var(--bg-glow-1) 0%, transparent 45%);
-      color: #f4f4f5; overflow-x: hidden; transition: background-color 0.35s ease;
-    }
-    .font-serif-luxury { font-family: 'Playfair Display', Georgia, serif; }
-    .theme-gradient-text {
-      background: linear-gradient(135deg, var(--accent-start) 0%, var(--accent-mid) 55%, var(--accent-end) 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    }
-    .theme-btn-primary {
-      background: linear-gradient(135deg, var(--accent-start) 0%, var(--accent-mid) 60%, var(--accent-end) 100%);
-      color: var(--btn-text); box-shadow: 0 8px 25px -6px var(--bg-glow-1);
-    }
-    .luxury-card {
-      background: var(--card-bg); border: 1px solid var(--card-border);
-      box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.85), inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(20px);
-    }
-    .doomsday-panel {
-      background: radial-gradient(circle at 50% 0%, rgba(185, 28, 28, 0.16) 0%, rgba(10, 10, 14, 0.98) 72%);
-      border: 1px solid var(--card-border); box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.95);
-    }
-    ::-webkit-scrollbar { width: 5px; height: 5px; }
-    ::-webkit-scrollbar-track { background: var(--bg-base); }
-    ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 9999px; }
-
-    .phone-slider-viewport {
-      display: flex; width: 100vw; overflow-x: auto; overflow-y: hidden;
-      scroll-snap-type: x mandatory; scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch; scrollbar-width: none;
-    }
-    .phone-slider-viewport::-webkit-scrollbar { display: none; }
-    .phone-screen-slide {
-      flex: 0 0 100vw; width: 100vw; scroll-snap-align: start; scroll-snap-stop: always;
-      height: calc(100vh - 118px); overflow-y: auto; overflow-x: hidden; padding-bottom: 5rem;
-    }
-    .mono-nums { font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums; }
-    .clicky { transition: transform 0.12s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, border-color 0.2s ease; }
-    .clicky:active { transform: scale(0.96) translateY(1px); }
-
-    .spider-hub { position: relative; border-left: 1px solid var(--spider-line); margin-left: 1.15rem; padding-left: 1.15rem; }
-    .spider-node { position: relative; }
-    .spider-node::before { content: ""; position: absolute; left: -1.15rem; top: 50%; width: 0.9rem; height: 1px; background: var(--spider-line); }
-    .spider-node::after { content: ""; position: absolute; left: -1.32rem; top: calc(50% - 2.5px); width: 5px; height: 5px; border-radius: 9999px; background: var(--spider-dot); box-shadow: 0 0 8px var(--spider-dot); }
-
-    @keyframes pulseBeacon { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.12); opacity: 0.85; } }
-    .doomsday-beacon { animation: pulseBeacon 1s infinite; }
-    @keyframes liveEmerald { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.08); opacity: 0.9; } }
-    .live-beacon { animation: liveEmerald 1.8s infinite; }
-    .cylinder-spin { transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1); }
-
-    /* ================= 3D ANIMATED INTRO & ONBOARDING STYLES ================= */
-    #introSplashOverlay {
-      perspective: 1100px;
-      transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-    .intro-3d-stage {
-      transform-style: preserve-3d;
-      animation: introTitleFlyIn 1.15s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-    @keyframes introTitleFlyIn {
-      0% { opacity: 0; transform: translateZ(-260px) rotateX(38deg) scale(0.75); }
-      100% { opacity: 1; transform: translateZ(0px) rotateX(0deg) scale(1); }
-    }
-    #byHeetBadge {
-      opacity: 0;
-      transform: scale(0.88) translateY(8px);
-      transition: opacity 0.1s ease, transform 0.1s ease;
-    }
-    #byHeetBadge.show-half-sec {
-      opacity: 1;
-      transform: scale(1) translateY(0px);
-    }
+    :root,[data-theme="sunset"]{--bg-base:#090608;--bg-glow-1:rgba(245,158,11,.16);--bg-glow-2:rgba(244,63,94,.12);--card-bg:linear-gradient(180deg,rgba(24,15,19,.92),rgba(12,8,11,.96));--card-border:rgba(245,158,11,.25);--accent-start:#fde68a;--accent-mid:#f59e0b;--accent-end:#e11d48;--btn-text:#090608;--spider-line:rgba(245,158,11,.42);--spider-dot:#f59e0b}
+    [data-theme="flora"]{--bg-base:#040a07;--bg-glow-1:rgba(16,185,129,.16);--bg-glow-2:rgba(132,204,22,.11);--card-bg:linear-gradient(180deg,rgba(11,24,18,.92),rgba(6,14,10,.96));--card-border:rgba(16,185,129,.26);--accent-start:#a7f3d0;--accent-mid:#10b981;--accent-end:#84cc16;--btn-text:#040a07;--spider-line:rgba(16,185,129,.42);--spider-dot:#10b981}
+    [data-theme="night"]{--bg-base:#04060d;--bg-glow-1:rgba(99,102,241,.18);--bg-glow-2:rgba(56,189,248,.12);--card-bg:linear-gradient(180deg,rgba(13,17,32,.92),rgba(7,10,20,.96));--card-border:rgba(129,140,248,.26);--accent-start:#e0e7ff;--accent-mid:#818cf8;--accent-end:#38bdf8;--btn-text:#04060d;--spider-line:rgba(129,140,248,.42);--spider-dot:#818cf8}
+    body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-base);background-image:radial-gradient(ellipse at 50% -10%,var(--bg-glow-1),transparent 60%),radial-gradient(ellipse at 85% 25%,var(--bg-glow-2),transparent 50%);color:#f4f4f5;overflow-x:hidden;transition:background-color .35s ease}
+    .font-serif-luxury{font-family:'Playfair Display',Georgia,serif}
+    .theme-gradient-text{background:linear-gradient(135deg,var(--accent-start),var(--accent-mid) 55%,var(--accent-end));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .theme-btn-primary{background:linear-gradient(135deg,var(--accent-start),var(--accent-mid) 60%,var(--accent-end));color:var(--btn-text);box-shadow:0 8px 25px -6px var(--bg-glow-1)}
+    .luxury-card{background:var(--card-bg);border:1px solid var(--card-border);box-shadow:0 20px 50px -15px rgba(0,0,0,.85);backdrop-filter:blur(20px)}
+    .doomsday-panel{background:radial-gradient(circle at 50% 0%,rgba(185,28,28,.16),rgba(10,10,14,.98) 72%);border:1px solid var(--card-border);box-shadow:0 25px 60px -15px rgba(0,0,0,.95)}
+    ::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:var(--bg-base)}::-webkit-scrollbar-thumb{background:#27272a;border-radius:9999px}
+    .phone-slider-viewport{display:flex;width:100vw;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+    .phone-slider-viewport::-webkit-scrollbar{display:none}
+    .phone-screen-slide{flex:0 0 100vw;width:100vw;scroll-snap-align:start;scroll-snap-stop:always;height:calc(100vh - 118px);overflow-y:auto;overflow-x:hidden;padding-bottom:5rem}
+    .mono-nums{font-family:'JetBrains Mono',monospace;font-variant-numeric:tabular-nums}
+    .clicky{transition:transform .12s cubic-bezier(.34,1.56,.64,1),box-shadow .2s ease,border-color .2s ease}
+    .clicky:active{transform:scale(.96) translateY(1px)}
+    .spider-hub{position:relative;border-left:1px solid var(--spider-line);margin-left:1.1rem;padding-left:1.1rem}
+    .spider-node{position:relative}.spider-node::before{content:"";position:absolute;left:-1.1rem;top:50%;width:.85rem;height:1px;background:var(--spider-line)}.spider-node::after{content:"";position:absolute;left:-1.27rem;top:calc(50% - 2.5px);width:5px;height:5px;border-radius:9999px;background:var(--spider-dot)}
+    @keyframes pulseBeacon{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.12);opacity:.85}}.doomsday-beacon{animation:pulseBeacon 1s infinite}.live-beacon{animation:pulseBeacon 1.8s infinite}
+    #introSplashOverlay{perspective:1100px;transition:opacity .55s ease,transform .55s cubic-bezier(.22,1,.36,1)}
+    .intro-3d-stage{transform-style:preserve-3d;animation:introFly 1.15s cubic-bezier(.16,1,.3,1) forwards}
+    @keyframes introFly{0%{opacity:0;transform:translateZ(-260px) rotateX(38deg) scale(.75)}100%{opacity:1;transform:translateZ(0) rotateX(0) scale(1)}}
+    #byHeetBadge{opacity:0;transform:scale(.88) translateY(8px);transition:opacity .1s ease,transform .1s ease}
+    #byHeetBadge.show-half-sec{opacity:1;transform:scale(1) translateY(0)}
   </style>
 </head>
 <body class="antialiased selection:bg-amber-400 selection:text-black flex flex-col min-h-screen">
 
-  <!-- ================= 3D ANIMATED INTRO SPLASH (PLAYS ON EVERY ENTRY) ================= -->
+  <!-- 3D ENTRY INTRO -->
   <div id="introSplashOverlay" class="fixed inset-0 z-[200] bg-[#040406] flex flex-col items-center justify-center overflow-hidden select-none">
     <canvas id="intro3dCanvas" class="fixed inset-0 w-full h-full pointer-events-none"></canvas>
-
     <div class="relative z-10 text-center px-6 intro-3d-stage flex flex-col items-center">
-      <div class="w-20 h-20 rounded-3xl bg-black/80 border border-[#d4af37]/50 flex items-center justify-center shadow-[0_0_50px_rgba(212,175,55,0.3)] mb-5 p-3">
-        <svg viewBox="0 0 100 100" class="w-full h-full">
-          <defs>
-            <linearGradient id="spGradIntro" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#fde68a" />
-              <stop offset="50%" stop-color="#d4af37" />
-              <stop offset="100%" stop-color="#e11d48" />
-            </linearGradient>
-          </defs>
-          <circle cx="50" cy="54" r="34" fill="none" stroke="url(#spGradIntro)" stroke-width="6" stroke-dasharray="170 40" stroke-linecap="round"/>
-          <path d="M40 16 H60 M50 16 V23" stroke="#d4af37" stroke-width="6" stroke-linecap="round"/>
-          <path d="M55 32 L38 55 H51 L45 76 L64 51 H51 Z" fill="url(#spGradIntro)"/>
-        </svg>
+      <div class="w-20 h-20 rounded-3xl bg-black/80 border border-[#d4af37]/50 flex items-center justify-center shadow-[0_0_50px_rgba(212,175,55,.3)] mb-5 p-3">
+        <svg viewBox="0 0 100 100" class="w-full h-full"><circle cx="50" cy="54" r="34" fill="none" stroke="#d4af37" stroke-width="6" stroke-dasharray="170 40" stroke-linecap="round"/><path d="M40 16 H60 M50 16 V23" stroke="#d4af37" stroke-width="6" stroke-linecap="round"/><path d="M55 32 L38 55 H51 L45 76 L64 51 H51 Z" fill="#f59e0b"/></svg>
       </div>
-
       <p class="text-[10px] font-extrabold uppercase tracking-[0.4em] text-zinc-400 mb-2">NEET 2027 Command Atelier</p>
-      <h1 class="font-serif-luxury text-5xl sm:text-6xl font-bold theme-gradient-text tracking-tight drop-shadow-[0_12px_35px_rgba(0,0,0,0.95)]">
-        StudyPunch
-      </h1>
-
-      <!-- Flashes for EXACTLY 0.5 Seconds (500ms) -->
-      <div id="byHeetBadge" class="mt-5 px-5 py-1.5 rounded-full bg-black/85 border border-[#d4af37]/40 shadow-[0_0_25px_rgba(212,175,55,0.25)]">
+      <h1 class="font-serif-luxury text-5xl sm:text-6xl font-bold theme-gradient-text tracking-tight">StudyPunch</h1>
+      <div id="byHeetBadge" class="mt-5 px-5 py-1.5 rounded-full bg-black/85 border border-[#d4af37]/40 shadow-[0_0_25px_rgba(212,175,55,.25)]">
         <span class="text-xs uppercase tracking-[0.28em] text-zinc-400">by </span>
         <i class="font-serif-luxury italic font-bold text-lg text-[#fde68a] tracking-widest">heet</i>
       </div>
     </div>
-
-    <button id="skipIntroBtn" type="button" class="clicky fixed bottom-6 right-6 z-20 px-3.5 py-1.5 rounded-xl bg-white/5 hover:bg-white/15 border border-white/10 text-[10px] font-bold uppercase tracking-widest text-zinc-400 hover:text-white">
-      Skip ›
-    </button>
+    <button id="skipIntroBtn" type="button" class="clicky fixed bottom-6 right-6 z-20 px-3.5 py-1.5 rounded-xl bg-white/5 hover:bg-white/15 border border-white/10 text-[10px] font-bold uppercase tracking-widest text-zinc-400 hover:text-white">Skip ›</button>
   </div>
 
-  <!-- ================= NEW USER INTERACTIVE INTRODUCTION MODAL ================= -->
+  <!-- NEW USER TOUR MODAL -->
   <div id="newUserIntroModal" class="hidden fixed inset-0 z-[150] bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="luxury-card rounded-3xl w-full max-w-md p-6 sm:p-8 border border-white/20 shadow-2xl text-center relative overflow-hidden">
+    <div class="luxury-card rounded-3xl w-full max-w-md p-6 sm:p-8 border border-white/20 shadow-2xl text-center">
       <div class="flex items-center justify-between mb-4">
-        <span id="tourStepCounter" class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-[0.2em] bg-white/10 text-zinc-300 border border-white/15">
-          Welcome • 1 / 4
-        </span>
+        <span id="tourStepCounter" class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-[0.2em] bg-white/10 text-zinc-300 border border-white/15">Welcome • 1 / 3</span>
         <button id="tourSkipBtn" type="button" class="text-xs font-semibold text-zinc-500 hover:text-white">Skip Tour</button>
       </div>
-
-      <div id="tourSlideIcon" class="w-16 h-16 mx-auto rounded-2xl bg-black/80 border border-white/15 flex items-center justify-center text-3xl shadow-lg mb-4">
-        ⏱️
-      </div>
-
-      <h2 id="tourSlideTitle" class="font-serif-luxury text-2xl font-bold text-white tracking-tight mb-2">
-        Welcome to StudyPunch
-      </h2>
-      <p id="tourSlideDesc" class="text-xs sm:text-sm text-zinc-300 leading-relaxed min-h-[76px]">
-        Your all-in-one NEET 2027 command center.
-      </p>
-
+      <div id="tourSlideIcon" class="w-16 h-16 mx-auto rounded-2xl bg-black/80 border border-white/15 flex items-center justify-center text-3xl shadow-lg mb-4">⏱️</div>
+      <h2 id="tourSlideTitle" class="font-serif-luxury text-2xl font-bold text-white tracking-tight mb-2">Welcome to StudyPunch</h2>
+      <p id="tourSlideDesc" class="text-xs sm:text-sm text-zinc-300 leading-relaxed min-h-[76px]"></p>
       <div id="tourDotsRow" class="flex items-center justify-center gap-2 my-6"></div>
-
       <div class="flex items-center justify-between gap-3">
-        <button id="tourPrevBtn" type="button" class="clicky px-4 py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 text-xs font-bold">
-          ← Back
-        </button>
-        <button id="tourNextBtn" type="button" class="clicky flex-1 py-2.5 px-5 rounded-xl theme-btn-primary text-xs font-extrabold uppercase tracking-wider">
-          Next →
-        </button>
+        <button id="tourPrevBtn" type="button" class="clicky px-4 py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 text-xs font-bold">← Back</button>
+        <button id="tourNextBtn" type="button" class="clicky flex-1 py-2.5 px-5 rounded-xl theme-btn-primary text-xs font-extrabold uppercase tracking-wider">Next →</button>
       </div>
     </div>
   </div>
 
-  <!-- ================= CENTRALIZED SETTINGS & CUSTOMIZATION DRAWER ================= -->
+  <!-- SETTINGS & CUSTOMIZATION DRAWER -->
   <div id="settingsModal" class="hidden fixed inset-0 z-[110] bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
     <div class="luxury-card rounded-3xl w-full max-w-lg max-h-[88vh] flex flex-col overflow-hidden border border-white/15 shadow-2xl">
       <div class="px-6 py-4 border-b border-white/10 flex items-center justify-between bg-black/40">
         <div class="flex items-center gap-2.5">
           <span class="text-lg">⚙️</span>
-          <div>
-            <h2 class="font-serif-luxury text-lg font-bold text-white tracking-tight">Command Settings &amp; Customs</h2>
-            <p class="text-[11px] text-zinc-400">Themes, live wallpapers, Doomsday clock, goals &amp; backups</p>
-          </div>
+          <div><h2 class="font-serif-luxury text-lg font-bold text-white">Command Settings &amp; Customs</h2><p class="text-[11px] text-zinc-400">Themes, live wallpapers, Doomsday clock, goals &amp; backups</p></div>
         </div>
         <button type="button" id="closeSettingsBtn" class="clicky w-8 h-8 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-300 flex items-center justify-center border border-white/10 text-sm font-bold">✕</button>
       </div>
-
       <div class="p-6 overflow-y-auto space-y-6">
         <div>
           <label class="block text-[10px] font-extrabold uppercase tracking-[0.2em] theme-gradient-text mb-2">1. Web Interface Theme</label>
           <div class="grid grid-cols-3 gap-2.5">
-            <button type="button" onclick="setWebTheme('sunset')" data-theme-opt="sunset" class="theme-pill clicky p-3 rounded-2xl border text-left flex flex-col gap-1">
-              <span class="text-base">🌅</span><span class="text-xs font-bold">Sunset</span><span class="text-[10px] text-zinc-400">Amber &amp; Rose</span>
-            </button>
-            <button type="button" onclick="setWebTheme('flora')" data-theme-opt="flora" class="theme-pill clicky p-3 rounded-2xl border text-left flex flex-col gap-1">
-              <span class="text-base">🌿</span><span class="text-xs font-bold">Flora &amp; Fauna</span><span class="text-[10px] text-zinc-400">Emerald &amp; Moss</span>
-            </button>
-            <button type="button" onclick="setWebTheme('night')" data-theme-opt="night" class="theme-pill clicky p-3 rounded-2xl border text-left flex flex-col gap-1">
-              <span class="text-base">🌌</span><span class="text-xs font-bold">Night Sky</span><span class="text-[10px] text-zinc-400">Indigo &amp; Starlight</span>
-            </button>
+            <button type="button" onclick="setWebTheme('sunset')" data-theme-opt="sunset" class="theme-pill clicky p-3 rounded-2xl border text-left flex flex-col gap-1"><span class="text-base">🌅</span><span class="text-xs font-bold">Sunset</span><span class="text-[10px] text-zinc-400">Amber &amp; Rose</span></button>
+            <button type="button" onclick="setWebTheme('flora')" data-theme-opt="flora" class="theme-pill clicky p-3 rounded-2xl border text-left flex flex-col gap-1"><span class="text-base">🌿</span><span class="text-xs font-bold">Flora &amp; Fauna</span><span class="text-[10px] text-zinc-400">Emerald &amp; Moss</span></button>
+            <button type="button" onclick="setWebTheme('night')" data-theme-opt="night" class="theme-pill clicky p-3 rounded-2xl border text-left flex flex-col gap-1"><span class="text-base">🌌</span><span class="text-xs font-bold">Night Sky</span><span class="text-[10px] text-zinc-400">Indigo &amp; Starlight</span></button>
           </div>
         </div>
-
         <div class="pt-4 border-t border-white/10">
           <label class="block text-[10px] font-extrabold uppercase tracking-[0.2em] theme-gradient-text mb-2">2. Clock-In Sanctuary Focus Wallpaper</label>
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -224,37 +103,24 @@
             <button type="button" onclick="setFocusWallpaper('rain')" data-wp="rain" class="wp-pill wp-card clicky p-2.5 rounded-xl border text-center"><div class="text-base mb-0.5">🌧️</div><div class="text-[11px] font-bold">Focus Rain</div></button>
           </div>
           <div class="mt-3 flex items-center justify-between bg-black/60 px-3.5 py-2.5 rounded-xl border border-zinc-800">
-            <div>
-              <p class="text-xs font-bold text-white">Ambient Rain / Wind White Noise</p>
-              <p class="text-[10px] text-zinc-400">Calming background sound during focus sessions</p>
-            </div>
+            <div><p class="text-xs font-bold text-white">Ambient Rain / Wind White Noise</p><p class="text-[10px] text-zinc-400">Calming background sound during focus sessions</p></div>
             <button type="button" id="settingsAudioToggleBtn" class="clicky px-3 py-1.5 rounded-lg text-[11px] font-bold bg-zinc-900 text-zinc-300 border border-white/10">🔇 Sound Off</button>
           </div>
         </div>
-
         <div class="pt-4 border-t border-white/10 space-y-3">
-          <label class="block text-[10px] font-extrabold uppercase tracking-[0.2em] theme-gradient-text">3. Dashboard Modules &amp; Daily Target</label>
+          <label class="block text-[10px] font-extrabold uppercase tracking-[0.2em] theme-gradient-text">3. Dashboard Modules &amp; Streak Target</label>
           <div class="flex items-center justify-between bg-black/60 px-3.5 py-2.5 rounded-xl border border-zinc-800">
-            <div>
-              <p class="text-xs font-bold text-white">⏳ NEET 2027 Doomsday Clock (02 May 2027)</p>
-              <p class="text-[10px] text-zinc-400">Toggle countdown (Seconds → Days) on Command screen</p>
-            </div>
-            <button type="button" id="toggleDoomsdayBtn" class="clicky px-3 py-1.5 rounded-lg text-[11px] font-bold bg-rose-950/80 text-rose-200 border border-rose-500/30">
-              <span id="toggleDoomsdayLabel">Visible</span>
-            </button>
+            <div><p class="text-xs font-bold text-white">⏳ NEET 2027 Doomsday Clock (02 May 2027)</p><p class="text-[10px] text-zinc-400">Toggle countdown (Seconds → Days) on Command screen</p></div>
+            <button type="button" id="toggleDoomsdayBtn" class="clicky px-3 py-1.5 rounded-lg text-[11px] font-bold bg-rose-950/80 text-rose-200 border border-rose-500/30"><span id="toggleDoomsdayLabel">Visible</span></button>
           </div>
           <div class="flex items-center justify-between bg-black/60 px-3.5 py-2.5 rounded-xl border border-zinc-800">
-            <div>
-              <p class="text-xs font-bold text-white">🎯 Daily Study Goal (Hours)</p>
-              <p class="text-[10px] text-zinc-400">Updates daily progress bar &amp; 14-day velocity target line</p>
-            </div>
+            <div><p class="text-xs font-bold text-white">🎯 Daily Study Goal (Hours)</p><p class="text-[10px] text-zinc-400">Hit ≥80% daily to keep your 🔥 Streak Flame alive</p></div>
             <div class="flex items-center gap-1.5">
               <input id="settingsTargetInput" type="number" min="1" max="18" step="0.5" value="6" class="w-16 px-2.5 py-1.5 rounded-lg bg-zinc-950 border border-zinc-700 text-white text-xs mono-nums text-center" />
               <button type="button" id="saveTargetBtn" class="clicky px-3 py-1.5 rounded-lg text-[11px] font-bold theme-btn-primary">Save</button>
             </div>
           </div>
         </div>
-
         <div class="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-2">
           <button type="button" id="replayTourBtn" class="clicky px-3.5 py-2 rounded-xl text-xs font-semibold bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-800">📖 Replay App Guide</button>
           <button type="button" id="installPwaBtn" class="hidden clicky px-3.5 py-2 rounded-xl text-xs font-bold theme-btn-primary">📲 Install App</button>
@@ -265,7 +131,7 @@
     </div>
   </div>
 
-  <!-- ================= PITCH-BLACK + LIVE AMBIENT FOCUS OVERLAY ================= -->
+  <!-- PITCH-BLACK + LIVE AMBIENT FOCUS OVERLAY -->
   <div id="zeroDistractionOverlay" class="hidden fixed inset-0 bg-black z-[100] flex flex-col items-center justify-center p-6 select-none overflow-hidden">
     <canvas id="focusWallpaperCanvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
     <div class="relative z-10 max-w-xl w-full text-center space-y-7">
@@ -276,154 +142,98 @@
         <button type="button" onclick="setFocusWallpaper('rain')" data-wp="rain" class="wp-pill clicky px-3 py-1.5 rounded-xl text-[11px] font-semibold text-zinc-400 hover:text-white">🌧️ Focus Rain</button>
         <button type="button" id="toggleAmbientAudioBtn" class="clicky px-3 py-1.5 rounded-xl text-[11px] font-semibold bg-zinc-900 text-zinc-300 border border-white/10 hover:text-white">🔇 Sound Off</button>
       </div>
-
       <div>
         <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/70 border border-white/15 text-zinc-300 text-[10px] font-bold tracking-[0.2em] uppercase mb-3">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 live-beacon"></span>
-          SANCTUARY FOCUS MODE • LOCKED IN
+          <span class="w-2 h-2 rounded-full bg-emerald-400 live-beacon"></span>SANCTUARY FOCUS MODE • LOCKED IN
         </div>
         <p id="zdSubjectDisplay" class="font-serif-luxury italic text-lg sm:text-xl text-zinc-300 tracking-wide mb-2">NEET 2027 Deep Study Session</p>
         <div id="zdTimerDisplay" class="mono-nums text-6xl sm:text-8xl font-extrabold text-white tracking-tight">00:00:00</div>
         <p id="zdDoomsdayMini" class="mono-nums text-xs text-rose-400/90 mt-4 tracking-widest uppercase">DOOMSDAY T-MINUS: --s : --m : --h : ---d</p>
       </div>
-
       <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
-        <button id="zdClockOutBtn" type="button" class="clicky w-full sm:w-auto px-10 py-4 rounded-2xl bg-gradient-to-r from-rose-700 to-rose-600 hover:from-rose-600 hover:to-rose-500 text-white font-bold text-xs tracking-[0.18em] uppercase border border-rose-400/30 shadow-[0_0_30px_rgba(225,29,72,0.35)]">
-          ⏹ Conclude &amp; Save Session
-        </button>
+        <button id="zdClockOutBtn" type="button" class="clicky w-full sm:w-auto px-10 py-4 rounded-2xl bg-gradient-to-r from-rose-700 to-rose-600 hover:from-rose-600 hover:to-rose-500 text-white font-bold text-xs tracking-[0.18em] uppercase border border-rose-400/30 shadow-[0_0_30px_rgba(225,29,72,.35)]">⏹ Conclude &amp; Save Session</button>
       </div>
       <p class="text-[11px] text-zinc-500 tracking-wider">Every passing second brings 02 May 2027 closer. Stay relentless.</p>
     </div>
   </div>
 
-  <!-- ================= AUTHENTICATION SCREEN ================= -->
+  <!-- AUTHENTICATION SCREEN -->
   <div id="authScreen" class="flex-1 flex flex-col items-center justify-center p-4">
     <div class="luxury-card rounded-3xl w-full max-w-md p-7 sm:p-9">
       <div class="flex items-center justify-between mb-6">
         <div class="flex items-center gap-3.5">
           <div class="w-12 h-12 rounded-2xl bg-black border border-white/15 flex items-center justify-center shadow-lg overflow-hidden p-1.5">
-            <svg viewBox="0 0 100 100" class="w-full h-full">
-              <defs><linearGradient id="spGradAuth" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f3e5ab" /><stop offset="50%" stop-color="#d4af37" /><stop offset="100%" stop-color="#aa771c" /></linearGradient></defs>
-              <circle cx="50" cy="54" r="34" fill="none" stroke="url(#spGradAuth)" stroke-width="6.5" stroke-dasharray="170 40" stroke-linecap="round"/>
-              <path d="M40 16 H60 M50 16 V23" stroke="#d4af37" stroke-width="6.5" stroke-linecap="round"/>
-              <path d="M55 32 L38 55 H51 L45 76 L64 51 H51 Z" fill="url(#spGradAuth)"/>
-            </svg>
+            <svg viewBox="0 0 100 100" class="w-full h-full"><circle cx="50" cy="54" r="34" fill="none" stroke="#d4af37" stroke-width="6.5" stroke-dasharray="170 40" stroke-linecap="round"/><path d="M40 16 H60 M50 16 V23" stroke="#d4af37" stroke-width="6.5" stroke-linecap="round"/><path d="M55 32 L38 55 H51 L45 76 L64 51 H51 Z" fill="#f59e0b"/></svg>
           </div>
-          <div>
-            <h1 class="font-serif-luxury text-2xl font-bold theme-gradient-text tracking-tight">StudyPunch</h1>
-            <p class="text-[11px] text-zinc-400 tracking-widest uppercase">NEET 2027 Executive Atelier</p>
-          </div>
+          <div><h1 class="font-serif-luxury text-2xl font-bold theme-gradient-text">StudyPunch</h1><p class="text-[11px] text-zinc-400 tracking-widest uppercase">NEET 2027 Executive Atelier</p></div>
         </div>
         <span id="cloudBadge" class="px-3 py-1 rounded-full text-[11px] font-semibold bg-emerald-950/60 text-emerald-300 border border-emerald-500/30">Cloud Ready</span>
       </div>
 
       <button id="googleLoginBtn" type="button" class="clicky w-full flex items-center justify-center gap-3 bg-zinc-100 hover:bg-white text-zinc-950 font-bold py-3 px-4 rounded-xl shadow-lg mb-4 text-sm">
-        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5" alt="Google" />
-        <span>Continue with Google Account</span>
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5" alt="Google" /><span>Continue with Google Account</span>
       </button>
 
       <div class="relative flex py-2 items-center mb-4">
-        <div class="flex-grow border-t border-zinc-800"></div>
-        <span class="flex-shrink mx-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500">Or Student ID &amp; PIN</span>
-        <div class="flex-grow border-t border-zinc-800"></div>
+        <div class="flex-grow border-t border-zinc-800"></div><span class="flex-shrink mx-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500">Or Student ID &amp; PIN</span><div class="flex-grow border-t border-zinc-800"></div>
       </div>
 
       <div class="grid grid-cols-2 bg-black p-1 rounded-xl mb-5 border border-zinc-800/80">
-        <button id="tabSignIn" type="button" class="clicky py-2 text-xs font-bold rounded-lg bg-zinc-900 text-white border border-white/15 shadow-sm">Student Sign In</button>
+        <button id="tabSignIn" type="button" class="clicky py-2 text-xs font-bold rounded-lg bg-zinc-900 text-white border border-white/15">Student Sign In</button>
         <button id="tabCreateId" type="button" class="clicky py-2 text-xs font-bold rounded-lg text-zinc-400 hover:text-white">Create Student ID</button>
       </div>
 
       <div id="authAlert" class="hidden mb-4 p-3 rounded-xl text-xs font-semibold bg-rose-950/80 text-rose-300 border border-rose-500/30"></div>
 
       <form id="signInForm" class="space-y-4">
-        <div>
-          <label class="block text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400 mb-1.5">Student ID</label>
-          <input id="loginStudentId" type="text" required placeholder="e.g. heet16" class="w-full px-3.5 py-2.5 rounded-xl bg-black border border-zinc-800 text-white focus:outline-none focus:border-amber-400 text-sm" />
-        </div>
-        <div>
-          <label class="block text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400 mb-1.5">4-Digit PIN</label>
-          <input id="loginPin" type="password" inputmode="numeric" maxlength="4" required placeholder="••••" class="w-full px-3.5 py-2.5 rounded-xl bg-black border border-zinc-800 text-white focus:outline-none focus:border-amber-400 text-sm tracking-widest" />
-        </div>
+        <div><label class="block text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400 mb-1.5">Student ID</label><input id="loginStudentId" type="text" required placeholder="e.g. heet16" class="w-full px-3.5 py-2.5 rounded-xl bg-black border border-zinc-800 text-white focus:outline-none focus:border-amber-400 text-sm" /></div>
+        <div><label class="block text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400 mb-1.5">4-Digit PIN</label><input id="loginPin" type="password" inputmode="numeric" maxlength="4" required placeholder="••••" class="w-full px-3.5 py-2.5 rounded-xl bg-black border border-zinc-800 text-white focus:outline-none focus:border-amber-400 text-sm tracking-widest" /></div>
         <button id="signInSubmitBtn" type="submit" class="clicky w-full theme-btn-primary font-extrabold py-3 rounded-xl text-xs uppercase tracking-[0.15em]">Enter Command Atelier →</button>
       </form>
 
       <form id="createIdForm" class="hidden space-y-3.5">
-        <div>
-          <label class="block text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400 mb-1">Full Name</label>
-          <input id="regFullName" type="text" required placeholder="e.g. Heet Soni" class="w-full px-3.5 py-2.5 rounded-xl bg-black border border-zinc-800 text-white focus:outline-none focus:border-amber-400 text-sm" />
-        </div>
-        <div>
-          <label class="block text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400 mb-1">Choose Student ID</label>
-          <input id="regStudentId" type="text" required placeholder="e.g. heet16" class="w-full px-3.5 py-2.5 rounded-xl bg-black border border-zinc-800 text-white focus:outline-none focus:border-amber-400 text-sm" />
-        </div>
+        <div><label class="block text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400 mb-1">Full Name</label><input id="regFullName" type="text" required placeholder="e.g. Heet Soni" class="w-full px-3.5 py-2.5 rounded-xl bg-black border border-zinc-800 text-white focus:outline-none focus:border-amber-400 text-sm" /></div>
+        <div><label class="block text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400 mb-1">Choose Student ID</label><input id="regStudentId" type="text" required placeholder="e.g. heet16" class="w-full px-3.5 py-2.5 rounded-xl bg-black border border-zinc-800 text-white focus:outline-none focus:border-amber-400 text-sm" /></div>
         <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400 mb-1">4-Digit PIN</label>
-            <input id="regPin" type="password" inputmode="numeric" maxlength="4" required placeholder="••••" class="w-full px-3.5 py-2.5 rounded-xl bg-black border border-zinc-800 text-white focus:outline-none focus:border-amber-400 text-sm tracking-widest" />
-          </div>
-          <div>
-            <label class="block text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400 mb-1">Confirm PIN</label>
-            <input id="regPinConfirm" type="password" inputmode="numeric" maxlength="4" required placeholder="••••" class="w-full px-3.5 py-2.5 rounded-xl bg-black border border-zinc-800 text-white focus:outline-none focus:border-amber-400 text-sm tracking-widest" />
-          </div>
+          <div><label class="block text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400 mb-1">4-Digit PIN</label><input id="regPin" type="password" inputmode="numeric" maxlength="4" required placeholder="••••" class="w-full px-3.5 py-2.5 rounded-xl bg-black border border-zinc-800 text-white focus:outline-none focus:border-amber-400 text-sm tracking-widest" /></div>
+          <div><label class="block text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400 mb-1">Confirm PIN</label><input id="regPinConfirm" type="password" inputmode="numeric" maxlength="4" required placeholder="••••" class="w-full px-3.5 py-2.5 rounded-xl bg-black border border-zinc-800 text-white focus:outline-none focus:border-amber-400 text-sm tracking-widest" /></div>
         </div>
-        <div>
-          <label class="block text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400 mb-1">Daily Target (Hours)</label>
-          <input id="regTarget" type="number" min="1" max="18" step="0.5" value="6" required class="w-full px-3.5 py-2.5 rounded-xl bg-black border border-zinc-800 text-white focus:outline-none focus:border-amber-400 text-sm" />
-        </div>
+        <div><label class="block text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400 mb-1">Daily Target (Hours)</label><input id="regTarget" type="number" min="1" max="18" step="0.5" value="6" required class="w-full px-3.5 py-2.5 rounded-xl bg-black border border-zinc-800 text-white focus:outline-none focus:border-amber-400 text-sm" /></div>
         <button id="createIdSubmitBtn" type="submit" class="clicky w-full theme-btn-primary font-extrabold py-3 rounded-xl text-xs uppercase tracking-[0.15em]">Create Student ID +</button>
       </form>
     </div>
-
-    <footer class="mt-6 text-center">
-      <p class="text-xs text-zinc-500 tracking-wider">StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p>
-    </footer>
+    <footer class="mt-6 text-center"><p class="text-xs text-zinc-500 tracking-wider">StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p></footer>
   </div>
 
-  <!-- ================= MAIN APPLICATION SHELL (6-PAGE SWIPEABLE MOBILE SYSTEM) ================= -->
+  <!-- MAIN APPLICATION SHELL (3-PAGE SWIPEABLE SYSTEM) -->
   <div id="appScreen" class="hidden flex-1 flex flex-col h-screen overflow-hidden">
     <header class="bg-black/80 backdrop-blur-xl border-b border-white/10 z-40 shrink-0">
       <div class="max-w-7xl mx-auto px-4 py-2.5 flex items-center justify-between gap-2">
         <div class="flex items-center gap-2.5">
           <div class="w-9 h-9 rounded-xl bg-black border border-white/20 flex items-center justify-center shadow-md overflow-hidden p-1.5">
-            <svg viewBox="0 0 100 100" class="w-full h-full">
-              <defs><linearGradient id="spGradNav" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f3e5ab" /><stop offset="50%" stop-color="#d4af37" /><stop offset="100%" stop-color="#aa771c" /></linearGradient></defs>
-              <circle cx="50" cy="54" r="34" fill="none" stroke="url(#spGradNav)" stroke-width="6.5" stroke-dasharray="170 40" stroke-linecap="round"/>
-              <path d="M40 16 H60 M50 16 V23" stroke="#d4af37" stroke-width="6.5" stroke-linecap="round"/>
-              <path d="M55 32 L38 55 H51 L45 76 L64 51 H51 Z" fill="url(#spGradNav)"/>
-            </svg>
+            <svg viewBox="0 0 100 100" class="w-full h-full"><circle cx="50" cy="54" r="34" fill="none" stroke="#d4af37" stroke-width="6.5" stroke-dasharray="170 40" stroke-linecap="round"/><path d="M55 32 L38 55 H51 L45 76 L64 51 H51 Z" fill="#f59e0b"/></svg>
           </div>
           <div>
-            <div class="flex items-center gap-1.5">
-              <span class="font-serif-luxury font-bold theme-gradient-text tracking-tight text-base sm:text-lg">StudyPunch</span>
-              <span id="navCloudStatus" class="text-[9px] px-2 py-0.5 rounded-full bg-emerald-950/80 text-emerald-300 border border-emerald-500/30 font-semibold">Cloud Live</span>
-            </div>
+            <div class="flex items-center gap-1.5"><span class="font-serif-luxury font-bold theme-gradient-text text-base sm:text-lg">StudyPunch</span><span id="navCloudStatus" class="text-[9px] px-2 py-0.5 rounded-full bg-emerald-950/80 text-emerald-300 border border-emerald-500/30 font-semibold">Cloud Live</span></div>
             <p id="welcomeUserText" class="text-[10px] text-zinc-400 truncate max-w-[140px] sm:max-w-xs">Logged in</p>
           </div>
         </div>
-
         <div class="hidden sm:flex flex-col items-center">
           <div class="flex items-center gap-1.5">
-            <button type="button" onclick="slideToScreen(0)" id="dotIndicator0" class="h-1.5 w-7 rounded-full bg-white transition-all duration-300"></button>
-            <button type="button" onclick="slideToScreen(1)" id="dotIndicator1" class="h-1.5 w-2 rounded-full bg-zinc-700 transition-all duration-300"></button>
-            <button type="button" onclick="slideToScreen(2)" id="dotIndicator2" class="h-1.5 w-2 rounded-full bg-zinc-700 transition-all duration-300"></button>
-            <button type="button" onclick="slideToScreen(3)" id="dotIndicator3" class="h-1.5 w-2 rounded-full bg-zinc-700 transition-all duration-300"></button>
-            <button type="button" onclick="slideToScreen(4)" id="dotIndicator4" class="h-1.5 w-2 rounded-full bg-zinc-700 transition-all duration-300"></button>
-            <button type="button" onclick="slideToScreen(5)" id="dotIndicator5" class="h-1.5 w-2 rounded-full bg-zinc-700 transition-all duration-300"></button>
+            <button type="button" onclick="slideToScreen(0)" id="dotIndicator0" class="h-1.5 w-7 rounded-full bg-white transition-all"></button>
+            <button type="button" onclick="slideToScreen(1)" id="dotIndicator1" class="h-1.5 w-2 rounded-full bg-zinc-700 transition-all"></button>
+            <button type="button" onclick="slideToScreen(2)" id="dotIndicator2" class="h-1.5 w-2 rounded-full bg-zinc-700 transition-all"></button>
           </div>
-          <span id="activeScreenLabel" class="text-[9px] font-semibold text-zinc-400 mt-1 tracking-[0.15em] uppercase">Swipe ⇄ • 1/6 Command &amp; Telemetry</span>
+          <span id="activeScreenLabel" class="text-[9px] font-semibold text-zinc-400 mt-1 tracking-[0.15em] uppercase">Swipe ⇄ • 1/3 Command &amp; Telemetry</span>
         </div>
-
         <div class="flex items-center gap-2">
-          <button type="button" id="openSettingsBtn" class="clicky px-3.5 py-2 rounded-xl text-xs font-bold bg-zinc-900 hover:bg-zinc-800 text-white border border-white/15 flex items-center gap-1.5 shadow-sm">
-            <span>⚙️</span><span>Settings</span>
-          </button>
+          <button type="button" id="openSettingsBtn" class="clicky px-3.5 py-2 rounded-xl text-xs font-bold bg-zinc-900 hover:bg-zinc-800 text-white border border-white/15 flex items-center gap-1.5 shadow-sm"><span>⚙️</span><span>Settings</span></button>
           <button id="logoutBtn" type="button" class="clicky px-3 py-2 rounded-xl text-xs font-semibold bg-zinc-950 text-zinc-400 border border-zinc-800 hover:border-rose-500/40 hover:text-rose-300">Exit</button>
         </div>
       </div>
     </header>
 
     <div id="phoneSliderViewport" class="phone-slider-viewport flex-1">
-
       <!-- SLIDE 0: COMMAND CENTER -->
       <main id="dashboardView" class="phone-screen-slide p-4 sm:p-6">
         <div class="max-w-7xl mx-auto space-y-6">
@@ -431,15 +241,9 @@
             <div class="flex flex-wrap items-center justify-between gap-3 mb-5 border-b border-zinc-800/80 pb-4">
               <div class="flex items-center gap-3">
                 <span class="w-3 h-3 rounded-full bg-rose-600 doomsday-beacon"></span>
-                <div>
-                  <span class="text-[10px] font-extrabold uppercase tracking-[0.25em] text-rose-400">DOOMSDAY CHRONOGRAPH • CONFIGURE IN SETTINGS</span>
-                  <h2 class="font-serif-luxury text-xl sm:text-2xl font-bold text-white tracking-tight">NEET 2027 Examination — 02 May 2027</h2>
-                </div>
+                <div><span class="text-[10px] font-extrabold uppercase tracking-[0.25em] text-rose-400">DOOMSDAY CHRONOGRAPH • CONFIGURE IN SETTINGS</span><h2 class="font-serif-luxury text-xl sm:text-2xl font-bold text-white">NEET 2027 Examination — 02 May 2027</h2></div>
               </div>
-              <div class="text-right">
-                <span class="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-[0.18em] bg-rose-950/90 text-rose-300 border border-rose-500/40">T-MINUS CRITICAL</span>
-                <p class="mono-nums text-[11px] text-zinc-400 mt-1">Exam Bell: 02 May 2027 • 14:00 IST</p>
-              </div>
+              <div class="text-right"><span class="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-[0.18em] bg-rose-950/90 text-rose-300 border border-rose-500/40">T-MINUS CRITICAL</span><p class="mono-nums text-[11px] text-zinc-400 mt-1">Exam Bell: 02 May 2027 • 14:00 IST</p></div>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-5 text-center my-2">
               <div class="bg-black/90 rounded-2xl p-4 sm:p-5 border border-rose-500/40"><p class="text-[10px] font-extrabold uppercase tracking-[0.25em] text-rose-400 mb-1">01 • Seconds</p><div id="ddSeconds" class="mono-nums text-4xl sm:text-6xl font-black text-rose-500 tracking-tighter">00</div><p class="text-[10px] text-zinc-500 mt-1 uppercase tracking-widest">Heartbeats</p></div>
@@ -448,27 +252,20 @@
               <div class="bg-black/80 rounded-2xl p-4 sm:p-5 border border-white/20"><p class="text-[10px] font-extrabold uppercase tracking-[0.25em] theme-gradient-text mb-1">04 • Days</p><div id="ddDays" class="mono-nums text-4xl sm:text-6xl font-black theme-gradient-text tracking-tighter">000</div><p class="text-[10px] text-zinc-500 mt-1 uppercase tracking-widest">Until 02 May '27</p></div>
             </div>
             <div class="mt-5 pt-4 border-t border-zinc-800/80">
-              <div class="flex flex-wrap items-center justify-between text-[11px] text-zinc-400 mb-2">
-                <span>60-Second Chronometer Sweep</span>
-                <span id="ddTotalHoursLeft" class="mono-nums font-bold theme-gradient-text">Total Hours Left: -- hrs</span>
-              </div>
-              <div class="w-full bg-black h-1.5 rounded-full overflow-hidden border border-zinc-800"><div id="ddSecondSweepBar" class="bg-gradient-to-r from-amber-400 via-orange-500 to-rose-600 h-full transition-all duration-300" style="width: 100%"></div></div>
+              <div class="flex flex-wrap items-center justify-between text-[11px] text-zinc-400 mb-2"><span>60-Second Chronometer Sweep</span><span id="ddTotalHoursLeft" class="mono-nums font-bold theme-gradient-text">Total Hours Left: -- hrs</span></div>
+              <div class="w-full bg-black h-1.5 rounded-full overflow-hidden border border-zinc-800"><div id="ddSecondSweepBar" class="bg-gradient-to-r from-amber-400 via-orange-500 to-rose-600 h-full transition-all duration-300" style="width:100%"></div></div>
             </div>
           </div>
 
-          <div class="max-w-2xl mx-auto luxury-card rounded-3xl p-6 sm:p-8 text-center relative overflow-hidden">
+          <div class="max-w-2xl mx-auto luxury-card rounded-3xl p-6 sm:p-8 text-center">
             <div class="flex items-center justify-between mb-3">
               <span class="text-[10px] font-extrabold uppercase tracking-[0.22em] theme-gradient-text">⚡ Sanctuary Focus Chronometer</span>
               <span id="punchStatusTag" class="px-3 py-1 rounded-full text-[11px] font-semibold bg-black/80 text-zinc-300 border border-white/10">Standby</span>
             </div>
             <p class="text-xs text-zinc-400 mb-2">Clocking in opens your Sanctuary Focus room (Aurora, Snowfall, Rain, or Pitch Black).</p>
             <div id="liveTimerDisplay" class="mono-nums text-5xl sm:text-7xl font-black text-white tracking-tight my-4">00:00:00</div>
-            <div class="max-w-md mx-auto mb-5">
-              <input id="sessionSubjectInput" type="text" placeholder="Specify your NCERT objective (e.g. Physics: Rotational Motion / Bio: Genetics)" class="w-full px-4 py-3 rounded-2xl bg-black/80 border border-zinc-800 text-white text-center text-sm focus:outline-none focus:border-amber-400" />
-            </div>
-            <div class="max-w-md mx-auto">
-              <button id="clockInBtn" type="button" class="clicky w-full theme-btn-primary font-extrabold py-4 px-6 rounded-2xl text-xs uppercase tracking-[0.18em]">▶ Clock In • Sanctuary Focus Mode</button>
-            </div>
+            <div class="max-w-md mx-auto mb-5"><input id="sessionSubjectInput" type="text" placeholder="Specify your NCERT objective (e.g. Physics: Rotational Motion / Bio: Genetics)" class="w-full px-4 py-3 rounded-2xl bg-black/80 border border-zinc-800 text-white text-center text-sm focus:outline-none focus:border-amber-400" /></div>
+            <div class="max-w-md mx-auto"><button id="clockInBtn" type="button" class="clicky w-full theme-btn-primary font-extrabold py-4 px-6 rounded-2xl text-xs uppercase tracking-[0.18em]">▶ Clock In • Sanctuary Focus Mode</button></div>
           </div>
 
           <div class="luxury-card rounded-3xl p-6">
@@ -476,11 +273,8 @@
               <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-2xl bg-black/80 border border-white/15 flex items-center justify-center theme-gradient-text font-black text-lg">◉</div>
                 <div>
-                  <div class="flex items-center gap-2">
-                    <h2 class="font-serif-luxury text-lg font-bold text-white tracking-tight">DOT — Curated NCERT Next-Step Atelier</h2>
-                    <span class="px-2 py-0.5 rounded-md text-[9px] font-extrabold tracking-widest bg-white/10 text-zinc-200 border border-white/15">AI PATHFINDER</span>
-                  </div>
-                  <p class="text-xs text-zinc-400">Analyzing your completed NCERT nodes to prescribe your highest-yield next topic</p>
+                  <div class="flex items-center gap-2"><h2 class="font-serif-luxury text-lg font-bold text-white">DOT — 31-Day Spaced-Repetition &amp; Next-Step AI</h2><span class="px-2 py-0.5 rounded-md text-[9px] font-extrabold tracking-widest bg-white/10 text-zinc-200 border border-white/15">31D MEMORY DECAY</span></div>
+                  <p class="text-xs text-zinc-400">Prioritizes critical decay (31+ days) &amp; fading NCERT chapters (7–30 days) before new topics</p>
                 </div>
               </div>
               <button id="dotRefreshBtn" type="button" class="clicky px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-black/80 hover:bg-zinc-900 text-zinc-200 border border-white/15">↻ Recalibrate DOT</button>
@@ -492,18 +286,18 @@
             <div class="luxury-card rounded-2xl p-5">
               <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400">Today's Focus</p>
               <p id="statTodayHours" class="mono-nums text-2xl font-black text-white mt-1">0h 00m</p>
-              <div class="w-full bg-black h-1.5 rounded-full mt-3 overflow-hidden border border-zinc-800"><div id="statProgressBar" class="theme-btn-primary h-full rounded-full transition-all duration-300" style="width: 0%"></div></div>
+              <div class="w-full bg-black h-1.5 rounded-full mt-3 overflow-hidden border border-zinc-800"><div id="statProgressBar" class="theme-btn-primary h-full rounded-full transition-all" style="width:0%"></div></div>
               <p id="statTargetText" class="text-[11px] text-zinc-500 mt-1.5">Target: 6h/day</p>
             </div>
             <div class="luxury-card rounded-2xl p-5">
-              <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400">Times Studied</p>
-              <p id="statTotalSessions" class="mono-nums text-2xl font-black theme-gradient-text mt-1">0 times</p>
-              <p class="text-[11px] text-zinc-500 mt-2">Completed focus sessions</p>
+              <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400">Streak &amp; Weekly Shield</p>
+              <div class="flex items-center gap-2 mt-1"><p id="statStreakFlame" class="mono-nums text-2xl font-black text-amber-400">🔥 0d</p><span id="statShieldPill" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-sky-950/90 text-sky-300 border border-sky-500/30">🛡️ 1/1</span></div>
+              <p class="text-[11px] text-zinc-500 mt-2">Hit ≥80% target daily • 1 Rest Shield/wk</p>
             </div>
             <div class="luxury-card rounded-2xl p-5">
               <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400">All-Time Hours</p>
               <p id="statAllTimeHours" class="mono-nums text-2xl font-black text-emerald-400 mt-1">0.0 hrs</p>
-              <p class="text-[11px] text-zinc-500 mt-2">Cloud synchronized</p>
+              <p id="statTotalSessions" class="text-[11px] text-zinc-500 mt-2">0 completed sessions</p>
             </div>
             <div id="dashSyllabusCard" class="clicky luxury-card rounded-2xl p-5 cursor-pointer hover:border-white/40">
               <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400">3D Spider Web</p>
@@ -514,25 +308,13 @@
 
           <div class="luxury-card rounded-3xl p-6 space-y-6">
             <div class="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-4">
-              <div>
-                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] bg-white/10 text-zinc-200 border border-white/15">Executive Web Telemetry</span>
-                <h3 class="font-serif-luxury text-xl font-bold text-white mt-1">Multi-Chart Performance Diagnostics</h3>
-              </div>
+              <div><span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] bg-white/10 text-zinc-200 border border-white/15">Executive Web Telemetry</span><h3 class="font-serif-luxury text-xl font-bold text-white mt-1">Multi-Chart Performance Diagnostics</h3></div>
               <p class="text-xs text-zinc-400">Daily output, subject distribution, and 14-day preparation velocity</p>
             </div>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              <div class="bg-black/70 rounded-2xl p-5 border border-zinc-800/90 flex flex-col justify-between">
-                <div><h4 class="text-sm font-bold text-white">1. Last 7 Days Study Output</h4><p class="text-[11px] text-zinc-500 mb-3">Daily hours logged</p></div>
-                <div class="h-56 w-full"><canvas id="studyChartCanvas"></canvas></div>
-              </div>
-              <div class="bg-black/70 rounded-2xl p-5 border border-zinc-800/90 flex flex-col justify-between">
-                <div><h4 class="text-sm font-bold text-white">2. Subject Time Distribution</h4><p class="text-[11px] text-zinc-500 mb-3">Physics vs Chemistry vs Biology vs Mock</p></div>
-                <div class="h-56 w-full flex items-center justify-center"><canvas id="subjectDoughnutCanvas"></canvas></div>
-              </div>
-              <div class="bg-black/70 rounded-2xl p-5 border border-zinc-800/90 flex flex-col justify-between">
-                <div><h4 class="text-sm font-bold text-white">3. 14-Day Velocity Trajectory</h4><p class="text-[11px] text-zinc-500 mb-3">2-week momentum curve vs daily target</p></div>
-                <div class="h-56 w-full"><canvas id="velocityLineCanvas"></canvas></div>
-              </div>
+              <div class="bg-black/70 rounded-2xl p-5 border border-zinc-800/90"><h4 class="text-sm font-bold text-white">1. Last 7 Days Study Output</h4><p class="text-[11px] text-zinc-500 mb-3">Daily hours logged</p><div class="h-56 w-full"><canvas id="studyChartCanvas"></canvas></div></div>
+              <div class="bg-black/70 rounded-2xl p-5 border border-zinc-800/90"><h4 class="text-sm font-bold text-white">2. Subject Time Distribution</h4><p class="text-[11px] text-zinc-500 mb-3">Physics vs Chemistry vs Biology vs Mock</p><div class="h-56 w-full flex items-center justify-center"><canvas id="subjectDoughnutCanvas"></canvas></div></div>
+              <div class="bg-black/70 rounded-2xl p-5 border border-zinc-800/90"><h4 class="text-sm font-bold text-white">3. 14-Day Velocity Trajectory</h4><p class="text-[11px] text-zinc-500 mb-3">2-week momentum curve vs daily target</p><div class="h-56 w-full"><canvas id="velocityLineCanvas"></canvas></div></div>
             </div>
           </div>
 
@@ -540,7 +322,7 @@
             <div class="luxury-card rounded-2xl p-6 flex flex-col justify-between">
               <div>
                 <h3 class="font-serif-luxury text-lg font-bold text-white mb-1">✍️ Manual Study Ledger</h3>
-                <p class="text-xs text-zinc-400 mb-4">Log offline NCERT book sessions manually to feed your charts &amp; leaderboard.</p>
+                <p class="text-xs text-zinc-400 mb-4">Log offline NCERT book sessions manually to feed your streak &amp; charts.</p>
                 <form id="manualEntryForm" class="space-y-3">
                   <div><label class="block text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-1">Date</label><input id="manualDate" type="date" required class="w-full px-3 py-2 rounded-xl bg-black/80 border border-zinc-800 text-white text-xs" /></div>
                   <div><label class="block text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-1">Subject / NCERT Chapter</label><input id="manualSubject" type="text" required placeholder="e.g. Physics: Rotational Motion" class="w-full px-3 py-2 rounded-xl bg-black/80 border border-zinc-800 text-white text-xs" /></div>
@@ -551,37 +333,28 @@
                   <button id="manualSubmitBtn" type="submit" class="clicky w-full theme-btn-primary font-bold py-2.5 rounded-xl text-xs uppercase tracking-wider">+ Record Manual Entry</button>
                 </form>
               </div>
-              <div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-between">
-                <span class="text-xs text-zinc-500">Export archive:</span>
-                <button id="exportCsvBtn" type="button" class="clicky px-3 py-1.5 rounded-lg text-xs font-semibold bg-black/80 hover:bg-zinc-900 text-zinc-300 border border-zinc-800">⬇ Download CSV</button>
-              </div>
+              <div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-between"><span class="text-xs text-zinc-500">Export archive:</span><button id="exportCsvBtn" type="button" class="clicky px-3 py-1.5 rounded-lg text-xs font-semibold bg-black/80 hover:bg-zinc-900 text-zinc-300 border border-zinc-800">⬇ Download CSV</button></div>
             </div>
-
             <div class="lg:col-span-2 luxury-card rounded-2xl p-6">
               <h3 class="font-serif-luxury text-lg font-bold text-white mb-4">🕒 Chronological Study Ledger</h3>
               <div class="overflow-x-auto max-h-80">
                 <table class="w-full text-left border-collapse">
-                  <thead>
-                    <tr class="border-b border-zinc-800 text-[10px] uppercase tracking-[0.18em] text-zinc-400">
-                      <th class="py-2.5 px-4">Date</th><th class="py-2.5 px-4">Objective</th><th class="py-2.5 px-4">Mode</th><th class="py-2.5 px-4 text-right">Duration</th><th class="py-2.5 px-4 text-right">Remove</th>
-                    </tr>
-                  </thead>
+                  <thead><tr class="border-b border-zinc-800 text-[10px] uppercase tracking-[0.18em] text-zinc-400"><th class="py-2.5 px-4">Date</th><th class="py-2.5 px-4">Objective</th><th class="py-2.5 px-4">Mode</th><th class="py-2.5 px-4 text-right">Duration</th><th class="py-2.5 px-4 text-right">Remove</th></tr></thead>
                   <tbody id="timesheetTableBody" class="text-xs divide-y divide-zinc-800/60"></tbody>
                 </table>
               </div>
             </div>
           </div>
-
           <div class="pt-4 text-center"><p class="text-xs text-zinc-500 tracking-wider">StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p></div>
         </div>
       </main>
 
-      <!-- SLIDE 1: NCERT SYLLABUS CHECKLIST -->
+      <!-- SLIDE 1: NCERT SYLLABUS CHECKLIST WITH 31-DAY DECAY -->
       <section id="syllabusView" class="phone-screen-slide p-4 sm:p-6">
         <div class="max-w-7xl mx-auto space-y-6">
           <div class="luxury-card rounded-3xl p-4 sm:p-5 sticky top-0 z-20">
             <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
-              <input id="syllabusSearchInput" type="text" placeholder="🔍 Search NCERT Class 11 & 12 Chapters & Sub-Topics (e.g. Krebs, Aldol, Gauss, Frog, Lac Operon)..." class="flex-1 pl-4 pr-6 py-3 rounded-2xl bg-black/80 border border-white/15 text-white text-sm focus:outline-none focus:border-amber-400" />
+              <input id="syllabusSearchInput" type="text" placeholder="🔍 Search NCERT Class 11 & 12 Chapters & Sub-Topics..." class="flex-1 pl-4 pr-6 py-3 rounded-2xl bg-black/80 border border-white/15 text-white text-sm focus:outline-none focus:border-amber-400" />
               <div class="flex items-center gap-2">
                 <button id="expandAllFoldersBtn" type="button" class="clicky px-4 py-2.5 rounded-xl text-xs font-bold theme-btn-primary">🕸️ Expand All</button>
                 <button id="collapseAllFoldersBtn" type="button" class="clicky px-3.5 py-2.5 rounded-xl text-xs font-semibold bg-black/80 hover:bg-zinc-900 text-zinc-300 border border-zinc-800">Collapse</button>
@@ -593,37 +366,36 @@
           <div class="luxury-card rounded-3xl p-6">
             <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
               <div>
-                <span class="px-2.5 py-1 rounded-lg bg-white/10 text-zinc-200 border border-white/15 font-bold text-[10px] tracking-widest uppercase">Complete NCERT Class 11 &amp; 12 Blueprint</span>
-                <h2 class="font-serif-luxury text-2xl font-bold text-white mt-2">NCERT Syllabus Tracker</h2>
-                <p class="text-xs text-zinc-400 mt-1">Tick sub-topics below to expand your 3D Spider-Web crystal on the next slide and calibrate DOT AI.</p>
+                <span class="px-2.5 py-1 rounded-lg bg-white/10 text-zinc-200 border border-white/15 font-bold text-[10px] tracking-widest uppercase">Complete NCERT Class 11 &amp; 12 • 31-Day Spaced Repetition</span>
+                <h2 class="font-serif-luxury text-2xl font-bold text-white mt-2">NCERT Syllabus &amp; Retention Tracker</h2>
+                <p class="text-xs text-zinc-400 mt-1">🟢 Fresh (0–6d) • 🟡 Fading (7–30d) • 🔴 Decay Alert (31+d). Click <b>↻ Revised</b> to refresh memory.</p>
               </div>
               <div class="text-right">
                 <span id="overallSyllabusBigPct" class="mono-nums text-4xl font-black theme-gradient-text">0%</span>
                 <p id="overallSyllabusCounts" class="text-xs text-zinc-400 font-semibold">0 / 0 NCERT nodes spun</p>
               </div>
             </div>
-            <div class="w-full bg-black h-3 rounded-full overflow-hidden mb-5 border border-zinc-800"><div id="overallSyllabusBar" class="theme-btn-primary h-full rounded-full transition-all duration-500" style="width: 0%"></div></div>
+            <div class="w-full bg-black h-3 rounded-full overflow-hidden mb-5 border border-zinc-800"><div id="overallSyllabusBar" class="theme-btn-primary h-full rounded-full transition-all duration-500" style="width:0%"></div></div>
             <div id="subjectSummaryCards" class="grid grid-cols-1 sm:grid-cols-3 gap-4"></div>
           </div>
 
           <div id="syllabusTreeContainer" class="space-y-5"></div>
-
           <div class="pt-4 text-center"><p class="text-xs text-zinc-500 tracking-wider">StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p></div>
         </div>
       </section>
 
-      <!-- SLIDE 2: DEDICATED 3D SPIDER-WEB PROGRESS GRAPH PAGE -->
+      <!-- SLIDE 2: 3D VOLUMETRIC SPIDER-WEB OBSERVATORY -->
       <section id="spider3dView" class="phone-screen-slide p-4 sm:p-6">
         <div class="max-w-7xl mx-auto space-y-6">
           <div class="luxury-card rounded-3xl p-5 sm:p-7">
             <div class="flex flex-wrap items-center justify-between gap-3 pb-4 mb-5 border-b border-white/10">
               <div>
                 <div class="flex items-center gap-2">
-                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-[0.2em] bg-white/10 text-zinc-200 border border-white/15">Interactive 3D Hologram</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-[0.2em] bg-white/10 text-zinc-200 border border-white/15">31-Day Memory Decay Hologram</span>
                   <span id="spider3dRankBadge" class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-amber-500/20 text-amber-200 border border-amber-400/30">Rank: Initiate ⚡</span>
                 </div>
                 <h2 class="font-serif-luxury text-2xl sm:text-3xl font-bold text-white mt-1.5">🌐 3D Spider-Web Mastery Observatory</h2>
-                <p class="text-xs text-zinc-400 mt-0.5">Drag to orbit 360° in real 3D space. Every NCERT topic you tick expands your holographic crystal outward.</p>
+                <p class="text-xs text-zinc-400 mt-0.5">Drag 360° to inspect your 3D progress crystal. Facets shift from Emerald → Amber → Crimson if unrevised for 31+ days.</p>
               </div>
               <div class="flex flex-wrap items-center gap-2">
                 <button type="button" id="toggle3dAutoRotateBtn" class="clicky px-3.5 py-2 rounded-xl text-xs font-bold theme-btn-primary">🔄 Auto-Orbit: ON</button>
@@ -633,216 +405,59 @@
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
               <div class="lg:col-span-2 bg-black/85 rounded-3xl border border-white/15 relative overflow-hidden min-h-[380px] sm:min-h-[460px] flex items-center justify-center">
-                <canvas id="spider3dCanvas" class="w-full h-full block cursor-grab active:cursor-grabbing" style="touch-action: none;"></canvas>
-                <div class="absolute bottom-3 left-3 px-3 py-1.5 rounded-xl bg-black/80 border border-white/10 text-[10px] text-zinc-400 pointer-events-none">
-                  🖱️ Drag to Rotate 3D • Scroll to Zoom
-                </div>
-                <div id="spider3dOverallTag" class="absolute top-3 right-3 px-3 py-1.5 rounded-xl bg-black/80 border border-white/15 mono-nums text-xs font-extrabold theme-gradient-text pointer-events-none">
-                  Overall 3D Web: 0%
-                </div>
+                <canvas id="spider3dCanvas" class="w-full h-full block cursor-grab active:cursor-grabbing" style="touch-action:none"></canvas>
+                <div class="absolute bottom-3 left-3 px-3 py-1.5 rounded-xl bg-black/80 border border-white/10 text-[10px] text-zinc-400 pointer-events-none">🖱️ Drag to Rotate 3D • Scroll to Zoom</div>
+                <div id="spider3dOverallTag" class="absolute top-3 right-3 px-3 py-1.5 rounded-xl bg-black/80 border border-white/15 mono-nums text-xs font-extrabold theme-gradient-text pointer-events-none">Overall 3D Web: 0%</div>
               </div>
 
               <div class="space-y-4 flex flex-col justify-between">
+                <div class="bg-black/75 rounded-2xl p-4 border border-zinc-800">
+                  <h3 class="text-xs font-extrabold uppercase tracking-[0.18em] theme-gradient-text mb-2.5">🧠 Spaced-Repetition Health (31d Cycle)</h3>
+                  <div id="retentionHealthSummary" class="grid grid-cols-3 gap-2 text-center"></div>
+                </div>
                 <div class="bg-black/75 rounded-2xl p-4 border border-zinc-800 flex-1">
                   <h3 class="text-xs font-extrabold uppercase tracking-[0.18em] theme-gradient-text mb-3">6-Axis 3D Vector Coordinates</h3>
                   <div id="spider3dAxisList" class="space-y-3"></div>
                 </div>
                 <div class="bg-black/75 rounded-2xl p-4 border border-zinc-800">
                   <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400 mb-2">📊 Subject-Wise NCERT Completion</p>
-                  <div class="h-32 w-full"><canvas id="syllabusSubjectBarCanvas"></canvas></div>
+                  <div class="h-28 w-full"><canvas id="syllabusSubjectBarCanvas"></canvas></div>
                 </div>
               </div>
             </div>
           </div>
-
-          <div class="pt-4 text-center"><p class="text-xs text-zinc-500 tracking-wider">StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p></div>
-        </div>
-      </section>
-
-      <!-- SLIDE 3: LIVE LEADERBOARD -->
-      <section id="leaderboardView" class="phone-screen-slide p-4 sm:p-6">
-        <div class="max-w-6xl mx-auto space-y-6">
-          <div class="luxury-card rounded-3xl p-6">
-            <div class="flex flex-wrap items-center justify-between gap-4 pb-5 mb-5 border-b border-white/10">
-              <div>
-                <div class="flex items-center gap-2.5">
-                  <h2 class="font-serif-luxury text-2xl font-bold text-white">🏆 Global Live Study Arena</h2>
-                  <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-950/80 text-emerald-300 border border-emerald-500/40"><span class="w-2 h-2 rounded-full bg-emerald-400 live-beacon"></span>REAL-TIME SYNC</span>
-                </div>
-                <p class="text-xs text-zinc-400 mt-1">Monitor which peers are 🟢 LIVE studying right now, their active NCERT topic, session count, and cumulative hours.</p>
-              </div>
-              <div class="flex flex-wrap items-center gap-2">
-                <button id="lbFilterAllBtn" type="button" class="clicky px-3.5 py-2 rounded-xl text-xs font-bold theme-btn-primary">All Scholars</button>
-                <button id="lbFilterLiveBtn" type="button" class="clicky px-3.5 py-2 rounded-xl text-xs font-bold bg-black/80 text-emerald-400 border border-emerald-500/30">🟢 Live Studying Now</button>
-                <button id="refreshLeaderboardBtn" type="button" class="clicky px-3.5 py-2 rounded-xl text-xs font-semibold bg-black/80 hover:bg-zinc-900 text-zinc-300 border border-zinc-800">⚡ Instant Sync</button>
-              </div>
-            </div>
-            <div class="overflow-x-auto">
-              <table class="w-full text-left border-collapse">
-                <thead>
-                  <tr class="border-b border-zinc-800 text-[10px] uppercase tracking-[0.18em] text-zinc-400 bg-black/60">
-                    <th class="py-3.5 px-4">Rank</th><th class="py-3.5 px-4">Scholar &amp; Live Status</th><th class="py-3.5 px-4 text-center">Sessions</th><th class="py-3.5 px-4 text-center">3D Web %</th><th class="py-3.5 px-4 text-center">Today</th><th class="py-3.5 px-4 text-right">Total Hours</th>
-                  </tr>
-                </thead>
-                <tbody id="globalLeaderboardBody" class="text-sm divide-y divide-zinc-800/60"></tbody>
-              </table>
-            </div>
-          </div>
-          <div class="pt-4 text-center"><p class="text-xs text-zinc-500 tracking-wider">StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p></div>
-        </div>
-      </section>
-
-      <!-- SLIDE 4: NOTES VAULT -->
-      <section id="notesView" class="phone-screen-slide p-4 sm:p-6">
-        <div class="max-w-6xl mx-auto space-y-6">
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="luxury-card rounded-3xl p-5 flex flex-col h-[68vh]">
-              <div class="flex items-center justify-between mb-4">
-                <h2 class="font-serif-luxury text-lg font-bold text-white">📝 Private Notes Vault</h2>
-                <button id="newNoteBtn" type="button" class="clicky px-3 py-1.5 rounded-xl text-xs font-bold theme-btn-primary">+ New Note</button>
-              </div>
-              <input id="noteSearchInput" type="text" placeholder="Search notes..." class="w-full px-3 py-2 rounded-xl bg-black/80 border border-zinc-800 text-xs text-white mb-3 focus:outline-none focus:border-amber-400" />
-              <div id="notesListContainer" class="flex-1 overflow-y-auto space-y-2 pr-1"></div>
-            </div>
-            <div class="md:col-span-2 luxury-card rounded-3xl p-6 flex flex-col h-[68vh]">
-              <div class="flex flex-wrap items-center justify-between gap-2 pb-4 mb-4 border-b border-white/10">
-                <input id="noteTitleInput" type="text" placeholder="Note Title (e.g. NCERT Biology Exceptions / Physics Formulas)" class="flex-1 bg-transparent font-serif-luxury text-xl font-bold text-white focus:outline-none" />
-                <div class="flex items-center gap-2">
-                  <span id="noteSaveStatus" class="text-[11px] text-zinc-500">Saved</span>
-                  <button id="saveNoteBtn" type="button" class="clicky px-4 py-2 rounded-xl text-xs font-bold theme-btn-primary">💾 Save Note</button>
-                  <button id="deleteNoteBtn" type="button" class="clicky px-3 py-2 rounded-xl text-xs font-semibold bg-rose-950/50 text-rose-300 border border-rose-500/30">Delete</button>
-                </div>
-              </div>
-              <textarea id="noteBodyInput" placeholder="Record high-yield NCERT lines, reaction mechanisms, or mock test errors... Automatically syncs to your Cloud ID." class="flex-1 w-full bg-black/70 rounded-2xl p-4 border border-zinc-800 text-sm text-zinc-200 leading-relaxed focus:outline-none focus:border-amber-400 resize-none"></textarea>
-            </div>
-          </div>
-          <div class="pt-2 text-center"><p class="text-xs text-zinc-500 tracking-wider">StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p></div>
-        </div>
-      </section>
-
-      <!-- SLIDE 5: REVOLVER PARTY GAME -->
-      <section id="gameView" class="phone-screen-slide p-4 sm:p-6">
-        <div class="max-w-6xl mx-auto space-y-6">
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div class="luxury-card rounded-3xl p-6 flex flex-col justify-between">
-              <div>
-                <div class="flex items-center justify-between mb-3">
-                  <div><span class="text-[10px] font-extrabold uppercase tracking-[0.2em] theme-gradient-text">👥 Lounge Table Roster</span><h3 class="font-serif-luxury text-lg font-bold text-white">Players in the Circle</h3></div>
-                  <button id="resetPlayersBtn" type="button" class="clicky px-3 py-1.5 rounded-xl text-[11px] font-semibold bg-black/80 hover:bg-zinc-900 text-zinc-300 border border-zinc-800">↻ Heal All Hearts</button>
-                </div>
-                <form id="addPlayerForm" class="flex gap-2 mb-4">
-                  <input id="newPlayerNameInput" type="text" maxlength="18" placeholder="Add friend's name (e.g. Aarav, Riya)..." class="flex-1 px-3.5 py-2.5 rounded-xl bg-black/80 border border-zinc-800 text-xs text-white focus:outline-none focus:border-amber-400" />
-                  <button type="submit" class="clicky px-4 py-2.5 rounded-xl theme-btn-primary font-extrabold text-xs whitespace-nowrap">+ Add Player</button>
-                </form>
-                <div id="playersListContainer" class="space-y-2 max-h-52 overflow-y-auto pr-1"></div>
-              </div>
-              <p class="text-[11px] text-zinc-500 mt-3 pt-3 border-t border-white/10">💡 Each trigger pull passes the revolver to the next surviving player. Wrong answers cost 1 Heart (💔)!</p>
-            </div>
-
-            <div class="luxury-card rounded-3xl p-6 flex flex-col justify-between">
-              <div>
-                <span class="text-[10px] font-extrabold uppercase tracking-[0.2em] theme-gradient-text">🎯 NCERT Chapter Ammunition Loader</span>
-                <h3 class="font-serif-luxury text-lg font-bold text-white mb-3">Select Subject &amp; NCERT Chapter for Bullet Questions</h3>
-                <label class="block text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-1.5">1. Choose Subject</label>
-                <div id="gameSubjectBtnGroup" class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
-                  <button type="button" data-subj="ALL" class="game-subj-btn clicky py-2.5 px-3 rounded-xl text-xs font-bold theme-btn-primary">🌐 All</button>
-                  <button type="button" data-subj="Physics" class="game-subj-btn clicky py-2.5 px-3 rounded-xl text-xs font-semibold bg-black/80 text-zinc-300 border border-zinc-800 hover:bg-zinc-900">⚡ Physics</button>
-                  <button type="button" data-subj="Chemistry" class="game-subj-btn clicky py-2.5 px-3 rounded-xl text-xs font-semibold bg-black/80 text-zinc-300 border border-zinc-800 hover:bg-zinc-900">🧪 Chemistry</button>
-                  <button type="button" data-subj="Biology" class="game-subj-btn clicky py-2.5 px-3 rounded-xl text-xs font-semibold bg-black/80 text-zinc-300 border border-zinc-800 hover:bg-zinc-900">🧬 Biology</button>
-                </div>
-                <label class="block text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-1.5">2. Choose NCERT Topic</label>
-                <div id="gameTopicBtnGroup" class="flex flex-wrap gap-1.5 max-h-36 overflow-y-auto pr-1"></div>
-              </div>
-              <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-xs">
-                <span class="text-zinc-500">Loaded Bullet Deck:</span>
-                <span id="loadedDeckBadge" class="px-2.5 py-1 rounded-lg bg-white/10 text-zinc-200 border border-white/15 font-bold">All Subjects • All Chapters</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="luxury-card rounded-3xl p-6 sm:p-8 text-center">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/80 border border-white/15 text-zinc-200 text-xs font-bold uppercase tracking-wider">
-              <span>🔫 Current Turn:</span><span id="currentTurnPlayerName" class="theme-gradient-text font-black">Player 1</span>
-            </div>
-
-            <div class="my-7 flex flex-col items-center justify-center">
-              <div id="revolverCylinder" class="cylinder-spin w-48 h-48 rounded-full bg-black border-4 border-zinc-700 shadow-2xl relative flex items-center justify-center">
-                <div class="w-8 h-8 rounded-full bg-white/10 border-2 border-amber-400"></div>
-                <div id="chamber0" class="w-10 h-10 rounded-full bg-zinc-950 border-2 border-zinc-600 absolute top-3 left-1/2 -translate-x-1/2"></div>
-                <div id="chamber1" class="w-10 h-10 rounded-full bg-zinc-950 border-2 border-zinc-600 absolute top-11 right-4"></div>
-                <div id="chamber2" class="w-10 h-10 rounded-full bg-zinc-950 border-2 border-zinc-600 absolute bottom-11 right-4"></div>
-                <div id="chamber3" class="w-10 h-10 rounded-full bg-zinc-950 border-2 border-zinc-600 absolute bottom-3 left-1/2 -translate-x-1/2"></div>
-                <div id="chamber4" class="w-10 h-10 rounded-full bg-zinc-950 border-2 border-zinc-600 absolute bottom-11 left-4"></div>
-                <div id="chamber5" class="w-10 h-10 rounded-full bg-zinc-950 border-2 border-zinc-600 absolute top-11 left-4"></div>
-              </div>
-              <div class="grid grid-cols-3 gap-4 max-w-md w-full mt-6">
-                <div class="bg-black/80 p-3 rounded-2xl border border-zinc-800"><p class="text-[10px] uppercase font-bold text-zinc-500">Chamber</p><p id="rouletteChamberText" class="mono-nums text-lg font-black text-white">1 / 6</p></div>
-                <div class="bg-black/80 p-3 rounded-2xl border border-zinc-800"><p class="text-[10px] uppercase font-bold text-zinc-500">Table Streak</p><p id="rouletteStreakText" class="mono-nums text-lg font-black text-emerald-400">0</p></div>
-                <div class="bg-black/80 p-3 rounded-2xl border border-zinc-800"><p class="text-[10px] uppercase font-bold text-zinc-500">Your Total XP</p><p id="rouletteXpText" class="mono-nums text-lg font-black theme-gradient-text">0 XP</p></div>
-              </div>
-            </div>
-
-            <div id="rouletteResultBanner" class="mb-6 p-4 rounded-2xl bg-black/80 border border-zinc-800 text-sm font-semibold text-zinc-200">
-              Add players, pick your Subject &amp; NCERT Chapter above, and pull the trigger!
-            </div>
-
-            <div class="flex flex-wrap items-center justify-center gap-4">
-              <button id="spinCylinderBtn" type="button" class="clicky px-6 py-3.5 rounded-2xl bg-black/80 hover:bg-zinc-900 text-zinc-200 font-bold text-xs uppercase tracking-wider border border-white/15">🔄 Spin Cylinder</button>
-              <button id="pullTriggerBtn" type="button" class="clicky px-8 py-3.5 rounded-2xl theme-btn-primary font-extrabold text-xs uppercase tracking-wider">🔫 Pull Trigger</button>
-              <button id="forceQuestionBtn" type="button" class="clicky px-5 py-3.5 rounded-2xl bg-rose-950/50 hover:bg-rose-900/60 text-rose-300 font-bold text-xs uppercase tracking-wider border border-rose-500/30">⚡ Instant Quiz</button>
-            </div>
-
-            <div id="bulletQuizBox" class="hidden mt-6 p-6 rounded-2xl bg-rose-950/50 border border-rose-500/60 text-left shadow-2xl">
-              <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-                <div class="flex items-center gap-2">
-                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-rose-600 text-white uppercase">💥 LIVE BULLET CHAMBER HIT!</span>
-                  <span id="bulletTopicTag" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-black text-amber-200 border border-white/15">Physics</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <span class="text-xs font-bold text-rose-300">⏱️ Defuse in:</span>
-                  <span id="bulletCountdownText" class="mono-nums px-2.5 py-0.5 rounded-lg bg-rose-600 text-white font-black text-xs">12s</span>
-                </div>
-              </div>
-              <p id="bulletTargetPlayerText" class="text-xs font-bold text-amber-200 mb-1"></p>
-              <p id="bulletQuestionText" class="text-base font-bold text-white my-3"></p>
-              <div id="bulletOptionsList" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5"></div>
-            </div>
-          </div>
-
           <div class="pt-4 text-center"><p class="text-xs text-zinc-500 tracking-wider">StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p></div>
         </div>
       </section>
     </div>
 
-    <!-- 6-PAGE FLOATING MOBILE DOCK -->
-    <nav class="bg-black/90 backdrop-blur-xl border-t border-white/10 px-1.5 py-2 z-40 shrink-0">
-      <div class="max-w-2xl mx-auto grid grid-cols-6 gap-1">
-        <button id="navDashboardBtn" type="button" class="clicky flex flex-col items-center justify-center py-2 px-1 rounded-2xl bg-white/10 text-white border border-white/25 font-bold text-[10px] sm:text-xs"><span class="text-base leading-none mb-1">⏱️</span><span class="truncate">Command</span></button>
-        <button id="navSyllabusBtn" type="button" class="clicky flex flex-col items-center justify-center py-2 px-1 rounded-2xl bg-zinc-900/70 text-zinc-400 border border-transparent hover:text-white font-semibold text-[10px] sm:text-xs"><span class="text-base leading-none mb-1">📋</span><span class="truncate">NCERT</span></button>
-        <button id="navSpider3dBtn" type="button" class="clicky flex flex-col items-center justify-center py-2 px-1 rounded-2xl bg-zinc-900/70 text-zinc-400 border border-transparent hover:text-white font-semibold text-[10px] sm:text-xs"><span class="text-base leading-none mb-1">🌐</span><span class="truncate">3D Web</span></button>
-        <button id="navLeaderboardBtn" type="button" class="clicky flex flex-col items-center justify-center py-2 px-1 rounded-2xl bg-zinc-900/70 text-zinc-400 border border-transparent hover:text-white font-semibold text-[10px] sm:text-xs relative"><span class="text-base leading-none mb-1">🏆</span><span class="truncate">Arena</span><span id="navLiveCountBadge" class="absolute top-1 right-1.5 px-1.5 py-0.2 rounded-full text-[9px] bg-emerald-500 text-black font-black">0</span></button>
-        <button id="navNotesBtn" type="button" class="clicky flex flex-col items-center justify-center py-2 px-1 rounded-2xl bg-zinc-900/70 text-zinc-400 border border-transparent hover:text-white font-semibold text-[10px] sm:text-xs"><span class="text-base leading-none mb-1">📝</span><span class="truncate">Notes</span></button>
-        <button id="navGameBtn" type="button" class="clicky flex flex-col items-center justify-center py-2 px-1 rounded-2xl bg-zinc-900/70 text-zinc-400 border border-transparent hover:text-white font-semibold text-[10px] sm:text-xs"><span class="text-base leading-none mb-1">🔫</span><span class="truncate">Revolver</span></button>
+    <!-- 3-PAGE FLOATING MOBILE DOCK -->
+    <nav class="bg-black/90 backdrop-blur-xl border-t border-white/10 px-3 py-2 z-40 shrink-0">
+      <div class="max-w-md mx-auto grid grid-cols-3 gap-2">
+        <button id="navDashboardBtn" type="button" class="clicky flex flex-col items-center justify-center py-2 px-2 rounded-2xl bg-white/15 text-white border border-white/30 font-bold text-xs"><span class="text-base leading-none mb-1">⏱️</span><span>Command</span></button>
+        <button id="navSyllabusBtn" type="button" class="clicky flex flex-col items-center justify-center py-2 px-2 rounded-2xl bg-zinc-900/70 text-zinc-400 border border-transparent hover:text-white font-semibold text-xs"><span class="text-base leading-none mb-1">📋</span><span>NCERT</span></button>
+        <button id="navSpider3dBtn" type="button" class="clicky flex flex-col items-center justify-center py-2 px-2 rounded-2xl bg-zinc-900/70 text-zinc-400 border border-transparent hover:text-white font-semibold text-xs"><span class="text-base leading-none mb-1">🌐</span><span>3D Web</span></button>
       </div>
     </nav>
   </div>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
-    import { getFirestore, doc, getDoc, setDoc, collection, getDocs, onSnapshot } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+    import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
     import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
 
-    // ================= 1. GLOBAL STATE (HOISTED FIRST) =================
+    // 1. GLOBAL STATE
     let db = null, auth = null, googleProvider = null, currentUser = null, timerInterval = null;
     let studyChart = null, subjectDoughnutChart = null, velocityLineChart = null, syllabusSubjectBarChart = null;
-    let allCloudUsersCache = {}, leaderboardLiveOnly = false, activeNoteId = null;
     let activeWebTheme = localStorage.getItem("studypunch_web_theme") || "sunset";
     let isDoomsdayVisible = localStorage.getItem("studypunch_doomsday_visible") !== "false";
     let currentFocusWallpaper = localStorage.getItem("studypunch_focus_wp") || "aurora";
     let wpAnimFrame = null, wpParticles = [], auroraTime = 0;
     let audioCtx = null, ambientNoiseNode = null, isAmbientSoundOn = false;
-    let selectedGameSubject = "ALL", selectedGameTopic = "ALL", partyPlayers = [{ id: "p_1", name: "Player 1", hearts: 3, score: 0 }];
-    let currentTurnIndex = 0, bulletPosition = Math.floor(Math.random() * 6), currentChamber = 0, survivalStreak = 0, cylinderAngle = 0, bulletCountdownInterval = null;
+
+    const DAY_MS = 86400000;
+    const FADING_DAYS = 7;
+    const DECAY_DAYS = 31;
 
     const THEME_CHART_PALETTE = {
       sunset: { bar: "#f59e0b", line: "#fb7185", lineFill: "rgba(251, 113, 133, 0.16)", rgb: "245, 158, 11" },
@@ -850,59 +465,43 @@
       night:  { bar: "#818cf8", line: "#38bdf8", lineFill: "rgba(56, 189, 248, 0.16)", rgb: "129, 140, 248" }
     };
 
-    // ================= 2. 3D ANIMATED ENTRY INTRO (0.5s "BY HEET" FLASH) =================
+    // 2. 3D ANIMATED ENTRY INTRO (0.5s "BY HEET" FLASH)
     (function run3dEntryIntro() {
       const overlay = document.getElementById("introSplashOverlay");
       const canvas = document.getElementById("intro3dCanvas");
       const byHeet = document.getElementById("byHeetBadge");
       const skipBtn = document.getElementById("skipIntroBtn");
       if (!overlay || !canvas) return;
-
       const ctx = canvas.getContext("2d");
-      let w = canvas.width = window.innerWidth;
-      let h = canvas.height = window.innerHeight;
+      let w = canvas.width = window.innerWidth, h = canvas.height = window.innerHeight;
       let animId = null, finished = false, angle = 0;
 
-      const stars = Array.from({ length: 110 }, () => ({
-        x: (Math.random() - 0.5) * 1400, y: (Math.random() - 0.5) * 1000, z: Math.random() * 900 + 80
-      }));
+      const stars = Array.from({ length: 110 }, () => ({ x: (Math.random() - 0.5) * 1400, y: (Math.random() - 0.5) * 1000, z: Math.random() * 900 + 80 }));
       const verts = [[0, -1, 0], [1, 0, 0], [0, 0, 1], [-1, 0, 0], [0, 0, -1], [0, 1, 0]];
       const edges = [[0,1],[0,2],[0,3],[0,4],[5,1],[5,2],[5,3],[5,4],[1,2],[2,3],[3,4],[4,1]];
 
       function drawIntroFrame() {
         if (finished) return;
-        ctx.fillStyle = "rgba(4, 4, 6, 0.38)";
-        ctx.fillRect(0, 0, w, h);
+        ctx.fillStyle = "rgba(4, 4, 6, 0.38)"; ctx.fillRect(0, 0, w, h);
         const cx = w / 2, cy = h / 2;
-
         stars.forEach(s => {
           s.z -= 9;
           if (s.z <= 20) { s.x = (Math.random() - 0.5) * 1400; s.y = (Math.random() - 0.5) * 1000; s.z = 920; }
           const scale = 320 / s.z;
-          ctx.beginPath();
-          ctx.arc(cx + s.x * scale, cy + s.y * scale, Math.max(0.6, scale * 1.6), 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(253, 230, 138, ${Math.min(0.85, scale * 0.55)})`;
-          ctx.fill();
+          ctx.beginPath(); ctx.arc(cx + s.x * scale, cy + s.y * scale, Math.max(0.6, scale * 1.6), 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(253, 230, 138, ${Math.min(0.85, scale * 0.55)})`; ctx.fill();
         });
-
         angle += 0.025;
-        const cosY = Math.cos(angle), sinY = Math.sin(angle);
-        const cosX = Math.cos(angle * 0.55), sinX = Math.sin(angle * 0.55);
+        const cosY = Math.cos(angle), sinY = Math.sin(angle), cosX = Math.cos(angle * 0.55), sinX = Math.sin(angle * 0.55);
         const size = Math.min(w, h) * 0.24;
-
         const proj = verts.map(([vx, vy, vz]) => {
           const x1 = vx * cosY - vz * sinY, z1 = vx * sinY + vz * cosY;
           const y2 = vy * cosX - z1 * sinX, z2 = vy * sinX + z1 * cosX;
           const sc = 420 / (420 + z2 * size + 200);
           return [cx + x1 * size * sc, cy + y2 * size * sc];
         });
-
-        ctx.strokeStyle = "rgba(212, 175, 55, 0.35)";
-        ctx.lineWidth = 1.6;
-        edges.forEach(([a, b]) => {
-          ctx.beginPath(); ctx.moveTo(proj[a][0], proj[a][1]); ctx.lineTo(proj[b][0], proj[b][1]); ctx.stroke();
-        });
-
+        ctx.strokeStyle = "rgba(212, 175, 55, 0.35)"; ctx.lineWidth = 1.6;
+        edges.forEach(([a, b]) => { ctx.beginPath(); ctx.moveTo(proj[a][0], proj[a][1]); ctx.lineTo(proj[b][0], proj[b][1]); ctx.stroke(); });
         animId = requestAnimationFrame(drawIntroFrame);
       }
 
@@ -910,21 +509,18 @@
         if (finished) return;
         finished = true;
         if (animId) cancelAnimationFrame(animId);
-        overlay.style.opacity = "0";
-        overlay.style.transform = "scale(1.06)";
-        setTimeout(() => { overlay.classList.add("hidden"); }, 560);
+        overlay.style.opacity = "0"; overlay.style.transform = "scale(1.06)";
+        setTimeout(() => overlay.classList.add("hidden"), 560);
       }
 
       drawIntroFrame();
-      // Show "by heet" at 1.4s and hide it EXACTLY 0.5s (500ms) later at 1.9s
       const t1 = setTimeout(() => { if (byHeet && !finished) byHeet.classList.add("show-half-sec"); }, 1400);
       const t2 = setTimeout(() => { if (byHeet) byHeet.classList.remove("show-half-sec"); }, 1900);
       const t3 = setTimeout(closeIntro, 2250);
-
       skipBtn.addEventListener("click", () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); closeIntro(); });
     })();
 
-    // ================= 3. GRANULAR NCERT CLASS 11 & 12 SYLLABUS =================
+    // 3. GRANULAR NCERT CLASS 11 & 12 SYLLABUS
     const mkCh = (arr) => arr.map(([id, name, sub]) => ({ id, name, subtopics: sub.split("|") }));
     const NEET_2027_SYLLABUS = [
       {
@@ -1039,7 +635,7 @@
     let TOTAL_SYLLABUS_TOPICS = 0;
     NEET_2027_SYLLABUS.forEach(s => s.units.forEach(u => u.chapters.forEach(ch => { TOTAL_SYLLABUS_TOPICS += ch.subtopics.length; })));
 
-    // ================= 4. FIREBASE SETUP =================
+    // 4. FIREBASE SETUP
     const firebaseConfig = {
       apiKey: "AIzaSyDuOgES0lUt-MGSiM5blxxCm36W67xQK3c",
       authDomain: "studypunchone.firebaseapp.com",
@@ -1089,7 +685,59 @@
       catch { setCloudStatus(false); return false; }
     }
 
-    // ================= 5. SETTINGS, THEMES & DOOMSDAY TOGGLE =================
+    // 5. CONSISTENCY STREAK FLAME & WEEKLY REST SHIELD ENGINE
+    function toLocalYMD(dateObj) {
+      return dateObj.getFullYear() + "-" + String(dateObj.getMonth() + 1).padStart(2, "0") + "-" + String(dateObj.getDate()).padStart(2, "0");
+    }
+
+    function computeUserStreakAndShield(userObj) {
+      const sessions = Array.isArray(userObj?.sessions) ? userObj.sessions : [];
+      const targetSecs = (Number(userObj?.targetHours) || 6) * 3600;
+      const thresholdSecs = targetSecs * 0.8;
+
+      const secsByDate = {};
+      sessions.forEach(s => {
+        if (!s.date) return;
+        secsByDate[s.date] = (secsByDate[s.date] || 0) + Number(s.durationSeconds || 0);
+      });
+
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const todayStr = toLocalYMD(today);
+
+      let streak = 0;
+      let shieldsUsedInWindow = 0;
+      let dayCounter = 0;
+
+      // Check today first: if ≥80% already hit today, count today; otherwise start streak check from yesterday
+      const todayMet = (secsByDate[todayStr] || 0) >= thresholdSecs;
+      let cursor = new Date(today);
+      if (!todayMet) cursor.setDate(cursor.getDate() - 1);
+
+      for (let i = 0; i < 365; i++) {
+        const dStr = toLocalYMD(cursor);
+        const met = (secsByDate[dStr] || 0) >= thresholdSecs;
+        if (met) {
+          streak++;
+          dayCounter++;
+        } else {
+          // 1 Weekly Rest Shield per rolling 7-day block
+          const weekBucket = Math.floor(dayCounter / 7);
+          if (shieldsUsedInWindow <= weekBucket && streak > 0) {
+            shieldsUsedInWindow++;
+            dayCounter++;
+          } else {
+            break;
+          }
+        }
+        cursor.setDate(cursor.getDate() - 1);
+      }
+
+      const shieldAvailable = shieldsUsedInWindow === 0 ? 1 : 0;
+      return { streak, shieldAvailable };
+    }
+
+    // 6. SETTINGS, THEMES & DOOMSDAY TOGGLE
     function flashSettingsSaved() {
       const toast = document.getElementById("settingsSavedToast");
       if (!toast) return;
@@ -1163,7 +811,7 @@
     window.addEventListener("beforeinstallprompt", (e) => { e.preventDefault(); deferredInstallPrompt = e; installPwaBtn.classList.remove("hidden"); });
     installPwaBtn.addEventListener("click", async () => { if (!deferredInstallPrompt) return; deferredInstallPrompt.prompt(); await deferredInstallPrompt.userChoice; deferredInstallPrompt = null; installPwaBtn.classList.add("hidden"); });
 
-    // ================= 6. DOOMSDAY CHRONOGRAPH (02 MAY 2027) =================
+    // 7. DOOMSDAY CHRONOGRAPH (02 MAY 2027)
     const NEET_2027_EXAM_TIMESTAMP = new Date("2027-05-02T14:00:00+05:30").getTime();
     function updateDoomsdayChronograph() {
       const diffMs = Math.max(0, NEET_2027_EXAM_TIMESTAMP - Date.now());
@@ -1186,7 +834,7 @@
     updateDoomsdayChronograph();
     setInterval(updateDoomsdayChronograph, 1000);
 
-    // ================= 7. LIVE FOCUS WALLPAPER & AMBIENT SOUND ENGINE =================
+    // 8. LIVE FOCUS WALLPAPER & AMBIENT SOUND ENGINE
     const zeroDistractionOverlay = document.getElementById("zeroDistractionOverlay");
     const wpCanvas = document.getElementById("focusWallpaperCanvas");
     const wpCtx = wpCanvas.getContext("2d");
@@ -1309,12 +957,11 @@
     window.setWebTheme(activeWebTheme, true);
     window.setFocusWallpaper(currentFocusWallpaper, true);
 
-    // ================= 8. NEW USER INTERACTIVE INTRODUCTION TOUR =================
+    // 9. NEW USER INTERACTIVE INTRODUCTION TOUR (3 PAGES)
     const TOUR_SLIDES = [
-      { icon: "⏱️", title: "Sanctuary Focus & Doomsday Clock", desc: "Clock in to enter pitch-black Focus Mode with Live Aurora, Snowfall, or Rain wallpapers and optional rain white-noise—while your Doomsday Clock counts down every second to NEET 2027 (02 May 2027)." },
-      { icon: "🌐", title: "NCERT Checklist & 3D Spider Web", desc: "Swipe right to tick off 80+ NCERT Class 11 & 12 chapters. Watch your interactive 3D Spider-Web crystal expand in real time while DOT AI recommends your highest-yield next topic." },
-      { icon: "🏆", title: "Live Study Arena & Notes Vault", desc: "Compete in real time on the Global Live Leaderboard to see who is studying right now, and save high-yield NCERT formulas or test mistakes in your Cloud-synced Notes Vault." },
-      { icon: "🔫", title: "Revolver Party & ⚙️ Settings", desc: "Challenge friends in the 6-Chamber NCERT Revolver Game with custom players and chapter quizzes. Tap ⚙️ Settings anytime to switch between Sunset, Flora & Fauna, and Night Sky themes!" }
+      { icon: "⏱️", title: "Sanctuary Focus & Doomsday Clock", desc: "Clock in to enter pitch-black Focus Mode with Live Aurora, Snowfall, or Rain wallpapers and rain white-noise—while your Doomsday Clock counts down every second to NEET 2027 (02 May 2027) and protects your 🔥 Streak Flame." },
+      { icon: "📋", title: "NCERT Checklist & 31-Day Decay", desc: "Swipe right to tick off 80+ NCERT Class 11 & 12 chapters. Topics stay Fresh (0–6d), turn Fading (7–30d), and trigger Decay Alerts at 31+ days so DOT AI automatically schedules timely revisions." },
+      { icon: "🌐", title: "3D Spider-Web Observatory & ⚙️ Settings", desc: "Swipe to Slide 3 to spin your interactive 3D Spider-Web progress crystal in 360° space. Tap ⚙️ Settings anytime to switch between Sunset, Flora & Fauna, and Night Sky themes!" }
     ];
 
     let tourIndex = 0;
@@ -1348,32 +995,11 @@
     document.getElementById("tourSkipBtn").addEventListener("click", finishNewUserTour);
     document.getElementById("replayTourBtn").addEventListener("click", () => { settingsModal.classList.add("hidden"); maybeLaunchNewUserTour(true); });
 
-    // ================= 9. REAL-TIME CLOUD LEADERBOARD SUBSCRIPTION =================
-    if (db) {
-      try {
-        onSnapshot(collection(db, "students"), (snapshot) => {
-          const map = getLocalUsersMap();
-          let liveCount = 0;
-          snapshot.forEach(docSnap => {
-            const u = docSnap.data();
-            map[docSnap.id] = u;
-            allCloudUsersCache[docSnap.id] = u;
-            if (u.activePunchStart) liveCount++;
-          });
-          localStorage.setItem("studypunch_users_map", JSON.stringify(map));
-          document.getElementById("navLiveCountBadge").textContent = `${liveCount}`;
-          setCloudStatus(true);
-          renderFastLeaderboard();
-        }, () => {});
-      } catch {}
-    }
-
-    // ================= 10. AUTH HANDLERS =================
+    // 10. AUTH HANDLERS
     const authScreen = document.getElementById("authScreen"), appScreen = document.getElementById("appScreen"), authAlert = document.getElementById("authAlert");
     const signInForm = document.getElementById("signInForm"), createIdForm = document.getElementById("createIdForm");
 
-    function getTodayDateString() { const d = new Date(); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
-    document.getElementById("manualDate").value = getTodayDateString();
+    document.getElementById("manualDate").value = toLocalYMD(new Date());
     function showAlert(msg) { authAlert.textContent = msg; authAlert.classList.remove("hidden"); }
     function clearAlert() { authAlert.classList.add("hidden"); }
 
@@ -1393,7 +1019,7 @@
       try {
         const existing = await fetchUserFromCloud(rawId) || getLocalUsersMap()[rawId];
         if (existing) { return showAlert("Student ID already exists! Sign in instead."); }
-        const newUser = { id: rawId, name: fullName, pin, targetHours, webTheme: activeWebTheme, focusWallpaper: currentFocusWallpaper, sessions: [], syllabusChecked: {}, notes: [], rouletteXp: 0, activePunchStart: null, activeSubject: "", createdAt: new Date().toISOString() };
+        const newUser = { id: rawId, name: fullName, pin, targetHours, webTheme: activeWebTheme, focusWallpaper: currentFocusWallpaper, sessions: [], syllabusChecked: {}, syllabusCheckedAt: {}, activePunchStart: null, activeSubject: "", createdAt: new Date().toISOString() };
         await saveUserToCloud(newUser);
         loginSuccess(newUser);
       } catch (err) { showAlert("Error: " + err.message); }
@@ -1419,7 +1045,7 @@
       const cleanId = (gUser.email.split("@")[0].replace(/[^a-zA-Z0-9_-]/g, "").toLowerCase() || "student").slice(0, 20);
       let userObj = await fetchUserFromCloud(cleanId) || getLocalUsersMap()[cleanId];
       if (!userObj) {
-        userObj = { id: cleanId, name: gUser.displayName || cleanId, email: gUser.email || "", pin: "0000", targetHours: 6, webTheme: activeWebTheme, focusWallpaper: currentFocusWallpaper, sessions: [], syllabusChecked: {}, notes: [], rouletteXp: 0, activePunchStart: null, activeSubject: "", createdAt: new Date().toISOString() };
+        userObj = { id: cleanId, name: gUser.displayName || cleanId, email: gUser.email || "", pin: "0000", targetHours: 6, webTheme: activeWebTheme, focusWallpaper: currentFocusWallpaper, sessions: [], syllabusChecked: {}, syllabusCheckedAt: {}, activePunchStart: null, activeSubject: "", createdAt: new Date().toISOString() };
         await saveUserToCloud(userObj);
       } else { saveLocalUser(userObj); }
       loginSuccess(userObj);
@@ -1438,25 +1064,36 @@
       } finally { btn.disabled = false; }
     });
 
-    // ================= 11. DASHBOARD, CLOCK-IN & DOT AI =================
+    // 11. DASHBOARD, CLOCK-IN & 31-DAY SPACED-REPETITION DOT AI
+    function ensureRetentionTimestamps(userObj) {
+      if (!userObj.syllabusChecked || typeof userObj.syllabusChecked !== "object") userObj.syllabusChecked = {};
+      if (!userObj.syllabusCheckedAt || typeof userObj.syllabusCheckedAt !== "object") userObj.syllabusCheckedAt = {};
+      const now = Date.now();
+      Object.keys(userObj.syllabusChecked).forEach(k => {
+        if (userObj.syllabusChecked[k] && !userObj.syllabusCheckedAt[k]) userObj.syllabusCheckedAt[k] = now;
+      });
+    }
+
+    function getNodeRetentionState(topicKey) {
+      if (!currentUser || !currentUser.syllabusChecked || !currentUser.syllabusChecked[topicKey]) return { status: "unlearned", days: 0 };
+      const ts = currentUser.syllabusCheckedAt?.[topicKey] || Date.now();
+      const days = Math.max(0, Math.floor((Date.now() - ts) / DAY_MS));
+      if (days >= DECAY_DAYS) return { status: "decay", days };
+      if (days >= FADING_DAYS) return { status: "fading", days };
+      return { status: "fresh", days };
+    }
+
     function loginSuccess(userObj) {
       currentUser = userObj;
       if (!Array.isArray(currentUser.sessions)) currentUser.sessions = [];
-      if (!currentUser.syllabusChecked || typeof currentUser.syllabusChecked !== "object") currentUser.syllabusChecked = {};
-      if (!Array.isArray(currentUser.notes)) currentUser.notes = [];
+      ensureRetentionTimestamps(currentUser);
       if (currentUser.webTheme) window.setWebTheme(currentUser.webTheme, true);
       if (currentUser.focusWallpaper) window.setFocusWallpaper(currentUser.focusWallpaper, true);
-      if (partyPlayers.length === 1 && partyPlayers[0].name === "Player 1") partyPlayers[0].name = currentUser.name || "Player 1";
       authScreen.classList.add("hidden");
       appScreen.classList.remove("hidden");
       applyDoomsdayVisibility();
       renderDashboard();
       renderSyllabusTree();
-      renderFastLeaderboard();
-      renderNotesVault();
-      renderPlayersRoster();
-      renderGameTopicButtons();
-      updateCylinderVisuals();
       start3dSpiderWebLoop();
       slideToScreen(0);
       maybeLaunchNewUserTour();
@@ -1479,60 +1116,91 @@
     function renderDotRecommendations() {
       if (!currentUser) return;
       const checked = currentUser.syllabusChecked || {}, recommendations = [];
+
       NEET_2027_SYLLABUS.forEach(subj => {
-        let inProgressPick = null, freshStartPick = null;
+        let decayPick = null, fadingPick = null, inProgressPick = null, freshStartPick = null;
+
         subj.units.forEach(u => {
           u.chapters.forEach(ch => {
             let doneInChapter = 0, firstUndoneIdx = -1;
             ch.subtopics.forEach((st, idx) => {
-              if (checked[`${ch.id}_${idx}`]) doneInChapter++;
-              else if (firstUndoneIdx === -1) firstUndoneIdx = idx;
+              const key = `${ch.id}_${idx}`;
+              if (checked[key]) {
+                doneInChapter++;
+                const ret = getNodeRetentionState(key);
+                const revCand = { subject: subj.subject, icon: subj.icon, chapterName: ch.name, topicKey: key, subtopicName: st, isRevision: true, daysOld: ret.days, status: ret.status };
+                if (ret.status === "decay" && (!decayPick || ret.days > decayPick.daysOld)) decayPick = revCand;
+                if (ret.status === "fading" && (!fadingPick || ret.days > fadingPick.daysOld)) fadingPick = revCand;
+              } else if (firstUndoneIdx === -1) {
+                firstUndoneIdx = idx;
+              }
             });
+
             if (firstUndoneIdx !== -1) {
-              const cand = { subject: subj.subject, icon: subj.icon, chapterName: ch.name, topicKey: `${ch.id}_${firstUndoneIdx}`, subtopicName: ch.subtopics[firstUndoneIdx], doneInChapter, totalInChapter: ch.subtopics.length };
+              const cand = { subject: subj.subject, icon: subj.icon, chapterName: ch.name, topicKey: `${ch.id}_${firstUndoneIdx}`, subtopicName: ch.subtopics[firstUndoneIdx], doneInChapter, totalInChapter: ch.subtopics.length, isRevision: false };
               if (doneInChapter > 0 && !inProgressPick) inProgressPick = cand;
               if (doneInChapter === 0 && !freshStartPick) freshStartPick = cand;
             }
           });
         });
-        const chosen = inProgressPick || freshStartPick;
+
+        const chosen = decayPick || fadingPick || inProgressPick || freshStartPick;
         if (chosen) recommendations.push(chosen);
       });
 
       const grid = document.getElementById("dotRecommendationsGrid");
       if (!recommendations.length) {
-        grid.innerHTML = `<div class="col-span-3 p-4 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 text-emerald-300 text-xs font-bold text-center">🏆 Every single NCERT NEET 2027 node is completed! Focus on full-syllabus mock tests!</div>`;
+        grid.innerHTML = `<div class="col-span-3 p-4 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 text-emerald-300 text-xs font-bold text-center">🏆 All NCERT nodes are Fresh &amp; Mastered! Focus on full-syllabus mock papers!</div>`;
         return;
       }
       grid.innerHTML = recommendations.map(rec => {
-        const statusTag = rec.doneInChapter > 0 ? `In Progress (${rec.doneInChapter}/${rec.totalInChapter})` : `Next NCERT Chapter`;
-        const safeTitle = `${rec.subject}: ${rec.subtopicName}`.replace(/'/g, "\\'");
+        const badgeHtml = rec.isRevision
+          ? (rec.status === "decay"
+              ? `<span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-rose-950 text-rose-300 border border-rose-500/40">🔴 Decay (${rec.daysOld}d ago)</span>`
+              : `<span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-950 text-amber-300 border border-amber-500/40">🟡 Fading (${rec.daysOld}d ago)</span>`)
+          : `<span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-white/10 text-zinc-200 border border-white/10">${rec.doneInChapter > 0 ? `In Progress (${rec.doneInChapter}/${rec.totalInChapter})` : "Next NCERT Topic"}</span>`;
+
+        const safeTitle = `${rec.isRevision ? "Revise " : ""}${rec.subject}: ${rec.subtopicName}`.replace(/'/g, "\\'");
+        const actionBtn = rec.isRevision
+          ? `<button type="button" onclick="reviseDotTopicNow('${rec.topicKey}')" class="clicky py-2 px-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-emerald-300 border border-emerald-500/30 font-semibold text-[11px]">↻ Mark Revised</button>`
+          : `<button type="button" onclick="markDotTopicDone('${rec.topicKey}')" class="clicky py-2 px-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-emerald-300 border border-zinc-800 font-semibold text-[11px]">✓ Mark Done</button>`;
+
         return `
-          <div class="bg-black/75 rounded-2xl p-4 border border-zinc-800 hover:border-white/25 transition flex flex-col justify-between">
+          <div class="bg-black/75 rounded-2xl p-4 border ${rec.status === 'decay' ? 'border-rose-500/40' : rec.status === 'fading' ? 'border-amber-500/35' : 'border-zinc-800'} transition flex flex-col justify-between">
             <div>
-              <div class="flex items-center justify-between gap-2 mb-2">
-                <span class="text-xs font-bold theme-gradient-text">${rec.icon} ${rec.subject}</span>
-                <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-white/10 text-zinc-200 border border-white/10">${statusTag}</span>
-              </div>
+              <div class="flex items-center justify-between gap-2 mb-2"><span class="text-xs font-bold theme-gradient-text">${rec.icon} ${rec.subject}</span>${badgeHtml}</div>
               <p class="text-xs font-medium text-zinc-400 line-clamp-1">${rec.chapterName}</p>
-              <p class="text-sm font-bold text-white mt-1">🎯 ${rec.subtopicName}</p>
+              <p class="text-sm font-bold text-white mt-1">${rec.isRevision ? "🔁" : "🎯"} ${rec.subtopicName}</p>
             </div>
             <div class="grid grid-cols-2 gap-2 mt-4 pt-3 border-t border-zinc-900">
               <button type="button" onclick="startDotRecommendedClockIn('${safeTitle}')" class="clicky py-2 px-3 rounded-xl theme-btn-primary font-extrabold text-[11px]">▶ Clock In</button>
-              <button type="button" onclick="markDotTopicDone('${rec.topicKey}')" class="clicky py-2 px-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-emerald-300 border border-zinc-800 font-semibold text-[11px]">✓ Mark Done</button>
+              ${actionBtn}
             </div>
           </div>`;
       }).join("");
     }
 
     window.startDotRecommendedClockIn = async function(topicLabel) { document.getElementById("sessionSubjectInput").value = topicLabel; await triggerClockIn(topicLabel); };
-    window.markDotTopicDone = async function(topicKey) { if (!currentUser) return; currentUser.syllabusChecked[topicKey] = true; renderDashboard(); renderSyllabusTree(); await saveUserToCloud(currentUser); };
+    window.markDotTopicDone = async function(topicKey) {
+      if (!currentUser) return;
+      currentUser.syllabusChecked[topicKey] = true;
+      currentUser.syllabusCheckedAt[topicKey] = Date.now();
+      renderDashboard(); renderSyllabusTree();
+      await saveUserToCloud(currentUser);
+    };
+    window.reviseDotTopicNow = async function(topicKey) {
+      if (!currentUser) return;
+      currentUser.syllabusChecked[topicKey] = true;
+      currentUser.syllabusCheckedAt[topicKey] = Date.now();
+      renderDashboard(); renderSyllabusTree();
+      await saveUserToCloud(currentUser);
+    };
     document.getElementById("dotRefreshBtn").addEventListener("click", renderDotRecommendations);
 
     function renderDashboard() {
       if (!currentUser) return;
       document.getElementById("welcomeUserText").textContent = `${currentUser.name} (@${currentUser.id})`;
-      const todayStr = getTodayDateString();
+      const todayStr = toLocalYMD(new Date());
       let todaySeconds = 0, allTimeSeconds = 0;
       currentUser.sessions.forEach(s => { const dur = Number(s.durationSeconds || 0); allTimeSeconds += dur; if (s.date === todayStr) todaySeconds += dur; });
 
@@ -1541,7 +1209,11 @@
       const pct = Math.min(100, Math.round((todaySeconds / targetSeconds) * 100));
       document.getElementById("statProgressBar").style.width = `${pct}%`;
       document.getElementById("statTargetText").textContent = `Target: ${currentUser.targetHours || 6}h/day (${pct}%)`;
-      document.getElementById("statTotalSessions").textContent = `${currentUser.sessions.length} times`;
+
+      const { streak, shieldAvailable } = computeUserStreakAndShield(currentUser);
+      document.getElementById("statStreakFlame").textContent = `🔥 ${streak}d`;
+      document.getElementById("statShieldPill").textContent = `🛡️ ${shieldAvailable}/1`;
+      document.getElementById("statTotalSessions").textContent = `${currentUser.sessions.length} completed sessions`;
       document.getElementById("statAllTimeHours").textContent = `${(allTimeSeconds / 3600).toFixed(1)} hrs`;
 
       const checkedCount = getCheckedSyllabusCount(currentUser);
@@ -1589,7 +1261,7 @@
       const startMs = currentUser.activePunchStart, endMs = Date.now();
       const durationSeconds = Math.max(1, Math.floor((endMs - startMs) / 1000));
       currentUser.sessions.unshift({
-        date: getTodayDateString(), subject: currentUser.activeSubject || "NEET Deep Focus",
+        date: toLocalYMD(new Date()), subject: currentUser.activeSubject || "NEET Deep Focus",
         startTime: new Date(startMs).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         endTime: new Date(endMs).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         durationSeconds, entryType: "live", timestamp: endMs
@@ -1607,7 +1279,7 @@
     document.getElementById("manualEntryForm").addEventListener("submit", async (e) => {
       e.preventDefault();
       if (!currentUser) return;
-      const dateVal = document.getElementById("manualDate").value || getTodayDateString();
+      const dateVal = document.getElementById("manualDate").value || toLocalYMD(new Date());
       const subjectVal = document.getElementById("manualSubject").value.trim() || "Manual Study";
       const hrs = parseInt(document.getElementById("manualHours").value, 10) || 0;
       const mins = parseInt(document.getElementById("manualMinutes").value, 10) || 0;
@@ -1654,7 +1326,7 @@
     document.getElementById("exportCsvBtn").addEventListener("click", exportCsvFile);
     document.getElementById("settingsExportCsvBtn").addEventListener("click", exportCsvFile);
 
-    // ================= 12. MULTI-CHART WEB ANALYTICS =================
+    // 12. MULTI-CHART WEB ANALYTICS
     function classifySessionSubject(subjText = "") {
       const t = subjText.toLowerCase();
       if (t.includes("phys") || t.includes("rotat") || t.includes("optic") || t.includes("kinemat") || t.includes("electro") || t.includes("magnet") || t.includes("mechanics") || t.includes("shm") || t.includes("wave")) return "Physics";
@@ -1669,7 +1341,7 @@
       const labels7 = [], dataHours7 = [];
       for (let i = 6; i >= 0; i--) {
         const d = new Date(); d.setDate(d.getDate() - i);
-        const dStr = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+        const dStr = toLocalYMD(d);
         labels7.push(d.toLocaleDateString([], { weekday: 'short' }));
         let secs = 0; currentUser.sessions.forEach(s => { if (s.date === dStr) secs += Number(s.durationSeconds || 0); });
         dataHours7.push(Number((secs / 3600).toFixed(2)));
@@ -1696,7 +1368,7 @@
       const labels14 = [], dataHours14 = [], targetLine14 = [], userTarget = currentUser.targetHours || 6;
       for (let i = 13; i >= 0; i--) {
         const d = new Date(); d.setDate(d.getDate() - i);
-        const dStr = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+        const dStr = toLocalYMD(d);
         labels14.push(d.getDate() + "/" + (d.getMonth() + 1));
         let secs = 0; currentUser.sessions.forEach(s => { if (s.date === dStr) secs += Number(s.durationSeconds || 0); });
         dataHours14.push(Number((secs / 3600).toFixed(2)));
@@ -1710,31 +1382,41 @@
       });
     }
 
-    // ================= 13. NCERT SYLLABUS & 3D SPIDER-WEB DATA =================
+    // 13. NCERT SYLLABUS & 31-DAY MEMORY DECAY 3D SPIDER-WEB DATA
     const openFoldersState = { phys: true, chem: true, bio: true, phys_11: true, chem_11: true, bio_11: true };
     let spider3dOverallPct = 0;
     let spider3dAxesData = [
-      { label: "⚡ Phys 11", pct: 0, done: 0, total: 1 },
-      { label: "⚡ Phys 12", pct: 0, done: 0, total: 1 },
-      { label: "🧪 Chem 11", pct: 0, done: 0, total: 1 },
-      { label: "🧪 Chem 12", pct: 0, done: 0, total: 1 },
-      { label: "🧬 Bio 11", pct: 0, done: 0, total: 1 },
-      { label: "🧬 Bio 12", pct: 0, done: 0, total: 1 }
+      { label: "⚡ Phys 11", pct: 0, done: 0, total: 1, decayStatus: "fresh" },
+      { label: "⚡ Phys 12", pct: 0, done: 0, total: 1, decayStatus: "fresh" },
+      { label: "🧪 Chem 11", pct: 0, done: 0, total: 1, decayStatus: "fresh" },
+      { label: "🧪 Chem 12", pct: 0, done: 0, total: 1, decayStatus: "fresh" },
+      { label: "🧬 Bio 11", pct: 0, done: 0, total: 1, decayStatus: "fresh" },
+      { label: "🧬 Bio 12", pct: 0, done: 0, total: 1, decayStatus: "fresh" }
     ];
 
     window.toggleFolderNode = function(key) { openFoldersState[key] = !openFoldersState[key]; renderSyllabusTree(document.getElementById("syllabusSearchInput").value.trim()); };
     window.toggleSubtopicCheck = async function(topicKey) {
       if (!currentUser) return;
-      if (currentUser.syllabusChecked[topicKey]) delete currentUser.syllabusChecked[topicKey];
-      else currentUser.syllabusChecked[topicKey] = true;
+      if (currentUser.syllabusChecked[topicKey]) {
+        delete currentUser.syllabusChecked[topicKey];
+        delete currentUser.syllabusCheckedAt[topicKey];
+      } else {
+        currentUser.syllabusChecked[topicKey] = true;
+        currentUser.syllabusCheckedAt[topicKey] = Date.now();
+      }
       renderSyllabusTree(document.getElementById("syllabusSearchInput").value.trim());
       renderDashboard();
       await saveUserToCloud(currentUser);
     };
     window.toggleWholeChapter = async function(chId, checkAll) {
       if (!currentUser) return;
+      const now = Date.now();
       NEET_2027_SYLLABUS.forEach(s => s.units.forEach(u => u.chapters.forEach(ch => {
-        if (ch.id === chId) ch.subtopics.forEach((_, idx) => { if (checkAll) currentUser.syllabusChecked[`${ch.id}_${idx}`] = true; else delete currentUser.syllabusChecked[`${ch.id}_${idx}`]; });
+        if (ch.id === chId) ch.subtopics.forEach((_, idx) => {
+          const k = `${ch.id}_${idx}`;
+          if (checkAll) { currentUser.syllabusChecked[k] = true; currentUser.syllabusCheckedAt[k] = now; }
+          else { delete currentUser.syllabusChecked[k]; delete currentUser.syllabusCheckedAt[k]; }
+        });
       })));
       openFoldersState[chId] = true;
       renderSyllabusTree(document.getElementById("syllabusSearchInput").value.trim());
@@ -1761,19 +1443,29 @@
 
     function renderSyllabusTree(searchQuery = "") {
       if (!currentUser) return;
+      ensureRetentionTimestamps(currentUser);
       const checkedMap = currentUser.syllabusChecked || {};
       const q = searchQuery.toLowerCase();
-      let overallDone = 0;
+      let overallDone = 0, freshTotal = 0, fadingTotal = 0, decayTotal = 0;
       const subjectStats = [], new3dAxes = [];
 
       const treeHtml = NEET_2027_SYLLABUS.map(subj => {
         let subjTotal = 0, subjDone = 0;
         const unitsHtml = subj.units.map(u => {
-          let unitTotal = 0, unitDone = 0;
+          let unitTotal = 0, unitDone = 0, unitFading = 0, unitDecay = 0;
           const chaptersHtml = u.chapters.map(ch => {
             const chTotal = ch.subtopics.length;
             let chDone = 0;
-            ch.subtopics.forEach((_, idx) => { if (checkedMap[`${ch.id}_${idx}`]) chDone++; });
+            ch.subtopics.forEach((_, idx) => {
+              const k = `${ch.id}_${idx}`;
+              if (checkedMap[k]) {
+                chDone++;
+                const ret = getNodeRetentionState(k);
+                if (ret.status === "decay") { decayTotal++; unitDecay++; }
+                else if (ret.status === "fading") { fadingTotal++; unitFading++; }
+                else { freshTotal++; }
+              }
+            });
             unitTotal += chTotal; unitDone += chDone; subjTotal += chTotal; subjDone += chDone; overallDone += chDone;
 
             const chMatches = !q || ch.name.toLowerCase().includes(q) || ch.subtopics.some(st => st.toLowerCase().includes(q));
@@ -1786,13 +1478,26 @@
               const key = `${ch.id}_${idx}`, isDone = Boolean(checkedMap[key]);
               if (q && !ch.name.toLowerCase().includes(q) && !stName.toLowerCase().includes(q)) return "";
               const safeTopic = `${subj.subject}: ${stName}`.replace(/'/g, "\\'");
+              const ret = getNodeRetentionState(key);
+
+              let retBadge = "";
+              if (isDone) {
+                if (ret.status === "decay") retBadge = `<span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-rose-950 text-rose-300 border border-rose-500/40">🔴 Decay ${ret.days}d</span>`;
+                else if (ret.status === "fading") retBadge = `<span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-amber-950 text-amber-300 border border-amber-500/40">🟡 Fading ${ret.days}d</span>`;
+                else retBadge = `<span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-500/30">🟢 Fresh</span>`;
+              }
+
               return `
-                <div class="spider-node flex items-center justify-between gap-2 py-2 px-3 rounded-xl hover:bg-white/5 transition">
-                  <label class="flex items-center gap-3 cursor-pointer flex-1 select-none">
+                <div class="spider-node flex flex-wrap items-center justify-between gap-2 py-2 px-3 rounded-xl hover:bg-white/5 transition">
+                  <label class="flex items-center gap-2.5 cursor-pointer flex-1 select-none">
                     <input type="checkbox" ${isDone ? "checked" : ""} onchange="toggleSubtopicCheck('${key}')" class="w-4 h-4 rounded accent-amber-400 cursor-pointer shrink-0" />
-                    <span class="text-xs sm:text-sm ${isDone ? 'line-through text-zinc-500' : 'text-zinc-200 font-medium'}">${stName}</span>
+                    <span class="text-xs sm:text-sm ${isDone ? 'text-zinc-300 font-medium' : 'text-zinc-200 font-medium'}">${stName}</span>
+                    ${retBadge}
                   </label>
-                  <button type="button" onclick="startDotRecommendedClockIn('${safeTopic}')" class="clicky shrink-0 px-2.5 py-1 rounded-lg text-[10px] font-bold bg-white/10 text-zinc-200 border border-white/15 hover:bg-white hover:text-black">⚡ Clock In</button>
+                  <div class="flex items-center gap-1.5 shrink-0">
+                    ${isDone ? `<button type="button" onclick="reviseDotTopicNow('${key}')" class="clicky px-2 py-1 rounded-lg text-[10px] font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500 hover:text-black" title="Reset 31-day memory decay timer">↻ Revised</button>` : ""}
+                    <button type="button" onclick="startDotRecommendedClockIn('${safeTopic}')" class="clicky px-2.5 py-1 rounded-lg text-[10px] font-bold bg-white/10 text-zinc-200 border border-white/15 hover:bg-white hover:text-black">⚡ Clock In</button>
+                  </div>
                 </div>`;
             }).join("");
 
@@ -1813,7 +1518,8 @@
 
           const unitPct = unitTotal ? Math.round((unitDone / unitTotal) * 100) : 0;
           const shortAxis = u.unitName.replace("NCERT Class ", "").replace("Physics", "Phys").replace("Chemistry", "Chem").replace("Biology", "Bio").split(" (")[0];
-          new3dAxes.push({ label: `${subj.icon} ${shortAxis}`, pct: unitPct, done: unitDone, total: unitTotal });
+          const unitHealth = unitDecay > 0 ? "decay" : (unitFading > 0 ? "fading" : "fresh");
+          new3dAxes.push({ label: `${subj.icon} ${shortAxis}`, pct: unitPct, done: unitDone, total: unitTotal, decayStatus: unitHealth });
 
           if (!chaptersHtml.trim()) return "";
           const isUnitOpen = q ? true : Boolean(openFoldersState[u.id]);
@@ -1838,10 +1544,7 @@
             <button type="button" onclick="toggleFolderNode('${subj.id}')" class="w-full flex items-center justify-between text-left">
               <div class="flex items-center gap-3">
                 <span class="text-2xl">${subj.icon}</span>
-                <div>
-                  <h3 class="font-serif-luxury text-lg font-bold text-white">NCERT ${subj.subject} Syllabus</h3>
-                  <p class="text-xs text-zinc-400">${subjDone} of ${subjTotal} NCERT sub-topics mastered</p>
-                </div>
+                <div><h3 class="font-serif-luxury text-lg font-bold text-white">NCERT ${subj.subject} Syllabus</h3><p class="text-xs text-zinc-400">${subjDone} of ${subjTotal} NCERT sub-topics mastered</p></div>
               </div>
               <span class="mono-nums px-3 py-1 rounded-xl bg-white/10 theme-gradient-text font-bold text-xs border border-white/15">${subjPct}%</span>
             </button>
@@ -1858,22 +1561,29 @@
       document.getElementById("spider3dOverallTag").textContent = `Overall 3D Web: ${overallPct}% (${overallDone}/${TOTAL_SYLLABUS_TOPICS})`;
       document.getElementById("spider3dRankBadge").textContent = getMasteryRankTitle(overallPct);
 
+      document.getElementById("retentionHealthSummary").innerHTML = `
+        <div class="p-2 rounded-xl bg-emerald-950/40 border border-emerald-500/30"><p class="mono-nums text-sm font-black text-emerald-400">${freshTotal}</p><p class="text-[9px] text-emerald-200 uppercase font-bold">🟢 Fresh</p></div>
+        <div class="p-2 rounded-xl bg-amber-950/40 border border-amber-500/30"><p class="mono-nums text-sm font-black text-amber-400">${fadingTotal}</p><p class="text-[9px] text-amber-200 uppercase font-bold">🟡 7–30d</p></div>
+        <div class="p-2 rounded-xl bg-rose-950/40 border border-rose-500/30"><p class="mono-nums text-sm font-black text-rose-400">${decayTotal}</p><p class="text-[9px] text-rose-200 uppercase font-bold">🔴 31+d</p></div>
+      `;
+
       document.getElementById("subjectSummaryCards").innerHTML = subjectStats.map(st => `
         <div class="p-4 rounded-2xl bg-black/75 border border-zinc-800 flex items-center justify-between">
           <div><p class="text-xs font-bold text-white">${st.icon} ${st.name}</p><p class="text-[11px] text-zinc-500 mono-nums">${st.done}/${st.total} nodes</p></div>
           <span class="mono-nums text-lg font-black theme-gradient-text">${st.pct}%</span>
         </div>`).join("");
 
-      document.getElementById("spider3dAxisList").innerHTML = spider3dAxesData.map(ax => `
+      document.getElementById("spider3dAxisList").innerHTML = spider3dAxesData.map(ax => {
+        const dot = ax.decayStatus === "decay" ? "🔴" : ax.decayStatus === "fading" ? "🟡" : "🟢";
+        return `
         <div>
           <div class="flex justify-between text-[11px] font-semibold mb-1">
-            <span class="text-zinc-200">${ax.label}</span>
+            <span class="text-zinc-200">${dot} ${ax.label}</span>
             <span class="mono-nums theme-gradient-text font-bold">${ax.pct}% (${ax.done}/${ax.total})</span>
           </div>
-          <div class="w-full bg-zinc-950 h-1.5 rounded-full overflow-hidden border border-zinc-800">
-            <div class="theme-btn-primary h-full rounded-full transition-all duration-300" style="width: ${ax.pct}%"></div>
-          </div>
-        </div>`).join("");
+          <div class="w-full bg-zinc-950 h-1.5 rounded-full overflow-hidden border border-zinc-800"><div class="theme-btn-primary h-full rounded-full transition-all duration-300" style="width:${ax.pct}%"></div></div>
+        </div>`;
+      }).join("");
 
       const barCtx = document.getElementById("syllabusSubjectBarCanvas").getContext("2d");
       if (syllabusSubjectBarChart) syllabusSubjectBarChart.destroy();
@@ -1886,7 +1596,7 @@
       document.getElementById("syllabusTreeContainer").innerHTML = treeHtml || `<div class="p-8 text-center text-zinc-500">No NCERT chapters or sub-topics match your search.</div>`;
     }
 
-    // ================= 14. INTERACTIVE 3D VOLUMETRIC SPIDER-WEB ENGINE =================
+    // 14. INTERACTIVE 3D VOLUMETRIC SPIDER-WEB ENGINE (WITH 31-DAY DECAY COLORING)
     const s3dCanvas = document.getElementById("spider3dCanvas");
     const s3dCtx = s3dCanvas.getContext("2d");
     let rotX = 0.45, rotY = 0.35, zoom3d = 1.0, autoRotate3d = true;
@@ -1903,8 +1613,7 @@
     window.addEventListener("mouseup", () => { isDragging3d = false; });
     window.addEventListener("mousemove", (e) => {
       if (!isDragging3d) return;
-      rotY += (e.clientX - lastMouseX) * 0.008;
-      rotX += (e.clientY - lastMouseY) * 0.008;
+      rotY += (e.clientX - lastMouseX) * 0.008; rotX += (e.clientY - lastMouseY) * 0.008;
       lastMouseX = e.clientX; lastMouseY = e.clientY;
     });
     s3dCanvas.addEventListener("touchstart", (e) => {
@@ -1915,26 +1624,17 @@
     s3dCanvas.addEventListener("touchmove", (e) => {
       if (!isDragging3d || e.touches.length !== 1) return;
       e.stopPropagation();
-      rotY += (e.touches[0].clientX - lastMouseX) * 0.009;
-      rotX += (e.touches[0].clientY - lastMouseY) * 0.009;
+      rotY += (e.touches[0].clientX - lastMouseX) * 0.009; rotX += (e.touches[0].clientY - lastMouseY) * 0.009;
       lastMouseX = e.touches[0].clientX; lastMouseY = e.touches[0].clientY;
     }, { passive: true });
-    s3dCanvas.addEventListener("wheel", (e) => {
-      e.preventDefault();
-      zoom3d = Math.max(0.6, Math.min(1.85, zoom3d - e.deltaY * 0.0008));
-    }, { passive: false });
+    s3dCanvas.addEventListener("wheel", (e) => { e.preventDefault(); zoom3d = Math.max(0.6, Math.min(1.85, zoom3d - e.deltaY * 0.0008)); }, { passive: false });
 
-    document.getElementById("toggle3dAutoRotateBtn").addEventListener("click", (e) => {
-      autoRotate3d = !autoRotate3d;
-      e.target.textContent = autoRotate3d ? "🔄 Auto-Orbit: ON" : "⏸ Auto-Orbit: OFF";
-    });
+    document.getElementById("toggle3dAutoRotateBtn").addEventListener("click", (e) => { autoRotate3d = !autoRotate3d; e.target.textContent = autoRotate3d ? "🔄 Auto-Orbit: ON" : "⏸ Auto-Orbit: OFF"; });
     document.getElementById("reset3dCameraBtn").addEventListener("click", () => { rotX = 0.45; rotY = 0.35; zoom3d = 1.0; });
 
     function project3D(x, y, z, cx, cy, fov) {
-      const cosX = Math.cos(rotX), sinX = Math.sin(rotX);
-      const y1 = y * cosX - z * sinX, z1 = y * sinX + z * cosX;
-      const cosY = Math.cos(rotY), sinY = Math.sin(rotY);
-      const x2 = x * cosY + z1 * sinY, z2 = -x * sinY + z1 * cosY;
+      const cosX = Math.cos(rotX), sinX = Math.sin(rotX), y1 = y * cosX - z * sinX, z1 = y * sinX + z * cosX;
+      const cosY = Math.cos(rotY), sinY = Math.sin(rotY), x2 = x * cosY + z1 * sinY, z2 = -x * sinY + z1 * cosY;
       const scale = (fov / (fov + z2 + 340)) * zoom3d;
       return { px: cx + x2 * scale, py: cy + y1 * scale, scale, z: z2 };
     }
@@ -1942,18 +1642,14 @@
     function render3dSpiderWebFrame() {
       if (!s3dCtx) return;
       if (s3dCanvas.width === 0) resize3dCanvas();
-      const w = s3dCanvas.width, h = s3dCanvas.height;
-      const cx = w / 2, cy = h / 2, maxR = Math.min(w, h) * 0.35, fov = 460;
+      const w = s3dCanvas.width, h = s3dCanvas.height, cx = w / 2, cy = h / 2, maxR = Math.min(w, h) * 0.35, fov = 460;
 
       if (autoRotate3d && !isDragging3d) rotY += 0.0055;
       s3dCtx.clearRect(0, 0, w, h);
       const pal = THEME_CHART_PALETTE[activeWebTheme] || THEME_CHART_PALETTE.sunset;
       const axes = spider3dAxesData, n = axes.length;
 
-      const dirs = axes.map((_, i) => {
-        const angle = (i / n) * Math.PI * 2;
-        return { dx: Math.cos(angle), dy: 0, dz: Math.sin(angle) };
-      });
+      const dirs = axes.map((_, i) => ({ dx: Math.cos((i / n) * Math.PI * 2), dy: 0, dz: Math.sin((i / n) * Math.PI * 2) }));
       const outerTop = project3D(0, -maxR * 0.72, 0, cx, cy, fov);
       const outerBot = project3D(0,  maxR * 0.72, 0, cx, cy, fov);
       const centerPt = project3D(0, 0, 0, cx, cy, fov);
@@ -1964,8 +1660,7 @@
         ringPts.forEach((pt, idx) => idx === 0 ? s3dCtx.moveTo(pt.px, pt.py) : s3dCtx.lineTo(pt.px, pt.py));
         s3dCtx.closePath();
         s3dCtx.strokeStyle = rIdx === 3 ? `rgba(${pal.rgb}, 0.4)` : "rgba(255, 255, 255, 0.11)";
-        s3dCtx.lineWidth = rIdx === 3 ? 1.4 : 0.9;
-        s3dCtx.stroke();
+        s3dCtx.lineWidth = rIdx === 3 ? 1.4 : 0.9; s3dCtx.stroke();
       });
 
       const masteryPts = [];
@@ -1973,19 +1668,16 @@
         const outerPt = project3D(d.dx * maxR, 0, d.dz * maxR, cx, cy, fov);
         s3dCtx.beginPath();
         s3dCtx.moveTo(centerPt.px, centerPt.py); s3dCtx.lineTo(outerPt.px, outerPt.py);
-        s3dCtx.moveTo(outerTop.px, outerTop.py); s3dCtx.lineTo(outerPt.px, outerPt.py);
-        s3dCtx.lineTo(outerBot.px, outerBot.py);
-        s3dCtx.strokeStyle = "rgba(255, 255, 255, 0.10)";
-        s3dCtx.lineWidth = 0.9;
-        s3dCtx.stroke();
+        s3dCtx.moveTo(outerTop.px, outerTop.py); s3dCtx.lineTo(outerPt.px, outerPt.py); s3dCtx.lineTo(outerBot.px, outerBot.py);
+        s3dCtx.strokeStyle = "rgba(255, 255, 255, 0.10)"; s3dCtx.lineWidth = 0.9; s3dCtx.stroke();
 
         const frac = Math.max(0.14, (axes[i].pct || 0) / 100);
         const mPt = project3D(d.dx * maxR * frac, 0, d.dz * maxR * frac, cx, cy, fov);
-        masteryPts.push({ ...mPt, label: axes[i].label, pct: axes[i].pct });
+        masteryPts.push({ ...mPt, label: axes[i].label, pct: axes[i].pct, decayStatus: axes[i].decayStatus });
 
         const lblPt = project3D(d.dx * (maxR + 38), 0, d.dz * (maxR + 38), cx, cy, fov);
         s3dCtx.font = "bold 11px Inter, sans-serif";
-        s3dCtx.fillStyle = `rgba(244, 244, 245, ${Math.max(0.45, Math.min(1, lblPt.scale))})`;
+        s3dCtx.fillStyle = axes[i].decayStatus === "decay" ? "#fda4af" : axes[i].decayStatus === "fading" ? "#fde68a" : "#e4e4e7";
         s3dCtx.textAlign = "center";
         s3dCtx.fillText(`${axes[i].label} (${axes[i].pct}%)`, lblPt.px, lblPt.py);
       });
@@ -1996,27 +1688,30 @@
 
       for (let i = 0; i < n; i++) {
         const pA = masteryPts[i], pB = masteryPts[(i + 1) % n];
+        const facetRgb = (pA.decayStatus === "decay" || pB.decayStatus === "decay") ? "244, 63, 94"
+                       : (pA.decayStatus === "fading" || pB.decayStatus === "fading") ? "245, 158, 11"
+                       : pal.rgb;
         s3dCtx.beginPath();
         s3dCtx.moveTo(mTop.px, mTop.py); s3dCtx.lineTo(pA.px, pA.py); s3dCtx.lineTo(pB.px, pB.py); s3dCtx.closePath();
-        s3dCtx.fillStyle = `rgba(${pal.rgb}, 0.17)`; s3dCtx.fill();
-        s3dCtx.strokeStyle = `rgba(${pal.rgb}, 0.75)`; s3dCtx.lineWidth = 1.4; s3dCtx.stroke();
+        s3dCtx.fillStyle = `rgba(${facetRgb}, 0.19)`; s3dCtx.fill();
+        s3dCtx.strokeStyle = `rgba(${facetRgb}, 0.78)`; s3dCtx.lineWidth = 1.4; s3dCtx.stroke();
 
         s3dCtx.beginPath();
         s3dCtx.moveTo(mBot.px, mBot.py); s3dCtx.lineTo(pA.px, pA.py); s3dCtx.lineTo(pB.px, pB.py); s3dCtx.closePath();
-        s3dCtx.fillStyle = `rgba(${pal.rgb}, 0.10)`; s3dCtx.fill();
-        s3dCtx.strokeStyle = `rgba(${pal.rgb}, 0.45)`; s3dCtx.lineWidth = 1.0; s3dCtx.stroke();
+        s3dCtx.fillStyle = `rgba(${facetRgb}, 0.11)`; s3dCtx.fill();
+        s3dCtx.strokeStyle = `rgba(${facetRgb}, 0.45)`; s3dCtx.lineWidth = 1.0; s3dCtx.stroke();
       }
 
       [...masteryPts, mTop, mBot].forEach(pt => {
+        const nodeColor = pt.decayStatus === "decay" ? "#f43f5e" : pt.decayStatus === "fading" ? "#f59e0b" : pal.bar;
         s3dCtx.beginPath();
         s3dCtx.arc(pt.px, pt.py, Math.max(3.5, 5.8 * pt.scale), 0, Math.PI * 2);
         s3dCtx.fillStyle = "#ffffff"; s3dCtx.fill();
-        s3dCtx.strokeStyle = pal.bar; s3dCtx.lineWidth = 2; s3dCtx.stroke();
+        s3dCtx.strokeStyle = nodeColor; s3dCtx.lineWidth = 2.2; s3dCtx.stroke();
       });
 
       s3dCtx.font = "bold 10px JetBrains Mono, monospace";
-      s3dCtx.fillStyle = pal.bar;
-      s3dCtx.textAlign = "center";
+      s3dCtx.fillStyle = pal.bar; s3dCtx.textAlign = "center";
       s3dCtx.fillText(`APEX ${spider3dOverallPct}%`, mTop.px, mTop.py - 12);
 
       s3dAnimId = requestAnimationFrame(render3dSpiderWebFrame);
@@ -2027,277 +1722,17 @@
       if (!s3dAnimId) render3dSpiderWebFrame();
     }
 
-    // ================= 15. LIVE LEADERBOARD =================
-    function renderFastLeaderboard() {
-      const tbody = document.getElementById("globalLeaderboardBody");
-      const combined = { ...getLocalUsersMap(), ...allCloudUsersCache };
-      const todayStr = getTodayDateString();
-      let list = Object.values(combined).map(u => {
-        const sessions = Array.isArray(u.sessions) ? u.sessions : [];
-        let totalSecs = 0, todaySecs = 0;
-        sessions.forEach(s => { const d = Number(s.durationSeconds || 0); totalSecs += d; if (s.date === todayStr) todaySecs += d; });
-        const isLive = Boolean(u.activePunchStart);
-        const liveElapsed = isLive ? Math.max(0, Math.floor((Date.now() - u.activePunchStart) / 1000)) : 0;
-        const syllabusPct = Math.round((getCheckedSyllabusCount(u) / TOTAL_SYLLABUS_TOPICS) * 100);
-        return { id: u.id || "student", name: u.name || u.id || "Student", studyCount: sessions.length, syllabusPct, todayHours: ((todaySecs + liveElapsed) / 3600).toFixed(1), totalHours: parseFloat(((totalSecs + liveElapsed) / 3600).toFixed(2)), isLive, activeSubject: u.activeSubject || "Deep Focus", liveMins: Math.floor(liveElapsed / 60) };
-      });
-      if (leaderboardLiveOnly) list = list.filter(u => u.isLive);
-      list.sort((a, b) => (b.totalHours - a.totalHours) || (b.isLive - a.isLive) || (b.studyCount - a.studyCount));
-      document.getElementById("navLiveCountBadge").textContent = `${Object.values(combined).filter(u => u.activePunchStart).length}`;
-
-      if (!list.length) {
-        tbody.innerHTML = `<tr><td colspan="6" class="py-8 text-center text-zinc-500">${leaderboardLiveOnly ? "No peers are clocked in right now." : "No scholars registered yet."}</td></tr>`;
-        return;
-      }
-      tbody.innerHTML = list.map((u, i) => {
-        const rankBadge = i === 0 ? "🥇 #1" : i === 1 ? "🥈 #2" : i === 2 ? "🥉 #3" : `#${i + 1}`;
-        const statusPill = u.isLive
-          ? `<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-950/90 text-emerald-300 border border-emerald-500/40"><span class="w-2 h-2 rounded-full bg-emerald-400 live-beacon"></span>LIVE NOW • ${u.activeSubject} (${u.liveMins}m)</span>`
-          : `<span class="px-2 py-0.5 rounded-full text-[10px] font-medium bg-zinc-900 text-zinc-500">Offline</span>`;
-        return `
-          <tr class="hover:bg-white/5 transition">
-            <td class="py-3.5 px-4 font-bold theme-gradient-text mono-nums">${rankBadge}</td>
-            <td class="py-3.5 px-4"><div class="flex flex-wrap items-center gap-2"><span class="font-bold text-white">${u.name}</span><span class="text-xs text-zinc-500">@${u.id}</span>${statusPill}</div></td>
-            <td class="py-3.5 px-4 text-center"><span class="px-2.5 py-1 rounded-lg bg-zinc-900 text-zinc-300 border border-zinc-800 font-semibold text-xs mono-nums">${u.studyCount}x</span></td>
-            <td class="py-3.5 px-4 text-center"><span class="px-2.5 py-1 rounded-lg bg-white/10 text-zinc-200 border border-white/15 font-semibold text-xs mono-nums">${u.syllabusPct}%</span></td>
-            <td class="py-3.5 px-4 text-center font-semibold text-zinc-300 mono-nums">${u.todayHours}h</td>
-            <td class="py-3.5 px-4 text-right font-extrabold text-emerald-400 mono-nums">${u.totalHours.toFixed(1)} hrs</td>
-          </tr>`;
-      }).join("");
-    }
-    document.getElementById("lbFilterAllBtn").addEventListener("click", () => { leaderboardLiveOnly = false; renderFastLeaderboard(); });
-    document.getElementById("lbFilterLiveBtn").addEventListener("click", () => { leaderboardLiveOnly = true; renderFastLeaderboard(); });
-    document.getElementById("refreshLeaderboardBtn").addEventListener("click", async () => {
-      if (db) { try { const snap = await withTimeout(getDocs(collection(db, "students")), 5000); snap.forEach(d => { allCloudUsersCache[d.id] = d.data(); }); } catch {} }
-      renderFastLeaderboard();
-    });
-
-    // ================= 16. NOTES VAULT =================
-    function renderNotesVault(filterText = "") {
-      if (!currentUser) return;
-      if (!Array.isArray(currentUser.notes)) currentUser.notes = [];
-      const listEl = document.getElementById("notesListContainer"), q = filterText.toLowerCase();
-      const filtered = currentUser.notes.filter(n => !q || (n.title || "").toLowerCase().includes(q) || (n.body || "").toLowerCase().includes(q));
-      listEl.innerHTML = !filtered.length
-        ? `<p class="text-xs text-zinc-500 text-center py-8">No notes yet. Click "+ New Note" above.</p>`
-        : filtered.map(n => `<button type="button" onclick="selectNoteItem('${n.id}')" class="clicky w-full text-left p-3 rounded-2xl border ${n.id === activeNoteId ? 'bg-white/15 border-white/30 text-white' : 'bg-black/75 border-zinc-800 text-zinc-300 hover:bg-zinc-900'}"><p class="text-xs font-bold truncate">${n.title || "Untitled Note"}</p><p class="text-[10px] text-zinc-500 truncate mt-0.5">${n.body || "Empty note..."}</p></button>`).join("");
-      const activeNote = currentUser.notes.find(n => n.id === activeNoteId) || currentUser.notes[0];
-      if (activeNote) { activeNoteId = activeNote.id; document.getElementById("noteTitleInput").value = activeNote.title || ""; document.getElementById("noteBodyInput").value = activeNote.body || ""; }
-      else { activeNoteId = null; document.getElementById("noteTitleInput").value = ""; document.getElementById("noteBodyInput").value = ""; }
-    }
-    window.selectNoteItem = function(id) { activeNoteId = id; renderNotesVault(document.getElementById("noteSearchInput").value.trim()); };
-    document.getElementById("newNoteBtn").addEventListener("click", async () => { if (!currentUser) return; const n = { id: "note_" + Date.now(), title: "New NCERT Note", body: "", updatedAt: Date.now() }; currentUser.notes.unshift(n); activeNoteId = n.id; renderNotesVault(); await saveUserToCloud(currentUser); });
-    document.getElementById("saveNoteBtn").addEventListener("click", async () => {
-      if (!currentUser) return;
-      const title = document.getElementById("noteTitleInput").value.trim() || "Untitled Note", body = document.getElementById("noteBodyInput").value;
-      if (!activeNoteId) { const c = { id: "note_" + Date.now(), title, body, updatedAt: Date.now() }; currentUser.notes.unshift(c); activeNoteId = c.id; }
-      else { const t = currentUser.notes.find(n => n.id === activeNoteId); if (t) { t.title = title; t.body = body; t.updatedAt = Date.now(); } }
-      document.getElementById("noteSaveStatus").textContent = "✓ Synced to Cloud";
-      renderNotesVault();
-      await saveUserToCloud(currentUser);
-    });
-    document.getElementById("deleteNoteBtn").addEventListener("click", async () => { if (!currentUser || !activeNoteId) return; currentUser.notes = currentUser.notes.filter(n => n.id !== activeNoteId); activeNoteId = currentUser.notes[0] ? currentUser.notes[0].id : null; renderNotesVault(); await saveUserToCloud(currentUser); });
-    document.getElementById("noteSearchInput").addEventListener("input", (e) => renderNotesVault(e.target.value.trim()));
-
-    // ================= 17. MULTIPLAYER REVOLVER GAME =================
-    const NEET_BULLET_BANK = [
-      { subject: "Physics", topic: "Units & Kinematics", q: "Dimension of Planck's constant (h) is identical to that of:", opts: ["Angular Momentum", "Linear Momentum", "Torque", "Impulse"], ans: 0 },
-      { subject: "Physics", topic: "Units & Kinematics", q: "At the highest point of an oblique projectile path, the angle between velocity and acceleration is:", opts: ["90°", "0°", "180°", "45°"], ans: 0 },
-      { subject: "Physics", topic: "Rotational & Gravitation", q: "Moment of inertia of a uniform solid sphere of mass M and radius R about its diameter is:", opts: ["(2/5) MR²", "(2/3) MR²", "(1/2) MR²", "(7/5) MR²"], ans: 0 },
-      { subject: "Physics", topic: "Rotational & Gravitation", q: "Escape velocity from Earth's surface (11.2 km/s) depends on the mass of the projected body (m) as:", opts: ["m⁰ (Independent of m)", "m¹", "√m", "1/m"], ans: 0 },
-      { subject: "Physics", topic: "Thermodynamics & SHM", q: "For a diatomic rigid gas molecule at room temperature, molar specific heat at constant volume (Cv) is:", opts: ["(5/2) R", "(3/2) R", "(7/2) R", "(9/2) R"], ans: 0 },
-      { subject: "Physics", topic: "Electrostatics & Current", q: "If a dielectric slab of constant K is inserted between plates of an isolated charged capacitor, its potential difference:", opts: ["Decreases by factor K", "Increases by factor K", "Remains unchanged", "Becomes zero"], ans: 0 },
-      { subject: "Physics", topic: "Magnetism, EMI & AC", q: "At resonance in a series LCR circuit, the phase difference between current and voltage is:", opts: ["0°", "90°", "45°", "180°"], ans: 0 },
-      { subject: "Physics", topic: "Optics & Modern Physics", q: "In Young's Double Slit Experiment, if slit separation is halved, fringe width becomes:", opts: ["Doubled", "Halved", "Four times", "Unchanged"], ans: 0 },
-      { subject: "Chemistry", topic: "Atomic & Thermodynamics", q: "Maximum number of electrons that can be accommodated in a subshell with l = 3 is:", opts: ["14", "10", "6", "18"], ans: 0 },
-      { subject: "Chemistry", topic: "Equilibrium & Kinetics", q: "Unit of rate constant for a Zero Order reaction is:", opts: ["mol L⁻¹ s⁻¹", "s⁻¹", "L mol⁻¹ s⁻¹", "mol² L⁻² s⁻¹"], ans: 0 },
-      { subject: "Chemistry", topic: "Bonding & Coordination", q: "According to VSEPR theory, the molecular geometry of XeF4 is:", opts: ["Square Planar", "Tetrahedral", "See-Saw", "Octahedral"], ans: 0 },
-      { subject: "Chemistry", topic: "Organic & Biomolecules", q: "Conversion of Phenol to Salicylaldehyde using CHCl3 and aqueous NaOH is called:", opts: ["Reimer-Tiemann Reaction", "Kolbe's Reaction", "Wurtz Reaction", "Cannizzaro Reaction"], ans: 0 },
-      { subject: "Biology", topic: "Diversity & Cell Biology", q: "Which cell organelle is known as the 'Suicidal Bag' of the eukaryotic cell?", opts: ["Lysosome", "Ribosome", "Peroxisome", "Golgi Apparatus"], ans: 0 },
-      { subject: "Biology", topic: "Plant Physiology", q: "First stable product of CO2 fixation in C4 pathway (Hatch-Slack cycle) is:", opts: ["Oxaloacetic acid (OAA)", "3-Phosphoglyceric acid (PGA)", "RuBP", "Malic acid"], ans: 0 },
-      { subject: "Biology", topic: "Human Physiology", q: "Natural pacemaker of the human heart is:", opts: ["SA Node (Sino-atrial node)", "AV Node", "Bundle of His", "Purkinje Fibres"], ans: 0 },
-      { subject: "Biology", topic: "Genetics & Evolution", q: "In the Lac Operon, lactose acts as an:", opts: ["Inducer", "Repressor", "Corepressor", "Operator"], ans: 0 },
-      { subject: "Biology", topic: "Biotech & Ecology", q: "Thermostable DNA polymerase (Taq polymerase) used in PCR is isolated from:", opts: ["Thermus aquaticus", "Escherichia coli", "Bacillus thuringiensis", "Agrobacterium"], ans: 0 }
-    ];
-
-    const TOPIC_MAP_BY_SUBJECT = {
-      ALL: ["ALL", "Units & Kinematics", "Rotational & Gravitation", "Thermodynamics & SHM", "Electrostatics & Current", "Magnetism, EMI & AC", "Optics & Modern Physics", "Atomic & Thermodynamics", "Equilibrium & Kinetics", "Bonding & Coordination", "Organic & Biomolecules", "Diversity & Cell Biology", "Plant Physiology", "Human Physiology", "Genetics & Evolution", "Biotech & Ecology"],
-      Physics: ["ALL", "Units & Kinematics", "Rotational & Gravitation", "Thermodynamics & SHM", "Electrostatics & Current", "Magnetism, EMI & AC", "Optics & Modern Physics"],
-      Chemistry: ["ALL", "Atomic & Thermodynamics", "Equilibrium & Kinetics", "Bonding & Coordination", "Organic & Biomolecules"],
-      Biology: ["ALL", "Diversity & Cell Biology", "Plant Physiology", "Human Physiology", "Genetics & Evolution", "Biotech & Ecology"]
-    };
-
-    function renderPlayersRoster() {
-      const container = document.getElementById("playersListContainer");
-      const alive = partyPlayers.filter(p => p.hearts > 0);
-      if (alive.length > 0 && (!partyPlayers[currentTurnIndex] || partyPlayers[currentTurnIndex].hearts <= 0)) currentTurnIndex = partyPlayers.findIndex(p => p.hearts > 0);
-      const activePlayer = partyPlayers[currentTurnIndex] || partyPlayers[0];
-      document.getElementById("currentTurnPlayerName").textContent = activePlayer ? activePlayer.name : "No Survivors";
-      container.innerHTML = partyPlayers.map((p, idx) => {
-        const isTurn = idx === currentTurnIndex && p.hearts > 0;
-        const heartsStr = p.hearts > 0 ? "❤️".repeat(p.hearts) + "🖤".repeat(3 - p.hearts) : "💀 ELIMINATED";
-        return `<div class="flex items-center justify-between px-3.5 py-2.5 rounded-2xl border ${isTurn ? 'bg-white/15 border-white/40 text-white' : 'bg-black/75 border-zinc-800 text-zinc-300'}"><div class="flex items-center gap-2"><span class="text-xs font-bold">${isTurn ? "🔫" : "👤"} ${p.name}</span>${isTurn ? `<span class="px-2 py-0.2 rounded-full text-[9px] font-black theme-btn-primary uppercase">Hold Gun</span>` : ""}</div><div class="flex items-center gap-3"><span class="text-xs">${heartsStr}</span><span class="mono-nums text-xs font-bold text-emerald-400">${p.score} pts</span>${partyPlayers.length > 1 ? `<button type="button" onclick="removePartyPlayer('${p.id}')" class="text-zinc-500 hover:text-rose-400 text-xs font-bold">✕</button>` : ""}</div></div>`;
-      }).join("");
-    }
-
-    function advanceToNextPlayer() {
-      const alive = partyPlayers.filter(p => p.hearts > 0);
-      if (!alive.length) return;
-      for (let step = 1; step <= partyPlayers.length; step++) {
-        const cand = (currentTurnIndex + step) % partyPlayers.length;
-        if (partyPlayers[cand].hearts > 0) { currentTurnIndex = cand; break; }
-      }
-      renderPlayersRoster();
-    }
-
-    document.getElementById("addPlayerForm").addEventListener("submit", (e) => {
-      e.preventDefault();
-      const input = document.getElementById("newPlayerNameInput"), name = input.value.trim();
-      if (!name) return;
-      partyPlayers.push({ id: "p_" + Date.now(), name, hearts: 3, score: 0 });
-      input.value = "";
-      renderPlayersRoster();
-    });
-    window.removePartyPlayer = function(id) { if (partyPlayers.length <= 1) return; partyPlayers = partyPlayers.filter(p => p.id !== id); currentTurnIndex = 0; renderPlayersRoster(); };
-    document.getElementById("resetPlayersBtn").addEventListener("click", () => {
-      partyPlayers.forEach(p => { p.hearts = 3; p.score = 0; }); currentTurnIndex = 0; survivalStreak = 0;
-      document.getElementById("rouletteResultBanner").textContent = "❤️ All players healed to 3 Hearts! Spin and pull the trigger!";
-      renderPlayersRoster(); updateCylinderVisuals();
-    });
-
-    function renderGameTopicButtons() {
-      const topics = TOPIC_MAP_BY_SUBJECT[selectedGameSubject] || TOPIC_MAP_BY_SUBJECT.ALL;
-      if (!topics.includes(selectedGameTopic)) selectedGameTopic = "ALL";
-      document.getElementById("gameTopicBtnGroup").innerHTML = topics.map(t => {
-        const active = t === selectedGameTopic;
-        return `<button type="button" onclick="selectGameTopic('${t}')" class="clicky px-3 py-1.5 rounded-xl text-xs font-bold border ${active ? 'theme-btn-primary border-white/30' : 'bg-black/80 text-zinc-300 border-zinc-800 hover:bg-zinc-900'}">${t === "ALL" ? "🎯 All Chapters" : t}</button>`;
-      }).join("");
-      document.getElementById("loadedDeckBadge").textContent = `${selectedGameSubject === "ALL" ? "All Subjects" : selectedGameSubject} • ${selectedGameTopic === "ALL" ? "All Chapters" : selectedGameTopic}`;
-    }
-    window.selectGameTopic = function(t) { selectedGameTopic = t; renderGameTopicButtons(); };
-    document.querySelectorAll(".game-subj-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        selectedGameSubject = btn.getAttribute("data-subj");
-        document.querySelectorAll(".game-subj-btn").forEach(b => {
-          b.className = b.getAttribute("data-subj") === selectedGameSubject
-            ? "game-subj-btn clicky py-2.5 px-3 rounded-xl text-xs font-bold theme-btn-primary"
-            : "game-subj-btn clicky py-2.5 px-3 rounded-xl text-xs font-semibold bg-black/80 text-zinc-300 border border-zinc-800 hover:bg-zinc-900";
-        });
-        selectedGameTopic = "ALL";
-        renderGameTopicButtons();
-      });
-    });
-
-    function pickFilteredBulletQuestion() {
-      let pool = NEET_BULLET_BANK.filter(q => (selectedGameSubject === "ALL" || q.subject === selectedGameSubject) && (selectedGameTopic === "ALL" || q.topic === selectedGameTopic));
-      if (!pool.length) pool = NEET_BULLET_BANK;
-      return pool[Math.floor(Math.random() * pool.length)];
-    }
-
-    function updateCylinderVisuals(hitIndex = -1) {
-      for (let i = 0; i < 6; i++) {
-        const el = document.getElementById(`chamber${i}`);
-        if (i === hitIndex) el.className = "w-10 h-10 rounded-full bg-rose-600 border-2 border-white absolute " + el.className.split("absolute ")[1];
-        else if (i < currentChamber) el.className = "w-10 h-10 rounded-full bg-emerald-500/30 border-2 border-emerald-400 absolute " + el.className.split("absolute ")[1];
-        else el.className = "w-10 h-10 rounded-full bg-zinc-950 border-2 border-zinc-600 absolute " + el.className.split("absolute ")[1];
-      }
-      document.getElementById("rouletteChamberText").textContent = `${Math.min(6, currentChamber + 1)} / 6`;
-      document.getElementById("rouletteStreakText").textContent = String(survivalStreak);
-      document.getElementById("rouletteXpText").textContent = `${(currentUser && currentUser.rouletteXp) || 0} XP`;
-    }
-
-    function spinNewCylinder() {
-      if (bulletCountdownInterval) clearInterval(bulletCountdownInterval);
-      bulletPosition = Math.floor(Math.random() * 6); currentChamber = 0; cylinderAngle += 720;
-      document.getElementById("revolverCylinder").style.transform = `rotate(${cylinderAngle}deg)`;
-      document.getElementById("bulletQuizBox").classList.add("hidden");
-      document.getElementById("pullTriggerBtn").disabled = false;
-      updateCylinderVisuals();
-    }
-    document.getElementById("spinCylinderBtn").addEventListener("click", () => {
-      spinNewCylinder();
-      document.getElementById("rouletteResultBanner").textContent = `🔄 Cylinder spun! 6 fresh chambers loaded for ${(partyPlayers[currentTurnIndex] || partyPlayers[0]).name}.`;
-    });
-
-    function launchBulletQuestionModal() {
-      if (bulletCountdownInterval) clearInterval(bulletCountdownInterval);
-      const activePlayer = partyPlayers[currentTurnIndex] || partyPlayers[0];
-      const qObj = pickFilteredBulletQuestion();
-      const indexedOpts = qObj.opts.map((text, idx) => ({ text, isCorrect: idx === qObj.ans })).sort(() => Math.random() - 0.5);
-      document.getElementById("bulletTopicTag").textContent = `${qObj.subject} • ${qObj.topic}`;
-      document.getElementById("bulletTargetPlayerText").textContent = `🔫 ${activePlayer.name} must answer before the timer hits 0s or lose 1 Heart (💔)!`;
-      document.getElementById("bulletQuestionText").textContent = qObj.q;
-      document.getElementById("bulletOptionsList").innerHTML = indexedOpts.map(item => `<button type="button" onclick="answerBulletQuiz(${item.isCorrect})" class="clicky p-3.5 rounded-xl bg-black hover:bg-zinc-900 border border-rose-500/40 text-xs font-semibold text-white text-left">${item.text}</button>`).join("");
-      document.getElementById("bulletQuizBox").classList.remove("hidden");
-
-      let secondsLeft = 12;
-      const timerEl = document.getElementById("bulletCountdownText");
-      timerEl.textContent = `${secondsLeft}s`;
-      bulletCountdownInterval = setInterval(() => {
-        secondsLeft--; timerEl.textContent = `${secondsLeft}s`;
-        if (secondsLeft <= 0) { clearInterval(bulletCountdownInterval); window.answerBulletQuiz(false, true); }
-      }, 1000);
-    }
-
-    document.getElementById("pullTriggerBtn").addEventListener("click", async () => {
-      if (!partyPlayers.filter(p => p.hearts > 0).length) return alert("All players are out of hearts! Click 'Heal All Hearts'.");
-      const activePlayer = partyPlayers[currentTurnIndex] || partyPlayers[0];
-      cylinderAngle += 60;
-      document.getElementById("revolverCylinder").style.transform = `rotate(${cylinderAngle}deg)`;
-      if (currentChamber === bulletPosition) {
-        updateCylinderVisuals(currentChamber);
-        document.getElementById("pullTriggerBtn").disabled = true;
-        document.getElementById("rouletteResultBanner").textContent = `💥 BANG! Chamber ${currentChamber + 1} fired on ${activePlayer.name}! Defuse the NEET question now!`;
-        launchBulletQuestionModal();
-      } else {
-        currentChamber++; survivalStreak++; activePlayer.score += 15;
-        if (currentUser) { currentUser.rouletteXp = (currentUser.rouletteXp || 0) + 15; saveUserToCloud(currentUser); }
-        const prevName = activePlayer.name;
-        advanceToNextPlayer();
-        document.getElementById("rouletteResultBanner").textContent = `😮‍💨 *CLICK!* ${prevName} survived Chamber ${currentChamber} (+15 pts)! Passing gun to ${(partyPlayers[currentTurnIndex] || partyPlayers[0]).name}...`;
-        updateCylinderVisuals();
-      }
-    });
-
-    document.getElementById("forceQuestionBtn").addEventListener("click", () => { document.getElementById("pullTriggerBtn").disabled = true; launchBulletQuestionModal(); });
-
-    window.answerBulletQuiz = async function(isCorrect, timedOut = false) {
-      if (bulletCountdownInterval) clearInterval(bulletCountdownInterval);
-      document.getElementById("bulletQuizBox").classList.add("hidden");
-      const activePlayer = partyPlayers[currentTurnIndex] || partyPlayers[0];
-      if (isCorrect) {
-        survivalStreak++; activePlayer.score += 50;
-        if (currentUser) { currentUser.rouletteXp = (currentUser.rouletteXp || 0) + 50; await saveUserToCloud(currentUser); }
-        document.getElementById("rouletteResultBanner").textContent = `🛡️ BULLET DEFUSED! ${activePlayer.name} answered right (+50 pts)! Auto-spinning cylinder...`;
-      } else {
-        survivalStreak = 0; activePlayer.hearts = Math.max(0, activePlayer.hearts - 1);
-        const aliveNow = partyPlayers.filter(p => p.hearts > 0);
-        if (partyPlayers.length > 1 && aliveNow.length === 1) {
-          document.getElementById("rouletteResultBanner").textContent = `👑 VICTORY! ${aliveNow[0].name} is the Last Survivor at the table (${aliveNow[0].score} pts)!`;
-        } else {
-          document.getElementById("rouletteResultBanner").textContent = `${timedOut ? "⏱️ TIME UP!" : "💀 WRONG ANSWER!"} ${activePlayer.name} lost 1 Heart (💔)! Auto-spinning cylinder...`;
-        }
-      }
-      advanceToNextPlayer(); spinNewCylinder(); renderPlayersRoster();
-    };
-
-    // ================= 18. 6-SLIDE MOBILE SCREEN SLIDING CONTROLLER =================
+    // 15. 3-SLIDE MOBILE SCREEN SLIDING CONTROLLER
     const phoneSliderViewport = document.getElementById("phoneSliderViewport");
     const SCREEN_TITLES = [
-      "Swipe ⇄ • 1/6 Command & Telemetry",
-      "Swipe ⇄ • 2/6 NCERT Checklist",
-      "Swipe ⇄ • 3/6 3D Spider Web",
-      "Swipe ⇄ • 4/6 Live Arena",
-      "Swipe ⇄ • 5/6 Notes Vault",
-      "Swipe ⇄ • 6/6 Revolver Party"
+      "Swipe ⇄ • 1/3 Command & Telemetry",
+      "Swipe ⇄ • 2/3 NCERT Checklist",
+      "Swipe ⇄ • 3/3 3D Spider Web"
     ];
     const navButtons = [
       document.getElementById("navDashboardBtn"),
       document.getElementById("navSyllabusBtn"),
-      document.getElementById("navSpider3dBtn"),
-      document.getElementById("navLeaderboardBtn"),
-      document.getElementById("navNotesBtn"),
-      document.getElementById("navGameBtn")
+      document.getElementById("navSpider3dBtn")
     ];
     let currentSlideIndex = 0;
 
@@ -2305,19 +1740,19 @@
       currentSlideIndex = idx;
       const lbl = document.getElementById("activeScreenLabel");
       if (lbl) lbl.textContent = SCREEN_TITLES[idx] || SCREEN_TITLES[0];
-      for (let i = 0; i < 6; i++) {
+      for (let i = 0; i < 3; i++) {
         const dot = document.getElementById(`dotIndicator${i}`);
-        if (dot) dot.className = i === idx ? "h-1.5 w-7 rounded-full bg-white transition-all duration-300 shadow-[0_0_10px_rgba(255,255,255,0.7)]" : "h-1.5 w-2 rounded-full bg-zinc-700 hover:bg-zinc-500 transition-all duration-300";
+        if (dot) dot.className = i === idx ? "h-1.5 w-7 rounded-full bg-white transition-all duration-300 shadow-[0_0_10px_rgba(255,255,255,.7)]" : "h-1.5 w-2 rounded-full bg-zinc-700 hover:bg-zinc-500 transition-all duration-300";
         const btn = navButtons[i];
         if (btn) btn.className = i === idx
-          ? "clicky flex flex-col items-center justify-center py-2 px-1 rounded-2xl bg-white/15 text-white border border-white/30 font-bold text-[10px] sm:text-xs relative shadow-sm"
-          : "clicky flex flex-col items-center justify-center py-2 px-1 rounded-2xl bg-zinc-900/70 text-zinc-400 border border-transparent hover:text-white font-semibold text-[10px] sm:text-xs relative";
+          ? "clicky flex flex-col items-center justify-center py-2 px-2 rounded-2xl bg-white/15 text-white border border-white/30 font-bold text-xs shadow-sm"
+          : "clicky flex flex-col items-center justify-center py-2 px-2 rounded-2xl bg-zinc-900/70 text-zinc-400 border border-transparent hover:text-white font-semibold text-xs";
       }
       if (idx === 2) resize3dCanvas();
     }
 
     window.slideToScreen = function(index) {
-      const clamped = Math.max(0, Math.min(5, index));
+      const clamped = Math.max(0, Math.min(2, index));
       phoneSliderViewport.scrollTo({ left: clamped * window.innerWidth, behavior: "smooth" });
       updateActiveSlideIndicators(clamped);
     };
@@ -2327,7 +1762,7 @@
       if (scrollTimeout) clearTimeout(scrollTimeout);
       scrollTimeout = setTimeout(() => {
         const idx = Math.round(phoneSliderViewport.scrollLeft / window.innerWidth);
-        if (idx !== currentSlideIndex && idx >= 0 && idx <= 5) updateActiveSlideIndicators(idx);
+        if (idx !== currentSlideIndex && idx >= 0 && idx <= 2) updateActiveSlideIndicators(idx);
       }, 40);
     }, { passive: true });
 
@@ -2344,11 +1779,8 @@
     document.getElementById("navSyllabusBtn").addEventListener("click", () => window.slideToScreen(1));
     document.getElementById("navSpider3dBtn").addEventListener("click", () => window.slideToScreen(2));
     document.getElementById("dashSyllabusCard").addEventListener("click", () => window.slideToScreen(2));
-    document.getElementById("navLeaderboardBtn").addEventListener("click", () => window.slideToScreen(3));
-    document.getElementById("navNotesBtn").addEventListener("click", () => window.slideToScreen(4));
-    document.getElementById("navGameBtn").addEventListener("click", () => window.slideToScreen(5));
 
-    // ================= 19. AUTO-LOGIN ON PAGE LOAD =================
+    // 16. AUTO-LOGIN ON PAGE LOAD
     const saved = localStorage.getItem("studypunch_current_user");
     if (saved) {
       try {
