@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>StudyPunch — Executive NEET 2027 Command Atelier</title>
-  <meta name="description" content="StudyPunch NEET 2027 command hub with Interactive 3D Spider-Web Progress Graph, Centralized Settings, Live Focus Wallpapers (Aurora, Snowfall, Rain), 3 Web Themes, Doomsday Chronograph, DOT AI, and Multiplayer Revolver." />
+  <title>StudyPunch — Executive NEET 2027 Command Atelier & 3D Web</title>
+  <meta name="description" content="StudyPunch NEET 2027 command hub with Interactive 3D Spider-Web Progress Graph, Centralized Settings, Live Focus Wallpapers (Aurora, Snowfall, Rain), 3 Web Themes, Doomsday Chronograph, NCERT Class 11 & 12 Tracker, DOT AI, and Multiplayer Revolver." />
   <meta name="theme-color" content="#09090b" />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2309090b'/%3E%3Cstop offset='100%25' stop-color='%2318181b'/%3E%3C/linearGradient%3E%3ClinearGradient id='gold' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23f3e5ab'/%3E%3Cstop offset='50%25' stop-color='%23d4af37'/%3E%3Cstop offset='100%25' stop-color='%23aa771c'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='24' fill='url(%23bg)' stroke='url(%23gold)' stroke-width='4'/%3E%3Ccircle cx='50' cy='52' r='31' fill='none' stroke='url(%23gold)' stroke-width='3.5' stroke-dasharray='165 30'/%3E%3Cpath d='M42 18 H58 M50 18 V24' stroke='%23d4af37' stroke-width='4.5' stroke-linecap='round'/%3E%3Cpath d='M54 33 L39 54 H51 L46 73 L63 50 H51 Z' fill='url(%23gold)'/%3E%3C/svg%3E" />
 
@@ -90,29 +90,6 @@
 </head>
 <body class="antialiased selection:bg-amber-400 selection:text-black flex flex-col min-h-screen">
 
-  <!-- NEW USER INTRODUCTION PRESENTATION MODAL -->
-  <div id="spIntroModal" class="hidden fixed inset-0 z-[130] bg-black/85 backdrop-blur-xl flex items-center justify-center p-4">
-    <div class="luxury-card rounded-3xl w-full max-w-xl overflow-hidden border border-white/20 shadow-2xl flex flex-col">
-      <div class="px-6 pt-5 pb-3 flex items-center justify-between border-b border-white/10">
-        <span id="introSlideTag" class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-[0.2em] bg-white/10 theme-gradient-text border border-white/15">WELCOME</span>
-        <button type="button" id="introSkipBtn" class="clicky text-xs font-semibold text-zinc-400 hover:text-white px-2 py-1">Skip Tour ✕</button>
-      </div>
-      <div class="p-6 sm:p-8 text-center space-y-5">
-        <div id="introSlideIcon" class="w-20 h-20 mx-auto rounded-3xl bg-black/80 border border-white/15 flex items-center justify-center text-4xl shadow-xl">⚡</div>
-        <div>
-          <h2 id="introSlideTitle" class="font-serif-luxury text-2xl sm:text-3xl font-bold text-white tracking-tight"></h2>
-          <p id="introSlideBody" class="text-xs sm:text-sm text-zinc-300 leading-relaxed mt-3 max-w-md mx-auto"></p>
-        </div>
-        <ul id="introSlideBullets" class="text-left max-w-md mx-auto space-y-2 bg-black/60 p-4 rounded-2xl border border-zinc-800 text-xs text-zinc-300"></ul>
-      </div>
-      <div class="px-6 py-4 bg-black/50 border-t border-white/10 flex items-center justify-between gap-3">
-        <button type="button" id="introPrevBtn" class="clicky px-4 py-2 rounded-xl text-xs font-bold bg-zinc-900 text-zinc-300 border border-zinc-800 hover:text-white">← Back</button>
-        <div id="introDots" class="flex items-center gap-1.5"></div>
-        <button type="button" id="introNextBtn" class="clicky px-5 py-2 rounded-xl text-xs font-extrabold theme-btn-primary">Next →</button>
-      </div>
-    </div>
-  </div>
-
   <!-- CENTRALIZED SETTINGS & CUSTOMIZATION DRAWER -->
   <div id="settingsModal" class="hidden fixed inset-0 z-[110] bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
     <div class="luxury-card rounded-3xl w-full max-w-lg max-h-[88vh] flex flex-col overflow-hidden border border-white/15 shadow-2xl">
@@ -184,9 +161,8 @@
         </div>
 
         <div class="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-2">
-          <button type="button" id="replayIntroBtn" class="clicky px-3.5 py-2 rounded-xl text-xs font-bold bg-white/10 hover:bg-white/20 text-white border border-white/20">🎬 Replay Intro Tour</button>
-          <button type="button" id="installPwaBtn" class="hidden clicky px-3.5 py-2 rounded-xl text-xs font-bold theme-btn-primary">📲 Install App</button>
-          <button type="button" id="settingsExportCsvBtn" class="clicky px-3.5 py-2 rounded-xl text-xs font-semibold bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-800">⬇ Export CSV</button>
+          <button type="button" id="installPwaBtn" class="hidden clicky px-3.5 py-2 rounded-xl text-xs font-bold theme-btn-primary">📲 Install App to Home Screen</button>
+          <button type="button" id="settingsExportCsvBtn" class="clicky px-3.5 py-2 rounded-xl text-xs font-semibold bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-800">⬇ Export Study CSV Backup</button>
           <span id="settingsSavedToast" class="text-[11px] font-bold text-emerald-400 opacity-0 transition-opacity">✓ Saved</span>
         </div>
       </div>
@@ -352,7 +328,7 @@
 
     <div id="phoneSliderViewport" class="phone-slider-viewport flex-1">
 
-      <!-- SLIDE 0: COMMAND CENTER -->
+      <!-- SLIDE 0: COMMAND CENTER (DOOMSDAY + CLOCK-IN + DOT AI + 3 CHARTS) -->
       <main id="dashboardView" class="phone-screen-slide p-4 sm:p-6">
         <div class="max-w-7xl mx-auto space-y-6">
           <div id="doomsdayClockContainer" class="doomsday-panel rounded-3xl p-6 sm:p-8 relative overflow-hidden">
@@ -392,7 +368,7 @@
             <p class="text-xs text-zinc-400 mb-2">Clocking in opens your Sanctuary Focus room (Aurora, Snowfall, Rain, or Pitch Black).</p>
             <div id="liveTimerDisplay" class="mono-nums text-5xl sm:text-7xl font-black text-white tracking-tight my-4">00:00:00</div>
             <div class="max-w-md mx-auto mb-5">
-              <input id="sessionSubjectInput" type="text" placeholder="Specify your study objective (e.g. Physics: Rotational Motion / Bio: Genetics)" class="w-full px-4 py-3 rounded-2xl bg-black/80 border border-zinc-800 text-white text-center text-sm focus:outline-none focus:border-amber-400" />
+              <input id="sessionSubjectInput" type="text" placeholder="Specify your NCERT objective (e.g. Physics: Rotational Motion / Bio: Genetics)" class="w-full px-4 py-3 rounded-2xl bg-black/80 border border-zinc-800 text-white text-center text-sm focus:outline-none focus:border-amber-400" />
             </div>
             <div class="max-w-md mx-auto">
               <button id="clockInBtn" type="button" class="clicky w-full theme-btn-primary font-extrabold py-4 px-6 rounded-2xl text-xs uppercase tracking-[0.18em]">▶ Clock In • Sanctuary Focus Mode</button>
@@ -405,10 +381,10 @@
                 <div class="w-10 h-10 rounded-2xl bg-black/80 border border-white/15 flex items-center justify-center theme-gradient-text font-black text-lg">◉</div>
                 <div>
                   <div class="flex items-center gap-2">
-                    <h2 class="font-serif-luxury text-lg font-bold text-white tracking-tight">DOT — Smart Next-Step Recommender</h2>
+                    <h2 class="font-serif-luxury text-lg font-bold text-white tracking-tight">DOT — Curated NCERT Next-Step Atelier</h2>
                     <span class="px-2 py-0.5 rounded-md text-[9px] font-extrabold tracking-widest bg-white/10 text-zinc-200 border border-white/15">AI PATHFINDER</span>
                   </div>
-                  <p class="text-xs text-zinc-400">Analyzing your completed syllabus nodes to prescribe your highest-yield next topic</p>
+                  <p class="text-xs text-zinc-400">Analyzing your completed NCERT nodes to prescribe your highest-yield next topic</p>
                 </div>
               </div>
               <button id="dotRefreshBtn" type="button" class="clicky px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-black/80 hover:bg-zinc-900 text-zinc-200 border border-white/15">↻ Recalibrate DOT</button>
@@ -468,10 +444,10 @@
             <div class="luxury-card rounded-2xl p-6 flex flex-col justify-between">
               <div>
                 <h3 class="font-serif-luxury text-lg font-bold text-white mb-1">✍️ Manual Study Ledger</h3>
-                <p class="text-xs text-zinc-400 mb-4">Log offline study sessions manually to feed your charts &amp; leaderboard.</p>
+                <p class="text-xs text-zinc-400 mb-4">Log offline NCERT book sessions manually to feed your charts &amp; leaderboard.</p>
                 <form id="manualEntryForm" class="space-y-3">
                   <div><label class="block text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-1">Date</label><input id="manualDate" type="date" required class="w-full px-3 py-2 rounded-xl bg-black/80 border border-zinc-800 text-white text-xs" /></div>
-                  <div><label class="block text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-1">Subject / Topic</label><input id="manualSubject" type="text" required placeholder="e.g. Physics: Rotational Motion" class="w-full px-3 py-2 rounded-xl bg-black/80 border border-zinc-800 text-white text-xs" /></div>
+                  <div><label class="block text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-1">Subject / NCERT Chapter</label><input id="manualSubject" type="text" required placeholder="e.g. Physics: Rotational Motion" class="w-full px-3 py-2 rounded-xl bg-black/80 border border-zinc-800 text-white text-xs" /></div>
                   <div class="grid grid-cols-2 gap-3">
                     <div><label class="block text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-1">Hours</label><input id="manualHours" type="number" min="0" max="18" value="1" required class="w-full px-3 py-2 rounded-xl bg-black/80 border border-zinc-800 text-white text-xs mono-nums" /></div>
                     <div><label class="block text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-1">Minutes</label><input id="manualMinutes" type="number" min="0" max="59" value="30" required class="w-full px-3 py-2 rounded-xl bg-black/80 border border-zinc-800 text-white text-xs mono-nums" /></div>
@@ -504,12 +480,12 @@
         </div>
       </main>
 
-      <!-- SLIDE 1: NEET 2027 SYLLABUS TRACKER -->
+      <!-- SLIDE 1: NCERT SYLLABUS CHECKLIST -->
       <section id="syllabusView" class="phone-screen-slide p-4 sm:p-6">
         <div class="max-w-7xl mx-auto space-y-6">
           <div class="luxury-card rounded-3xl p-4 sm:p-5 sticky top-0 z-20">
             <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
-              <input id="syllabusSearchInput" type="text" placeholder="🔍 Search Class 11 & 12 Chapters & Topics (e.g. Krebs, Aldol, Gauss, Frog, Lac Operon)..." class="flex-1 pl-4 pr-6 py-3 rounded-2xl bg-black/80 border border-white/15 text-white text-sm focus:outline-none focus:border-amber-400" />
+              <input id="syllabusSearchInput" type="text" placeholder="🔍 Search NCERT Class 11 & 12 Chapters & Sub-Topics (e.g. Krebs, Aldol, Gauss, Frog, Lac Operon)..." class="flex-1 pl-4 pr-6 py-3 rounded-2xl bg-black/80 border border-white/15 text-white text-sm focus:outline-none focus:border-amber-400" />
               <div class="flex items-center gap-2">
                 <button id="expandAllFoldersBtn" type="button" class="clicky px-4 py-2.5 rounded-xl text-xs font-bold theme-btn-primary">🕸️ Expand All</button>
                 <button id="collapseAllFoldersBtn" type="button" class="clicky px-3.5 py-2.5 rounded-xl text-xs font-semibold bg-black/80 hover:bg-zinc-900 text-zinc-300 border border-zinc-800">Collapse</button>
@@ -521,13 +497,13 @@
           <div class="luxury-card rounded-3xl p-6">
             <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
               <div>
-                <span class="px-2.5 py-1 rounded-lg bg-white/10 text-zinc-200 border border-white/15 font-bold text-[10px] tracking-widest uppercase">Complete Class 11 &amp; 12 NEET 2027 Blueprint</span>
-                <h2 class="font-serif-luxury text-2xl font-bold text-white mt-2">Syllabus Progress Checklist</h2>
-                <p class="text-xs text-zinc-400 mt-1">Tick topics below to expand your 3D Spider-Web crystal on the next slide and calibrate DOT AI.</p>
+                <span class="px-2.5 py-1 rounded-lg bg-white/10 text-zinc-200 border border-white/15 font-bold text-[10px] tracking-widest uppercase">Complete NCERT Class 11 &amp; 12 Blueprint</span>
+                <h2 class="font-serif-luxury text-2xl font-bold text-white mt-2">NCERT Syllabus Tracker</h2>
+                <p class="text-xs text-zinc-400 mt-1">Tick sub-topics below to expand your 3D Spider-Web crystal on the next slide and calibrate DOT AI.</p>
               </div>
               <div class="text-right">
                 <span id="overallSyllabusBigPct" class="mono-nums text-4xl font-black theme-gradient-text">0%</span>
-                <p id="overallSyllabusCounts" class="text-xs text-zinc-400 font-semibold">0 / 0 nodes spun</p>
+                <p id="overallSyllabusCounts" class="text-xs text-zinc-400 font-semibold">0 / 0 NCERT nodes spun</p>
               </div>
             </div>
             <div class="w-full bg-black h-3 rounded-full overflow-hidden mb-5 border border-zinc-800"><div id="overallSyllabusBar" class="theme-btn-primary h-full rounded-full transition-all duration-500" style="width: 0%"></div></div>
@@ -551,7 +527,7 @@
                   <span id="spider3dRankBadge" class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-amber-500/20 text-amber-200 border border-amber-400/30">Rank: Initiate</span>
                 </div>
                 <h2 class="font-serif-luxury text-2xl sm:text-3xl font-bold text-white mt-1.5">🌐 3D Spider-Web Mastery Observatory</h2>
-                <p class="text-xs text-zinc-400 mt-0.5">Drag to orbit 360° in real 3D space. Every syllabus topic you tick expands your holographic crystal outward.</p>
+                <p class="text-xs text-zinc-400 mt-0.5">Drag to orbit 360° in real 3D space. Every NCERT topic you tick expands your holographic crystal outward.</p>
               </div>
               <div class="flex flex-wrap items-center gap-2">
                 <button type="button" id="toggle3dAutoRotateBtn" class="clicky px-3.5 py-2 rounded-xl text-xs font-bold theme-btn-primary">🔄 Auto-Orbit: ON</button>
@@ -576,7 +552,7 @@
                   <div id="spider3dAxisList" class="space-y-3"></div>
                 </div>
                 <div class="bg-black/75 rounded-2xl p-4 border border-zinc-800">
-                  <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400 mb-2">📊 Subject-Wise Completion</p>
+                  <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400 mb-2">📊 Subject-Wise NCERT Completion</p>
                   <div class="h-32 w-full"><canvas id="syllabusSubjectBarCanvas"></canvas></div>
                 </div>
               </div>
@@ -597,7 +573,7 @@
                   <h2 class="font-serif-luxury text-2xl font-bold text-white">🏆 Global Live Study Arena</h2>
                   <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-950/80 text-emerald-300 border border-emerald-500/40"><span class="w-2 h-2 rounded-full bg-emerald-400 live-beacon"></span>REAL-TIME SYNC</span>
                 </div>
-                <p class="text-xs text-zinc-400 mt-1">Monitor which peers are 🟢 LIVE studying right now, their active topic, session count, and cumulative hours.</p>
+                <p class="text-xs text-zinc-400 mt-1">Monitor which peers are 🟢 LIVE studying right now, their active NCERT topic, session count, and cumulative hours.</p>
               </div>
               <div class="flex flex-wrap items-center gap-2">
                 <button id="lbFilterAllBtn" type="button" class="clicky px-3.5 py-2 rounded-xl text-xs font-bold theme-btn-primary">All Scholars</button>
@@ -634,14 +610,14 @@
             </div>
             <div class="md:col-span-2 luxury-card rounded-3xl p-6 flex flex-col h-[68vh]">
               <div class="flex flex-wrap items-center justify-between gap-2 pb-4 mb-4 border-b border-white/10">
-                <input id="noteTitleInput" type="text" placeholder="Note Title (e.g. Biology Exceptions / Physics Formulas)" class="flex-1 bg-transparent font-serif-luxury text-xl font-bold text-white focus:outline-none" />
+                <input id="noteTitleInput" type="text" placeholder="Note Title (e.g. NCERT Biology Exceptions / Physics Formulas)" class="flex-1 bg-transparent font-serif-luxury text-xl font-bold text-white focus:outline-none" />
                 <div class="flex items-center gap-2">
                   <span id="noteSaveStatus" class="text-[11px] text-zinc-500">Saved</span>
                   <button id="saveNoteBtn" type="button" class="clicky px-4 py-2 rounded-xl text-xs font-bold theme-btn-primary">💾 Save Note</button>
                   <button id="deleteNoteBtn" type="button" class="clicky px-3 py-2 rounded-xl text-xs font-semibold bg-rose-950/50 text-rose-300 border border-rose-500/30">Delete</button>
                 </div>
               </div>
-              <textarea id="noteBodyInput" placeholder="Record high-yield key points, reaction mechanisms, or mock test errors... Automatically syncs to your Cloud ID." class="flex-1 w-full bg-black/70 rounded-2xl p-4 border border-zinc-800 text-sm text-zinc-200 leading-relaxed focus:outline-none focus:border-amber-400 resize-none"></textarea>
+              <textarea id="noteBodyInput" placeholder="Record high-yield NCERT lines, reaction mechanisms, or mock test errors... Automatically syncs to your Cloud ID." class="flex-1 w-full bg-black/70 rounded-2xl p-4 border border-zinc-800 text-sm text-zinc-200 leading-relaxed focus:outline-none focus:border-amber-400 resize-none"></textarea>
             </div>
           </div>
           <div class="pt-2 text-center"><p class="text-xs text-zinc-500 tracking-wider">StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p></div>
@@ -669,8 +645,8 @@
 
             <div class="luxury-card rounded-3xl p-6 flex flex-col justify-between">
               <div>
-                <span class="text-[10px] font-extrabold uppercase tracking-[0.2em] theme-gradient-text">🎯 Chapter Ammunition Loader</span>
-                <h3 class="font-serif-luxury text-lg font-bold text-white mb-3">Select Subject &amp; Topic for Bullet Questions</h3>
+                <span class="text-[10px] font-extrabold uppercase tracking-[0.2em] theme-gradient-text">🎯 NCERT Chapter Ammunition Loader</span>
+                <h3 class="font-serif-luxury text-lg font-bold text-white mb-3">Select Subject &amp; NCERT Chapter for Bullet Questions</h3>
                 <label class="block text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-1.5">1. Choose Subject</label>
                 <div id="gameSubjectBtnGroup" class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
                   <button type="button" data-subj="ALL" class="game-subj-btn clicky py-2.5 px-3 rounded-xl text-xs font-bold theme-btn-primary">🌐 All</button>
@@ -678,7 +654,7 @@
                   <button type="button" data-subj="Chemistry" class="game-subj-btn clicky py-2.5 px-3 rounded-xl text-xs font-semibold bg-black/80 text-zinc-300 border border-zinc-800 hover:bg-zinc-900">🧪 Chemistry</button>
                   <button type="button" data-subj="Biology" class="game-subj-btn clicky py-2.5 px-3 rounded-xl text-xs font-semibold bg-black/80 text-zinc-300 border border-zinc-800 hover:bg-zinc-900">🧬 Biology</button>
                 </div>
-                <label class="block text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-1.5">2. Choose Topic</label>
+                <label class="block text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-1.5">2. Choose NCERT Topic</label>
                 <div id="gameTopicBtnGroup" class="flex flex-wrap gap-1.5 max-h-36 overflow-y-auto pr-1"></div>
               </div>
               <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-xs">
@@ -711,7 +687,7 @@
             </div>
 
             <div id="rouletteResultBanner" class="mb-6 p-4 rounded-2xl bg-black/80 border border-zinc-800 text-sm font-semibold text-zinc-200">
-              Add players, pick your Subject &amp; Topic above, and pull the trigger!
+              Add players, pick your Subject &amp; NCERT Chapter above, and pull the trigger!
             </div>
 
             <div class="flex flex-wrap items-center justify-center gap-4">
@@ -746,7 +722,7 @@
     <nav class="bg-black/90 backdrop-blur-xl border-t border-white/10 px-1.5 py-2 z-40 shrink-0">
       <div class="max-w-2xl mx-auto grid grid-cols-6 gap-1">
         <button id="navDashboardBtn" type="button" class="clicky flex flex-col items-center justify-center py-2 px-1 rounded-2xl bg-white/10 text-white border border-white/25 font-bold text-[10px] sm:text-xs"><span class="text-base leading-none mb-1">⏱️</span><span class="truncate">Command</span></button>
-        <button id="navSyllabusBtn" type="button" class="clicky flex flex-col items-center justify-center py-2 px-1 rounded-2xl bg-zinc-900/70 text-zinc-400 border border-transparent hover:text-white font-semibold text-[10px] sm:text-xs"><span class="text-base leading-none mb-1">📋</span><span class="truncate">Syllabus</span></button>
+        <button id="navSyllabusBtn" type="button" class="clicky flex flex-col items-center justify-center py-2 px-1 rounded-2xl bg-zinc-900/70 text-zinc-400 border border-transparent hover:text-white font-semibold text-[10px] sm:text-xs"><span class="text-base leading-none mb-1">📋</span><span class="truncate">NCERT</span></button>
         <button id="navSpider3dBtn" type="button" class="clicky flex flex-col items-center justify-center py-2 px-1 rounded-2xl bg-zinc-900/70 text-zinc-400 border border-transparent hover:text-white font-semibold text-[10px] sm:text-xs"><span class="text-base leading-none mb-1">🌐</span><span class="truncate">3D Web</span></button>
         <button id="navLeaderboardBtn" type="button" class="clicky flex flex-col items-center justify-center py-2 px-1 rounded-2xl bg-zinc-900/70 text-zinc-400 border border-transparent hover:text-white font-semibold text-[10px] sm:text-xs relative"><span class="text-base leading-none mb-1">🏆</span><span class="truncate">Arena</span><span id="navLiveCountBadge" class="absolute top-1 right-1.5 px-1.5 py-0.2 rounded-full text-[9px] bg-emerald-500 text-black font-black">0</span></button>
         <button id="navNotesBtn" type="button" class="clicky flex flex-col items-center justify-center py-2 px-1 rounded-2xl bg-zinc-900/70 text-zinc-400 border border-transparent hover:text-white font-semibold text-[10px] sm:text-xs"><span class="text-base leading-none mb-1">📝</span><span class="truncate">Notes</span></button>
@@ -760,7 +736,7 @@
     import { getFirestore, doc, getDoc, setDoc, collection, getDocs, onSnapshot } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
     import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
 
-    // ================= GLOBAL STATE =================
+    // ================= GLOBAL STATE (DECLARED FIRST TO PREVENT TDZ ERRORS) =================
     let db = null, auth = null, googleProvider = null, currentUser = null, timerInterval = null;
     let studyChart = null, subjectDoughnutChart = null, velocityLineChart = null, syllabusSubjectBarChart = null;
     let allCloudUsersCache = {}, leaderboardLiveOnly = false, activeNoteId = null;
@@ -778,54 +754,13 @@
       night:  { bar: "#818cf8", line: "#38bdf8", lineFill: "rgba(56, 189, 248, 0.16)", rgb: "129, 140, 248" }
     };
 
-    // ================= NEW USER INTRODUCTION PRESENTATION =================
-    const INTRO_SLIDES = [
-      { icon: "⚡", tag: "WELCOME TO STUDYPUNCH", title: "Your NEET 2027 Executive Atelier",
-        body: "Replace chaotic timers and scattered spreadsheets with one cloud-synced cockpit. Swipe horizontally across 6 tactical screens across phone and laptop.",
-        bullets: ["Cloud-synced via Firebase & Google Login or 4-digit PIN", "Installable on your phone like a native app (PWA)", "3 Custom Web Themes inside ⚙️ Settings: Sunset, Flora & Fauna, Night Sky"] },
-      { icon: "🌌", tag: "SANCTUARY FOCUS MODE", title: "Blackout Clock-In & Live Wallpapers",
-        body: "Tap Clock In to lock into fullscreen focus with Live Aurora, Snowfall, Focus Rain, or Pitch Black—paired with optional calming rain/wind white noise.",
-        bullets: ["Optional NEET 2027 Doomsday Clock (02 May 2027) ticking Seconds → Days", "Automatic 3-Chart Performance Diagnostics & Manual Ledger", "One-click CSV backup inside ⚙️ Settings"] },
-      { icon: "🎯", tag: "SMART PATHFINDER", title: "DOT AI & Syllabus Progress Tracker",
-        body: "Track every Class 11 & Class 12 chapter across Physics, Chemistry, and Biology. DOT AI automatically scans your unchecked nodes and recommends your next study target.",
-        bullets: ["Instant search across all chapters and topics", "One-tap Clock In directly from any topic or DOT card", "Auto-syncs completion % to your live profile"] },
-      { icon: "🌐", tag: "3D PROGRESS OBSERVATORY", title: "Interactive 3D Spider-Web Crystal",
-        body: "Swipe to Slide 3 (3D Web) to view your preparation as a rotatable 3D holographic crystal. Drag 360° as every completed chapter stretches your mastery apex outward.",
-        bullets: ["Live 6-Axis 3D Vector Coordinates (Class 11 & 12 subjects)", "Dynamic Mastery Rank Badges from Initiate to Apex MBBS Legend", "Auto-orbit & scroll-to-zoom controls"] },
-      { icon: "🔫", tag: "LIVE ARENA & PARTY MODE", title: "Leaderboard, Notes Vault & Revolver",
-        body: "See which friends are live studying right now, keep formulas inside your private Notes Vault, and test your speed in Multiplayer NEET Revolver Roulette.",
-        bullets: ["Real-time Live Studying badges on the Global Arena", "Multiplayer Revolver with 3-Heart survival & 12-second bullet defusal", "Replay this tour anytime inside ⚙️ Settings → Replay Intro Tour"] }
-    ];
-
-    let introIdx = 0;
-    function renderIntroSlide(idx) {
-      introIdx = Math.max(0, Math.min(INTRO_SLIDES.length - 1, idx));
-      const s = INTRO_SLIDES[introIdx];
-      document.getElementById("introSlideTag").textContent = `${introIdx + 1} / ${INTRO_SLIDES.length} • ${s.tag}`;
-      document.getElementById("introSlideIcon").textContent = s.icon;
-      document.getElementById("introSlideTitle").textContent = s.title;
-      document.getElementById("introSlideBody").textContent = s.body;
-      document.getElementById("introSlideBullets").innerHTML = s.bullets.map(b => `<li class="flex items-start gap-2"><span class="theme-gradient-text font-bold">✦</span><span>${b}</span></li>`).join("");
-      document.getElementById("introPrevBtn").classList.toggle("opacity-40", introIdx === 0);
-      document.getElementById("introPrevBtn").disabled = introIdx === 0;
-      document.getElementById("introNextBtn").textContent = introIdx === INTRO_SLIDES.length - 1 ? "Launch StudyPunch 🚀" : "Next →";
-      document.getElementById("introDots").innerHTML = INTRO_SLIDES.map((_, i) => `<span class="h-1.5 rounded-full transition-all duration-300 ${i === introIdx ? 'w-6 bg-white' : 'w-1.5 bg-zinc-700'}"></span>`).join("");
-    }
-    function openIntroPresentation(startIdx = 0) { renderIntroSlide(startIdx); document.getElementById("spIntroModal").classList.remove("hidden"); }
-    function closeIntroPresentation() { localStorage.setItem("studypunch_intro_seen_v1", "true"); document.getElementById("spIntroModal").classList.add("hidden"); }
-
-    document.getElementById("introSkipBtn").addEventListener("click", closeIntroPresentation);
-    document.getElementById("introPrevBtn").addEventListener("click", () => renderIntroSlide(introIdx - 1));
-    document.getElementById("introNextBtn").addEventListener("click", () => { if (introIdx >= INTRO_SLIDES.length - 1) closeIntroPresentation(); else renderIntroSlide(introIdx + 1); });
-    document.getElementById("replayIntroBtn").addEventListener("click", () => { document.getElementById("settingsModal").classList.add("hidden"); openIntroPresentation(0); });
-
-    // ================= COMPACT NEET 2027 SYLLABUS DATA =================
+    // ================= COMPACT GRANULAR NCERT CLASS 11 & 12 SYLLABUS PARSER =================
     const mkCh = (arr) => arr.map(([id, name, sub]) => ({ id, name, subtopics: sub.split("|") }));
     const NEET_2027_SYLLABUS = [
       {
         id: "phys", subject: "Physics", icon: "⚡",
         units: [
-          { id: "phys_11", unitName: "Class 11 Physics (Ch 1–14)", chapters: mkCh([
+          { id: "phys_11", unitName: "NCERT Class 11 Physics (Ch 1–14)", chapters: mkCh([
             ["p11_1", "Ch 1: Units and Measurements", "SI Units & Base/Derived Units|Significant Figures & Rounding|Dimensional Analysis & Applications|Vernier Callipers & Screw Gauge"],
             ["p11_2", "Ch 2: Motion in a Straight Line", "Displacement, Speed & Velocity|Position-Time & Velocity-Time Graphs|Kinematic Equations & Free Fall|Relative Velocity in 1D"],
             ["p11_3", "Ch 3: Motion in a Plane", "Vectors, Resolution, Dot & Cross Product|Projectile Motion (Path, Time, Range)|Uniform Circular Motion & Centripetal Accel"],
@@ -841,7 +776,7 @@
             ["p11_13", "Ch 13: Oscillations", "SHM Displacement, Velocity, Accel & Energy|Spring Oscillations & Simple Pendulum"],
             ["p11_14", "Ch 14: Waves", "Progressive Wave & Sound Speed (Laplace)|Superposition, Standing Waves & Beats"]
           ])},
-          { id: "phys_12", unitName: "Class 12 Physics (Ch 1–14)", chapters: mkCh([
+          { id: "phys_12", unitName: "NCERT Class 12 Physics (Ch 1–14)", chapters: mkCh([
             ["p12_1", "Ch 1: Electric Charges and Fields", "Coulomb's Law & Superposition|Electric Field Lines, Dipole & Torque|Electric Flux & Gauss's Law Applications"],
             ["p12_2", "Ch 2: Electrostatic Potential & Capacitance", "Potential of Point Charge, Dipole & Equipotentials|Dielectrics, Parallel Plate Capacitor & Energy"],
             ["p12_3", "Ch 3: Current Electricity", "Drift Velocity, Mobility & Ohm's Law|Cell EMF, Internal Resistance & Kirchhoff's Rules|Wheatstone Bridge & Meter Bridge"],
@@ -862,7 +797,7 @@
       {
         id: "chem", subject: "Chemistry", icon: "🧪",
         units: [
-          { id: "chem_11", unitName: "Class 11 Chemistry (Ch 1–9)", chapters: mkCh([
+          { id: "chem_11", unitName: "NCERT Class 11 Chemistry (Ch 1–9)", chapters: mkCh([
             ["c11_1", "Ch 1: Some Basic Concepts of Chemistry", "Laws of Chemical Combination & Mole Concept|Empirical Formula, Stoichiometry & Limiting Reagent"],
             ["c11_2", "Ch 2: Structure of Atom", "Bohr Model & Hydrogen Spectrum|de Broglie, Heisenberg & Quantum Numbers|Aufbau, Pauli & Hund's Rule"],
             ["c11_3", "Ch 3: Classification & Periodicity", "Atomic/Ionic Radii, IE, Electron Gain & Electronegativity"],
@@ -870,16 +805,16 @@
             ["c11_5", "Ch 5: Thermodynamics", "First Law, Enthalpy & Hess's Law|Entropy (ΔS), Gibbs Energy (ΔG) & Spontaneity"],
             ["c11_6", "Ch 6: Equilibrium", "Kp, Kc & Le Chatelier's Principle|Acids/Bases, pH, Buffers & Solubility Product (Ksp)"],
             ["c11_7", "Ch 7: Redox Reactions", "Oxidation Number, Balancing & Electrode Potentials"],
-            ["c11_8", "Ch 8: Organic Chemistry (GOC)", "IUPAC Nomenclature & Structural/Stereoisomerism|Inductive, Resonance, Hyperconjugation & Intermediates|Purification & Quantitative Analysis"],
+            ["c11_8", "Ch 8: Organic Chemistry (GOC)", "IUPAC Nomenclature & Structural/Stereoisomerism|Inductive, Resonance, Hyperconjugation & Intermediates|Purification & Lassaigne's / Quantitative Analysis"],
             ["c11_9", "Ch 9: Hydrocarbons", "Alkanes & Conformations|Alkenes (Markovnikov, Kharasch, Ozonolysis)|Alkynes & Benzene Electrophilic Substitution"]
           ])},
-          { id: "chem_12", unitName: "Class 12 Chemistry (Ch 1–10 + p-Block)", chapters: mkCh([
+          { id: "chem_12", unitName: "NCERT Class 12 Chemistry (Ch 1–10 + p-Block)", chapters: mkCh([
             ["c12_1", "Ch 1: Solutions", "Henry's Law, Raoult's Law & Ideal/Non-Ideal Solutions|Colligative Properties & Van't Hoff Factor"],
             ["c12_2", "Ch 2: Electrochemistry", "Nernst Equation & Gibbs Energy Relation|Conductivity, Kohlrausch's Law, Faraday & Batteries"],
             ["c12_3", "Ch 3: Chemical Kinetics", "Order, Molecularity, Zero & First Order Kinetics|Arrhenius Equation & Activation Energy"],
             ["c12_4", "Ch 4: d- and f-Block Elements", "Transition Metals, K2Cr2O7 & KMnO4|Lanthanoid Contraction & Actinoids"],
             ["c12_5", "Ch 5: Coordination Compounds", "Werner's Theory, IUPAC & Isomerism|VBT, Crystal Field Theory (CFT) & Metal Carbonyls"],
-            ["c12_pblock", "Unit 10: p-Block Elements (Groups 13–18)", "Groups 13, 14 & 15 Trends & Anomalies|Groups 16, 17 & 18 Properties & Reactivity"],
+            ["c12_pblock", "NMC Unit 10: p-Block Elements (Groups 13–18)", "Groups 13, 14 & 15 Trends & Anomalies|Groups 16, 17 & 18 Properties & Reactivity"],
             ["c12_6", "Ch 6: Haloalkanes and Haloarenes", "SN1 vs SN2, Optical Activity & Zaitsev Elimination|Haloarenes & Polyhalogen Compounds"],
             ["c12_7", "Ch 7: Alcohols, Phenols and Ethers", "Alcohols (Lucas Test) & Phenols (Reimer-Tiemann, Kolbe)|Ethers & Williamson Synthesis"],
             ["c12_8", "Ch 8: Aldehydes, Ketones & Carboxylic Acids", "Nucleophilic Addition, Aldol & Cannizzaro Reaction|Tollens', Fehling's, Haloform & Carboxylic Acids (HVZ)"],
@@ -891,7 +826,7 @@
       {
         id: "bio", subject: "Biology", icon: "🧬",
         units: [
-          { id: "bio_11", unitName: "Class 11 Biology (Ch 1–19)", chapters: mkCh([
+          { id: "bio_11", unitName: "NCERT Class 11 Biology (Ch 1–19)", chapters: mkCh([
             ["b11_1", "Ch 1: The Living World", "Binomial Nomenclature & Taxonomic Categories"],
             ["b11_2", "Ch 2: Biological Classification", "Monera, Protista & Fungi|Viruses, Viroids, Prions & Lichens"],
             ["b11_3", "Ch 3: Plant Kingdom", "Algae, Bryophytes, Pteridophytes, Gymnosperms & Angiosperms"],
@@ -912,7 +847,7 @@
             ["b11_18", "Ch 18: Neural Control and Coordination", "Nerve Impulse Conduction, Synapses & Human Brain"],
             ["b11_19", "Ch 19: Chemical Coordination & Integration", "Endocrine Glands, Hormones & Mechanism of Action"]
           ])},
-          { id: "bio_12", unitName: "Class 12 Biology (Ch 1–13)", chapters: mkCh([
+          { id: "bio_12", unitName: "NCERT Class 12 Biology (Ch 1–13)", chapters: mkCh([
             ["b12_1", "Ch 1: Sexual Reproduction in Flowering Plants", "Micro/Megasporogenesis, Pollination & Double Fertilisation|Endosperm, Embryo, Seed, Apomixis & Polyembryony"],
             ["b12_2", "Ch 2: Human Reproduction", "Gametogenesis, Menstrual Cycle, Fertilisation & Parturition"],
             ["b12_3", "Ch 3: Reproductive Health", "Contraceptive Methods, MTP, STIs & ART (IVF, ZIFT, GIFT, ICSI)"],
@@ -1202,6 +1137,7 @@
     document.getElementById("toggleAmbientAudioBtn").addEventListener("click", () => isAmbientSoundOn ? stopAmbientSound() : startAmbientSound());
     document.getElementById("settingsAudioToggleBtn").addEventListener("click", () => { isAmbientSoundOn ? stopAmbientSound() : startAmbientSound(); flashSettingsSaved(); });
 
+    // Apply initial theme & wallpaper safely now that state is initialized
     window.setWebTheme(activeWebTheme, true);
     window.setFocusWallpaper(currentFocusWallpaper, true);
 
@@ -1249,7 +1185,7 @@
       btn.disabled = true; btn.textContent = "Creating ID...";
       try {
         const existing = await fetchUserFromCloud(rawId) || getLocalUsersMap()[rawId];
-        if (existing) return showAlert("Student ID already exists! Sign in instead.");
+        if (existing) { return showAlert("Student ID already exists! Sign in instead."); }
         const newUser = { id: rawId, name: fullName, pin, targetHours, webTheme: activeWebTheme, focusWallpaper: currentFocusWallpaper, sessions: [], syllabusChecked: {}, notes: [], rouletteXp: 0, activePunchStart: null, activeSubject: "", createdAt: new Date().toISOString() };
         await saveUserToCloud(newUser);
         loginSuccess(newUser);
@@ -1357,11 +1293,11 @@
 
       const grid = document.getElementById("dotRecommendationsGrid");
       if (!recommendations.length) {
-        grid.innerHTML = `<div class="col-span-3 p-4 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 text-emerald-300 text-xs font-bold text-center">🏆 Every single NEET 2027 node is completed! Focus on full-syllabus mock tests!</div>`;
+        grid.innerHTML = `<div class="col-span-3 p-4 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 text-emerald-300 text-xs font-bold text-center">🏆 Every single NCERT NEET 2027 node is completed! Focus on full-syllabus mock tests!</div>`;
         return;
       }
       grid.innerHTML = recommendations.map(rec => {
-        const statusTag = rec.doneInChapter > 0 ? `In Progress (${rec.doneInChapter}/${rec.totalInChapter})` : `Next Chapter`;
+        const statusTag = rec.doneInChapter > 0 ? `In Progress (${rec.doneInChapter}/${rec.totalInChapter})` : `Next NCERT Chapter`;
         const safeTitle = `${rec.subject}: ${rec.subtopicName}`.replace(/'/g, "\\'");
         return `
           <div class="bg-black/75 rounded-2xl p-4 border border-zinc-800 hover:border-white/25 transition flex flex-col justify-between">
@@ -1566,7 +1502,7 @@
       });
     }
 
-    // ================= SYLLABUS CHECKLIST & 3D SPIDER-WEB DATA =================
+    // ================= NCERT SYLLABUS & 3D SPIDER-WEB DATA =================
     const openFoldersState = { phys: true, chem: true, bio: true, phys_11: true, chem_11: true, bio_11: true };
     let spider3dOverallPct = 0;
     let spider3dAxesData = [
@@ -1668,7 +1604,7 @@
           }).join("");
 
           const unitPct = unitTotal ? Math.round((unitDone / unitTotal) * 100) : 0;
-          const shortAxis = u.unitName.replace("Class ", "").replace("Physics", "Phys").replace("Chemistry", "Chem").replace("Biology", "Bio").split(" (")[0];
+          const shortAxis = u.unitName.replace("NCERT Class ", "").replace("Physics", "Phys").replace("Chemistry", "Chem").replace("Biology", "Bio").split(" (")[0];
           new3dAxes.push({ label: `${subj.icon} ${shortAxis}`, pct: unitPct, done: unitDone, total: unitTotal });
 
           if (!chaptersHtml.trim()) return "";
@@ -1695,8 +1631,8 @@
               <div class="flex items-center gap-3">
                 <span class="text-2xl">${subj.icon}</span>
                 <div>
-                  <h3 class="font-serif-luxury text-lg font-bold text-white">${subj.subject} Syllabus</h3>
-                  <p class="text-xs text-zinc-400">${subjDone} of ${subjTotal} sub-topics mastered</p>
+                  <h3 class="font-serif-luxury text-lg font-bold text-white">NCERT ${subj.subject} Syllabus</h3>
+                  <p class="text-xs text-zinc-400">${subjDone} of ${subjTotal} NCERT sub-topics mastered</p>
                 </div>
               </div>
               <span class="mono-nums px-3 py-1 rounded-xl bg-white/10 theme-gradient-text font-bold text-xs border border-white/15">${subjPct}%</span>
@@ -1709,7 +1645,7 @@
       const overallPct = Math.round((overallDone / TOTAL_SYLLABUS_TOPICS) * 100);
       spider3dOverallPct = overallPct;
       document.getElementById("overallSyllabusBigPct").textContent = `${overallPct}%`;
-      document.getElementById("overallSyllabusCounts").textContent = `${overallDone} / ${TOTAL_SYLLABUS_TOPICS} nodes spun`;
+      document.getElementById("overallSyllabusCounts").textContent = `${overallDone} / ${TOTAL_SYLLABUS_TOPICS} NCERT nodes spun`;
       document.getElementById("overallSyllabusBar").style.width = `${overallPct}%`;
       document.getElementById("spider3dOverallTag").textContent = `Overall 3D Web: ${overallPct}% (${overallDone}/${TOTAL_SYLLABUS_TOPICS})`;
       document.getElementById("spider3dRankBadge").textContent = getMasteryRankTitle(overallPct);
@@ -1739,7 +1675,7 @@
         options: { indexAxis: "y", responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { min: 0, max: 100, ticks: { color: "#a1a1aa", font: { size: 10 } }, grid: { color: "rgba(161,161,170,0.08)" } }, y: { ticks: { color: "#f4f4f5", font: { size: 11, weight: "bold" } }, grid: { display: false } } } }
       });
 
-      document.getElementById("syllabusTreeContainer").innerHTML = treeHtml || `<div class="p-8 text-center text-zinc-500">No chapters or sub-topics match your search.</div>`;
+      document.getElementById("syllabusTreeContainer").innerHTML = treeHtml || `<div class="p-8 text-center text-zinc-500">No NCERT chapters or sub-topics match your search.</div>`;
     }
 
     // ================= INTERACTIVE 3D VOLUMETRIC SPIDER-WEB ENGINE =================
@@ -1806,6 +1742,7 @@
       const pal = THEME_CHART_PALETTE[activeWebTheme] || THEME_CHART_PALETTE.sunset;
       const axes = spider3dAxesData, n = axes.length;
 
+      // Equator ring vectors in 3D (X-Z horizontal plane) + Top/Bottom 3D Y poles
       const dirs = axes.map((_, i) => {
         const angle = (i / n) * Math.PI * 2;
         return { dx: Math.cos(angle), dy: 0, dz: Math.sin(angle) };
@@ -1814,6 +1751,7 @@
       const outerBot = project3D(0,  maxR * 0.72, 0, cx, cy, fov);
       const centerPt = project3D(0, 0, 0, cx, cy, fov);
 
+      // 4 Concentric 3D spider-web rings + vertical crystal struts
       [0.25, 0.5, 0.75, 1.0].forEach((ringFrac, rIdx) => {
         const ringPts = dirs.map(d => project3D(d.dx * maxR * ringFrac, 0, d.dz * maxR * ringFrac, cx, cy, fov));
         s3dCtx.beginPath();
@@ -1824,6 +1762,7 @@
         s3dCtx.stroke();
       });
 
+      // Outer wireframe bipyramid cage & radial spokes
       const masteryPts = [];
       dirs.forEach((d, i) => {
         const outerPt = project3D(d.dx * maxR, 0, d.dz * maxR, cx, cy, fov);
@@ -1846,23 +1785,27 @@
         s3dCtx.fillText(`${axes[i].label} (${axes[i].pct}%)`, lblPt.px, lblPt.py);
       });
 
+      // Vertical central mastery spine (Top Peak & Bottom Anchor scale with Overall Mastery %)
       const peakFrac = Math.max(0.18, spider3dOverallPct / 100);
       const mTop = project3D(0, -maxR * 0.72 * peakFrac, 0, cx, cy, fov);
       const mBot = project3D(0,  maxR * 0.72 * peakFrac, 0, cx, cy, fov);
 
+      // Draw translucent 3D crystal facets (Top pyramid + Bottom pyramid)
       for (let i = 0; i < n; i++) {
         const pA = masteryPts[i], pB = masteryPts[(i + 1) % n];
+        // Upper facet
         s3dCtx.beginPath();
         s3dCtx.moveTo(mTop.px, mTop.py); s3dCtx.lineTo(pA.px, pA.py); s3dCtx.lineTo(pB.px, pB.py); s3dCtx.closePath();
         s3dCtx.fillStyle = `rgba(${pal.rgb}, 0.17)`; s3dCtx.fill();
         s3dCtx.strokeStyle = `rgba(${pal.rgb}, 0.75)`; s3dCtx.lineWidth = 1.4; s3dCtx.stroke();
-
+        // Lower facet
         s3dCtx.beginPath();
         s3dCtx.moveTo(mBot.px, mBot.py); s3dCtx.lineTo(pA.px, pA.py); s3dCtx.lineTo(pB.px, pB.py); s3dCtx.closePath();
         s3dCtx.fillStyle = `rgba(${pal.rgb}, 0.10)`; s3dCtx.fill();
         s3dCtx.strokeStyle = `rgba(${pal.rgb}, 0.45)`; s3dCtx.lineWidth = 1.0; s3dCtx.stroke();
       }
 
+      // Glowing 3D nodes on all 6 axes + Top Apex
       [...masteryPts, mTop, mBot].forEach(pt => {
         s3dCtx.beginPath();
         s3dCtx.arc(pt.px, pt.py, Math.max(3.5, 5.8 * pt.scale), 0, Math.PI * 2);
@@ -1942,7 +1885,7 @@
       else { activeNoteId = null; document.getElementById("noteTitleInput").value = ""; document.getElementById("noteBodyInput").value = ""; }
     }
     window.selectNoteItem = function(id) { activeNoteId = id; renderNotesVault(document.getElementById("noteSearchInput").value.trim()); };
-    document.getElementById("newNoteBtn").addEventListener("click", async () => { if (!currentUser) return; const n = { id: "note_" + Date.now(), title: "New Study Note", body: "", updatedAt: Date.now() }; currentUser.notes.unshift(n); activeNoteId = n.id; renderNotesVault(); await saveUserToCloud(currentUser); });
+    document.getElementById("newNoteBtn").addEventListener("click", async () => { if (!currentUser) return; const n = { id: "note_" + Date.now(), title: "New NCERT Note", body: "", updatedAt: Date.now() }; currentUser.notes.unshift(n); activeNoteId = n.id; renderNotesVault(); await saveUserToCloud(currentUser); });
     document.getElementById("saveNoteBtn").addEventListener("click", async () => {
       if (!currentUser) return;
       const title = document.getElementById("noteTitleInput").value.trim() || "Untitled Note", body = document.getElementById("noteBodyInput").value;
@@ -2141,7 +2084,7 @@
     const phoneSliderViewport = document.getElementById("phoneSliderViewport");
     const SCREEN_TITLES = [
       "Swipe ⇄ • 1/6 Command & Telemetry",
-      "Swipe ⇄ • 2/6 Syllabus Checklist",
+      "Swipe ⇄ • 2/6 NCERT Checklist",
       "Swipe ⇄ • 3/6 3D Spider Web",
       "Swipe ⇄ • 4/6 Live Arena",
       "Swipe ⇄ • 5/6 Notes Vault",
@@ -2204,7 +2147,7 @@
     document.getElementById("navNotesBtn").addEventListener("click", () => window.slideToScreen(4));
     document.getElementById("navGameBtn").addEventListener("click", () => window.slideToScreen(5));
 
-    // Auto-Login & First-Visit Intro Tour
+    // Auto-Login on Page Load
     const saved = localStorage.getItem("studypunch_current_user");
     if (saved) {
       try {
@@ -2216,10 +2159,6 @@
           });
         }
       } catch {}
-    }
-
-    if (!localStorage.getItem("studypunch_intro_seen_v1")) {
-      setTimeout(() => openIntroPresentation(0), 400);
     }
   </script>
 </body>
