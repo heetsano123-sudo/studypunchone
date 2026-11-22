@@ -1,0 +1,2413 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StudyPunch One — NEET 2027 Command Center, Bio3D & NCERT Lab</title>
+  <!-- Futuristic Roman-Style Sunset SVG Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='sky' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%230f172a'/%3E%3Cstop offset='55%25' stop-color='%239a3412'/%3E%3Cstop offset='100%25' stop-color='%23f59e0b'/%3E%3C/linearGradient%3E%3ClinearGradient id='sun' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23fef08a'/%3E%3Cstop offset='100%25' stop-color='%23f97316'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23sky)'/%3E%3Ccircle cx='32' cy='38' r='16' fill='url(%23sun)'/%3E%3Cpath d='M8 46h48v6H8zM12 42h40v4H12z' fill='%23090d16'/%3E%3Cpath d='M16 24h4v18h-4zM26 24h4v18h-4zM34 24h4v18h-4zM44 24h4v18h-4z' fill='%23f8fafc' opacity='0.92'/%3E%3Cpath d='M12 22l20-10 20 10v3H12z' fill='%23fbbf24'/%3E%3Ctext x='32' y='59' font-family='serif' font-weight='bold' font-size='8' fill='%23fde68a' text-anchor='middle' letter-spacing='2'%3EII VII%3C/text%3E%3C/svg%3E" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <style>
+    :root {
+      --bg-primary: #070b14;
+      --bg-secondary: #0f1626;
+      --bg-card: rgba(17, 25, 43, 0.85);
+      --bg-card-hover: rgba(24, 35, 58, 0.95);
+      --border-color: rgba(148, 163, 184, 0.14);
+      --border-accent: rgba(245, 158, 11, 0.42);
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent-gold: #f59e0b;
+      --accent-sunset: #fb7185;
+      --accent-cyan: #38bdf8;
+      --accent-emerald: #10b981;
+      --accent-violet: #a78bfa;
+      --shadow-lg: 0 18px 40px -15px rgba(0, 0, 0, 0.65);
+      --radius-lg: 16px;
+      --radius-md: 11px;
+      --radius-sm: 7px;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, monospace;
+    }
+
+    [data-theme="light"] {
+      --bg-primary: #f4f6fb;
+      --bg-secondary: #ffffff;
+      --bg-card: rgba(255, 255, 255, 0.95);
+      --bg-card-hover: #f8fafc;
+      --border-color: rgba(15, 23, 42, 0.1);
+      --border-accent: rgba(217, 119, 6, 0.45);
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --accent-gold: #d97706;
+      --accent-sunset: #e11d48;
+      --accent-cyan: #0284c7;
+      --accent-emerald: #059669;
+      --accent-violet: #7c3aed;
+      --shadow-lg: 0 12px 30px -12px rgba(15, 23, 42, 0.12);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      overflow-x: hidden;
+      transition: background 0.25s ease, color 0.25s ease;
+    }
+
+    /* Ambient Sunset Glow */
+    body::before {
+      content: "";
+      position: fixed;
+      top: -180px;
+      right: -140px;
+      width: 520px;
+      height: 520px;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.12) 0%, rgba(251, 113, 133, 0.06) 45%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* PIN Lock Screen */
+    #pin-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 8, 17, 0.96);
+      backdrop-filter: blur(18px);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    #pin-overlay.active { display: flex; }
+    .pin-card {
+      background: linear-gradient(160deg, #111827, #0b1120);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      border-radius: 22px;
+      padding: 34px 28px;
+      width: 100%;
+      max-width: 360px;
+      text-align: center;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+      color: #f8fafc;
+    }
+    .pin-dots {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin: 22px 0;
+    }
+    .pin-dot {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      border: 2px solid #f59e0b;
+      background: transparent;
+      transition: all 0.15s ease;
+    }
+    .pin-dot.filled {
+      background: #f59e0b;
+      box-shadow: 0 0 12px rgba(245, 158, 11, 0.7);
+      transform: scale(1.1);
+    }
+    .pin-keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .pin-key {
+      background: rgba(30, 41, 59, 0.75);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      color: #f8fafc;
+      font-size: 1.25rem;
+      font-weight: 600;
+      padding: 14px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .pin-key:hover { background: rgba(245, 158, 11, 0.22); border-color: #f59e0b; }
+    .pin-key:active { transform: scale(0.95); }
+
+    /* Sidebar Navigation */
+    .sidebar {
+      width: 260px;
+      background: var(--bg-secondary);
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      padding: 20px 14px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      z-index: 20;
+      flex-shrink: 0;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 6px 10px 20px;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 16px;
+    }
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #f59e0b, #e11d48);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: #fff;
+      font-size: 1.05rem;
+      box-shadow: 0 6px 18px rgba(245, 158, 11, 0.35);
+      flex-shrink: 0;
+    }
+    .brand-text h1 {
+      font-size: 1.08rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(90deg, var(--accent-gold), var(--accent-sunset));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .brand-text span {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+    }
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 11px 13px;
+      border-radius: var(--radius-md);
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.18s ease;
+    }
+    .nav-btn:hover {
+      background: var(--bg-card-hover);
+      color: var(--text-primary);
+    }
+    .nav-btn.active {
+      background: linear-gradient(90deg, rgba(245, 158, 11, 0.16), rgba(251, 113, 133, 0.08));
+      border-color: var(--border-accent);
+      color: var(--accent-gold);
+    }
+    .nav-badge {
+      margin-left: auto;
+      font-size: 0.7rem;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--accent-cyan);
+      font-weight: 700;
+    }
+
+    .sidebar-footer {
+      border-top: 1px solid var(--border-color);
+      padding-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .sync-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      padding: 8px 10px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+    }
+    .sync-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-emerald);
+      box-shadow: 0 0 8px var(--accent-emerald);
+    }
+
+    /* Main Content Area */
+    .main-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      position: relative;
+      z-index: 1;
+    }
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px 26px;
+      border-bottom: 1px solid var(--border-color);
+      background: var(--bg-secondary);
+      position: sticky;
+      top: 0;
+      z-index: 15;
+      flex-wrap: wrap;
+    }
+    .topbar-left h2 {
+      font-size: 1.22rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .topbar-left p {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .live-clock-chip {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--accent-cyan);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 9px 15px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      font-size: 0.84rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.16s ease;
+    }
+    .btn:hover { border-color: var(--accent-gold); transform: translateY(-1px); }
+    .btn-primary {
+      background: linear-gradient(135deg, #f59e0b, #ea580c);
+      border: none;
+      color: #fff;
+      box-shadow: 0 6px 18px rgba(245, 158, 11, 0.3);
+    }
+    .btn-primary:hover { filter: brightness(1.07); }
+    .btn-danger {
+      background: linear-gradient(135deg, #e11d48, #be123c);
+      border: none;
+      color: #fff;
+    }
+    .btn-emerald {
+      background: linear-gradient(135deg, #10b981, #059669);
+      border: none;
+      color: #fff;
+    }
+    .btn-sm { padding: 6px 11px; font-size: 0.78rem; }
+
+    .content-container {
+      padding: 24px 26px 48px;
+      max-width: 1420px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .view-section { display: none; animation: fadeIn 0.22s ease; }
+    .view-section.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Cards & Grid */
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .grid-equal-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      box-shadow: var(--shadow-lg);
+    }
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .stat-label { font-size: 0.78rem; color: var(--text-secondary); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+    .stat-val { font-size: 1.75rem; font-weight: 800; margin-top: 6px; font-family: var(--font-mono); }
+    .stat-sub { font-size: 0.78rem; color: var(--text-muted); margin-top: 4px; }
+
+    /* Punch Clock Hero */
+    .punch-hero {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(15, 23, 42, 0.9) 55%, rgba(56, 189, 248, 0.1));
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    [data-theme="light"] .punch-hero {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.14), #ffffff 60%, rgba(56, 189, 248, 0.12));
+    }
+    .timer-display {
+      font-family: var(--font-mono);
+      font-size: 3rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--accent-gold);
+      line-height: 1.05;
+    }
+    .punch-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-width: 280px;
+    }
+    .input-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    select, input[type="text"], input[type="number"], textarea {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 9px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 0.86rem;
+      font-family: inherit;
+      outline: none;
+    }
+    select:focus, input:focus, textarea:focus {
+      border-color: var(--accent-gold);
+    }
+
+    /* Progress Ring */
+    .ring-wrap {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .ring-svg { transform: rotate(-90deg); }
+
+    /* 7-Day Bar Chart */
+    .chart-bars {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 12px;
+      height: 190px;
+      padding-top: 22px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .bar-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+      justify-content: flex-end;
+      gap: 6px;
+    }
+    .bar-stack {
+      width: 100%;
+      max-width: 44px;
+      border-radius: 8px 8px 3px 3px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column-reverse;
+      background: rgba(148, 163, 184, 0.1);
+      transition: height 0.35s ease;
+    }
+    .bar-seg-bio { background: #10b981; }
+    .bar-seg-phy { background: #38bdf8; }
+    .bar-seg-che { background: #f59e0b; }
+    .bar-seg-oth { background: #a78bfa; }
+    .bar-val { font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-secondary); }
+    .bar-day { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); margin-top: 6px; }
+
+    /* Tables */
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    th, td { padding: 11px 12px; text-align: left; border-bottom: 1px solid var(--border-color); }
+    th { color: var(--text-muted); font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; }
+    tr:hover td { background: rgba(148, 163, 184, 0.04); }
+    .pill {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-size: 0.73rem;
+      font-weight: 700;
+    }
+    .pill-bio { background: rgba(16, 185, 129, 0.16); color: #34d399; }
+    .pill-phy { background: rgba(56, 189, 248, 0.16); color: #38bdf8; }
+    .pill-che { background: rgba(245, 158, 11, 0.16); color: #fbbf24; }
+    .pill-oth { background: rgba(167, 139, 250, 0.16); color: #c4b5fd; }
+
+    /* Syllabus Tracker */
+    .subject-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .tab-chip {
+      padding: 8px 15px;
+      border-radius: 999px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      font-weight: 700;
+      font-size: 0.83rem;
+      cursor: pointer;
+    }
+    .tab-chip.active {
+      background: var(--accent-gold);
+      color: #090d16;
+      border-color: var(--accent-gold);
+    }
+    .chapter-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 13px 16px;
+      border-radius: var(--radius-md);
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .chapter-item.completed {
+      border-color: rgba(16, 185, 129, 0.4);
+      background: linear-gradient(90deg, rgba(16, 185, 129, 0.08), var(--bg-secondary));
+    }
+    .chk-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .chk-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      user-select: none;
+    }
+    .chk-label input { accent-color: var(--accent-emerald); width: 15px; height: 15px; cursor: pointer; }
+
+    /* Bio3D Studio */
+    .bio3d-layout {
+      display: grid;
+      grid-template-columns: 1.55fr 1fr;
+      gap: 20px;
+    }
+    #bio3d-viewport {
+      width: 100%;
+      height: 460px;
+      border-radius: var(--radius-md);
+      background: radial-gradient(circle at center, #111c33 0%, #060912 100%);
+      border: 1px solid var(--border-color);
+      position: relative;
+      overflow: hidden;
+      cursor: grab;
+    }
+    #bio3d-viewport:active { cursor: grabbing; }
+    .bio3d-hud {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      right: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      background: rgba(9, 13, 22, 0.78);
+      backdrop-filter: blur(8px);
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.78rem;
+      color: #cbd5e1;
+      flex-wrap: wrap;
+    }
+    .hotspot-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 330px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+    .hotspot-btn {
+      text-align: left;
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .hotspot-btn:hover, .hotspot-btn.active {
+      border-color: var(--accent-cyan);
+      background: rgba(56, 189, 248, 0.1);
+    }
+
+    /* NCERT Diagrams Lab */
+    .diagram-stage {
+      background: #0b1120;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 410px;
+      position: relative;
+    }
+    .diagram-stage svg {
+      width: 100%;
+      max-width: 580px;
+      height: auto;
+    }
+    .svg-pin { cursor: pointer; transition: transform 0.15s; }
+    .svg-pin:hover circle { stroke: #f59e0b; stroke-width: 3; }
+    .diagram-label-hidden .svg-label-text { opacity: 0; pointer-events: none; }
+
+    /* NCERT Smart Reader */
+    .reader-text {
+      line-height: 1.85;
+      font-size: 1.02rem;
+    }
+    .ncert-line {
+      padding: 5px 8px;
+      border-radius: 6px;
+      margin-bottom: 6px;
+      transition: background 0.15s;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .ncert-line:hover { background: rgba(148, 163, 184, 0.08); }
+    .hl-yellow { background: rgba(250, 204, 21, 0.24) !important; border-left: 3px solid #eab308; }
+    .hl-pink { background: rgba(244, 63, 94, 0.22) !important; border-left: 3px solid #f43f5e; }
+    .hl-cyan { background: rgba(56, 189, 248, 0.22) !important; border-left: 3px solid #38bdf8; }
+    .cloze-blank {
+      display: inline-block;
+      min-width: 90px;
+      padding: 0 8px;
+      margin: 0 2px;
+      border-bottom: 2px dashed var(--accent-gold);
+      background: rgba(245, 158, 11, 0.14);
+      color: transparent;
+      border-radius: 4px;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s;
+    }
+    .cloze-blank.revealed {
+      color: var(--accent-emerald);
+      font-weight: 700;
+      background: rgba(16, 185, 129, 0.15);
+      border-bottom-style: solid;
+    }
+
+    /* Toast */
+    #toast {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      background: #0f172a;
+      color: #f8fafc;
+      border: 1px solid var(--accent-gold);
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+      z-index: 9998;
+      opacity: 0;
+      transform: translateY(15px);
+      pointer-events: none;
+      transition: all 0.22s ease;
+    }
+    #toast.show { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 1024px) {
+      .grid-4 { grid-template-columns: repeat(2, 1fr); }
+      .grid-2, .grid-equal-2, .bio3d-layout { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      body { flex-direction: column; }
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 10px;
+        gap: 8px;
+      }
+      .brand, .sidebar-footer { display: none; }
+      .nav-list { flex-direction: row; }
+      .nav-btn { white-space: nowrap; padding: 8px 12px; font-size: 0.82rem; }
+      .grid-4 { grid-template-columns: 1fr 1fr; }
+      .timer-display { font-size: 2.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 4-Digit PIN Lock Screen -->
+  <div id="pin-overlay">
+    <div class="pin-card">
+      <div style="font-size:2rem;margin-bottom:6px;">🏛️</div>
+      <h2 style="font-size:1.25rem;font-weight:800;">StudyPunch One Locked</h2>
+      <p style="font-size:0.82rem;color:#94a3b8;margin-top:4px;">Enter 4-digit PIN (Default: <strong style="color:#fbbf24;">2027</strong>)</p>
+      <div class="pin-dots" id="pin-dots">
+        <div class="pin-dot"></div>
+        <div class="pin-dot"></div>
+        <div class="pin-dot"></div>
+        <div class="pin-dot"></div>
+      </div>
+      <div id="pin-error" style="color:#fb7185;font-size:0.78rem;min-height:18px;"></div>
+      <div class="pin-keypad">
+        <button class="pin-key" onclick="pinPress('1')">1</button>
+        <button class="pin-key" onclick="pinPress('2')">2</button>
+        <button class="pin-key" onclick="pinPress('3')">3</button>
+        <button class="pin-key" onclick="pinPress('4')">4</button>
+        <button class="pin-key" onclick="pinPress('5')">5</button>
+        <button class="pin-key" onclick="pinPress('6')">6</button>
+        <button class="pin-key" onclick="pinPress('7')">7</button>
+        <button class="pin-key" onclick="pinPress('8')">8</button>
+        <button class="pin-key" onclick="pinPress('9')">9</button>
+        <button class="pin-key" onclick="pinClear()" style="font-size:0.85rem;color:#94a3b8;">CLR</button>
+        <button class="pin-key" onclick="pinPress('0')">0</button>
+        <button class="pin-key" onclick="pinUnlockDefault()" style="font-size:0.78rem;color:#fbbf24;">2027</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-icon">SP</div>
+      <div class="brand-text">
+        <h1>StudyPunch One</h1>
+        <span>NEET 2027 Edition</span>
+      </div>
+    </div>
+
+    <nav class="nav-list">
+      <button class="nav-btn active" data-view="dashboard" onclick="switchView('dashboard', this)">
+        <span>⏱️</span> Dashboard & Timer
+      </button>
+      <button class="nav-btn" data-view="syllabus" onclick="switchView('syllabus', this)">
+        <span>🎯</span> NEET 2027 Syllabus
+        <span class="nav-badge" id="nav-syllabus-pct">0%</span>
+      </button>
+      <button class="nav-btn" data-view="bio3d" onclick="switchView('bio3d', this)">
+        <span>🧬</span> Bio3D Studio
+        <span class="nav-badge">3D</span>
+      </button>
+      <button class="nav-btn" data-view="diagrams" onclick="switchView('diagrams', this)">
+        <span>🔬</span> NCERT Diagrams Lab
+        <span class="nav-badge">8</span>
+      </button>
+      <button class="nav-btn" data-view="reader" onclick="switchView('reader', this)">
+        <span>📖</span> NCERT Smart Reader
+      </button>
+      <button class="nav-btn" data-view="sync" onclick="switchView('sync', this)">
+        <span>☁️</span> Cloud Sync & PIN
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sync-pill">
+        <span class="sync-dot" id="sync-status-dot"></span>
+        <span id="sync-status-text">Local Auto-Sync Active</span>
+      </div>
+      <button class="btn btn-sm" onclick="lockScreen()">🔒 Lock Screen</button>
+    </div>
+  </aside>
+
+  <!-- Main Workspace -->
+  <div class="main-wrap">
+    <header class="topbar">
+      <div class="topbar-left">
+        <h2 id="topbar-title">StudyPunch Command Dashboard</h2>
+        <p id="topbar-sub">Track deep-focus hours, master NCERT diagrams, and conquer NEET 2027</p>
+      </div>
+      <div class="topbar-actions">
+        <div class="live-clock-chip" id="wall-clock">--:--:--</div>
+        <button class="btn btn-sm" onclick="toggleTheme()" id="theme-btn">☀️ Light Mode</button>
+        <button class="btn btn-sm" onclick="exportCSV()">📥 Export CSV</button>
+      </div>
+    </header>
+
+    <main class="content-container">
+
+      <!-- ==================== 1. DASHBOARD & TIMER ==================== -->
+      <section id="view-dashboard" class="view-section active">
+        <div class="punch-hero">
+          <div>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+              <span id="session-status-badge" class="pill pill-che">READY TO PUNCH IN</span>
+              <span id="active-subject-tag" style="font-size:0.82rem;color:var(--text-secondary);font-weight:600;">Select subject & start focus</span>
+            </div>
+            <div class="timer-display" id="session-timer">00:00:00</div>
+            <p style="font-size:0.82rem;color:var(--text-secondary);margin-top:8px;">
+              Every completed session automatically logs to your 7-day analytics chart and timesheet.
+            </p>
+          </div>
+
+          <div class="punch-controls">
+            <div class="input-row">
+              <select id="punch-subject" style="flex:1;">
+                <option value="Biology">🧬 Biology (NCERT / PYQs)</option>
+                <option value="Physics">⚡ Physics (Numerical / Concepts)</option>
+                <option value="Chemistry">⚗️ Chemistry (Physical / Organic / Inorg)</option>
+                <option value="NCERT Lab">🔬 NCERT Diagrams & Bio3D</option>
+                <option value="Mock Test">📝 Full Mock Test & Analysis</option>
+              </select>
+            </div>
+            <input type="text" id="punch-note" placeholder="Topic / Chapter focus (e.g. Body Fluids & Circulation)" />
+            <div class="input-row">
+              <button class="btn btn-emerald" id="btn-punch-in" onclick="punchIn()" style="flex:1;">▶ Punch In</button>
+              <button class="btn" id="btn-pause" onclick="togglePause()" disabled>⏸ Pause</button>
+              <button class="btn btn-danger" id="btn-punch-out" onclick="punchOut()" disabled>⏹ Punch Out</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- KPI Summary Cards -->
+        <div class="grid-4">
+          <div class="card">
+            <div class="stat-label">Today's Study Time</div>
+            <div class="stat-val" id="kpi-today" style="color:var(--accent-gold);">0.00 hrs</div>
+            <div class="stat-sub" id="kpi-target-sub">Target: 8.0 hrs/day</div>
+          </div>
+          <div class="card">
+            <div class="stat-label">7-Day Total Focus</div>
+            <div class="stat-val" id="kpi-week" style="color:var(--accent-cyan);">0.00 hrs</div>
+            <div class="stat-sub" id="kpi-avg-sub">Avg: 0.00 hrs/day</div>
+          </div>
+          <div class="card">
+            <div class="stat-label">NEET Syllabus Mastery</div>
+            <div class="stat-val" id="kpi-syllabus" style="color:var(--accent-emerald);">0%</div>
+            <div class="stat-sub" id="kpi-chapters-sub">0 / 79 Chapters Done</div>
+          </div>
+          <div class="card">
+            <div class="stat-label">NCERT Quiz & Streak</div>
+            <div class="stat-val" id="kpi-quiz" style="color:var(--accent-violet);">0 pts</div>
+            <div class="stat-sub" id="kpi-streak-sub">Active Study Streak: 1 day</div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <!-- 7-Day Stacked Study Chart -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">📊 7-Day Study Distribution</div>
+              <div style="display:flex;gap:10px;font-size:0.74rem;font-weight:600;">
+                <span style="color:#10b981;">● Bio</span>
+                <span style="color:#38bdf8;">● Phy</span>
+                <span style="color:#f59e0b;">● Chem</span>
+                <span style="color:#a78bfa;">● Lab/Test</span>
+              </div>
+            </div>
+            <div class="chart-bars" id="seven-day-chart"></div>
+          </div>
+
+          <!-- Daily Target Ring & Quick Manual Log -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">🎯 Daily Target & Quick Entry</div>
+              <button class="btn btn-sm" onclick="changeDailyTarget()">Edit Target</button>
+            </div>
+            <div class="ring-wrap" style="margin-bottom:18px;">
+              <svg class="ring-svg" width="96" height="96" viewBox="0 0 96 96">
+                <circle cx="48" cy="48" r="40" stroke="rgba(148,163,184,0.18)" stroke-width="9" fill="none" />
+                <circle id="target-ring-circle" cx="48" cy="48" r="40" stroke="#f59e0b" stroke-width="9" fill="none"
+                  stroke-dasharray="251.2" stroke-dashoffset="251.2" stroke-linecap="round" />
+              </svg>
+              <div>
+                <div style="font-size:1.5rem;font-weight:800;" id="target-pct-text">0%</div>
+                <div style="font-size:0.82rem;color:var(--text-secondary);" id="target-detail-text">0m / 480m completed today</div>
+                <div style="font-size:0.76rem;color:var(--accent-emerald);margin-top:4px;">Consistency beats intensity every single day.</div>
+              </div>
+            </div>
+            <div style="border-top:1px solid var(--border-color);padding-top:14px;">
+              <div style="font-size:0.78rem;font-weight:700;color:var(--text-secondary);margin-bottom:8px;">+ Log Past Study Block Manually</div>
+              <div class="input-row">
+                <select id="manual-subject" style="flex:1;">
+                  <option value="Biology">Biology</option>
+                  <option value="Physics">Physics</option>
+                  <option value="Chemistry">Chemistry</option>
+                  <option value="NCERT Lab">NCERT Lab</option>
+                  <option value="Mock Test">Mock Test</option>
+                </select>
+                <input type="number" id="manual-mins" placeholder="Mins (e.g. 60)" min="1" max="720" style="width:125px;" />
+              </div>
+              <div class="input-row" style="margin-top:8px;">
+                <input type="text" id="manual-note" placeholder="Session note..." style="flex:1;" />
+                <button class="btn btn-primary btn-sm" onclick="addManualSession()">Add Log</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Study Timesheet Table -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">📋 StudyPunch Timesheet Logs</div>
+            <div style="display:flex;gap:8px;">
+              <button class="btn btn-sm" onclick="exportCSV()">📥 Download CSV</button>
+              <button class="btn btn-sm" onclick="clearAllLogs()" style="color:#fb7185;">Clear Logs</button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Subject</th>
+                  <th>Chapter / Focus Note</th>
+                  <th>Duration</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="timesheet-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 2. NEET 2027 SYLLABUS TRACKER ==================== -->
+      <section id="view-syllabus" class="view-section">
+        <div class="card" style="margin-bottom:20px;">
+          <div class="card-header">
+            <div>
+              <div class="card-title">🎯 NEET 2027 Complete Syllabus Mastery Matrix</div>
+              <p style="font-size:0.8rem;color:var(--text-secondary);margin-top:3px;">
+                Check off all 4 milestones per chapter: <strong>NCERT Read</strong>, <strong>Diagrams/Formulas</strong>, <strong>PYQs</strong>, and <strong>Revised</strong>.
+              </p>
+            </div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;">
+              <input type="text" id="syllabus-search" placeholder="Search chapter..." oninput="renderSyllabus()" />
+              <select id="syllabus-filter" onchange="renderSyllabus()">
+                <option value="all">All Status</option>
+                <option value="pending">In Progress / Pending</option>
+                <option value="done">100% Mastered</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="subject-tabs" id="syllabus-subject-tabs">
+            <button class="tab-chip active" onclick="setSyllabusSubject('Biology', this)">🧬 Biology (<span id="prog-Biology">0%</span>)</button>
+            <button class="tab-chip" onclick="setSyllabusSubject('Physics', this)">⚡ Physics (<span id="prog-Physics">0%</span>)</button>
+            <button class="tab-chip" onclick="setSyllabusSubject('Chemistry', this)">⚗️ Chemistry (<span id="prog-Chemistry">0%</span>)</button>
+          </div>
+
+          <div id="syllabus-list"></div>
+        </div>
+      </section>
+
+      <!-- ==================== 3. BIO3D STUDIO ==================== -->
+      <section id="view-bio3d" class="view-section">
+        <div class="card" style="margin-bottom:16px;">
+          <div class="card-header" style="margin-bottom:0;">
+            <div class="card-title">🧬 Bio3D Interactive Anatomy & Cell Studio</div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;" id="bio3d-model-tabs">
+              <button class="tab-chip active" onclick="loadBio3DModel('cell', this)">Eukaryotic Cell</button>
+              <button class="tab-chip" onclick="loadBio3DModel('heart', this)">Human Heart</button>
+              <button class="tab-chip" onclick="loadBio3DModel('dna', this)">DNA Double Helix</button>
+              <button class="tab-chip" onclick="loadBio3DModel('nephron', this)">Nephron Unit</button>
+              <button class="tab-chip" onclick="loadBio3DModel('chloroplast', this)">Chloroplast</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="bio3d-layout">
+          <div class="card" style="padding:14px;">
+            <div id="bio3d-viewport">
+              <div class="bio3d-hud">
+                <span>🖱️ Drag to Rotate • Scroll to Zoom</span>
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <label style="display:flex;align-items:center;gap:5px;">
+                    Explode:
+                    <input type="range" id="bio3d-explode" min="0" max="100" value="0" oninput="setBio3DExplode(this.value)" style="width:85px;" />
+                  </label>
+                  <button class="btn btn-sm" onclick="toggleBio3DRotate()" id="btn-3d-rotate">⏸ Auto-Spin</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title" id="bio3d-info-title">Eukaryotic Animal Cell</div>
+              <span class="pill pill-bio" id="bio3d-class-tag">Class 11 • Ch. 8</span>
+            </div>
+            <p id="bio3d-info-desc" style="font-size:0.84rem;color:var(--text-secondary);line-height:1.55;margin-bottom:14px;"></p>
+            <div style="font-size:0.76rem;font-weight:700;text-transform:uppercase;color:var(--accent-gold);margin-bottom:8px;">
+              Click Structure to Highlight & View NEET Fact:
+            </div>
+            <div class="hotspot-list" id="bio3d-hotspots"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 4. NCERT DIAGRAMS LAB ==================== -->
+      <section id="view-diagrams" class="view-section">
+        <div class="card" style="margin-bottom:18px;">
+          <div class="card-header" style="margin-bottom:10px;">
+            <div class="card-title">🔬 NCERT High-Yield Visual Diagrams Lab</div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <button class="btn btn-sm btn-primary" id="mode-explore-btn" onclick="setDiagramMode('explore')">👁️ Explore Mode</button>
+              <button class="btn btn-sm" id="mode-blind-btn" onclick="setDiagramMode('blind')">🙈 Blind-Label Recall</button>
+              <button class="btn btn-sm" id="mode-quiz-btn" onclick="setDiagramMode('quiz')">⚡ Pin-Point Quiz</button>
+            </div>
+          </div>
+          <div class="subject-tabs" id="diagram-selector-tabs" style="margin-bottom:0;"></div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title" id="diag-title">Human Heart — Longitudinal Section</div>
+              <span class="pill pill-phy" id="diag-chapter">Class 11 • Ch. 18</span>
+            </div>
+            <div id="diag-quiz-banner" style="display:none;background:rgba(245,158,11,0.16);border:1px solid var(--accent-gold);padding:10px 14px;border-radius:10px;margin-bottom:12px;font-size:0.88rem;font-weight:700;">
+              🎯 Click on the pin for: <span id="diag-quiz-target" style="color:var(--accent-gold);text-decoration:underline;">...</span>
+              <span style="float:right;font-family:var(--font-mono);" id="diag-quiz-score">Score: 0/0</span>
+            </div>
+            <div class="diagram-stage" id="diagram-svg-stage"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">📌 Structure Inspector & NEET Trap Notes</div>
+            </div>
+            <div id="diag-inspector-box" style="background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:12px;padding:16px;margin-bottom:14px;">
+              <div style="font-size:0.78rem;color:var(--accent-cyan);font-weight:700;text-transform:uppercase;" id="pin-insp-num">PIN #1</div>
+              <h3 style="font-size:1.1rem;margin:4px 0 8px;" id="pin-insp-name">Select any numbered pin on the diagram</h3>
+              <p style="font-size:0.86rem;color:var(--text-secondary);line-height:1.6;" id="pin-insp-fact">
+                Click any numbered marker on the SVG diagram to inspect its exact NCERT line, anatomical role, and high-frequency NEET exam trap.
+              </p>
+            </div>
+            <div style="font-size:0.78rem;font-weight:700;color:var(--text-muted);margin-bottom:8px;text-transform:uppercase;">All Callout Pins in This Figure:</div>
+            <div id="diag-pins-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 5. NCERT SMART READER ==================== -->
+      <section id="view-reader" class="view-section">
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">📖 NCERT Line-by-Line Active Reader</div>
+                <p style="font-size:0.78rem;color:var(--text-secondary);">Highlight lines or toggle Cloze Mode to hide key NEET terms.</p>
+              </div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <select id="reader-chapter-select" onchange="renderReaderChapter()"></select>
+                <button class="btn btn-sm btn-primary" id="btn-cloze-toggle" onclick="toggleClozeMode()">🧠 Cloze Test: OFF</button>
+              </div>
+            </div>
+
+            <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;align-items:center;">
+              <span style="font-size:0.76rem;color:var(--text-muted);font-weight:700;">Active Brush:</span>
+              <button class="btn btn-sm" onclick="setBrush('yellow')" id="brush-yellow" style="border-color:#eab308;">🟡 Key Fact</button>
+              <button class="btn btn-sm" onclick="setBrush('pink')" id="brush-pink">🔴 NEET Trap</button>
+              <button class="btn btn-sm" onclick="setBrush('cyan')" id="brush-cyan">🔵 Data/Value</button>
+              <button class="btn btn-sm" onclick="setBrush('none')" id="brush-none">🧹 Eraser</button>
+            </div>
+
+            <div class="reader-text" id="reader-lines-container"></div>
+          </div>
+
+          <!-- Built-in Flashcard Deck -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">🗂️ Active-Recall Flashcards (<span id="fc-count">0</span>)</div>
+              <button class="btn btn-sm" onclick="nextFlashcard()">Next Card ➡</button>
+            </div>
+            <div id="flashcard-box" onclick="flipFlashcard()" style="min-height:220px;background:linear-gradient(145deg, rgba(56,189,248,0.12), rgba(15,23,42,0.9));border:1px solid var(--border-accent);border-radius:16px;padding:24px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;cursor:pointer;margin-bottom:14px;">
+              <span class="pill pill-che" id="fc-side-badge" style="margin-bottom:12px;">QUESTION (Click to Flip)</span>
+              <div id="fc-content" style="font-size:1.05rem;font-weight:600;line-height:1.55;"></div>
+            </div>
+            <div style="display:flex;gap:8px;margin-bottom:16px;">
+              <button class="btn btn-sm" style="flex:1;" onclick="flipFlashcard()">🔄 Flip Card</button>
+              <button class="btn btn-sm btn-emerald" style="flex:1;" onclick="nextFlashcard()">✅ Got It</button>
+            </div>
+            <div style="border-top:1px solid var(--border-color);padding-top:14px;">
+              <div style="font-size:0.78rem;font-weight:700;color:var(--text-secondary);margin-bottom:8px;">+ Create Custom Flashcard</div>
+              <input type="text" id="new-fc-q" placeholder="Front: Question / NCERT Prompt" style="width:100%;margin-bottom:8px;" />
+              <input type="text" id="new-fc-a" placeholder="Back: Exact NCERT Answer" style="width:100%;margin-bottom:8px;" />
+              <button class="btn btn-primary btn-sm" style="width:100%;" onclick="addCustomFlashcard()">Save to Deck</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 6. CLOUD SYNC, BACKUP & PIN ==================== -->
+      <section id="view-sync" class="view-section">
+        <div class="grid-equal-2">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">☁️ Firebase Realtime Database Sync</div>
+              <span class="pill pill-bio" id="fb-conn-badge">Local Mode</span>
+            </div>
+            <p style="font-size:0.83rem;color:var(--text-secondary);line-height:1.55;margin-bottom:14px;">
+              Connect your Firebase Realtime Database URL and a personal Sync Key to mirror your punch logs, syllabus progress, and flashcards across mobile & desktop.
+            </p>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <input type="text" id="fb-db-url" placeholder="Firebase Realtime DB URL (e.g. https://studypunch-default-rtdb.firebaseio.com)" />
+              <input type="text" id="fb-sync-room" placeholder="Personal Sync Key / Username (e.g. neet2027_ahmedabad)" />
+              <div class="input-row">
+                <button class="btn btn-primary" onclick="saveFirebaseConfig()" style="flex:1;">Save & Push Sync</button>
+                <button class="btn" onclick="pullFromFirebase()" style="flex:1;">⬇ Pull from Cloud</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">🔐 Security PIN & JSON Snapshot</div>
+            </div>
+            <div style="margin-bottom:18px;">
+              <div style="font-size:0.82rem;font-weight:700;margin-bottom:6px;">4-Digit App Lock PIN</div>
+              <div class="input-row">
+                <input type="text" id="custom-pin-input" maxlength="4" placeholder="New 4-digit PIN (e.g. 2027)" style="flex:1;" />
+                <button class="btn btn-sm btn-primary" onclick="updatePin()">Update PIN</button>
+                <button class="btn btn-sm" onclick="lockScreen()">Lock Now</button>
+              </div>
+              <label class="chk-label" style="margin-top:8px;">
+                <input type="checkbox" id="pin-startup-chk" onchange="toggleStartupPin(this.checked)" />
+                Require PIN automatically when opening StudyPunch One
+              </label>
+            </div>
+
+            <div style="border-top:1px solid var(--border-color);padding-top:14px;">
+              <div style="font-size:0.82rem;font-weight:700;margin-bottom:8px;">Instant Full-State Backup (.JSON)</div>
+              <div class="input-row">
+                <button class="btn btn-emerald btn-sm" onclick="exportFullJSON()" style="flex:1;">📤 Download JSON Backup</button>
+                <label class="btn btn-sm" style="flex:1;cursor:pointer;">
+                  📥 Restore JSON
+                  <input type="file" accept=".json" onchange="importFullJSON(event)" style="display:none;" />
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <div id="toast">Saved!</div>
+
+<script>
+/* ============================================================================
+   MODULE 1: REALTIME-SYNC & PERSISTENT STATE ENGINE (realtime-sync.js)
+============================================================================ */
+const STORAGE_KEY = 'studypunch_one_v2_state';
+
+const DEFAULT_STATE = {
+  theme: 'dark',
+  pin: '2027',
+  requirePinOnStart: false,
+  dailyTargetMins: 480,
+  quizPoints: 0,
+  firebaseUrl: '',
+  firebaseRoom: '',
+  logs: [
+    { id: 101, date: getTodayISO(-2), subject: 'Biology', note: 'Cell: The Unit of Life — Endomembrane System', mins: 135 },
+    { id: 102, date: getTodayISO(-2), subject: 'Physics', note: 'Vectors & Calculus — Kinematics PYQs', mins: 120 },
+    { id: 103, date: getTodayISO(-1), subject: 'Chemistry', note: 'Ionic Equilibrium — Buffer & Solubility Product', mins: 150 },
+    { id: 104, date: getTodayISO(-1), subject: 'Biology', note: 'Body Fluids & Circulation — Cardiac Cycle & ECG', mins: 140 },
+    { id: 105, date: getTodayISO(0),  subject: 'Biology', note: 'NCERT Diagrams Lab — Human Heart & Nephron', mins: 95 }
+  ],
+  syllabusProgress: {},
+  highlights: {},
+  flashcards: [
+    { q: 'Which cell organelles lack any membrane (non-membrane bound)?', a: 'Ribosomes (70S & 80S) and Centrosome (Centrioles) — present in both prokaryotic/eukaryotic cells (ribosomes) and animal cells (centrosome).' },
+    { q: 'What is the normal cardiac output in a healthy human?', a: 'Stroke Volume (70 mL) × Heart Rate (72 beats/min) ≈ 5040 mL or ~5 Litres per minute.' },
+    { q: 'In pBR322, ligation of foreign DNA at BamHI site inactivates which gene?', a: 'Tetracycline resistance gene (tetR) — recombinants grow on Ampicillin but fail to grow on Tetracycline medium.' },
+    { q: 'What is the pitch and rise per base pair of B-DNA double helix?', a: 'Pitch = 3.4 nm (34 Å) per turn (10 bp), and rise per base pair = 0.34 nm (3.4 Å).' }
+  ]
+};
+
+function getTodayISO(offsetDays = 0) {
+  const d = new Date();
+  d.setDate(d.getDate() + offsetDays);
+  return d.toISOString().slice(0, 10);
+}
+
+let appState = loadState();
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return JSON.parse(JSON.stringify(DEFAULT_STATE));
+    const parsed = JSON.parse(raw);
+    return { ...JSON.parse(JSON.stringify(DEFAULT_STATE)), ...parsed };
+  } catch (e) {
+    return JSON.parse(JSON.stringify(DEFAULT_STATE));
+  }
+}
+
+function saveState(pushCloud = true) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+  if (pushCloud && appState.firebaseUrl && appState.firebaseRoom) {
+    pushToFirebaseSilent();
+  }
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(window._toastTimer);
+  window._toastTimer = setTimeout(() => t.classList.remove('show'), 2600);
+}
+
+async function pushToFirebaseSilent() {
+  try {
+    const base = appState.firebaseUrl.replace(/\/$/, '');
+    const url = `${base}/studypunch/${encodeURIComponent(appState.firebaseRoom)}.json`;
+    await fetch(url, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(appState)
+    });
+    document.getElementById('sync-status-text').textContent = 'Cloud Synced ✓';
+    document.getElementById('fb-conn-badge').textContent = 'Connected';
+  } catch (e) {
+    document.getElementById('sync-status-text').textContent = 'Local Saved (Offline)';
+  }
+}
+
+function saveFirebaseConfig() {
+  appState.firebaseUrl = document.getElementById('fb-db-url').value.trim();
+  appState.firebaseRoom = document.getElementById('fb-sync-room').value.trim();
+  saveState(true);
+  showToast('Cloud Sync settings saved & pushed!');
+}
+
+async function pullFromFirebase() {
+  const base = document.getElementById('fb-db-url').value.trim().replace(/\/$/, '');
+  const room = document.getElementById('fb-sync-room').value.trim();
+  if (!base || !room) return showToast('Enter Firebase URL and Sync Key first.');
+  try {
+    const res = await fetch(`${base}/studypunch/${encodeURIComponent(room)}.json`);
+    const data = await res.json();
+    if (data && typeof data === 'object') {
+      appState = { ...appState, ...data, firebaseUrl: base, firebaseRoom: room };
+      saveState(false);
+      refreshAllUI();
+      showToast('Pulled latest study state from Cloud!');
+    } else {
+      showToast('No remote data found for that key yet.');
+    }
+  } catch (e) {
+    showToast('Cloud pull failed — check URL or rules.');
+  }
+}
+
+function exportFullJSON() {
+  const blob = new Blob([JSON.stringify(appState, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `studypunch-backup-${getTodayISO()}.json`;
+  a.click();
+  showToast('Full JSON backup downloaded!');
+}
+
+function importFullJSON(ev) {
+  const file = ev.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const imported = JSON.parse(reader.result);
+      appState = { ...appState, ...imported };
+      saveState(false);
+      refreshAllUI();
+      showToast('Backup restored successfully!');
+    } catch (e) {
+      showToast('Invalid JSON backup file.');
+    }
+  };
+  reader.readAsText(file);
+}
+
+/* ============================================================================
+   PIN LOCK & NAVIGATION
+============================================================================ */
+let pinBuffer = '';
+function lockScreen() {
+  pinBuffer = '';
+  updatePinDots();
+  document.getElementById('pin-error').textContent = '';
+  document.getElementById('pin-overlay').classList.add('active');
+}
+function pinPress(digit) {
+  if (pinBuffer.length >= 4) return;
+  pinBuffer += digit;
+  updatePinDots();
+  if (pinBuffer.length === 4) {
+    if (pinBuffer === appState.pin) {
+      document.getElementById('pin-overlay').classList.remove('active');
+      pinBuffer = '';
+      updatePinDots();
+    } else {
+      document.getElementById('pin-error').textContent = 'Incorrect PIN. Try again.';
+      setTimeout(() => { pinBuffer = ''; updatePinDots(); }, 450);
+    }
+  }
+}
+function pinClear() {
+  pinBuffer = '';
+  updatePinDots();
+  document.getElementById('pin-error').textContent = '';
+}
+function pinUnlockDefault() {
+  pinBuffer = appState.pin;
+  updatePinDots();
+  setTimeout(() => {
+    document.getElementById('pin-overlay').classList.remove('active');
+    pinBuffer = '';
+    updatePinDots();
+  }, 150);
+}
+function updatePinDots() {
+  document.querySelectorAll('#pin-dots .pin-dot').forEach((d, idx) => {
+    d.classList.toggle('filled', idx < pinBuffer.length);
+  });
+}
+function updatePin() {
+  const val = document.getElementById('custom-pin-input').value.trim();
+  if (!/^\d{4}$/.test(val)) return showToast('PIN must be exactly 4 digits.');
+  appState.pin = val;
+  saveState();
+  showToast('4-Digit PIN updated!');
+}
+function toggleStartupPin(checked) {
+  appState.requirePinOnStart = checked;
+  saveState();
+}
+
+const VIEW_META = {
+  dashboard: ['StudyPunch Command Dashboard', 'Track deep-focus hours, master NCERT diagrams, and conquer NEET 2027'],
+  syllabus: ['NEET 2027 Complete Syllabus Matrix', 'Granular 4-checkpoint tracker across Biology, Physics, and Chemistry'],
+  bio3d: ['Bio3D Interactive Anatomy & Cell Studio', 'Rotate, explode, and inspect 3D biological structures with NCERT annotations'],
+  diagrams: ['NCERT Visual Diagrams Lab', 'Active-recall blind labeling & timed pin-point identification quizzes'],
+  reader: ['NCERT Smart Active-Recall Reader', 'Highlight key lines, test verbatim recall with Cloze blanks, and build flashcards'],
+  sync: ['Cloud Sync, Backup & PIN Security', 'Mirror progress across devices or export offline snapshots']
+};
+
+function switchView(viewId, btnEl) {
+  document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
+  document.getElementById('view-' + viewId).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  if (btnEl) btnEl.classList.add('active');
+  const [title, sub] = VIEW_META[viewId] || ['StudyPunch One', ''];
+  document.getElementById('topbar-title').textContent = title;
+  document.getElementById('topbar-sub').textContent = sub;
+  if (viewId === 'bio3d') {
+    setTimeout(resizeBio3D, 60);
+  }
+}
+
+function toggleTheme() {
+  appState.theme = appState.theme === 'dark' ? 'light' : 'dark';
+  applyTheme();
+  saveState(false);
+}
+function applyTheme() {
+  document.documentElement.setAttribute('data-theme', appState.theme);
+  document.getElementById('theme-btn').textContent = appState.theme === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode';
+}
+
+/* ============================================================================
+   MODULE 2: STUDYPUNCH TIMER, ANALYTICS & CSV EXPORT
+============================================================================ */
+let timerInterval = null;
+let elapsedSeconds = 0;
+let isRunning = false;
+let isPaused = false;
+
+function updateWallClock() {
+  const now = new Date();
+  document.getElementById('wall-clock').textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+}
+setInterval(updateWallClock, 1000);
+updateWallClock();
+
+function formatHMS(sec) {
+  const h = String(Math.floor(sec / 3600)).padStart(2, '0');
+  const m = String(Math.floor((sec % 3600) / 60)).padStart(2, '0');
+  const s = String(sec % 60).padStart(2, '0');
+  return `${h}:${m}:${s}`;
+}
+
+function punchIn() {
+  if (isRunning) return;
+  isRunning = true;
+  isPaused = false;
+  const subj = document.getElementById('punch-subject').value;
+  const note = document.getElementById('punch-note').value.trim() || 'Focused Study Session';
+  document.getElementById('session-status-badge').textContent = '● PUNCHED IN — LIVE';
+  document.getElementById('session-status-badge').className = 'pill pill-bio';
+  document.getElementById('active-subject-tag').textContent = `${subj} • ${note}`;
+  document.getElementById('btn-punch-in').disabled = true;
+  document.getElementById('btn-pause').disabled = false;
+  document.getElementById('btn-punch-out').disabled = false;
+
+  timerInterval = setInterval(() => {
+    if (!isPaused) {
+      elapsedSeconds++;
+      document.getElementById('session-timer').textContent = formatHMS(elapsedSeconds);
+    }
+  }, 1000);
+  showToast(`Punched in for ${subj}!`);
+}
+
+function togglePause() {
+  if (!isRunning) return;
+  isPaused = !isPaused;
+  document.getElementById('btn-pause').textContent = isPaused ? '▶ Resume' : '⏸ Pause';
+  document.getElementById('session-status-badge').textContent = isPaused ? '⏸ PAUSED' : '● PUNCHED IN — LIVE';
+  document.getElementById('session-status-badge').className = isPaused ? 'pill pill-che' : 'pill pill-bio';
+}
+
+function punchOut() {
+  if (!isRunning) return;
+  clearInterval(timerInterval);
+  const mins = Math.max(1, Math.round(elapsedSeconds / 60));
+  const subj = document.getElementById('punch-subject').value;
+  const note = document.getElementById('punch-note').value.trim() || 'Deep Focus Session';
+
+  appState.logs.unshift({
+    id: Date.now(),
+    date: getTodayISO(0),
+    subject: subj,
+    note,
+    mins
+  });
+  saveState();
+
+  isRunning = false;
+  isPaused = false;
+  elapsedSeconds = 0;
+  document.getElementById('session-timer').textContent = '00:00:00';
+  document.getElementById('session-status-badge').textContent = 'READY TO PUNCH IN';
+  document.getElementById('session-status-badge').className = 'pill pill-che';
+  document.getElementById('active-subject-tag').textContent = 'Select subject & start focus';
+  document.getElementById('btn-punch-in').disabled = false;
+  document.getElementById('btn-pause').disabled = true;
+  document.getElementById('btn-pause').textContent = '⏸ Pause';
+  document.getElementById('btn-punch-out').disabled = true;
+  document.getElementById('punch-note').value = '';
+
+  renderDashboard();
+  showToast(`Logged ${mins} mins of ${subj}!`);
+}
+
+function addManualSession() {
+  const subj = document.getElementById('manual-subject').value;
+  const mins = parseInt(document.getElementById('manual-mins').value, 10);
+  const note = document.getElementById('manual-note').value.trim() || 'Self-Study Block';
+  if (!mins || mins <= 0) return showToast('Enter valid minutes.');
+  appState.logs.unshift({ id: Date.now(), date: getTodayISO(0), subject: subj, note, mins });
+  saveState();
+  document.getElementById('manual-mins').value = '';
+  document.getElementById('manual-note').value = '';
+  renderDashboard();
+  showToast(`Added ${mins}m ${subj} block!`);
+}
+
+function deleteLog(id) {
+  appState.logs = appState.logs.filter(l => l.id !== id);
+  saveState();
+  renderDashboard();
+  showToast('Log removed.');
+}
+
+function clearAllLogs() {
+  if (!confirm('Clear all timesheet logs?')) return;
+  appState.logs = [];
+  saveState();
+  renderDashboard();
+}
+
+function changeDailyTarget() {
+  const hrs = prompt('Enter daily study target in hours (e.g. 8 or 10):', (appState.dailyTargetMins / 60).toFixed(1));
+  const parsed = parseFloat(hrs);
+  if (parsed && parsed > 0 && parsed <= 24) {
+    appState.dailyTargetMins = Math.round(parsed * 60);
+    saveState();
+    renderDashboard();
+    showToast(`Daily target updated to ${parsed} hrs!`);
+  }
+}
+
+function exportCSV() {
+  const rows = [['Date', 'Subject', 'Chapter_Note', 'Minutes', 'Hours']];
+  appState.logs.forEach(l => {
+    rows.push([l.date, `"${l.subject}"`, `"${(l.note || '').replace(/"/g, '""')}"`, l.mins, (l.mins / 60).toFixed(2)]);
+  });
+  const csv = rows.map(r => r.join(',')).join('\n');
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `studypunch_timesheet_${getTodayISO()}.csv`;
+  a.click();
+  showToast('CSV Timesheet exported!');
+}
+
+function renderDashboard() {
+  const today = getTodayISO(0);
+  const todayMins = appState.logs.filter(l => l.date === today).reduce((s, l) => s + l.mins, 0);
+  document.getElementById('kpi-today').textContent = `${(todayMins / 60).toFixed(2)} hrs`;
+  document.getElementById('kpi-target-sub').textContent = `Target: ${(appState.dailyTargetMins / 60).toFixed(1)} hrs/day`;
+
+  // Target Ring
+  const pct = Math.min(100, Math.round((todayMins / appState.dailyTargetMins) * 100));
+  const circumference = 251.2;
+  document.getElementById('target-ring-circle').style.strokeDashoffset = circumference - (circumference * pct) / 100;
+  document.getElementById('target-pct-text').textContent = `${pct}%`;
+  document.getElementById('target-detail-text').textContent = `${todayMins}m / ${appState.dailyTargetMins}m completed today`;
+
+  // Last 7 days chart
+  const last7 = [];
+  for (let i = 6; i >= 0; i--) last7.push(getTodayISO(-i));
+  let weekMins = 0;
+  const maxChartMins = Math.max(appState.dailyTargetMins, 360);
+  const chartEl = document.getElementById('seven-day-chart');
+  chartEl.innerHTML = '';
+
+  last7.forEach(dStr => {
+    const dayLogs = appState.logs.filter(l => l.date === dStr);
+    const bio = dayLogs.filter(l => l.subject === 'Biology').reduce((s, l) => s + l.mins, 0);
+    const phy = dayLogs.filter(l => l.subject === 'Physics').reduce((s, l) => s + l.mins, 0);
+    const che = dayLogs.filter(l => l.subject === 'Chemistry').reduce((s, l) => s + l.mins, 0);
+    const oth = dayLogs.filter(l => !['Biology', 'Physics', 'Chemistry'].includes(l.subject)).reduce((s, l) => s + l.mins, 0);
+    const total = bio + phy + che + oth;
+    weekMins += total;
+
+    const totalH = Math.min(100, Math.round((total / maxChartMins) * 100));
+    const bioPct = total ? (bio / total) * 100 : 0;
+    const phyPct = total ? (phy / total) * 100 : 0;
+    const chePct = total ? (che / total) * 100 : 0;
+    const othPct = total ? (oth / total) * 100 : 0;
+    const dayLabel = new Date(dStr + 'T00:00:00').toLocaleDateString([], { weekday: 'short' });
+
+    chartEl.innerHTML += `
+      <div class="bar-col">
+        <div class="bar-val">${(total / 60).toFixed(1)}h</div>
+        <div class="bar-stack" style="height:${Math.max(totalH, 4)}%;">
+          <div class="bar-seg-bio" style="height:${bioPct}%"></div>
+          <div class="bar-seg-phy" style="height:${phyPct}%"></div>
+          <div class="bar-seg-che" style="height:${chePct}%"></div>
+          <div class="bar-seg-oth" style="height:${othPct}%"></div>
+        </div>
+        <div class="bar-day">${dayLabel}</div>
+      </div>`;
+  });
+
+  document.getElementById('kpi-week').textContent = `${(weekMins / 60).toFixed(2)} hrs`;
+  document.getElementById('kpi-avg-sub').textContent = `Avg: ${(weekMins / 420).toFixed(2)} hrs/day`;
+  document.getElementById('kpi-quiz').textContent = `${appState.quizPoints} pts`;
+
+  // Timesheet table
+  const tbody = document.getElementById('timesheet-body');
+  if (!appState.logs.length) {
+    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-muted);">No sessions logged yet. Punch in above to record your first block!</td></tr>';
+  } else {
+    tbody.innerHTML = appState.logs.slice(0, 25).map(l => {
+      const cls = l.subject === 'Biology' ? 'pill-bio' : l.subject === 'Physics' ? 'pill-phy' : l.subject === 'Chemistry' ? 'pill-che' : 'pill-oth';
+      return `
+        <tr>
+          <td style="font-family:var(--font-mono);font-size:0.8rem;">${l.date}</td>
+          <td><span class="pill ${cls}">${l.subject}</span></td>
+          <td>${l.note}</td>
+          <td style="font-family:var(--font-mono);font-weight:700;">${l.mins} min (${(l.mins/60).toFixed(2)}h)</td>
+          <td><button class="btn btn-sm" onclick="deleteLog(${l.id})" style="padding:3px 8px;color:#fb7185;">✕</button></td>
+        </tr>`;
+    }).join('');
+  }
+}
+
+/* ============================================================================
+   MODULE 3: NEET 2027 SYLLABUS TRACKER
+============================================================================ */
+const NEET_SYLLABUS = {
+  Biology: [
+    ['Class 11', 'The Living World'], ['Class 11', 'Biological Classification'], ['Class 11', 'Plant Kingdom'], ['Class 11', 'Animal Kingdom'],
+    ['Class 11', 'Morphology of Flowering Plants'], ['Class 11', 'Anatomy of Flowering Plants'], ['Class 11', 'Structural Organisation in Animals'],
+    ['Class 11', 'Cell: The Unit of Life'], ['Class 11', 'Biomolecules'], ['Class 11', 'Cell Cycle and Cell Division'],
+    ['Class 11', 'Photosynthesis in Higher Plants'], ['Class 11', 'Respiration in Plants'], ['Class 11', 'Plant Growth and Development'],
+    ['Class 11', 'Breathing and Exchange of Gases'], ['Class 11', 'Body Fluids and Circulation'], ['Class 11', 'Excretory Products and their Elimination'],
+    ['Class 11', 'Locomotion and Movement'], ['Class 11', 'Neural Control and Coordination'], ['Class 11', 'Chemical Coordination and Integration'],
+    ['Class 12', 'Sexual Reproduction in Flowering Plants'], ['Class 12', 'Human Reproduction'], ['Class 12', 'Reproductive Health'],
+    ['Class 12', 'Principles of Inheritance and Variation'], ['Class 12', 'Molecular Basis of Inheritance'], ['Class 12', 'Evolution'],
+    ['Class 12', 'Human Health and Disease'], ['Class 12', 'Microbes in Human Welfare'],
+    ['Class 12', 'Biotechnology: Principles and Processes'], ['Class 12', 'Biotechnology and its Applications'],
+    ['Class 12', 'Organisms and Populations'], ['Class 12', 'Ecosystem'], ['Class 12', 'Biodiversity and Conservation']
+  ],
+  Physics: [
+    ['Class 11', 'Units and Measurements'], ['Class 11', 'Motion in a Straight Line'], ['Class 11', 'Motion in a Plane (Vectors)'],
+    ['Class 11', 'Laws of Motion'], ['Class 11', 'Work, Energy and Power'], ['Class 11', 'System of Particles and Rotational Motion'],
+    ['Class 11', 'Gravitation'], ['Class 11', 'Mechanical Properties of Solids'], ['Class 11', 'Mechanical Properties of Fluids'],
+    ['Class 11', 'Thermal Properties of Matter'], ['Class 11', 'Thermodynamics'], ['Class 11', 'Kinetic Theory'],
+    ['Class 11', 'Oscillations'], ['Class 11', 'Waves'],
+    ['Class 12', 'Electric Charges and Fields'], ['Class 12', 'Electrostatic Potential and Capacitance'], ['Class 12', 'Current Electricity'],
+    ['Class 12', 'Moving Charges and Magnetism'], ['Class 12', 'Magnetism and Matter'], ['Class 12', 'Electromagnetic Induction'],
+    ['Class 12', 'Alternating Current'], ['Class 12', 'Electromagnetic Waves'], ['Class 12', 'Ray Optics and Optical Instruments'],
+    ['Class 12', 'Wave Optics'], ['Class 12', 'Dual Nature of Radiation and Matter'], ['Class 12', 'Atoms'],
+    ['Class 12', 'Nuclei'], ['Class 12', 'Semiconductor Electronics']
+  ],
+  Chemistry: [
+    ['Class 11', 'Some Basic Concepts of Chemistry'], ['Class 11', 'Structure of Atom'], ['Class 11', 'Classification of Elements & Periodicity'],
+    ['Class 11', 'Chemical Bonding and Molecular Structure'], ['Class 11', 'Chemical Thermodynamics'], ['Class 11', 'Chemical & Ionic Equilibrium'],
+    ['Class 11', 'Redox Reactions'], ['Class 11', 'Organic Chemistry: Basic Principles (GOC)'], ['Class 11', 'Hydrocarbons'],
+    ['Class 12', 'Solutions'], ['Class 12', 'Electrochemistry'], ['Class 12', 'Chemical Kinetics'],
+    ['Class 12', 'The d- and f-Block Elements'], ['Class 12', 'Coordination Compounds'], ['Class 12', 'Haloalkanes and Haloarenes'],
+    ['Class 12', 'Alcohols, Phenols and Ethers'], ['Class 12', 'Aldehydes, Ketones and Carboxylic Acids'],
+    ['Class 12', 'Amines'], ['Class 12', 'Biomolecules (Chemistry)']
+  ]
+};
+
+let activeSyllabusSubject = 'Biology';
+
+function setSyllabusSubject(subj, btn) {
+  activeSyllabusSubject = subj;
+  document.querySelectorAll('#syllabus-subject-tabs .tab-chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  renderSyllabus();
+}
+
+function toggleChapterStage(key, stageIdx) {
+  if (!appState.syllabusProgress[key]) appState.syllabusProgress[key] = [false, false, false, false];
+  appState.syllabusProgress[key][stageIdx] = !appState.syllabusProgress[key][stageIdx];
+  saveState();
+  renderSyllabus();
+}
+
+function renderSyllabus() {
+  const q = (document.getElementById('syllabus-search').value || '').toLowerCase();
+  const filter = document.getElementById('syllabus-filter').value;
+  const listEl = document.getElementById('syllabus-list');
+
+  // Update overall progress metrics
+  let totalChecks = 0, doneChecks = 0, totalChapters = 0, completedChapters = 0;
+  ['Biology', 'Physics', 'Chemistry'].forEach(subj => {
+    let sChecks = 0, sDone = 0;
+    NEET_SYLLABUS[subj].forEach(([cls, name]) => {
+      const k = `${subj}:${name}`;
+      const arr = appState.syllabusProgress[k] || [false, false, false, false];
+      const cnt = arr.filter(Boolean).length;
+      sChecks += 4; sDone += cnt;
+      totalChecks += 4; doneChecks += cnt;
+      totalChapters++;
+      if (cnt === 4) completedChapters++;
+    });
+    const sPct = Math.round((sDone / sChecks) * 100);
+    const badgeEl = document.getElementById(`prog-${subj}`);
+    if (badgeEl) badgeEl.textContent = `${sPct}%`;
+  });
+
+  const overallPct = Math.round((doneChecks / totalChecks) * 100);
+  document.getElementById('nav-syllabus-pct').textContent = `${overallPct}%`;
+  document.getElementById('kpi-syllabus').textContent = `${overallPct}%`;
+  document.getElementById('kpi-chapters-sub').textContent = `${completedChapters} / ${totalChapters} Chapters Mastered`;
+
+  // Render active subject chapters
+  const chapters = NEET_SYLLABUS[activeSyllabusSubject];
+  listEl.innerHTML = chapters.map(([cls, name]) => {
+    if (q && !name.toLowerCase().includes(q)) return '';
+    const key = `${activeSyllabusSubject}:${name}`;
+    const arr = appState.syllabusProgress[key] || [false, false, false, false];
+    const isDone = arr.every(Boolean);
+    if (filter === 'done' && !isDone) return '';
+    if (filter === 'pending' && isDone) return '';
+
+    const labels = ['NCERT Read', 'Diagrams/Formulas', 'PYQs', 'Revised'];
+    return `
+      <div class="chapter-item ${isDone ? 'completed' : ''}">
+        <div>
+          <span class="pill ${cls === 'Class 11' ? 'pill-phy' : 'pill-che'}" style="margin-right:8px;">${cls}</span>
+          <strong style="font-size:0.93rem;">${name}</strong>
+        </div>
+        <div class="chk-group">
+          ${labels.map((lbl, idx) => `
+            <label class="chk-label">
+              <input type="checkbox" ${arr[idx] ? 'checked' : ''} onchange="toggleChapterStage('${key.replace(/'/g, "\\'")}', ${idx})" />
+              ${lbl}
+            </label>`).join('')}
+        </div>
+      </div>`;
+  }).join('');
+}
+
+/* ============================================================================
+   MODULE 4: BIO3D INTERACTIVE STUDIO (bio3d-studio.js — Three.js Engine)
+============================================================================ */
+let scene, camera, renderer, modelGroup;
+let bio3dAutoRotate = true;
+let bio3dExplodeFactor = 0;
+let bio3dParts = [];
+let current3DModelKey = 'cell';
+
+const BIO3D_DATA = {
+  cell: {
+    title: 'Eukaryotic Animal Cell (3D)',
+    tag: 'Class 11 • Ch. 8',
+    desc: 'Interactive 3D organelle model showing the endomembrane system, double-membrane semi-autonomous mitochondria, and nuclear envelope.',
+    parts: [
+      { name: 'Nucleus & Nucleolus', fact: 'Double-membrane envelope with nuclear pores; nucleolus is the active site for rRNA synthesis (non-membrane bound).', color: 0xa855f7, pos: [0, 0, 0], radius: 1.05 },
+      { name: 'Mitochondria (Powerhouse)', fact: 'Double-membrane organelle with inner foldings (cristae), 70S ribosomes, and single circular DNA molecule. Divides by fission.', color: 0xf97316, pos: [1.8, 0.7, 0.6], radius: 0.55 },
+      { name: 'Rough Endoplasmic Reticulum', fact: 'Continuous with outer nuclear membrane; studded with 80S ribosomes for active protein synthesis and secretion.', color: 0x38bdf8, pos: [-1.6, 0.5, 0.8], radius: 0.65 },
+      { name: 'Golgi Apparatus (Cisternae)', fact: 'Disc-shaped cisternae (0.5–1.0 µm) with convex cis (forming) and concave trans (maturing) faces. Site of glycoprotein & glycolipid formation.', color: 0x10b981, pos: [1.3, -1.2, -0.7], radius: 0.58 },
+      { name: 'Lysosome (Suicidal Bag)', fact: 'Membrane-bound vesicular structure packaged by Golgi; rich in acid hydrolases active at acidic pH (~5).', color: 0xf43f5e, pos: [-1.2, -1.3, 0.6], radius: 0.36 },
+      { name: 'Centrosome (Centrioles)', fact: 'Two cylindrical centrioles perpendicular to each other with 9+0 peripheral triplet tubulin fibrils; forms basal bodies & spindle fibres.', color: 0xfacc15, pos: [0.3, 1.7, -0.5], radius: 0.35 }
+    ]
+  },
+  heart: {
+    title: 'Human Heart — 4-Chambered Model',
+    tag: 'Class 11 • Ch. 18',
+    desc: 'Myogenic four-chambered mesodermal organ protected by double-walled pericardium. Right side pumps deoxygenated blood; left side pumps oxygenated blood.',
+    parts: [
+      { name: 'Right Atrium & SA Node', fact: 'Receives deoxygenated blood via SVC, IVC & coronary sinus. Sinoatrial Node (SAN) in upper right corner generates 70–75 action potentials/min (Pacemaker).', color: 0x3b82f6, pos: [-0.95, 0.85, 0.2], radius: 0.72 },
+      { name: 'Left Atrium', fact: 'Receives oxygenated blood from lungs via four pulmonary veins. Separated from Left Ventricle by Bicuspid (Mitral) valve.', color: 0xef4444, pos: [0.95, 0.85, 0.2], radius: 0.7 },
+      { name: 'Right Ventricle', fact: 'Guarded by Tricuspid valve; pumps deoxygenated blood into Pulmonary Artery via semilunar valve.', color: 0x1d4ed8, pos: [-0.75, -0.65, 0.25], radius: 0.82 },
+      { name: 'Left Ventricle (Thickest Wall)', fact: 'Thickest myocardium (~3x thicker than right ventricle) to generate high systemic pressure into the Aorta.', color: 0xdc2626, pos: [0.75, -0.75, 0.25], radius: 0.88 },
+      { name: 'Systemic Aorta Arch', fact: 'Largest artery arising from left ventricle; guarded by aortic semilunar valve whose closure produces the "Dub" sound.', color: 0xf97316, pos: [0.25, 1.85, -0.15], radius: 0.48 }
+    ]
+  },
+  dna: {
+    title: 'B-DNA Double Helix (Watson-Crick)',
+    tag: 'Class 12 • Ch. 6',
+    desc: 'Two antiparallel polynucleotide chains coiled in a right-handed fashion with negatively charged sugar-phosphate backbone outside and bases stacked inside.',
+    parts: [
+      { name: 'Sugar-Phosphate Backbone', fact: 'Deoxyribose sugar linked via 3′-5′ phosphodiester bonds; negatively charged due to phosphate groups (wraps around positively charged histone octamer).', color: 0x38bdf8, pos: [1.1, 1.1, 0], radius: 0.42 },
+      { name: 'Adenine = Thymine (2 H-Bonds)', fact: 'Purine (Adenine) pairs specifically with Pyrimidine (Thymine) via two hydrogen bonds. Chargaff’s rule: A/T = 1.', color: 0x10b981, pos: [0, 0.4, 0], radius: 0.42 },
+      { name: 'Guanine ≡ Cytosine (3 H-Bonds)', fact: 'Purine (Guanine) pairs with Pyrimidine (Cytosine) via three hydrogen bonds, conferring higher thermal stability (higher Tm).', color: 0xf59e0b, pos: [0, -0.5, 0], radius: 0.42 },
+      { name: 'Helix Pitch (3.4 nm) & Rise (0.34 nm)', fact: 'One full turn spans 3.4 nm (34 Å) containing 10 base pairs; distance between adjacent bp is 0.34 nm.', color: 0xa855f7, pos: [-1.1, -1.2, 0], radius: 0.42 }
+    ]
+  },
+  nephron: {
+    title: 'Juxtamedullary Nephron Unit',
+    tag: 'Class 11 • Ch. 19',
+    desc: 'Structural and functional unit of kidney (~1 million per kidney) executing glomerular filtration (125 mL/min), tubular reabsorption, and secretion.',
+    parts: [
+      { name: 'Glomerulus & Bowman’s Capsule', fact: 'Together form Malpighian Body in renal cortex. Podocytes create filtration slits allowing ultrafiltration across 3 layers.', color: 0xef4444, pos: [-1.3, 1.2, 0.2], radius: 0.65 },
+      { name: 'Proximal Convoluted Tubule (PCT)', fact: 'Lined by simple cuboidal brush-border epithelium; reabsorbs 70–80% of electrolytes and water, plus all glucose & amino acids.', color: 0xf59e0b, pos: [-0.3, 0.8, 0.3], radius: 0.52 },
+      { name: 'Loop of Henle (Counter-Current)', fact: 'Descending limb is permeable to water (concentrates filtrate); ascending limb is impermeable to water and actively transports NaCl.', color: 0x38bdf8, pos: [0.2, -1.2, 0], radius: 0.55 },
+      { name: 'Distal Convoluted Tubule & Collecting Duct', fact: 'Conditional reabsorption of Na+ (Aldosterone) and water (ADH/Vasopressin) occurs here to produce hypertonic urine (up to 1200 mOsmol/L).', color: 0x10b981, pos: [1.3, 0.4, -0.2], radius: 0.55 }
+    ]
+  },
+  chloroplast: {
+    title: 'Chloroplast (Photosynthetic Plastid)',
+    tag: 'Class 11 • Ch. 8 & 13',
+    desc: 'Double-membrane bound lens-shaped organelle in mesophyll cells containing thylakoid grana (light reaction) and aqueous stroma (Calvin cycle).',
+    parts: [
+      { name: 'Grana Thylakoids (Light Reaction)', fact: 'Stacked membrane sacs containing Chlorophyll a, b, carotenoids, PS-I, PS-II, and ATP synthase for photophosphorylation.', color: 0x10b981, pos: [-0.7, 0.2, 0.3], radius: 0.65 },
+      { name: 'Stroma Lamellae', fact: 'Flat membranous tubules connecting thylakoids of different grana; lacks PS-II and NADP reductase (performs cyclic photophosphorylation).', color: 0x34d399, pos: [0.3, 0.1, 0], radius: 0.48 },
+      { name: 'Stroma Matrix & RuBisCO', fact: 'Contains enzymes for dark reaction (C3 cycle), double-stranded circular DNA, and 70S ribosomes.', color: 0xfacc15, pos: [0.9, -0.5, -0.3], radius: 0.55 }
+    ]
+  }
+};
+
+function initBio3D() {
+  const container = document.getElementById('bio3d-viewport');
+  if (!container || typeof THREE === 'undefined') return;
+
+  scene = new THREE.Scene();
+  camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
+  camera.position.set(0, 0.5, 6.2);
+
+  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setSize(container.clientWidth, container.clientHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  container.insertBefore(renderer.domElement, container.firstChild);
+
+  const amb = new THREE.AmbientLight(0xffffff, 0.65);
+  scene.add(amb);
+  const dir1 = new THREE.DirectionalLight(0xfbbf24, 1.0);
+  dir1.position.set(5, 6, 7);
+  scene.add(dir1);
+  const dir2 = new THREE.DirectionalLight(0x38bdf8, 0.7);
+  dir2.position.set(-5, -4, 4);
+  scene.add(dir2);
+
+  modelGroup = new THREE.Group();
+  scene.add(modelGroup);
+
+  // Mouse / Touch drag orbit
+  let dragging = false, prevX = 0, prevY = 0;
+  renderer.domElement.addEventListener('pointerdown', e => { dragging = true; prevX = e.clientX; prevY = e.clientY; });
+  window.addEventListener('pointerup', () => dragging = false);
+  window.addEventListener('pointermove', e => {
+    if (!dragging || !modelGroup) return;
+    modelGroup.rotation.y += (e.clientX - prevX) * 0.01;
+    modelGroup.rotation.x += (e.clientY - prevY) * 0.01;
+    prevX = e.clientX; prevY = e.clientY;
+  });
+  renderer.domElement.addEventListener('wheel', e => {
+    e.preventDefault();
+    camera.position.z = Math.max(3.2, Math.min(10, camera.position.z + e.deltaY * 0.004));
+  }, { passive: false });
+
+  loadBio3DModel('cell');
+  animateBio3D();
+}
+
+function resizeBio3D() {
+  const container = document.getElementById('bio3d-viewport');
+  if (!renderer || !camera || !container || !container.clientWidth) return;
+  camera.aspect = container.clientWidth / container.clientHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(container.clientWidth, container.clientHeight);
+}
+window.addEventListener('resize', resizeBio3D);
+
+function loadBio3DModel(key, btnEl) {
+  current3DModelKey = key;
+  if (btnEl) {
+    document.querySelectorAll('#bio3d-model-tabs .tab-chip').forEach(b => b.classList.remove('active'));
+    btnEl.classList.add('active');
+  }
+  const spec = BIO3D_DATA[key];
+  document.getElementById('bio3d-info-title').textContent = spec.title;
+  document.getElementById('bio3d-class-tag').textContent = spec.tag;
+  document.getElementById('bio3d-info-desc').textContent = spec.desc;
+
+  // Populate hotspot sidebar
+  const hsContainer = document.getElementById('bio3d-hotspots');
+  hsContainer.innerHTML = spec.parts.map((p, idx) => `
+    <button class="hotspot-btn ${idx === 0 ? 'active' : ''}" onclick="highlight3DPart(${idx}, this)">
+      <div style="font-weight:700;font-size:0.86rem;color:#f8fafc;">● ${p.name}</div>
+      <div style="font-size:0.78rem;color:var(--text-secondary);margin-top:4px;line-height:1.45;">${p.fact}</div>
+    </button>`).join('');
+
+  if (!modelGroup) return;
+  while (modelGroup.children.length) modelGroup.remove(modelGroup.children[0]);
+  bio3dParts = [];
+
+  // Outer translucent envelope
+  if (key === 'cell' || key === 'chloroplast') {
+    const shellGeo = key === 'chloroplast' ? new THREE.SphereGeometry(2.5, 32, 24) : new THREE.SphereGeometry(2.45, 32, 24);
+    if (key === 'chloroplast') shellGeo.scale(1.25, 0.72, 0.85);
+    const shellMat = new THREE.MeshPhongMaterial({
+      color: key === 'chloroplast' ? 0x10b981 : 0x38bdf8,
+      transparent: true,
+      opacity: 0.14,
+      wireframe: false
+    });
+    modelGroup.add(new THREE.Mesh(shellGeo, shellMat));
+  }
+
+  // Special DNA double helix rungs
+  if (key === 'dna') {
+    for (let i = -8; i <= 8; i++) {
+      const y = i * 0.26;
+      const angle = i * 0.52;
+      const x1 = Math.cos(angle) * 1.15, z1 = Math.sin(angle) * 1.15;
+      const x2 = -x1, z2 = -z1;
+      const b1 = new THREE.Mesh(new THREE.SphereGeometry(0.14, 14, 14), new THREE.MeshPhongMaterial({ color: 0x38bdf8 }));
+      b1.position.set(x1, y, z1);
+      const b2 = new THREE.Mesh(new THREE.SphereGeometry(0.14, 14, 14), new THREE.MeshPhongMaterial({ color: 0x38bdf8 }));
+      b2.position.set(x2, y, z2);
+      const rung = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.05, 0.05, 2.2, 8),
+        new THREE.MeshPhongMaterial({ color: i % 2 === 0 ? 0x10b981 : 0xf59e0b })
+      );
+      rung.position.set(0, y, 0);
+      rung.rotation.z = Math.PI / 2;
+      rung.rotation.y = -angle;
+      modelGroup.add(b1, b2, rung);
+    }
+  }
+
+  // Add interactive anatomical spheres/nodes
+  spec.parts.forEach((p, idx) => {
+    const geo = key === 'chloroplast'
+      ? new THREE.CylinderGeometry(p.radius, p.radius, 0.35, 24)
+      : new THREE.SphereGeometry(p.radius, 28, 24);
+    const mat = new THREE.MeshPhongMaterial({
+      color: p.color,
+      emissive: idx === 0 ? p.color : 0x000000,
+      emissiveIntensity: idx === 0 ? 0.35 : 0,
+      shininess: 80
+    });
+    const mesh = new THREE.Mesh(geo, mat);
+    mesh.position.set(...p.pos);
+    mesh.userData = { basePos: new THREE.Vector3(...p.pos), baseColor: p.color };
+    modelGroup.add(mesh);
+    bio3dParts.push(mesh);
+  });
+}
+
+function highlight3DPart(idx, btnEl) {
+  document.querySelectorAll('.hotspot-btn').forEach(b => b.classList.remove('active'));
+  if (btnEl) btnEl.classList.add('active');
+  bio3dParts.forEach((m, i) => {
+    m.material.emissive.setHex(i === idx ? m.userData.baseColor : 0x000000);
+    m.material.emissiveIntensity = i === idx ? 0.48 : 0;
+    m.scale.setScalar(i === idx ? 1.18 : 1.0);
+  });
+}
+
+function setBio3DExplode(val) {
+  bio3dExplodeFactor = Number(val) / 100;
+  bio3dParts.forEach(m => {
+    m.position.copy(m.userData.basePos).multiplyScalar(1 + bio3dExplodeFactor * 0.75);
+  });
+}
+
+function toggleBio3DRotate() {
+  bio3dAutoRotate = !bio3dAutoRotate;
+  document.getElementById('btn-3d-rotate').textContent = bio3dAutoRotate ? '⏸ Auto-Spin' : '▶ Auto-Spin';
+}
+
+function animateBio3D() {
+  requestAnimationFrame(animateBio3D);
+  if (modelGroup && bio3dAutoRotate) {
+    modelGroup.rotation.y += 0.006;
+  }
+  if (renderer && scene && camera) {
+    renderer.render(scene, camera);
+  }
+}
+
+/* ============================================================================
+   MODULE 5: NCERT DIAGRAMS LAB (ncert-diagrams-data.js + ncert-diagrams-lab.js)
+============================================================================ */
+const NCERT_DIAGRAMS = [
+  {
+    id: 'heart_ls',
+    shortName: 'Human Heart',
+    title: 'Human Heart — Conducting System & Valves',
+    chapter: 'Class 11 • Ch. 18',
+    pins: [
+      { id: 1, x: 145, y: 115, label: 'Sinoatrial Node (SAN)', fact: 'Located in right upper corner of Right Atrium; generates max action potentials (70–75/min) — natural pacemaker.' },
+      { id: 2, x: 185, y: 175, label: 'Atrioventricular Node (AVN)', fact: 'Located in lower left corner of Right Atrium close to atrio-ventricular septum; introduces ~0.1s delay so atria empty before ventricular systole.' },
+      { id: 3, x: 140, y: 225, label: 'Tricuspid Valve', fact: 'Guards opening between Right Atrium and Right Ventricle; formed of 3 muscular flaps/cusps.' },
+      { id: 4, x: 295, y: 225, label: 'Bicuspid (Mitral) Valve', fact: 'Guards opening between Left Atrium and Left Ventricle; prevents backflow during ventricular systole.' },
+      { id: 5, x: 220, y: 265, label: 'Bundle of His & Purkinje Fibres', fact: 'AV bundle divides into right & left branches along interventricular septum, spreading impulse rapidly across ventricular musculature.' },
+      { id: 6, x: 245, y: 72,  label: 'Systemic Aorta', fact: 'Receives oxygenated blood from Left Ventricle; closure of aortic & pulmonary semilunar valves creates second heart sound ("Dub").' }
+    ],
+    svg: `<svg viewBox="0 0 440 360">
+      <rect x="10" y="10" width="420" height="340" rx="18" fill="#0f172a" stroke="#1e293b"/>
+      <!-- Aorta & Pulmonary Trunk -->
+      <path d="M235 130 C235 55, 295 55, 295 110" stroke="#ef4444" stroke-width="24" fill="none" stroke-linecap="round"/>
+      <path d="M195 140 C195 75, 130 75, 120 115" stroke="#3b82f6" stroke-width="20" fill="none" stroke-linecap="round"/>
+      <!-- Heart Chambers -->
+      <path d="M115 135 C90 190, 125 315, 225 325 C315 315, 345 190, 315 135 Z" fill="#1e293b" stroke="#f43f5e" stroke-width="4"/>
+      <!-- Right & Left Chambers -->
+      <ellipse cx="155" cy="160" rx="45" ry="38" fill="#1d4ed8" opacity="0.55"/>
+      <ellipse cx="280" cy="160" rx="45" ry="38" fill="#dc2626" opacity="0.55"/>
+      <path d="M125 215 Q165 305 215 305 L215 215 Z" fill="#2563eb" opacity="0.65"/>
+      <path d="M308 215 Q275 308 225 308 L225 215 Z" fill="#ef4444" opacity="0.7"/>
+      <!-- Septum -->
+      <line x1="220" y1="145" x2="220" y2="312" stroke="#fbbf24" stroke-width="5" stroke-dasharray="6 4"/>
+    </svg>`
+  },
+  {
+    id: 'pbr322',
+    shortName: 'pBR322 Vector',
+    title: 'E. coli Cloning Vector pBR322',
+    chapter: 'Class 12 • Ch. 11',
+    pins: [
+      { id: 1, x: 220, y: 55,  label: 'EcoRI / ClaI / HindIII Cluster', fact: 'Unique restriction enzyme recognition sites located outside ampR and tetR selectable markers.' },
+      { id: 2, x: 335, y: 135, label: 'BamHI & SalI (inside tetR)', fact: 'Restriction sites inside Tetracycline resistance gene; insertion here causes insertional inactivation of tetR.' },
+      { id: 3, x: 295, y: 275, label: 'rop Gene', fact: 'Codes for proteins involved in the replication of the plasmid (located near PvuII site).' },
+      { id: 4, x: 185, y: 295, label: 'ori (Origin of Replication)', fact: 'Sequence from where replication starts; also controls copy number of the linked DNA.' },
+      { id: 5, x: 105, y: 165, label: 'ampR (PstI & PvuI sites)', fact: 'Ampicillin resistance selectable marker gene containing PstI and PvuI restriction sites.' }
+    ],
+    svg: `<svg viewBox="0 0 440 360">
+      <rect x="10" y="10" width="420" height="340" rx="18" fill="#0f172a" stroke="#1e293b"/>
+      <circle cx="220" cy="180" r="115" fill="none" stroke="#475569" stroke-width="14"/>
+      <!-- ampR arc -->
+      <path d="M122 120 A115 115 0 0 0 122 240" fill="none" stroke="#10b981" stroke-width="16"/>
+      <!-- tetR arc -->
+      <path d="M305 102 A115 115 0 0 1 325 225" fill="none" stroke="#f59e0b" stroke-width="16"/>
+      <!-- ori arc -->
+      <path d="M165 282 A115 115 0 0 0 235 294" fill="none" stroke="#38bdf8" stroke-width="16"/>
+      <!-- rop arc -->
+      <path d="M265 285 A115 115 0 0 0 308 252" fill="none" stroke="#a855f7" stroke-width="16"/>
+      <text x="220" y="185" fill="#f8fafc" font-size="18" font-weight="bold" text-anchor="middle">pBR322</text>
+    </svg>`
+  },
+  {
+    id: 'embryo_sac',
+    shortName: 'Mature Embryo Sac',
+    title: '7-Celled, 8-Nucleate Mature Embryo Sac',
+    chapter: 'Class 12 • Ch. 2',
+    pins: [
+      { id: 1, x: 220, y: 72,  label: 'Antipodal Cells (3, Haploid)', fact: 'Three haploid cells located at the Chalazal end; degenerate after fertilization.' },
+      { id: 2, x: 220, y: 175, label: 'Central Cell with 2 Polar Nuclei', fact: 'Largest cell of embryo sac containing 2 haploid polar nuclei; fuses with 2nd male gamete to form Primary Endosperm Nucleus (3n).' },
+      { id: 3, x: 220, y: 242, label: 'Egg Cell (Female Gamete)', fact: 'Haploid cell at Micropylar end; fuses with 1st male gamete (Syngamy) to form diploid Zygote (2n).' },
+      { id: 4, x: 175, y: 268, label: 'Synergids & Filiform Apparatus', fact: 'Two synergids at micropylar end possess cellular thickenings (Filiform apparatus) that guide the pollen tube into a synergid.' }
+    ],
+    svg: `<svg viewBox="0 0 440 360">
+      <rect x="10" y="10" width="420" height="340" rx="18" fill="#0f172a" stroke="#1e293b"/>
+      <ellipse cx="220" cy="180" rx="85" ry="135" fill="#1e293b" stroke="#38bdf8" stroke-width="4"/>
+      <text x="350" y="65" fill="#94a3b8" font-size="12">Chalazal End</text>
+      <text x="350" y="305" fill="#94a3b8" font-size="12">Micropylar End</text>
+      <!-- Antipodals -->
+      <circle cx="192" cy="78" r="16" fill="#a855f7"/><circle cx="220" cy="70" r="16" fill="#a855f7"/><circle cx="248" cy="78" r="16" fill="#a855f7"/>
+      <!-- Polar nuclei -->
+      <circle cx="206" cy="175" r="15" fill="#f59e0b"/><circle cx="234" cy="175" r="15" fill="#f59e0b"/>
+      <!-- Egg & Synergids -->
+      <circle cx="220" cy="242" r="20" fill="#ef4444"/>
+      <ellipse cx="185" cy="268" rx="18" ry="24" fill="#10b981"/>
+      <ellipse cx="255" cy="268" rx="18" ry="24" fill="#10b981"/>
+    </svg>`
+  },
+  {
+    id: 'ecg_wave',
+    shortName: 'Standard ECG',
+    title: 'Standard Electrocardiogram (ECG) Complex',
+    chapter: 'Class 11 • Ch. 18',
+    pins: [
+      { id: 1, x: 105, y: 185, label: 'P-Wave (Atrial Depolarization)', fact: 'Represents electrical excitation (depolarization) of atria, leading to contraction of both atria.' },
+      { id: 2, x: 205, y: 80,  label: 'QRS Complex (Ventricular Depolarization)', fact: 'Initiates ventricular contraction (systole shortly follows Q). Counting QRS complexes determines heart beat rate.' },
+      { id: 3, x: 325, y: 175, label: 'T-Wave (Ventricular Repolarization)', fact: 'Represents return of ventricles from excited to normal state; end of T-wave marks the end of ventricular systole.' }
+    ],
+    svg: `<svg viewBox="0 0 440 360">
+      <rect x="10" y="10" width="420" height="340" rx="18" fill="#0f172a" stroke="#1e293b"/>
+      <path d="M35 215 L85 215 Q105 170 125 215 L175 215 L190 245 L205 75 L222 260 L238 215 L295 215 Q325 155 355 215 L405 215"
+            fill="none" stroke="#10b981" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>`
+  },
+  {
+    id: 'lac_operon',
+    shortName: 'Lac Operon',
+    title: 'Lac Operon (Inducible System — Jacob & Monod)',
+    chapter: 'Class 12 • Ch. 6',
+    pins: [
+      { id: 1, x: 95,  y: 155, label: 'i Gene (Regulator Gene)', fact: 'Constitutively synthesizes Repressor mRNA and active Repressor protein (not "inducer").' },
+      { id: 2, x: 175, y: 155, label: 'Operator Region (o)', fact: 'Repressor protein binds here in absence of lactose, blocking RNA polymerase from transcribing structural genes.' },
+      { id: 3, x: 255, y: 155, label: 'lacZ (β-Galactosidase)', fact: 'Hydrolyzes disaccharide lactose into monomeric units: Galactose and Glucose.' },
+      { id: 4, x: 315, y: 155, label: 'lacY (Permease)', fact: 'Increases permeability of bacterial cell wall/membrane to β-galactosides (lactose).' },
+      { id: 5, x: 370, y: 155, label: 'lacA (Transacetylase)', fact: 'Transfers acetyl group from acetyl-CoA to β-galactosides.' }
+    ],
+    svg: `<svg viewBox="0 0 440 360">
+      <rect x="10" y="10" width="420" height="340" rx="18" fill="#0f172a" stroke="#1e293b"/>
+      <line x1="35" y1="155" x2="405" y2="155" stroke="#64748b" stroke-width="6"/>
+      <rect x="65" y="135" width="55" height="40" rx="6" fill="#a855f7"/><text x="92" y="160" fill="#fff" font-weight="bold" text-anchor="middle">i</text>
+      <rect x="130" y="135" width="28" height="40" rx="6" fill="#475569"/><text x="144" y="160" fill="#fff" font-weight="bold" text-anchor="middle">p</text>
+      <rect x="162" y="135" width="32" height="40" rx="6" fill="#ef4444"/><text x="178" y="160" fill="#fff" font-weight="bold" text-anchor="middle">o</text>
+      <rect x="215" y="135" width="75" height="40" rx="6" fill="#10b981"/><text x="252" y="160" fill="#fff" font-weight="bold" text-anchor="middle">lac Z</text>
+      <rect x="295" y="135" width="50" height="40" rx="6" fill="#38bdf8"/><text x="320" y="160" fill="#fff" font-weight="bold" text-anchor="middle">lac Y</text>
+      <rect x="350" y="135" width="48" height="40" rx="6" fill="#f59e0b"/><text x="374" y="160" fill="#fff" font-weight="bold" text-anchor="middle">lac A</text>
+    </svg>`
+  },
+  {
+    id: 'sarcomere',
+    shortName: 'Sarcomere Unit',
+    title: 'Sarcomere — Contractile Unit of Myofibril',
+    chapter: 'Class 11 • Ch. 20',
+    pins: [
+      { id: 1, x: 75,  y: 180, label: 'Z-Line (Krause’s Membrane)', fact: 'Elastic fibre bisecting I-band; thin Actin filaments are firmly attached to Z-lines. Portion between two successive Z-lines is a Sarcomere.' },
+      { id: 2, x: 135, y: 120, label: 'I-Band (Isotropic / Light Band)', fact: 'Contains only Actin (thin) filaments; shortens during muscle contraction.' },
+      { id: 3, x: 220, y: 120, label: 'A-Band (Anisotropic / Dark Band)', fact: 'Contains full length of Myosin (thick) filaments plus overlapping Actin; length remains CONSTANT during contraction.' },
+      { id: 4, x: 220, y: 180, label: 'H-Zone (Hensen’s Zone)', fact: 'Central part of thick filament NOT overlapped by thin filaments in resting state; narrows/disappears during maximal contraction.' }
+    ],
+    svg: `<svg viewBox="0 0 440 360">
+      <rect x="10" y="10" width="420" height="340" rx="18" fill="#0f172a" stroke="#1e293b"/>
+      <line x1="75" y1="95" x2="75" y2="265" stroke="#f59e0b" stroke-width="6"/>
+      <line x1="365" y1="95" x2="365" y2="265" stroke="#f59e0b" stroke-width="6"/>
+      <!-- Thick Myosin -->
+      <rect x="145" y="145" width="150" height="12" rx="4" fill="#ef4444"/>
+      <rect x="145" y="205" width="150" height="12" rx="4" fill="#ef4444"/>
+      <!-- Thin Actin -->
+      <line x1="75" y1="130" x2="185" y2="130" stroke="#38bdf8" stroke-width="5"/>
+      <line x1="75" y1="175" x2="185" y2="175" stroke="#38bdf8" stroke-width="5"/>
+      <line x1="75" y1="225" x2="185" y2="225" stroke="#38bdf8" stroke-width="5"/>
+      <line x1="255" y1="130" x2="365" y2="130" stroke="#38bdf8" stroke-width="5"/>
+      <line x1="255" y1="175" x2="365" y2="175" stroke="#38bdf8" stroke-width="5"/>
+      <line x1="255" y1="225" x2="365" y2="225" stroke="#38bdf8" stroke-width="5"/>
+    </svg>`
+  },
+  {
+    id: 'nephron_svg',
+    shortName: 'Malpighian Body',
+    title: 'Nephron & Malpighian Renal Corpuscle',
+    chapter: 'Class 11 • Ch. 19',
+    pins: [
+      { id: 1, x: 110, y: 120, label: 'Glomerulus & Bowman’s Capsule', fact: 'Afferent arteriole is wider than Efferent arteriole, creating high glomerular capillary blood pressure (~60 mmHg) for ultrafiltration.' },
+      { id: 2, x: 195, y: 115, label: 'Proximal Convoluted Tubule (PCT)', fact: 'Reabsorbs nearly all essential nutrients and 70–80% of electrolytes and water.' },
+      { id: 3, x: 225, y: 265, label: 'Henle’s Loop & Vasa Recta', fact: 'Counter-current flow between Henle’s loop and Vasa Recta maintains medullary osmolarity gradient (300 to 1200 mOsmol/L).' },
+      { id: 4, x: 345, y: 165, label: 'Collecting Duct', fact: 'Extends from cortex to inner medulla; allows passage of small amounts of urea into medullary interstitium to keep osmolarity.' }
+    ],
+    svg: `<svg viewBox="0 0 440 360">
+      <rect x="10" y="10" width="420" height="340" rx="18" fill="#0f172a" stroke="#1e293b"/>
+      <circle cx="110" cy="120" r="36" fill="none" stroke="#38bdf8" stroke-width="8"/>
+      <circle cx="110" cy="120" r="18" fill="#ef4444"/>
+      <path d="M146 120 C180 90, 205 135, 205 165 L205 275 C205 305, 245 305, 245 275 L245 145 C245 110, 305 110, 345 135 L345 300"
+            fill="none" stroke="#f59e0b" stroke-width="10" stroke-linecap="round"/>
+    </svg>`
+  },
+  {
+    id: 'ovum_follicle',
+    shortName: 'Human Ovum',
+    title: 'Human Ovum (Secondary Oocyte at Ovulation)',
+    chapter: 'Class 12 • Ch. 3',
+    pins: [
+      { id: 1, x: 220, y: 65,  label: 'Corona Radiata', fact: 'Outer granulosa cell layer held together by hyaluronic acid; sperm acrosomal hyaluronidase disperses these cells.' },
+      { id: 2, x: 220, y: 108, label: 'Zona Pellucida', fact: 'Non-cellular glycoprotein layer secreted by secondary oocyte; binding of sperm to ZP3 induces cortical reaction (blocks polyspermy).' },
+      { id: 3, x: 220, y: 180, label: 'Secondary Oocyte (Arrested at Metaphase II)', fact: 'Completes Meiosis II ONLY upon entry of sperm into cytoplasm, releasing second polar body and forming haploid ootid.' }
+    ],
+    svg: `<svg viewBox="0 0 440 360">
+      <rect x="10" y="10" width="420" height="340" rx="18" fill="#0f172a" stroke="#1e293b"/>
+      <circle cx="220" cy="180" r="115" fill="none" stroke="#10b981" stroke-width="18" stroke-dasharray="14 8"/>
+      <circle cx="220" cy="180" r="88" fill="none" stroke="#38bdf8" stroke-width="10"/>
+      <circle cx="220" cy="180" r="72" fill="#f59e0b" opacity="0.25"/>
+      <circle cx="220" cy="180" r="24" fill="#a855f7"/>
+    </svg>`
+  }
+];
+
+let activeDiagramIdx = 0;
+let diagramMode = 'explore';
+let quizTargetPin = null;
+let quizCorrect = 0, quizTotal = 0;
+
+function initDiagramsLab() {
+  const tabs = document.getElementById('diagram-selector-tabs');
+  tabs.innerHTML = NCERT_DIAGRAMS.map((d, idx) => `
+    <button class="tab-chip ${idx === 0 ? 'active' : ''}" onclick="selectDiagram(${idx}, this)">${d.shortName}</button>
+  `).join('');
+  selectDiagram(0);
+}
+
+function selectDiagram(idx, btnEl) {
+  activeDiagramIdx = idx;
+  if (btnEl) {
+    document.querySelectorAll('#diagram-selector-tabs .tab-chip').forEach(b => b.classList.remove('active'));
+    btnEl.classList.add('active');
+  }
+  renderDiagramStage();
+}
+
+function setDiagramMode(mode) {
+  diagramMode = mode;
+  ['explore', 'blind', 'quiz'].forEach(m => {
+    const b = document.getElementById(`mode-${m}-btn`);
+    if (b) b.classList.toggle('btn-primary', m === mode);
+  });
+  document.getElementById('diag-quiz-banner').style.display = mode === 'quiz' ? 'block' : 'none';
+  if (mode === 'quiz') {
+    quizCorrect = 0; quizTotal = 0;
+    pickNextQuizPin();
+  }
+  renderDiagramStage();
+}
+
+function pickNextQuizPin() {
+  const diag = NCERT_DIAGRAMS[activeDiagramIdx];
+  quizTargetPin = diag.pins[Math.floor(Math.random() * diag.pins.length)];
+  document.getElementById('diag-quiz-target').textContent = quizTargetPin.label;
+  document.getElementById('diag-quiz-score').textContent = `Score: ${quizCorrect}/${quizTotal}`;
+}
+
+function handlePinClick(pinId) {
+  const diag = NCERT_DIAGRAMS[activeDiagramIdx];
+  const pin = diag.pins.find(p => p.id === pinId);
+  if (!pin) return;
+
+  document.getElementById('pin-insp-num').textContent = `PIN #${pin.id} • ${diag.chapter}`;
+  document.getElementById('pin-insp-name').textContent = pin.label;
+  document.getElementById('pin-insp-fact').textContent = pin.fact;
+
+  if (diagramMode === 'quiz' && quizTargetPin) {
+    quizTotal++;
+    if (pin.id === quizTargetPin.id) {
+      quizCorrect++;
+      appState.quizPoints += 10;
+      saveState();
+      renderDashboard();
+      showToast(`✅ Correct! +10 pts (${pin.label})`);
+    } else {
+      showToast(`❌ That was ${pin.label}. Try next!`);
+    }
+    pickNextQuizPin();
+  }
+}
+
+function renderDiagramStage() {
+  const diag = NCERT_DIAGRAMS[activeDiagramIdx];
+  document.getElementById('diag-title').textContent = diag.title;
+  document.getElementById('diag-chapter').textContent = diag.chapter;
+
+  // Inject interactive pins into SVG
+  const pinsSvg = diag.pins.map(p => `
+    <g class="svg-pin" onclick="handlePinClick(${p.id})">
+      <circle cx="${p.x}" cy="${p.y}" r="14" fill="#0f172a" stroke="#38bdf8" stroke-width="2.5"/>
+      <text x="${p.x}" y="${p.y + 4}" fill="#f8fafc" font-size="11" font-weight="bold" text-anchor="middle">${p.id}</text>
+      <text class="svg-label-text" x="${p.x}" y="${p.y - 19}" fill="#fbbf24" font-size="10.5" font-weight="bold" text-anchor="middle">${p.label.split(' (')[0]}</text>
+    </g>`).join('');
+
+  const fullSvg = diag.svg.replace('</svg>', `${pinsSvg}</svg>`);
+  const stage = document.getElementById('diagram-svg-stage');
+  stage.innerHTML = fullSvg;
+  stage.classList.toggle('diagram-label-hidden', diagramMode !== 'explore');
+
+  // Pins grid
+  const grid = document.getElementById('diag-pins-grid');
+  grid.innerHTML = diag.pins.map(p => `
+    <button class="btn btn-sm" style="justify-content:flex-start;text-align:left;" onclick="handlePinClick(${p.id})">
+      <span style="color:var(--accent-cyan);font-weight:800;">#${p.id}</span>
+      <span>${diagramMode === 'explore' ? p.label : 'Click pin on diagram to reveal'}</span>
+    </button>`).join('');
+}
+
+/* ============================================================================
+   MODULE 6: NCERT SMART READER & FLASHCARDS (ncert-reader.js)
+============================================================================ */
+const NCERT_READER_CHAPTERS = [
+  {
+    id: 'ch_circ',
+    title: 'Class 11 • Body Fluids & Circulation (High-Yield Lines)',
+    lines: [
+      'Plasma is a straw-coloured, viscous fluid constituting nearly 55 per cent of the blood, and 90–92 per cent of plasma is water.',
+      'Fibrinogens are needed for clotting or coagulation of blood; Globulins primarily are involved in defense mechanisms and Albumins help in osmotic balance.',
+      'A healthy adult man has, on an average, 5 millions to 5.5 millions of RBCs mm⁻³ of blood, with an average life span of 120 days after which they are destroyed in the spleen (graveyard of RBCs).',
+      'Neutrophils are the most abundant cells (60–65 per cent) of the total WBCs and Basophils are the least (0.5–1 per cent) among them.',
+      'Basophils secrete histamine, serotonin, heparin, etc., and are involved in inflammatory reactions.',
+      'Persons with AB group are called Universal Recipients because they carry no antibodies (anti-A, anti-B) in their plasma.'
+    ]
+  },
+  {
+    id: 'ch_biotech',
+    title: 'Class 12 • Biotechnology: Principles & Processes',
+    lines: [
+      'The first restriction endonuclease—Hind II, whose functioning depended on a specific DNA nucleotide sequence, was isolated and characterised five years later.',
+      'Restriction enzymes belong to a larger class of enzymes called nucleases, which are of two kinds: exonucleases and endonucleases.',
+      'Each restriction endonuclease recognises a specific palindromic nucleotide sequence in the DNA (for EcoRI: 5′-GAATTC-3′ / 3′-CTTAAG-5′).',
+      'In gel electrophoresis, the separated DNA fragments can be visualised only after staining the DNA with Ethidium Bromide followed by exposure to UV radiation as bright orange coloured bands.',
+      'In PCR (Polymerase Chain Reaction), thermostable DNA polymerase isolated from bacterium Thermus aquaticus remains active during high-temperature denaturation.'
+    ]
+  },
+  {
+    id: 'ch_chem_eq',
+    title: 'Class 11 • Chemical & Ionic Equilibrium (NEET Formula Digest)',
+    lines: [
+      'For a gaseous reaction aA + bB ⇌ cC + dD, Kp = Kc(RT)^Δng where Δng = (moles of gaseous products) − (moles of gaseous reactants).',
+      'If reaction quotient Qc < Kc, the net reaction proceeds in the forward direction (from reactants to products).',
+      'For a weak monobasic acid HA of concentration C and degree of dissociation α, Ostwald Dilution Law gives Ka = Cα² / (1 − α) ≈ Cα².',
+      'Henderson-Hasselbalch equation for an acidic buffer: pH = pKa + log([Salt] / [Acid]); maximum buffer capacity occurs when [Salt] = [Acid] (pH = pKa).',
+      'For a sparingly soluble salt AxBy with molar solubility S, solubility product Ksp = x^x · y^y · S^(x+y) (e.g. for Ag2CrO4, Ksp = 4S³).'
+    ]
+  }
+];
+
+let activeBrush = 'yellow';
+let clozeEnabled = false;
+let currentFcIdx = 0;
+let fcFlipped = false;
+
+function initReader() {
+  const sel = document.getElementById('reader-chapter-select');
+  sel.innerHTML = NCERT_READER_CHAPTERS.map((c, i) => `<option value="${i}">${c.title}</option>`).join('');
+  renderReaderChapter();
+  renderFlashcard();
+}
+
+function setBrush(b) {
+  activeBrush = b;
+  ['yellow', 'pink', 'cyan', 'none'].forEach(k => {
+    document.getElementById(`brush-${k}`).style.opacity = k === b ? '1' : '0.6';
+  });
+}
+
+function toggleClozeMode() {
+  clozeEnabled = !clozeEnabled;
+  document.getElementById('btn-cloze-toggle').textContent = clozeEnabled ? '🧠 Cloze Test: ON' : '🧠 Cloze Test: OFF';
+  renderReaderChapter();
+}
+
+function highlightLine(key) {
+  if (activeBrush === 'none') {
+    delete appState.highlights[key];
+  } else {
+    appState.highlights[key] = activeBrush;
+  }
+  saveState();
+  renderReaderChapter();
+}
+
+function makeClozeHTML(text) {
+  if (!clozeEnabled) return text;
+  // Mask key numbers, percentages, and capitalized scientific terms
+  return text.replace(/(\b\d+(?:[–\-.]\d+)?\s*(?:per cent|%|days|millions|nm|°C)?\b|\b(?:Fibrinogens|Globulins|Albumins|spleen|Neutrophils|Basophils|heparin|Hind II|palindromic|Ethidium Bromide|Thermus aquaticus|Ostwald|Henderson-Hasselbalch)\b)/g,
+    match => `<span class="cloze-blank" onclick="event.stopPropagation();this.classList.toggle('revealed')">${match}</span>`
+  );
+}
+
+function renderReaderChapter() {
+  const idx = parseInt(document.getElementById('reader-chapter-select').value || '0', 10);
+  const ch = NCERT_READER_CHAPTERS[idx];
+  const container = document.getElementById('reader-lines-container');
+
+  container.innerHTML = ch.lines.map((line, lIdx) => {
+    const hKey = `${ch.id}:${lIdx}`;
+    const hl = appState.highlights[hKey];
+    const hlClass = hl ? `hl-${hl}` : '';
+    return `
+      <div class="ncert-line ${hlClass}" onclick="highlightLine('${hKey}')" style="cursor:pointer;">
+        <span>${makeClozeHTML(line)}</span>
+        <button class="btn btn-sm" style="flex-shrink:0;padding:3px 8px;" onclick="event.stopPropagation();quickLineToFlashcard(${idx}, ${lIdx})" title="Send line to Flashcards">+ Card</button>
+      </div>`;
+  }).join('');
+}
+
+function quickLineToFlashcard(chIdx, lineIdx) {
+  const line = NCERT_READER_CHAPTERS[chIdx].lines[lineIdx];
+  appState.flashcards.unshift({
+    q: `Complete / Recall NCERT Concept (${NCERT_READER_CHAPTERS[chIdx].title.split('•')[1].trim()}):`,
+    a: line
+  });
+  saveState();
+  currentFcIdx = 0;
+  fcFlipped = false;
+  renderFlashcard();
+  showToast('Added NCERT line to Flashcard Deck!');
+}
+
+function renderFlashcard() {
+  const deck = appState.flashcards;
+  document.getElementById('fc-count').textContent = deck.length;
+  if (!deck.length) {
+    document.getElementById('fc-content').textContent = 'No flashcards yet. Add one below!';
+    return;
+  }
+  const card = deck[currentFcIdx % deck.length];
+  document.getElementById('fc-side-badge').textContent = fcFlipped ? 'NCERT ANSWER' : 'QUESTION (Click to Flip)';
+  document.getElementById('fc-side-badge').className = fcFlipped ? 'pill pill-bio' : 'pill pill-che';
+  document.getElementById('fc-content').textContent = fcFlipped ? card.a : card.q;
+}
+
+function flipFlashcard() {
+  fcFlipped = !fcFlipped;
+  renderFlashcard();
+}
+
+function nextFlashcard() {
+  if (!appState.flashcards.length) return;
+  currentFcIdx = (currentFcIdx + 1) % appState.flashcards.length;
+  fcFlipped = false;
+  renderFlashcard();
+}
+
+function addCustomFlashcard() {
+  const q = document.getElementById('new-fc-q').value.trim();
+  const a = document.getElementById('new-fc-a').value.trim();
+  if (!q || !a) return showToast('Fill both Front and Back.');
+  appState.flashcards.unshift({ q, a });
+  saveState();
+  document.getElementById('new-fc-q').value = '';
+  document.getElementById('new-fc-a').value = '';
+  currentFcIdx = 0;
+  fcFlipped = false;
+  renderFlashcard();
+  showToast('Custom flashcard added!');
+}
+
+/* ============================================================================
+   BOOT & INITIALIZATION
+============================================================================ */
+function refreshAllUI() {
+  applyTheme();
+  document.getElementById('fb-db-url').value = appState.firebaseUrl || '';
+  document.getElementById('fb-sync-room').value = appState.firebaseRoom || '';
+  document.getElementById('pin-startup-chk').checked = !!appState.requirePinOnStart;
+  renderDashboard();
+  renderSyllabus();
+  renderReaderChapter();
+  renderFlashcard();
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  refreshAllUI();
+  initBio3D();
+  initDiagramsLab();
+  initReader();
+  if (appState.requirePinOnStart) {
+    lockScreen();
+  }
+});
+</script>
+</body>
+</html>
