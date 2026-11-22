@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>StudyPunch — Executive NEET 2027 Command Atelier</title>
-  <meta name="description" content="StudyPunch is an executive cloud-synced NEET 2027 command center with 3 Web Themes (Sunset, Flora & Fauna, Night Sky), Optional Doomsday Chronograph to 02 May 2027, Granular NCERT Class 11 & 12 Spider-Web Syllabus, DOT AI, and 4-Chart Telemetry." />
+  <meta name="description" content="StudyPunch is an executive cloud-synced NEET 2027 command center with Live Focus Wallpapers (Aurora, Snowfall, Rain), 3 Web Themes, Optional Doomsday Chronograph to 02 May 2027, Granular NCERT Class 11 & 12 Spider-Web Syllabus, DOT AI, and 4-Chart Telemetry." />
   <meta name="theme-color" content="#09090b" />
   <meta property="og:title" content="StudyPunch — Executive NEET 2027 Command Atelier" />
-  <meta property="og:description" content="Switch between Sunset, Flora & Fauna, and Night Sky themes, toggle your Doomsday Clock to 02 May 2027, and master the NCERT NEET 2027 syllabus." />
+  <meta property="og:description" content="Lock in with Live Aurora, Snowfall, and Rain focus wallpapers, track the full NCERT NEET 2027 syllabus, and compete live." />
   <meta property="og:url" content="https://studypunchone.vercel.app" />
   <meta property="og:type" content="website" />
 
@@ -72,9 +72,7 @@
       overflow-x: hidden;
       transition: background-color 0.35s ease;
     }
-    .font-serif-luxury {
-      font-family: 'Playfair Display', Georgia, serif;
-    }
+    .font-serif-luxury { font-family: 'Playfair Display', Georgia, serif; }
     .theme-gradient-text {
       background: linear-gradient(135deg, var(--accent-start) 0%, var(--accent-mid) 55%, var(--accent-end) 100%);
       -webkit-background-clip: text;
@@ -175,17 +173,38 @@
 </head>
 <body class="antialiased selection:bg-amber-400 selection:text-black flex flex-col min-h-screen">
 
-  <!-- ================= PITCH-BLACK ZERO-DISTRACTION OVERLAY ================= -->
-  <div id="zeroDistractionOverlay" class="hidden fixed inset-0 bg-black z-[100] flex flex-col items-center justify-center p-6 select-none">
-    <div class="max-w-xl w-full text-center space-y-8">
-      <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-zinc-950 border border-white/20 text-zinc-200 text-[11px] font-bold tracking-[0.2em] uppercase">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 live-beacon"></span>
-        SANCTUARY FOCUS MODE • LOCKED IN
+  <!-- ================= PITCH-BLACK + LIVE AMBIENT FOCUS OVERLAY ================= -->
+  <div id="zeroDistractionOverlay" class="hidden fixed inset-0 bg-black z-[100] flex flex-col items-center justify-center p-6 select-none overflow-hidden">
+    <!-- Live Ambient Focus Canvas (Aurora / Snowfall / Rain) -->
+    <canvas id="focusWallpaperCanvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
+
+    <div class="relative z-10 max-w-xl w-full text-center space-y-7">
+      <!-- Live Wallpaper & Ambient Sound Controls -->
+      <div class="inline-flex flex-wrap items-center justify-center gap-1.5 p-1.5 rounded-2xl bg-zinc-950/80 backdrop-blur-md border border-white/10">
+        <button type="button" onclick="setFocusWallpaper('black')" data-wp="black" class="wp-pill clicky px-3 py-1.5 rounded-xl text-[11px] font-semibold text-zinc-400 hover:text-white">
+          🌑 Pitch Black
+        </button>
+        <button type="button" onclick="setFocusWallpaper('aurora')" data-wp="aurora" class="wp-pill clicky px-3 py-1.5 rounded-xl text-[11px] font-bold bg-white/15 text-white border border-white/25">
+          🌌 Live Aurora
+        </button>
+        <button type="button" onclick="setFocusWallpaper('snow')" data-wp="snow" class="wp-pill clicky px-3 py-1.5 rounded-xl text-[11px] font-semibold text-zinc-400 hover:text-white">
+          ❄️ Snowfall
+        </button>
+        <button type="button" onclick="setFocusWallpaper('rain')" data-wp="rain" class="wp-pill clicky px-3 py-1.5 rounded-xl text-[11px] font-semibold text-zinc-400 hover:text-white">
+          🌧️ Focus Rain
+        </button>
+        <button type="button" id="toggleAmbientAudioBtn" class="clicky px-3 py-1.5 rounded-xl text-[11px] font-semibold bg-zinc-900 text-zinc-300 border border-white/10 hover:text-white" title="Toggle Calming Rain/Wind White Noise">
+          🔇 Sound Off
+        </button>
       </div>
 
       <div>
-        <p id="zdSubjectDisplay" class="font-serif-luxury italic text-lg sm:text-xl text-zinc-400 tracking-wide mb-3">NEET 2027 Deep Study Session</p>
-        <div id="zdTimerDisplay" class="mono-nums text-6xl sm:text-8xl font-extrabold text-white tracking-tight">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/70 border border-white/15 text-zinc-300 text-[10px] font-bold tracking-[0.2em] uppercase mb-3">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 live-beacon"></span>
+          SANCTUARY FOCUS MODE • LOCKED IN
+        </div>
+        <p id="zdSubjectDisplay" class="font-serif-luxury italic text-lg sm:text-xl text-zinc-300 tracking-wide mb-2">NEET 2027 Deep Study Session</p>
+        <div id="zdTimerDisplay" class="mono-nums text-6xl sm:text-8xl font-extrabold text-white tracking-tight drop-shadow-[0_0_30px_rgba(0,0,0,0.95)]">
           00:00:00
         </div>
         <p id="zdDoomsdayMini" class="mono-nums text-xs text-rose-400/90 mt-4 tracking-widest uppercase">
@@ -193,12 +212,12 @@
         </p>
       </div>
 
-      <div class="pt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
+      <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
         <button id="zdClockOutBtn" type="button" class="clicky w-full sm:w-auto px-10 py-4 rounded-2xl bg-gradient-to-r from-rose-700 to-rose-600 hover:from-rose-600 hover:to-rose-500 text-white font-bold text-xs tracking-[0.18em] uppercase border border-rose-400/30 shadow-[0_0_30px_rgba(225,29,72,0.35)]">
-          ⏹ Conclude & Save Session
+          ⏹ Conclude &amp; Save Session
         </button>
       </div>
-      <p class="text-[11px] text-zinc-700 tracking-wider">Every passing second brings 02 May 2027 closer. Stay relentless.</p>
+      <p class="text-[11px] text-zinc-500 tracking-wider">Every passing second brings 02 May 2027 closer. Stay relentless.</p>
     </div>
   </div>
 
@@ -234,12 +253,12 @@
 
       <button id="googleLoginBtn" type="button" class="clicky w-full flex items-center justify-center gap-3 bg-zinc-100 hover:bg-white text-zinc-950 font-bold py-3 px-4 rounded-xl shadow-lg mb-4 text-sm">
         <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5" alt="Google" />
-        <span>Continue with Google (Drive Sync)</span>
+        <span>Continue with Google Account</span>
       </button>
 
       <div class="relative flex py-2 items-center mb-4">
         <div class="flex-grow border-t border-zinc-800"></div>
-        <span class="flex-shrink mx-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500">Or Student ID & PIN</span>
+        <span class="flex-shrink mx-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500">Or Student ID &amp; PIN</span>
         <div class="flex-grow border-t border-zinc-800"></div>
       </div>
 
@@ -329,7 +348,6 @@
             <div class="flex items-center gap-1.5">
               <span class="font-serif-luxury font-bold theme-gradient-text tracking-tight text-base">StudyPunch</span>
               <span id="navCloudStatus" class="text-[9px] px-2 py-0.5 rounded-full bg-emerald-950/80 text-emerald-300 border border-emerald-500/30 font-semibold">Cloud Live</span>
-              <span id="navDriveStatus" class="hidden text-[9px] px-2 py-0.5 rounded-full bg-white/10 text-zinc-200 border border-white/20 font-semibold md:inline-block">Drive Synced</span>
             </div>
             <p id="welcomeUserText" class="text-[10px] text-zinc-400 truncate max-w-[140px] sm:max-w-xs">Logged in</p>
           </div>
@@ -446,7 +464,7 @@
               <span id="punchStatusTag" class="px-3 py-1 rounded-full text-[11px] font-semibold bg-black/80 text-zinc-300 border border-white/10">Standby</span>
             </div>
 
-            <p class="text-xs text-zinc-400 mb-2">Entering Focus Mode dims the world to pitch-black so only your timer remains.</p>
+            <p class="text-xs text-zinc-400 mb-2">Entering Focus Mode dims the world with Live Aurora, Snowfall, or Rain so only your timer remains.</p>
 
             <div id="liveTimerDisplay" class="mono-nums text-5xl sm:text-7xl font-black text-white tracking-tight my-4">
               00:00:00
@@ -458,7 +476,7 @@
 
             <div class="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto">
               <button id="clockInBtn" type="button" class="clicky w-full theme-btn-primary font-extrabold py-4 px-6 rounded-2xl text-xs uppercase tracking-[0.18em]">
-                ▶ Clock In • Blackout Focus Mode
+                ▶ Clock In • Sanctuary Focus Mode
               </button>
               <button id="clockOutBtn" type="button" disabled class="clicky hidden w-full bg-rose-700 hover:bg-rose-600 text-white font-extrabold py-4 px-6 rounded-2xl shadow-lg text-xs uppercase tracking-[0.18em]">
                 ⏹ Clock Out
@@ -509,7 +527,7 @@
             <div class="luxury-card rounded-2xl p-5">
               <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400">All-Time Hours</p>
               <p id="statAllTimeHours" class="mono-nums text-2xl font-black text-emerald-400 mt-1">0.0 hrs</p>
-              <p class="text-[11px] text-zinc-500 mt-2">Cloud + Drive synchronized</p>
+              <p class="text-[11px] text-zinc-500 mt-2">Cloud synchronized</p>
             </div>
 
             <div id="dashSyllabusCard" class="clicky luxury-card rounded-2xl p-5 cursor-pointer hover:border-white/40">
@@ -745,7 +763,7 @@
         </div>
       </section>
 
-      <!-- === SLIDE 3: CLOUD & DRIVE NOTES VAULT === -->
+      <!-- === SLIDE 3: CLOUD NOTES VAULT === -->
       <section id="notesView" class="phone-screen-slide p-4 sm:p-6">
         <div class="max-w-6xl mx-auto space-y-6">
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -773,7 +791,7 @@
                   </button>
                 </div>
               </div>
-              <textarea id="noteBodyInput" placeholder="Record high-yield NCERT lines, reaction mechanisms, or mock test errors... Automatically syncs to your Cloud ID and Google Drive." class="flex-1 w-full bg-black/70 rounded-2xl p-4 border border-zinc-800 text-sm text-zinc-200 leading-relaxed focus:outline-none focus:border-amber-400 resize-none"></textarea>
+              <textarea id="noteBodyInput" placeholder="Record high-yield NCERT lines, reaction mechanisms, or mock test errors... Automatically syncs to your Cloud ID." class="flex-1 w-full bg-black/70 rounded-2xl p-4 border border-zinc-800 text-sm text-zinc-200 leading-relaxed focus:outline-none focus:border-amber-400 resize-none"></textarea>
             </div>
           </div>
 
@@ -950,7 +968,7 @@
 
   </div>
 
-  <!-- ================= FIREBASE, 3-THEME ENGINE, PWA, DOOMSDAY & NCERT SYLLABUS ================= -->
+  <!-- ================= FIREBASE, LIVE FOCUS WALLPAPERS, 3-THEME ENGINE & NCERT SYLLABUS ================= -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
     import { getFirestore, doc, getDoc, setDoc, collection, getDocs, onSnapshot, enableIndexedDbPersistence } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
@@ -1087,7 +1105,183 @@
     updateDoomsdayChronograph();
     setInterval(updateDoomsdayChronograph, 1000);
 
-    // ================= 5. GRANULAR NCERT CLASS 11 & 12 NEET 2027 SYLLABUS =================
+    // ================= 5. LIVE FOCUS WALLPAPER & AMBIENT WHITE-NOISE ENGINE =================
+    const zeroDistractionOverlay = document.getElementById("zeroDistractionOverlay");
+    const wpCanvas = document.getElementById("focusWallpaperCanvas");
+    const wpCtx = wpCanvas ? wpCanvas.getContext("2d") : null;
+    let currentFocusWallpaper = localStorage.getItem("studypunch_focus_wp") || "aurora";
+    let wpAnimFrame = null;
+    let wpParticles = [];
+    let auroraTime = 0;
+
+    function resizeFocusCanvas() {
+      if (!wpCanvas) return;
+      wpCanvas.width = window.innerWidth;
+      wpCanvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeFocusCanvas);
+    resizeFocusCanvas();
+
+    function initWallpaperParticles(mode) {
+      wpParticles = [];
+      const w = wpCanvas.width;
+      const h = wpCanvas.height;
+      if (mode === "snow") {
+        for (let i = 0; i < 95; i++) {
+          wpParticles.push({
+            x: Math.random() * w,
+            y: Math.random() * h,
+            r: Math.random() * 2.4 + 0.8,
+            speedY: Math.random() * 0.65 + 0.25,
+            drift: Math.random() * Math.PI * 2,
+            alpha: Math.random() * 0.45 + 0.15
+          });
+        }
+      } else if (mode === "rain") {
+        for (let i = 0; i < 130; i++) {
+          wpParticles.push({
+            x: Math.random() * w,
+            y: Math.random() * h,
+            len: Math.random() * 16 + 10,
+            speedY: Math.random() * 6 + 6.5,
+            speedX: -0.9,
+            alpha: Math.random() * 0.22 + 0.08
+          });
+        }
+      }
+    }
+
+    function renderFocusWallpaperLoop() {
+      if (!wpCtx || zeroDistractionOverlay.classList.contains("hidden")) {
+        wpAnimFrame = null;
+        return;
+      }
+      const w = wpCanvas.width;
+      const h = wpCanvas.height;
+      wpCtx.clearRect(0, 0, w, h);
+
+      if (currentFocusWallpaper === "aurora") {
+        auroraTime += 0.006;
+        const ribbons = [
+          { yBase: h * 0.28, amp: 55, freq: 0.0022, speed: 1.0, c1: "rgba(16, 185, 129, 0.16)", c2: "rgba(6, 78, 59, 0)" },
+          { yBase: h * 0.36, amp: 70, freq: 0.0017, speed: -0.7, c1: "rgba(99, 102, 241, 0.13)", c2: "rgba(30, 27, 75, 0)" },
+          { yBase: h * 0.22, amp: 45, freq: 0.0028, speed: 0.5, c1: "rgba(45, 212, 191, 0.11)", c2: "rgba(15, 23, 42, 0)" }
+        ];
+        ribbons.forEach((rb, idx) => {
+          wpCtx.beginPath();
+          wpCtx.moveTo(0, h);
+          for (let x = 0; x <= w; x += 24) {
+            const wave = Math.sin(x * rb.freq + auroraTime * rb.speed + idx) * rb.amp
+                       + Math.cos(x * rb.freq * 1.6 - auroraTime * 0.8) * (rb.amp * 0.45);
+            wpCtx.lineTo(x, rb.yBase + wave);
+          }
+          wpCtx.lineTo(w, h);
+          wpCtx.closePath();
+          const grad = wpCtx.createLinearGradient(0, rb.yBase - rb.amp, 0, h * 0.78);
+          grad.addColorStop(0, rb.c1);
+          grad.addColorStop(1, rb.c2);
+          wpCtx.fillStyle = grad;
+          wpCtx.fill();
+        });
+      } else if (currentFocusWallpaper === "snow") {
+        wpParticles.forEach(p => {
+          p.y += p.speedY;
+          p.drift += 0.012;
+          p.x += Math.sin(p.drift) * 0.35;
+          if (p.y > h) { p.y = -5; p.x = Math.random() * w; }
+          wpCtx.beginPath();
+          wpCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          wpCtx.fillStyle = `rgba(226, 232, 240, ${p.alpha})`;
+          wpCtx.fill();
+        });
+      } else if (currentFocusWallpaper === "rain") {
+        wpCtx.lineWidth = 1.1;
+        wpCtx.lineCap = "round";
+        wpParticles.forEach(p => {
+          p.y += p.speedY;
+          p.x += p.speedX;
+          if (p.y > h) { p.y = -20; p.x = Math.random() * w; }
+          if (p.x < 0) p.x = w;
+          wpCtx.beginPath();
+          wpCtx.moveTo(p.x, p.y);
+          wpCtx.lineTo(p.x + p.speedX * 2, p.y + p.len);
+          wpCtx.strokeStyle = `rgba(148, 163, 184, ${p.alpha})`;
+          wpCtx.stroke();
+        });
+      }
+
+      wpAnimFrame = requestAnimationFrame(renderFocusWallpaperLoop);
+    }
+
+    window.setFocusWallpaper = function(mode) {
+      currentFocusWallpaper = mode;
+      localStorage.setItem("studypunch_focus_wp", mode);
+      document.querySelectorAll(".wp-pill").forEach(btn => {
+        const isMatch = btn.getAttribute("data-wp") === mode;
+        btn.className = isMatch
+          ? "wp-pill clicky px-3 py-1.5 rounded-xl text-[11px] font-bold bg-white/15 text-white border border-white/25"
+          : "wp-pill clicky px-3 py-1.5 rounded-xl text-[11px] font-semibold text-zinc-400 hover:text-white";
+      });
+      resizeFocusCanvas();
+      initWallpaperParticles(mode);
+      if (!wpAnimFrame && !zeroDistractionOverlay.classList.contains("hidden")) {
+        renderFocusWallpaperLoop();
+      }
+    };
+
+    // Optional Web Audio Ambient Rain / Wind Generator (Zero external MP3s needed)
+    let audioCtx = null;
+    let ambientNoiseNode = null;
+    let isAmbientSoundOn = false;
+
+    function stopAmbientSound() {
+      if (ambientNoiseNode) {
+        try { ambientNoiseNode.disconnect(); } catch {}
+        ambientNoiseNode = null;
+      }
+      isAmbientSoundOn = false;
+      const btn = document.getElementById("toggleAmbientAudioBtn");
+      if (btn) btn.textContent = "🔇 Sound Off";
+    }
+
+    function startAmbientSound() {
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === "suspended") audioCtx.resume();
+        const bufferSize = 2 * audioCtx.sampleRate;
+        const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const output = noiseBuffer.getChannelData(0);
+        let lastOut = 0.0;
+        for (let i = 0; i < bufferSize; i++) {
+          const white = Math.random() * 2 - 1;
+          output[i] = (lastOut + (0.02 * white)) / 1.02;
+          lastOut = output[i];
+          output[i] *= 0.14; // Gentle low-volume brown/rain noise
+        }
+        const whiteNoise = audioCtx.createBufferSource();
+        whiteNoise.buffer = noiseBuffer;
+        whiteNoise.loop = true;
+
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = "lowpass";
+        filter.frequency.value = 420;
+
+        whiteNoise.connect(filter);
+        filter.connect(audioCtx.destination);
+        whiteNoise.start(0);
+        ambientNoiseNode = filter;
+        isAmbientSoundOn = true;
+        const btn = document.getElementById("toggleAmbientAudioBtn");
+        if (btn) btn.textContent = "🔊 Rain/Wind On";
+      } catch {}
+    }
+
+    document.getElementById("toggleAmbientAudioBtn").addEventListener("click", () => {
+      if (isAmbientSoundOn) stopAmbientSound();
+      else startAmbientSound();
+    });
+
+    // ================= 6. GRANULAR NCERT CLASS 11 & 12 NEET 2027 SYLLABUS =================
     const NEET_2027_SYLLABUS = [
       {
         id: "phys",
@@ -1278,7 +1472,6 @@
       db = getFirestore(fbApp);
       auth = getAuth(fbApp);
       googleProvider = new GoogleAuthProvider();
-      googleProvider.addScope("https://www.googleapis.com/auth/drive.appdata");
       enableIndexedDbPersistence(db).catch(() => {});
       setCloudStatus(true);
     } catch (e) {
@@ -1303,28 +1496,6 @@
       localStorage.setItem("studypunch_current_user", JSON.stringify(userObj));
     }
 
-    async function syncToPersonalGoogleDrive(userObj) {
-      const token = localStorage.getItem("studypunch_gdrive_token");
-      if (!token) return;
-      try {
-        const sRes = await fetch("https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&q=name='studypunch_backup.json'&fields=files(id)", {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        if (!sRes.ok) return;
-        const sData = await sRes.json();
-        const fileId = sData.files && sData.files[0] ? sData.files[0].id : null;
-        const metadata = { name: "studypunch_backup.json", ...(fileId ? {} : { parents: ["appDataFolder"] }) };
-        const form = new FormData();
-        form.append("metadata", new Blob([JSON.stringify(metadata)], { type: "application/json" }));
-        form.append("file", new Blob([JSON.stringify(userObj)], { type: "application/json" }));
-        const url = fileId
-          ? `https://www.googleapis.com/upload/drive/v3/files/${fileId}?uploadType=multipart`
-          : "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart";
-        await fetch(url, { method: fileId ? "PATCH" : "POST", headers: { Authorization: `Bearer ${token}` }, body: form });
-        document.getElementById("navDriveStatus").classList.remove("hidden");
-      } catch {}
-    }
-
     async function fetchUserFromCloud(studentId) {
       if (!db) return null;
       try {
@@ -1340,7 +1511,6 @@
     async function saveUserToCloud(userObj) {
       userObj.lastSeenAt = Date.now();
       saveLocalUser(userObj);
-      syncToPersonalGoogleDrive(userObj);
       if (!db) return false;
       try {
         await withTimeout(setDoc(doc(db, "students", userObj.id), userObj, { merge: true }));
@@ -1409,16 +1579,31 @@
       if (!/^\d{4}$/.test(pin)) return showAlert("PIN must be 4 digits.");
       if (pin !== pinConfirm) return showAlert("PINs do not match.");
 
-      const existing = await fetchUserFromCloud(rawId) || getLocalUsersMap()[rawId];
-      if (existing) return showAlert("Student ID already exists! Sign in instead.");
+      const btn = document.getElementById("createIdSubmitBtn");
+      btn.disabled = true;
+      btn.textContent = "Creating ID...";
 
-      const newUser = {
-        id: rawId, name: fullName, pin, targetHours,
-        sessions: [], syllabusChecked: {}, notes: [], rouletteXp: 0,
-        activePunchStart: null, activeSubject: "", createdAt: new Date().toISOString()
-      };
-      await saveUserToCloud(newUser);
-      loginSuccess(newUser);
+      try {
+        const existing = await fetchUserFromCloud(rawId) || getLocalUsersMap()[rawId];
+        if (existing) {
+          btn.disabled = false;
+          btn.textContent = "Create Student ID +";
+          return showAlert("Student ID already exists! Sign in instead.");
+        }
+
+        const newUser = {
+          id: rawId, name: fullName, pin, targetHours,
+          sessions: [], syllabusChecked: {}, notes: [], rouletteXp: 0,
+          activePunchStart: null, activeSubject: "", createdAt: new Date().toISOString()
+        };
+        await saveUserToCloud(newUser);
+        loginSuccess(newUser);
+      } catch (err) {
+        showAlert("Error creating ID: " + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "Create Student ID +";
+      }
     });
 
     signInForm.addEventListener("submit", async (e) => {
@@ -1426,25 +1611,33 @@
       clearAlert();
       const rawId = document.getElementById("loginStudentId").value.trim().toLowerCase();
       const pin = document.getElementById("loginPin").value.trim();
-      let userObj = await fetchUserFromCloud(rawId) || getLocalUsersMap()[rawId];
-      if (!userObj) return showAlert("Student ID not found.");
-      if (userObj.pin && userObj.pin !== pin) return showAlert("Incorrect 4-digit PIN.");
-      saveLocalUser(userObj);
-      loginSuccess(userObj);
+      const btn = document.getElementById("signInSubmitBtn");
+      btn.disabled = true;
+      btn.textContent = "Signing In...";
+
+      try {
+        let userObj = await fetchUserFromCloud(rawId) || getLocalUsersMap()[rawId];
+        if (!userObj) return showAlert("Student ID not found.");
+        if (userObj.pin && userObj.pin !== pin) return showAlert("Incorrect 4-digit PIN.");
+        saveLocalUser(userObj);
+        loginSuccess(userObj);
+      } catch (err) {
+        showAlert("Sign-in error: " + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "Enter Command Atelier →";
+      }
     });
 
     document.getElementById("googleLoginBtn").addEventListener("click", async () => {
       clearAlert();
+      const btn = document.getElementById("googleLoginBtn");
+      btn.disabled = true;
       try {
         const result = await signInWithPopup(auth, googleProvider);
-        const cred = GoogleAuthProvider.credentialFromResult(result);
-        if (cred && cred.accessToken) {
-          localStorage.setItem("studypunch_gdrive_token", cred.accessToken);
-          document.getElementById("navDriveStatus").classList.remove("hidden");
-        }
         const gUser = result.user;
         const cleanId = (gUser.email.split("@")[0].replace(/[^a-zA-Z0-9_-]/g, "").toLowerCase() || "student").slice(0, 20);
-        let userObj = await fetchUserFromCloud(cleanId);
+        let userObj = await fetchUserFromCloud(cleanId) || getLocalUsersMap()[cleanId];
         if (!userObj) {
           userObj = {
             id: cleanId, name: gUser.displayName || cleanId, email: gUser.email || "",
@@ -1457,13 +1650,13 @@
         }
         loginSuccess(userObj);
       } catch (err) {
-        showAlert("Google Sign-In note: Ensure Google is enabled in Firebase Auth & studypunchone.vercel.app is in Authorized Domains.");
+        showAlert("Google Sign-In error (" + (err.code || "auth") + "): Ensure popups are allowed & Google Auth is enabled in Firebase.");
+      } finally {
+        btn.disabled = false;
       }
     });
 
     // ================= DASHBOARD, ZERO-DISTRACTION CLOCK & DOT ENGINE =================
-    const zeroDistractionOverlay = document.getElementById("zeroDistractionOverlay");
-
     function loginSuccess(userObj) {
       currentUser = userObj;
       if (!Array.isArray(currentUser.sessions)) currentUser.sessions = [];
@@ -1487,6 +1680,8 @@
 
     document.getElementById("logoutBtn").addEventListener("click", () => {
       if (timerInterval) clearInterval(timerInterval);
+      if (wpAnimFrame) { cancelAnimationFrame(wpAnimFrame); wpAnimFrame = null; }
+      stopAmbientSound();
       localStorage.removeItem("studypunch_current_user");
       currentUser = null;
       zeroDistractionOverlay.classList.add("hidden");
@@ -1629,6 +1824,7 @@
 
       if (currentUser.activePunchStart) {
         zeroDistractionOverlay.classList.remove("hidden");
+        window.setFocusWallpaper(currentFocusWallpaper);
         document.getElementById("zdSubjectDisplay").textContent = currentUser.activeSubject || "NEET 2027 Deep Focus Session";
         const updateTick = () => {
           const elapsed = Math.max(0, Math.floor((Date.now() - currentUser.activePunchStart) / 1000));
@@ -1640,6 +1836,8 @@
         timerInterval = setInterval(updateTick, 1000);
       } else {
         zeroDistractionOverlay.classList.add("hidden");
+        if (wpAnimFrame) { cancelAnimationFrame(wpAnimFrame); wpAnimFrame = null; }
+        stopAmbientSound();
         document.getElementById("liveTimerDisplay").textContent = "00:00:00";
       }
 
