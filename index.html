@@ -36,6 +36,7 @@
     @keyframes introFly{0%{opacity:0;transform:translateZ(-260px) rotateX(38deg) scale(.75)}100%{opacity:1;transform:translateZ(0) rotateX(0) scale(1)}}
     #byHeetBadge{opacity:0;transform:scale(.88) translateY(8px);transition:opacity .1s ease,transform .1s ease}
     #byHeetBadge.show-half-sec{opacity:1;transform:scale(1) translateY(0)}
+    .spider-fullscreen-box{position:fixed!important;inset:0!important;z-index:130!important;border-radius:0!important;border:none!important;min-height:100vh!important;height:100vh!important;width:100vw!important}
   </style>
 </head>
 <body class="antialiased selection:bg-amber-400 selection:text-black flex flex-col min-h-screen">
@@ -94,7 +95,7 @@
   <div id="newUserIntroModal" class="hidden fixed inset-0 z-[150] bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
     <div class="luxury-card rounded-3xl w-full max-w-md p-6 sm:p-8 border border-white/20 shadow-2xl text-center">
       <div class="flex items-center justify-between mb-4">
-        <span id="tourStepCounter" class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-[0.2em] bg-white/10 text-zinc-300 border border-white/15">Welcome • 1 / 3</span>
+        <span id="tourStepCounter" class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-[0.2em] bg-white/10 text-zinc-300 border border-white/15">Welcome • 1 / 4</span>
         <button id="tourSkipBtn" type="button" class="text-xs font-semibold text-zinc-500 hover:text-white">Skip Tour</button>
       </div>
       <div id="tourSlideIcon" class="w-16 h-16 mx-auto rounded-2xl bg-black/80 border border-white/15 flex items-center justify-center text-3xl shadow-lg mb-4">⏱️</div>
@@ -238,7 +239,7 @@
     <footer class="mt-6 text-center"><p class="text-xs text-zinc-500 tracking-wider">StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p></footer>
   </div>
 
-  <!-- MAIN APPLICATION SHELL (3-PAGE SWIPEABLE SYSTEM) -->
+  <!-- MAIN APPLICATION SHELL (4-PAGE SWIPEABLE SYSTEM) -->
   <div id="appScreen" class="hidden flex-1 flex flex-col h-screen overflow-hidden">
     <header class="bg-black/80 backdrop-blur-xl border-b border-white/10 z-40 shrink-0">
       <div class="max-w-7xl mx-auto px-4 py-2.5 flex items-center justify-between gap-2">
@@ -256,8 +257,9 @@
             <button type="button" onclick="slideToScreen(0)" id="dotIndicator0" class="h-1.5 w-7 rounded-full bg-white transition-all"></button>
             <button type="button" onclick="slideToScreen(1)" id="dotIndicator1" class="h-1.5 w-2 rounded-full bg-zinc-700 transition-all"></button>
             <button type="button" onclick="slideToScreen(2)" id="dotIndicator2" class="h-1.5 w-2 rounded-full bg-zinc-700 transition-all"></button>
+            <button type="button" onclick="slideToScreen(3)" id="dotIndicator3" class="h-1.5 w-2 rounded-full bg-zinc-700 transition-all"></button>
           </div>
-          <span id="activeScreenLabel" class="text-[9px] font-semibold text-zinc-400 mt-1 tracking-[0.15em] uppercase">Swipe ⇄ • 1/3 Command &amp; Telemetry</span>
+          <span id="activeScreenLabel" class="text-[9px] font-semibold text-zinc-400 mt-1 tracking-[0.15em] uppercase">Swipe ⇄ • 1/4 Command &amp; Telemetry</span>
         </div>
         <div class="flex items-center gap-2">
           <button type="button" id="openSettingsBtn" class="clicky px-3.5 py-2 rounded-xl text-xs font-bold bg-zinc-900 hover:bg-zinc-800 text-white border border-white/15 flex items-center gap-1.5 shadow-sm"><span>⚙️</span><span>Settings</span></button>
@@ -308,7 +310,7 @@
                 <div>
                   <div class="flex flex-wrap items-center gap-2">
                     <h2 class="font-serif-luxury text-lg font-bold text-white">DOT — 31-Day Spaced-Repetition &amp; Next-Step AI</h2>
-                    <span id="dotMarkLeakBadge" class="px-2.5 py-0.5 rounded-md text-[10px] font-extrabold bg-white/10 text-amber-200 border border-amber-400/25">Mark-Leak: Balanced</span>
+                    <span id="dotMarkLeakBadge" class="px-2.5 py-0.5 rounded-md text-[10px] font-extrabold bg-white/10 text-amber-200 border border-amber-400/25">Top Leak: Balanced</span>
                   </div>
                   <p class="text-xs text-zinc-400">Calibrated by your Revision Reason tags (NCERT line slips tighten to 4d/18d cycle)</p>
                 </div>
@@ -336,7 +338,7 @@
               <p id="statTotalSessions" class="text-[11px] text-zinc-500 mt-2">0 completed sessions</p>
             </div>
             <div id="dashSyllabusCard" class="clicky luxury-card rounded-2xl p-5 cursor-pointer hover:border-white/40">
-              <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400">3D Spider Web</p>
+              <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400">3D Space Web</p>
               <p id="statSyllabusPct" class="mono-nums text-2xl font-black theme-gradient-text mt-1">0%</p>
               <p id="statSyllabusCount" class="text-[11px] text-zinc-300 font-medium mt-2">Open 3D Web →</p>
             </div>
@@ -404,7 +406,7 @@
               <div class="flex items-center gap-2">
                 <button id="expandAllFoldersBtn" type="button" class="clicky px-4 py-2.5 rounded-xl text-xs font-bold theme-btn-primary">🕸️ Expand All</button>
                 <button id="collapseAllFoldersBtn" type="button" class="clicky px-3.5 py-2.5 rounded-xl text-xs font-semibold bg-black/80 hover:bg-zinc-900 text-zinc-300 border border-zinc-800">Collapse</button>
-                <button type="button" onclick="slideToScreen(2)" class="clicky px-3.5 py-2.5 rounded-xl text-xs font-bold bg-white/10 hover:bg-white/20 text-white border border-white/20">🌐 View 3D Web →</button>
+                <button type="button" onclick="slideToScreen(2)" class="clicky px-3.5 py-2.5 rounded-xl text-xs font-bold bg-white/10 hover:bg-white/20 text-white border border-white/20">🌐 3D Web →</button>
               </div>
             </div>
           </div>
@@ -430,20 +432,21 @@
         </div>
       </section>
 
-      <!-- SLIDE 2: 3D VOLUMETRIC SPIDER-WEB OBSERVATORY WITH HIGH-YIELD WEIGHTAGE GLOW -->
+      <!-- SLIDE 2: 3D DEEP-SPACE SPIDER-WEB OBSERVATORY + FULLSCREEN MODE -->
       <section id="spider3dView" class="phone-screen-slide p-4 sm:p-6">
         <div class="max-w-7xl mx-auto space-y-6">
           <div class="luxury-card rounded-3xl p-5 sm:p-7">
             <div class="flex flex-wrap items-center justify-between gap-3 pb-4 mb-5 border-b border-white/10">
               <div>
                 <div class="flex flex-wrap items-center gap-2">
-                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-[0.2em] bg-white/10 text-zinc-200 border border-white/15">31-Day Memory Decay + High-Yield Hologram</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-[0.2em] bg-white/10 text-zinc-200 border border-white/15">Deep-Space 3D Hologram</span>
                   <span id="spider3dRankBadge" class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-amber-500/20 text-amber-200 border border-amber-400/30">Rank: Initiate ⚡</span>
                 </div>
-                <h2 class="font-serif-luxury text-2xl sm:text-3xl font-bold text-white mt-1.5">🌐 3D Spider-Web Mastery Observatory</h2>
-                <p class="text-xs text-zinc-400 mt-0.5">Golden halos pulse on pillars with untapped High-Yield NEET weightage; facets shift Emerald → Amber → Crimson with decay.</p>
+                <h2 class="font-serif-luxury text-2xl sm:text-3xl font-bold text-white mt-1.5">🌐 3D Deep-Space Spider-Web Observatory</h2>
+                <p class="text-xs text-zinc-400 mt-0.5">Orbiting chapter constellation nodes, golden High-Yield halos, and 31-day memory decay crystals floating in deep space.</p>
               </div>
               <div class="flex flex-wrap items-center gap-2">
+                <button type="button" id="toggle3dFullscreenBtn" class="clicky px-3.5 py-2 rounded-xl text-xs font-extrabold bg-white/15 hover:bg-white/25 text-white border border-white/30 shadow-md">⛶ Full Screen</button>
                 <button type="button" id="toggleHighYieldGlowBtn" class="clicky px-3.5 py-2 rounded-xl text-xs font-bold bg-amber-500/20 text-amber-200 border border-amber-400/40">🔥 High-Yield Halo: ON</button>
                 <button type="button" id="toggle3dAutoRotateBtn" class="clicky px-3.5 py-2 rounded-xl text-xs font-bold theme-btn-primary">🔄 Auto-Orbit: ON</button>
                 <button type="button" id="reset3dCameraBtn" class="clicky px-3 py-2 rounded-xl text-xs font-semibold bg-black/80 hover:bg-zinc-900 text-zinc-200 border border-white/15">🎯 Reset</button>
@@ -451,10 +454,34 @@
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
-              <div class="lg:col-span-2 bg-black/85 rounded-3xl border border-white/15 relative overflow-hidden min-h-[380px] sm:min-h-[460px] flex items-center justify-center">
+              <!-- 3D Deep Space Canvas Container (Supports Full-Screen Expansion) -->
+              <div id="spider3dStageBox" class="lg:col-span-2 bg-[#020308] rounded-3xl border border-white/15 relative overflow-hidden min-h-[420px] sm:min-h-[500px] flex items-center justify-center transition-all">
                 <canvas id="spider3dCanvas" class="w-full h-full block cursor-grab active:cursor-grabbing" style="touch-action:none"></canvas>
-                <div class="absolute bottom-3 left-3 px-3 py-1.5 rounded-xl bg-black/80 border border-white/10 text-[10px] text-zinc-400 pointer-events-none">🖱️ Drag 360° • Scroll Zoom • Golden Halo = High-Yield Gap</div>
-                <div id="spider3dOverallTag" class="absolute top-3 right-3 px-3 py-1.5 rounded-xl bg-black/80 border border-white/15 mono-nums text-xs font-extrabold theme-gradient-text pointer-events-none">Overall 3D Web: 0%</div>
+
+                <!-- Top Left Pillar Inspector HUD -->
+                <div id="spider3dInspectorHud" class="absolute top-3.5 left-3.5 px-3.5 py-2 rounded-2xl bg-black/75 backdrop-blur-md border border-white/15 pointer-events-none max-w-[230px]">
+                  <p class="text-[9px] font-extrabold uppercase tracking-[0.2em] text-zinc-400">3D Constellation Telemetry</p>
+                  <p id="spider3dFocusTitle" class="text-xs font-bold text-white mt-0.5">6 NCERT Pillars • Orbiting Nodes</p>
+                  <p id="spider3dFocusSub" class="text-[10px] text-amber-300 mt-0.5">Tap/Hover any pillar vertex to inspect</p>
+                </div>
+
+                <!-- Top Right Overall Mastery & Exit Fullscreen HUD -->
+                <div class="absolute top-3.5 right-3.5 flex items-center gap-2 z-20">
+                  <div id="spider3dOverallTag" class="px-3 py-1.5 rounded-xl bg-black/75 backdrop-blur-md border border-white/15 mono-nums text-xs font-extrabold theme-gradient-text pointer-events-none">Overall 3D Web: 0%</div>
+                  <button type="button" id="exit3dFullscreenBtn" class="hidden clicky px-3.5 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-extrabold text-xs shadow-lg border border-rose-400/40">✕ Exit Full Screen</button>
+                </div>
+
+                <!-- Bottom Controls Bar (Visible in both Normal & Fullscreen) -->
+                <div class="absolute bottom-3.5 left-3.5 right-3.5 flex flex-wrap items-center justify-between gap-2 pointer-events-none">
+                  <div class="px-3 py-1.5 rounded-xl bg-black/75 backdrop-blur-md border border-white/10 text-[10px] text-zinc-300">
+                    🖱️ Drag 360° • Scroll Zoom • Satellites = Chapters
+                  </div>
+                  <div id="fsFloatingControls" class="hidden pointer-events-auto flex items-center gap-1.5 bg-black/80 backdrop-blur-md p-1.5 rounded-2xl border border-white/15">
+                    <button type="button" onclick="document.getElementById('toggleHighYieldGlowBtn').click()" class="clicky px-3 py-1.5 rounded-xl text-[11px] font-bold bg-amber-500/20 text-amber-200 border border-amber-400/30">🔥 Halo</button>
+                    <button type="button" onclick="document.getElementById('toggle3dAutoRotateBtn').click()" class="clicky px-3 py-1.5 rounded-xl text-[11px] font-bold theme-btn-primary">🔄 Orbit</button>
+                    <button type="button" onclick="document.getElementById('reset3dCameraBtn').click()" class="clicky px-3 py-1.5 rounded-xl text-[11px] font-semibold bg-zinc-900 text-white border border-white/15">🎯 Reset</button>
+                  </div>
+                </div>
               </div>
 
               <div class="space-y-4 flex flex-col justify-between">
@@ -480,14 +507,56 @@
           <div class="pt-4 text-center"><p class="text-xs text-zinc-500 tracking-wider">StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p></div>
         </div>
       </section>
+
+      <!-- SLIDE 3: WEEKLY REVISION & SPRINT BLUEPRINT (PAGE 4) -->
+      <section id="sprintView" class="phone-screen-slide p-4 sm:p-6">
+        <div class="max-w-7xl mx-auto space-y-6">
+          <div class="luxury-card rounded-3xl p-5 sm:p-7">
+            <div class="flex flex-wrap items-center justify-between gap-4 pb-5 mb-5 border-b border-white/10">
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-[0.2em] bg-white/10 text-zinc-200 border border-white/15">7-Day Execution Board</span>
+                  <span id="sprintProgressBadge" class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-950/80 text-emerald-300 border border-emerald-500/30 mono-nums">0 / 0 Completed</span>
+                </div>
+                <h2 class="font-serif-luxury text-2xl sm:text-3xl font-bold text-white mt-1.5">📅 Weekly Revision &amp; Sprint Blueprint</h2>
+                <p class="text-xs text-zinc-400 mt-0.5">Schedule your Mon–Sun NCERT targets or auto-fill decaying &amp; high-yield chapters directly from DOT AI.</p>
+              </div>
+              <div class="flex flex-wrap items-center gap-2">
+                <button type="button" id="autoFillSprintBtn" class="clicky px-4 py-2.5 rounded-xl text-xs font-extrabold theme-btn-primary">⚡ Auto-Fill Weak &amp; Decaying</button>
+                <button type="button" id="clearDoneSprintBtn" class="clicky px-3.5 py-2.5 rounded-xl text-xs font-semibold bg-black/80 hover:bg-zinc-900 text-zinc-300 border border-zinc-800">🧹 Clear Done</button>
+              </div>
+            </div>
+
+            <!-- Quick Add Sprint Task Bar -->
+            <form id="addSprintTaskForm" class="grid grid-cols-1 sm:grid-cols-4 gap-2.5 mb-6 bg-black/60 p-3.5 rounded-2xl border border-zinc-800">
+              <select id="sprintDaySelect" class="px-3 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-xs font-bold">
+                <option value="Mon">Monday</option>
+                <option value="Tue">Tuesday</option>
+                <option value="Wed">Wednesday</option>
+                <option value="Thu">Thursday</option>
+                <option value="Fri">Friday</option>
+                <option value="Sat">Saturday</option>
+                <option value="Sun">Sunday</option>
+              </select>
+              <input id="sprintTaskInput" type="text" required placeholder="Add sprint goal (e.g. Revise Bio: Molecular Basis + 50 PYQs)..." class="sm:col-span-2 px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-xs focus:outline-none focus:border-amber-400" />
+              <button type="submit" class="clicky py-2.5 px-4 rounded-xl theme-btn-primary font-extrabold text-xs uppercase tracking-wider">+ Add to Sprint</button>
+            </form>
+
+            <!-- 7-Day Sprint Grid -->
+            <div id="weeklySprintGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"></div>
+          </div>
+          <div class="pt-4 text-center"><p class="text-xs text-zinc-500 tracking-wider">StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p></div>
+        </div>
+      </section>
     </div>
 
-    <!-- 3-PAGE FLOATING MOBILE DOCK -->
+    <!-- 4-PAGE FLOATING MOBILE DOCK -->
     <nav class="bg-black/90 backdrop-blur-xl border-t border-white/10 px-3 py-2 z-40 shrink-0">
-      <div class="max-w-md mx-auto grid grid-cols-3 gap-2">
-        <button id="navDashboardBtn" type="button" class="clicky flex flex-col items-center justify-center py-2 px-2 rounded-2xl bg-white/15 text-white border border-white/30 font-bold text-xs"><span class="text-base leading-none mb-1">⏱️</span><span>Command</span></button>
-        <button id="navSyllabusBtn" type="button" class="clicky flex flex-col items-center justify-center py-2 px-2 rounded-2xl bg-zinc-900/70 text-zinc-400 border border-transparent hover:text-white font-semibold text-xs"><span class="text-base leading-none mb-1">📋</span><span>NCERT</span></button>
-        <button id="navSpider3dBtn" type="button" class="clicky flex flex-col items-center justify-center py-2 px-2 rounded-2xl bg-zinc-900/70 text-zinc-400 border border-transparent hover:text-white font-semibold text-xs"><span class="text-base leading-none mb-1">🌐</span><span>3D Web</span></button>
+      <div class="max-w-lg mx-auto grid grid-cols-4 gap-1.5">
+        <button id="navDashboardBtn" type="button" class="clicky flex flex-col items-center justify-center py-2 px-1 rounded-2xl bg-white/15 text-white border border-white/30 font-bold text-xs"><span class="text-base leading-none mb-1">⏱️</span><span>Command</span></button>
+        <button id="navSyllabusBtn" type="button" class="clicky flex flex-col items-center justify-center py-2 px-1 rounded-2xl bg-zinc-900/70 text-zinc-400 border border-transparent hover:text-white font-semibold text-xs"><span class="text-base leading-none mb-1">📋</span><span>NCERT</span></button>
+        <button id="navSpider3dBtn" type="button" class="clicky flex flex-col items-center justify-center py-2 px-1 rounded-2xl bg-zinc-900/70 text-zinc-400 border border-transparent hover:text-white font-semibold text-xs"><span class="text-base leading-none mb-1">🌐</span><span>3D Web</span></button>
+        <button id="navSprintBtn" type="button" class="clicky flex flex-col items-center justify-center py-2 px-1 rounded-2xl bg-zinc-900/70 text-zinc-400 border border-transparent hover:text-white font-semibold text-xs"><span class="text-base leading-none mb-1">📅</span><span>Sprint</span></button>
       </div>
     </nav>
   </div>
@@ -504,6 +573,7 @@
     let isDoomsdayVisible = localStorage.getItem("studypunch_doomsday_visible") !== "false";
     let currentFocusWallpaper = localStorage.getItem("studypunch_focus_wp") || "aurora";
     let highYieldGlowEnabled = localStorage.getItem("studypunch_hy_glow") !== "false";
+    let is3dFullscreen = false;
     let pendingRevisionTopicKey = null;
     let wpAnimFrame = null, wpParticles = [], auroraTime = 0;
     let audioCtx = null, ambientNoiseNode = null, isAmbientSoundOn = false;
@@ -513,9 +583,9 @@
     const DECAY_DAYS = 31;
 
     const THEME_CHART_PALETTE = {
-      sunset: { bar: "#f59e0b", line: "#fb7185", lineFill: "rgba(251, 113, 133, 0.16)", rgb: "245, 158, 11" },
-      flora:  { bar: "#10b981", line: "#84cc16", lineFill: "rgba(132, 204, 22, 0.16)", rgb: "16, 185, 129" },
-      night:  { bar: "#818cf8", line: "#38bdf8", lineFill: "rgba(56, 189, 248, 0.16)", rgb: "129, 140, 248" }
+      sunset: { bar: "#f59e0b", line: "#fb7185", lineFill: "rgba(251, 113, 133, 0.16)", rgb: "245, 158, 11", neb1: "rgba(245, 158, 11, 0.14)", neb2: "rgba(225, 29, 72, 0.12)" },
+      flora:  { bar: "#10b981", line: "#84cc16", lineFill: "rgba(132, 204, 22, 0.16)", rgb: "16, 185, 129", neb1: "rgba(16, 185, 129, 0.14)", neb2: "rgba(132, 204, 22, 0.10)" },
+      night:  { bar: "#818cf8", line: "#38bdf8", lineFill: "rgba(56, 189, 248, 0.16)", rgb: "129, 140, 248", neb1: "rgba(99, 102, 241, 0.18)", neb2: "rgba(56, 189, 248, 0.12)" }
     };
 
     // 2. 3D ANIMATED ENTRY INTRO (0.5s "BY HEET" FLASH)
@@ -573,7 +643,7 @@
       skipBtn.addEventListener("click", () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); closeIntro(); });
     })();
 
-    // 3. GRANULAR NCERT CLASS 11 & 12 SYLLABUS (WITH HIGH-YIELD NEET WEIGHTAGE FLAGS)
+    // 3. GRANULAR NCERT CLASS 11 & 12 SYLLABUS
     const mkCh = (arr) => arr.map(([id, name, sub, hy]) => ({ id, name, hy: Boolean(hy), subtopics: sub.split("|") }));
     const NEET_2027_SYLLABUS = [
       {
@@ -749,10 +819,7 @@
       const thresholdSecs = targetSecs * 0.8;
 
       const secsByDate = {};
-      sessions.forEach(s => {
-        if (!s.date) return;
-        secsByDate[s.date] = (secsByDate[s.date] || 0) + Number(s.durationSeconds || 0);
-      });
+      sessions.forEach(s => { if (s.date) secsByDate[s.date] = (secsByDate[s.date] || 0) + Number(s.durationSeconds || 0); });
 
       const today = new Date();
       today.setHours(0, 0, 0, 0);
@@ -997,11 +1064,12 @@
     window.setWebTheme(activeWebTheme, true);
     window.setFocusWallpaper(currentFocusWallpaper, true);
 
-    // 9. NEW USER INTERACTIVE INTRODUCTION TOUR (3 PAGES)
+    // 9. NEW USER INTERACTIVE INTRODUCTION TOUR (4 PAGES)
     const TOUR_SLIDES = [
       { icon: "⏱️", title: "Sanctuary Focus & Doomsday Clock", desc: "Clock in to enter pitch-black Focus Mode with Live Aurora, Snowfall, or Rain wallpapers and rain white-noise—while your Doomsday Clock counts down every second to NEET 2027 (02 May 2027) and protects your 🔥 Streak Flame." },
       { icon: "📋", title: "NCERT Checklist & Revision Reason Tags", desc: "Swipe right to tick off 80+ NCERT Class 11 & 12 chapters. Tag revisions with 'Forgot NCERT Line' or 'Concept Gap' so DOT AI automatically schedules timely 31-day spaced repetition." },
-      { icon: "🌐", title: "3D High-Yield Spider-Web Observatory", desc: "Swipe to Slide 3 to spin your interactive 3D Spider-Web crystal in 360° space—with golden halos highlighting high-weightage NEET chapters that still hold untapped marks." }
+      { icon: "🌐", title: "3D Deep-Space Spider-Web Observatory", desc: "Swipe to Slide 3 to spin your interactive 3D Spider-Web crystal in deep space—complete with Full-Screen mode, orbiting chapter satellites, and golden High-Yield weightage halos." },
+      { icon: "📅", title: "Weekly Revision & Sprint Blueprint", desc: "Swipe to Slide 4 to organize your Monday–Sunday sprint board, or tap ⚡ Auto-Fill to schedule decaying and high-yield NCERT chapters across the week." }
     ];
 
     let tourIndex = 0;
@@ -1059,7 +1127,7 @@
       try {
         const existing = await fetchUserFromCloud(rawId) || getLocalUsersMap()[rawId];
         if (existing) { return showAlert("Student ID already exists! Sign in instead."); }
-        const newUser = { id: rawId, name: fullName, pin, targetHours, webTheme: activeWebTheme, focusWallpaper: currentFocusWallpaper, sessions: [], syllabusChecked: {}, syllabusCheckedAt: {}, syllabusReason: {}, activePunchStart: null, activeSubject: "", createdAt: new Date().toISOString() };
+        const newUser = { id: rawId, name: fullName, pin, targetHours, webTheme: activeWebTheme, focusWallpaper: currentFocusWallpaper, sessions: [], syllabusChecked: {}, syllabusCheckedAt: {}, syllabusReason: {}, weeklySprint: [], activePunchStart: null, activeSubject: "", createdAt: new Date().toISOString() };
         await saveUserToCloud(newUser);
         loginSuccess(newUser);
       } catch (err) { showAlert("Error: " + err.message); }
@@ -1085,7 +1153,7 @@
       const cleanId = (gUser.email.split("@")[0].replace(/[^a-zA-Z0-9_-]/g, "").toLowerCase() || "student").slice(0, 20);
       let userObj = await fetchUserFromCloud(cleanId) || getLocalUsersMap()[cleanId];
       if (!userObj) {
-        userObj = { id: cleanId, name: gUser.displayName || cleanId, email: gUser.email || "", pin: "0000", targetHours: 6, webTheme: activeWebTheme, focusWallpaper: currentFocusWallpaper, sessions: [], syllabusChecked: {}, syllabusCheckedAt: {}, syllabusReason: {}, activePunchStart: null, activeSubject: "", createdAt: new Date().toISOString() };
+        userObj = { id: cleanId, name: gUser.displayName || cleanId, email: gUser.email || "", pin: "0000", targetHours: 6, webTheme: activeWebTheme, focusWallpaper: currentFocusWallpaper, sessions: [], syllabusChecked: {}, syllabusCheckedAt: {}, syllabusReason: {}, weeklySprint: [], activePunchStart: null, activeSubject: "", createdAt: new Date().toISOString() };
         await saveUserToCloud(userObj);
       } else { saveLocalUser(userObj); }
       loginSuccess(userObj);
@@ -1104,11 +1172,12 @@
       } finally { btn.disabled = false; }
     });
 
-    // 11. DASHBOARD, CLOCK-IN & SPACED-REPETITION DOT AI (WITH REVISION REASONS)
+    // 11. DASHBOARD, CLOCK-IN & SPACED-REPETITION DOT AI
     function ensureRetentionTimestamps(userObj) {
       if (!userObj.syllabusChecked || typeof userObj.syllabusChecked !== "object") userObj.syllabusChecked = {};
       if (!userObj.syllabusCheckedAt || typeof userObj.syllabusCheckedAt !== "object") userObj.syllabusCheckedAt = {};
       if (!userObj.syllabusReason || typeof userObj.syllabusReason !== "object") userObj.syllabusReason = {};
+      if (!Array.isArray(userObj.weeklySprint)) userObj.weeklySprint = [];
       const now = Date.now();
       Object.keys(userObj.syllabusChecked).forEach(k => {
         if (userObj.syllabusChecked[k] && !userObj.syllabusCheckedAt[k]) userObj.syllabusCheckedAt[k] = now;
@@ -1120,7 +1189,6 @@
       const ts = currentUser.syllabusCheckedAt?.[topicKey] || Date.now();
       const reason = currentUser.syllabusReason?.[topicKey] || "";
       const days = Math.max(0, Math.floor((Date.now() - ts) / DAY_MS));
-      // Tighter spaced-repetition curve if user flagged "Forgot NCERT Line"
       const fadeThresh = reason.includes("NCERT Line") ? 4 : FADING_DAYS;
       const decayThresh = reason.includes("NCERT Line") ? 18 : DECAY_DAYS;
       if (days >= decayThresh) return { status: "decay", days, reason };
@@ -1148,6 +1216,7 @@
       applyDoomsdayVisibility();
       renderDashboard();
       renderSyllabusTree();
+      renderWeeklySprintBoard();
       start3dSpiderWebLoop();
       slideToScreen(0);
       maybeLaunchNewUserTour();
@@ -1167,14 +1236,11 @@
     function formatHMS(sec) { return [Math.floor(sec / 3600), Math.floor((sec % 3600) / 60), Math.floor(sec % 60)].map(v => String(v).padStart(2, "0")).join(":"); }
     function getCheckedSyllabusCount(u) { return (u && u.syllabusChecked) ? Object.values(u.syllabusChecked).filter(Boolean).length : 0; }
 
-    function renderDotRecommendations() {
-      if (!currentUser) return;
-      document.getElementById("dotMarkLeakBadge").textContent = `Top Leak: ${computeDominantMarkLeak()}`;
-      const checked = currentUser.syllabusChecked || {}, recommendations = [];
-
+    function getDotPriorityQueue() {
+      if (!currentUser) return [];
+      const checked = currentUser.syllabusChecked || {}, queue = [];
       NEET_2027_SYLLABUS.forEach(subj => {
         let decayPick = null, fadingPick = null, highYieldPick = null, inProgressPick = null, freshStartPick = null;
-
         subj.units.forEach(u => {
           u.chapters.forEach(ch => {
             let doneInChapter = 0, firstUndoneIdx = -1;
@@ -1190,7 +1256,6 @@
                 firstUndoneIdx = idx;
               }
             });
-
             if (firstUndoneIdx !== -1) {
               const cand = { subject: subj.subject, icon: subj.icon, chapterName: ch.name, topicKey: `${ch.id}_${firstUndoneIdx}`, subtopicName: ch.subtopics[firstUndoneIdx], doneInChapter, totalInChapter: ch.subtopics.length, isRevision: false, hy: ch.hy };
               if (doneInChapter > 0 && !inProgressPick) inProgressPick = cand;
@@ -1199,7 +1264,43 @@
             }
           });
         });
+        [decayPick, fadingPick, inProgressPick, highYieldPick, freshStartPick].forEach(item => {
+          if (item && !queue.some(q => q.topicKey === item.topicKey)) queue.push(item);
+        });
+      });
+      return queue;
+    }
 
+    function renderDotRecommendations() {
+      if (!currentUser) return;
+      document.getElementById("dotMarkLeakBadge").textContent = `Top Leak: ${computeDominantMarkLeak()}`;
+      const checked = currentUser.syllabusChecked || {}, recommendations = [];
+
+      NEET_2027_SYLLABUS.forEach(subj => {
+        let decayPick = null, fadingPick = null, highYieldPick = null, inProgressPick = null, freshStartPick = null;
+        subj.units.forEach(u => {
+          u.chapters.forEach(ch => {
+            let doneInChapter = 0, firstUndoneIdx = -1;
+            ch.subtopics.forEach((st, idx) => {
+              const key = `${ch.id}_${idx}`;
+              if (checked[key]) {
+                doneInChapter++;
+                const ret = getNodeRetentionState(key);
+                const revCand = { subject: subj.subject, icon: subj.icon, chapterName: ch.name, topicKey: key, subtopicName: st, isRevision: true, daysOld: ret.days, status: ret.status, reason: ret.reason, hy: ch.hy };
+                if (ret.status === "decay" && (!decayPick || ret.days > decayPick.daysOld)) decayPick = revCand;
+                if (ret.status === "fading" && (!fadingPick || ret.days > fadingPick.daysOld)) fadingPick = revCand;
+              } else if (firstUndoneIdx === -1) {
+                firstUndoneIdx = idx;
+              }
+            });
+            if (firstUndoneIdx !== -1) {
+              const cand = { subject: subj.subject, icon: subj.icon, chapterName: ch.name, topicKey: `${ch.id}_${firstUndoneIdx}`, subtopicName: ch.subtopics[firstUndoneIdx], doneInChapter, totalInChapter: ch.subtopics.length, isRevision: false, hy: ch.hy };
+              if (doneInChapter > 0 && !inProgressPick) inProgressPick = cand;
+              if (ch.hy && !highYieldPick) highYieldPick = cand;
+              if (doneInChapter === 0 && !freshStartPick) freshStartPick = cand;
+            }
+          });
+        });
         const chosen = decayPick || fadingPick || inProgressPick || highYieldPick || freshStartPick;
         if (chosen) recommendations.push(chosen);
       });
@@ -1250,17 +1351,13 @@
       await saveUserToCloud(currentUser);
     };
 
-    // Revision Reason Modal Handlers
     const revReasonModal = document.getElementById("revisionReasonModal");
     window.openRevisionReasonModal = function(topicKey, labelText) {
       pendingRevisionTopicKey = topicKey;
       document.getElementById("revModalTopicLabel").textContent = labelText || "Select your revision reason to calibrate DOT AI:";
       revReasonModal.classList.remove("hidden");
     };
-    document.getElementById("closeRevisionReasonBtn").addEventListener("click", () => {
-      pendingRevisionTopicKey = null;
-      revReasonModal.classList.add("hidden");
-    });
+    document.getElementById("closeRevisionReasonBtn").addEventListener("click", () => { pendingRevisionTopicKey = null; revReasonModal.classList.add("hidden"); });
     revReasonModal.addEventListener("click", (e) => { if (e.target === revReasonModal) { pendingRevisionTopicKey = null; revReasonModal.classList.add("hidden"); } });
 
     window.confirmRevisionWithReason = async function(reasonStr) {
@@ -1467,16 +1564,16 @@
       });
     }
 
-    // 13. NCERT SYLLABUS & 31-DAY MEMORY DECAY + HIGH-YIELD 3D SPIDER-WEB DATA
+    // 13. NCERT SYLLABUS & 3D CONSTELLATION DATA
     const openFoldersState = { phys: true, chem: true, bio: true, phys_11: true, chem_11: true, bio_11: true };
     let spider3dOverallPct = 0;
     let spider3dAxesData = [
-      { label: "⚡ Phys 11", pct: 0, done: 0, total: 1, decayStatus: "fresh", hyGap: true },
-      { label: "⚡ Phys 12", pct: 0, done: 0, total: 1, decayStatus: "fresh", hyGap: true },
-      { label: "🧪 Chem 11", pct: 0, done: 0, total: 1, decayStatus: "fresh", hyGap: true },
-      { label: "🧪 Chem 12", pct: 0, done: 0, total: 1, decayStatus: "fresh", hyGap: true },
-      { label: "🧬 Bio 11", pct: 0, done: 0, total: 1, decayStatus: "fresh", hyGap: true },
-      { label: "🧬 Bio 12", pct: 0, done: 0, total: 1, decayStatus: "fresh", hyGap: true }
+      { label: "⚡ Phys 11", pct: 0, done: 0, total: 1, decayStatus: "fresh", hyGap: true, satellites: [] },
+      { label: "⚡ Phys 12", pct: 0, done: 0, total: 1, decayStatus: "fresh", hyGap: true, satellites: [] },
+      { label: "🧪 Chem 11", pct: 0, done: 0, total: 1, decayStatus: "fresh", hyGap: true, satellites: [] },
+      { label: "🧪 Chem 12", pct: 0, done: 0, total: 1, decayStatus: "fresh", hyGap: true, satellites: [] },
+      { label: "🧬 Bio 11", pct: 0, done: 0, total: 1, decayStatus: "fresh", hyGap: true, satellites: [] },
+      { label: "🧬 Bio 12", pct: 0, done: 0, total: 1, decayStatus: "fresh", hyGap: true, satellites: [] }
     ];
 
     window.toggleFolderNode = function(key) { openFoldersState[key] = !openFoldersState[key]; renderSyllabusTree(document.getElementById("syllabusSearchInput").value.trim()); };
@@ -1540,9 +1637,11 @@
         let subjTotal = 0, subjDone = 0;
         const unitsHtml = subj.units.map(u => {
           let unitTotal = 0, unitDone = 0, unitFading = 0, unitDecay = 0, unitHyGap = false;
+          const unitSatellites = [];
+
           const chaptersHtml = u.chapters.map(ch => {
             const chTotal = ch.subtopics.length;
-            let chDone = 0;
+            let chDone = 0, chHasDecay = false, chHasFading = false;
             ch.subtopics.forEach((_, idx) => {
               const k = `${ch.id}_${idx}`;
               if (ch.hy) hyTotalNodes++;
@@ -1550,13 +1649,18 @@
                 chDone++;
                 if (ch.hy) hyDoneNodes++;
                 const ret = getNodeRetentionState(k);
-                if (ret.status === "decay") { decayTotal++; unitDecay++; if (ch.hy) unitHyGap = true; }
-                else if (ret.status === "fading") { fadingTotal++; unitFading++; }
+                if (ret.status === "decay") { decayTotal++; unitDecay++; chHasDecay = true; if (ch.hy) unitHyGap = true; }
+                else if (ret.status === "fading") { fadingTotal++; unitFading++; chHasFading = true; }
                 else { freshTotal++; }
               } else if (ch.hy) {
                 unitHyGap = true;
               }
             });
+
+            // Build satellite state for 3D constellation
+            const satState = chDone === 0 ? "unlearned" : (chHasDecay ? "decay" : (chHasFading ? "fading" : "fresh"));
+            unitSatellites.push({ state: satState, hy: ch.hy, pct: chDone / chTotal });
+
             unitTotal += chTotal; unitDone += chDone; subjTotal += chTotal; subjDone += chDone; overallDone += chDone;
 
             const chMatches = !q || ch.name.toLowerCase().includes(q) || ch.subtopics.some(st => st.toLowerCase().includes(q));
@@ -1591,7 +1695,7 @@
                     ${reasonChip}
                   </label>
                   <div class="flex items-center gap-1.5 shrink-0">
-                    ${isDone ? `<button type="button" onclick="openRevisionReasonModal('${key}', '${safeSubLabel}')" class="clicky px-2 py-1 rounded-lg text-[10px] font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500 hover:text-black" title="Tag reason & refresh memory">↻ Revised</button>` : ""}
+                    ${isDone ? `<button type="button" onclick="openRevisionReasonModal('${key}', '${safeSubLabel}')" class="clicky px-2 py-1 rounded-lg text-[10px] font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500 hover:text-black">↻ Revised</button>` : ""}
                     <button type="button" onclick="startDotRecommendedClockIn('${safeTopic}')" class="clicky px-2.5 py-1 rounded-lg text-[10px] font-bold bg-white/10 text-zinc-200 border border-white/15 hover:bg-white hover:text-black">⚡ Clock In</button>
                   </div>
                 </div>`;
@@ -1616,7 +1720,7 @@
           const unitPct = unitTotal ? Math.round((unitDone / unitTotal) * 100) : 0;
           const shortAxis = u.unitName.replace("NCERT Class ", "").replace("Physics", "Phys").replace("Chemistry", "Chem").replace("Biology", "Bio").split(" (")[0];
           const unitHealth = unitDecay > 0 ? "decay" : (unitFading > 0 ? "fading" : "fresh");
-          new3dAxes.push({ label: `${subj.icon} ${shortAxis}`, pct: unitPct, done: unitDone, total: unitTotal, decayStatus: unitHealth, hyGap: unitHyGap });
+          new3dAxes.push({ label: `${subj.icon} ${shortAxis}`, pct: unitPct, done: unitDone, total: unitTotal, decayStatus: unitHealth, hyGap: unitHyGap, satellites: unitSatellites });
 
           if (!chaptersHtml.trim()) return "";
           const isUnitOpen = q ? true : Boolean(openFoldersState[u.id]);
@@ -1698,11 +1802,41 @@
       document.getElementById("syllabusTreeContainer").innerHTML = treeHtml || `<div class="p-8 text-center text-zinc-500">No NCERT chapters or sub-topics match your search.</div>`;
     }
 
-    // 14. INTERACTIVE 3D VOLUMETRIC SPIDER-WEB ENGINE (WITH HIGH-YIELD HALO + 31D DECAY)
+    // 14. DEEP-SPACE 3D VOLUMETRIC SPIDER-WEB ENGINE + FULLSCREEN VIEW
+    const s3dStageBox = document.getElementById("spider3dStageBox");
     const s3dCanvas = document.getElementById("spider3dCanvas");
     const s3dCtx = s3dCanvas.getContext("2d");
-    let rotX = 0.45, rotY = 0.35, zoom3d = 1.0, autoRotate3d = true, haloPulsePhase = 0;
+    let rotX = 0.45, rotY = 0.35, zoom3d = 1.0, autoRotate3d = true, haloPulsePhase = 0, energyWave = 0;
     let isDragging3d = false, lastMouseX = 0, lastMouseY = 0, s3dAnimId = null;
+    let projectedVerticesCache = [];
+
+    // 3D Deep-Space Starfield for the Observatory
+    const spaceStars3d = Array.from({ length: 140 }, () => ({
+      x: (Math.random() - 0.5) * 900,
+      y: (Math.random() - 0.5) * 900,
+      z: (Math.random() - 0.5) * 900,
+      r: Math.random() * 1.5 + 0.4,
+      twinkle: Math.random() * Math.PI * 2
+    }));
+
+    function toggle3dFullscreen(forceState = null) {
+      is3dFullscreen = forceState !== null ? forceState : !is3dFullscreen;
+      const exitBtn = document.getElementById("exit3dFullscreenBtn");
+      const fsControls = document.getElementById("fsFloatingControls");
+      if (is3dFullscreen) {
+        s3dStageBox.classList.add("spider-fullscreen-box");
+        exitBtn.classList.remove("hidden");
+        fsControls.classList.remove("hidden");
+      } else {
+        s3dStageBox.classList.remove("spider-fullscreen-box");
+        exitBtn.classList.add("hidden");
+        fsControls.classList.add("hidden");
+      }
+      setTimeout(resize3dCanvas, 30);
+    }
+
+    document.getElementById("toggle3dFullscreenBtn").addEventListener("click", () => toggle3dFullscreen(true));
+    document.getElementById("exit3dFullscreenBtn").addEventListener("click", () => toggle3dFullscreen(false));
 
     const hyBtn = document.getElementById("toggleHighYieldGlowBtn");
     function updateHyBtnLabel() {
@@ -1722,20 +1856,40 @@
     function resize3dCanvas() {
       if (!s3dCanvas || !s3dCanvas.parentElement) return;
       s3dCanvas.width = s3dCanvas.parentElement.clientWidth || 600;
-      s3dCanvas.height = s3dCanvas.parentElement.clientHeight || 440;
+      s3dCanvas.height = s3dCanvas.parentElement.clientHeight || 480;
     }
     window.addEventListener("resize", resize3dCanvas);
 
-    s3dCanvas.addEventListener("mousedown", (e) => { isDragging3d = true; lastMouseX = e.clientX; lastMouseY = e.clientY; });
+    function inspectNearestVertex(clientX, clientY) {
+      const rect = s3dCanvas.getBoundingClientRect();
+      const mx = clientX - rect.left, my = clientY - rect.top;
+      let nearest = null, bestDist = 34;
+      projectedVerticesCache.forEach(v => {
+        const dist = Math.hypot(v.px - mx, v.py - my);
+        if (dist < bestDist) { bestDist = dist; nearest = v; }
+      });
+      if (nearest) {
+        document.getElementById("spider3dFocusTitle").textContent = `${nearest.label} — ${nearest.pct}% Mastered`;
+        document.getElementById("spider3dFocusSub").textContent = `${nearest.done}/${nearest.total} nodes • Status: ${nearest.decayStatus.toUpperCase()}`;
+      }
+    }
+
+    s3dCanvas.addEventListener("mousedown", (e) => { isDragging3d = true; lastMouseX = e.clientX; lastMouseY = e.clientY; inspectNearestVertex(e.clientX, e.clientY); });
     window.addEventListener("mouseup", () => { isDragging3d = false; });
     window.addEventListener("mousemove", (e) => {
-      if (!isDragging3d) return;
-      rotY += (e.clientX - lastMouseX) * 0.008; rotX += (e.clientY - lastMouseY) * 0.008;
-      lastMouseX = e.clientX; lastMouseY = e.clientY;
+      if (isDragging3d) {
+        rotY += (e.clientX - lastMouseX) * 0.008; rotX += (e.clientY - lastMouseY) * 0.008;
+        lastMouseX = e.clientX; lastMouseY = e.clientY;
+      } else if (currentSlideIndex === 2) {
+        inspectNearestVertex(e.clientX, e.clientY);
+      }
     });
     s3dCanvas.addEventListener("touchstart", (e) => {
       e.stopPropagation();
-      if (e.touches.length === 1) { isDragging3d = true; lastMouseX = e.touches[0].clientX; lastMouseY = e.touches[0].clientY; }
+      if (e.touches.length === 1) {
+        isDragging3d = true; lastMouseX = e.touches[0].clientX; lastMouseY = e.touches[0].clientY;
+        inspectNearestVertex(lastMouseX, lastMouseY);
+      }
     }, { passive: true });
     s3dCanvas.addEventListener("touchend", () => { isDragging3d = false; });
     s3dCanvas.addEventListener("touchmove", (e) => {
@@ -1744,7 +1898,7 @@
       rotY += (e.touches[0].clientX - lastMouseX) * 0.009; rotX += (e.touches[0].clientY - lastMouseY) * 0.009;
       lastMouseX = e.touches[0].clientX; lastMouseY = e.touches[0].clientY;
     }, { passive: true });
-    s3dCanvas.addEventListener("wheel", (e) => { e.preventDefault(); zoom3d = Math.max(0.6, Math.min(1.85, zoom3d - e.deltaY * 0.0008)); }, { passive: false });
+    s3dCanvas.addEventListener("wheel", (e) => { e.preventDefault(); zoom3d = Math.max(0.6, Math.min(2.0, zoom3d - e.deltaY * 0.0008)); }, { passive: false });
 
     document.getElementById("toggle3dAutoRotateBtn").addEventListener("click", (e) => { autoRotate3d = !autoRotate3d; e.target.textContent = autoRotate3d ? "🔄 Auto-Orbit: ON" : "⏸ Auto-Orbit: OFF"; });
     document.getElementById("reset3dCameraBtn").addEventListener("click", () => { rotX = 0.45; rotY = 0.35; zoom3d = 1.0; });
@@ -1763,24 +1917,53 @@
 
       if (autoRotate3d && !isDragging3d) rotY += 0.0055;
       haloPulsePhase += 0.06;
+      energyWave = (energyWave + 0.015) % 1;
       const pulseAlpha = 0.35 + 0.35 * Math.sin(haloPulsePhase);
 
-      s3dCtx.clearRect(0, 0, w, h);
       const pal = THEME_CHART_PALETTE[activeWebTheme] || THEME_CHART_PALETTE.sunset;
-      const axes = spider3dAxesData, n = axes.length;
 
+      // 1. DEEP SPACE NEBULA BACKGROUND
+      s3dCtx.fillStyle = "#020308";
+      s3dCtx.fillRect(0, 0, w, h);
+
+      const nebGrad1 = s3dCtx.createRadialGradient(cx * 0.7, cy * 0.65, 10, cx * 0.7, cy * 0.65, maxR * 1.9);
+      nebGrad1.addColorStop(0, pal.neb1);
+      nebGrad1.addColorStop(1, "rgba(2, 3, 8, 0)");
+      s3dCtx.fillStyle = nebGrad1;
+      s3dCtx.fillRect(0, 0, w, h);
+
+      const nebGrad2 = s3dCtx.createRadialGradient(cx * 1.35, cy * 1.3, 10, cx * 1.35, cy * 1.3, maxR * 1.7);
+      nebGrad2.addColorStop(0, pal.neb2);
+      nebGrad2.addColorStop(1, "rgba(2, 3, 8, 0)");
+      s3dCtx.fillStyle = nebGrad2;
+      s3dCtx.fillRect(0, 0, w, h);
+
+      // 2. 3D PARALLAX SPACE STARFIELD
+      spaceStars3d.forEach(st => {
+        st.twinkle += 0.03;
+        const sp = project3D(st.x, st.y, st.z, cx, cy, fov * 1.15);
+        if (sp.px < 0 || sp.px > w || sp.py < 0 || sp.py > h || sp.scale <= 0) return;
+        const alpha = Math.max(0.12, Math.min(0.85, (0.45 + 0.35 * Math.sin(st.twinkle)) * sp.scale));
+        s3dCtx.beginPath();
+        s3dCtx.arc(sp.px, sp.py, Math.max(0.5, st.r * sp.scale), 0, Math.PI * 2);
+        s3dCtx.fillStyle = `rgba(226, 232, 240, ${alpha})`;
+        s3dCtx.fill();
+      });
+
+      // 3. 3D SPIDER-WEB GEODESIC RINGS & BIPYRAMID CAGE
+      const axes = spider3dAxesData, n = axes.length;
       const dirs = axes.map((_, i) => ({ dx: Math.cos((i / n) * Math.PI * 2), dy: 0, dz: Math.sin((i / n) * Math.PI * 2) }));
-      const outerTop = project3D(0, -maxR * 0.72, 0, cx, cy, fov);
-      const outerBot = project3D(0,  maxR * 0.72, 0, cx, cy, fov);
+      const outerTop = project3D(0, -maxR * 0.74, 0, cx, cy, fov);
+      const outerBot = project3D(0,  maxR * 0.74, 0, cx, cy, fov);
       const centerPt = project3D(0, 0, 0, cx, cy, fov);
 
-      [0.25, 0.5, 0.75, 1.0].forEach((ringFrac, rIdx) => {
+      [0.2, 0.4, 0.6, 0.8, 1.0].forEach((ringFrac, rIdx) => {
         const ringPts = dirs.map(d => project3D(d.dx * maxR * ringFrac, 0, d.dz * maxR * ringFrac, cx, cy, fov));
         s3dCtx.beginPath();
         ringPts.forEach((pt, idx) => idx === 0 ? s3dCtx.moveTo(pt.px, pt.py) : s3dCtx.lineTo(pt.px, pt.py));
         s3dCtx.closePath();
-        s3dCtx.strokeStyle = rIdx === 3 ? `rgba(${pal.rgb}, 0.4)` : "rgba(255, 255, 255, 0.11)";
-        s3dCtx.lineWidth = rIdx === 3 ? 1.4 : 0.9; s3dCtx.stroke();
+        s3dCtx.strokeStyle = rIdx === 4 ? `rgba(${pal.rgb}, 0.45)` : "rgba(255, 255, 255, 0.11)";
+        s3dCtx.lineWidth = rIdx === 4 ? 1.5 : 0.85; s3dCtx.stroke();
       });
 
       const masteryPts = [];
@@ -1789,22 +1972,43 @@
         s3dCtx.beginPath();
         s3dCtx.moveTo(centerPt.px, centerPt.py); s3dCtx.lineTo(outerPt.px, outerPt.py);
         s3dCtx.moveTo(outerTop.px, outerTop.py); s3dCtx.lineTo(outerPt.px, outerPt.py); s3dCtx.lineTo(outerBot.px, outerBot.py);
-        s3dCtx.strokeStyle = "rgba(255, 255, 255, 0.10)"; s3dCtx.lineWidth = 0.9; s3dCtx.stroke();
+        s3dCtx.strokeStyle = "rgba(255, 255, 255, 0.12)"; s3dCtx.lineWidth = 0.9; s3dCtx.stroke();
+
+        // Traveling Energy Pulse along each spoke
+        const pulsePt = project3D(d.dx * maxR * energyWave, 0, d.dz * maxR * energyWave, cx, cy, fov);
+        s3dCtx.beginPath();
+        s3dCtx.arc(pulsePt.px, pulsePt.py, Math.max(1.5, 2.5 * pulsePt.scale), 0, Math.PI * 2);
+        s3dCtx.fillStyle = `rgba(${pal.rgb}, ${1 - energyWave})`;
+        s3dCtx.fill();
 
         const frac = Math.max(0.14, (axes[i].pct || 0) / 100);
         const mPt = project3D(d.dx * maxR * frac, 0, d.dz * maxR * frac, cx, cy, fov);
-        masteryPts.push({ ...mPt, label: axes[i].label, pct: axes[i].pct, decayStatus: axes[i].decayStatus, hyGap: axes[i].hyGap });
+        masteryPts.push({ ...mPt, label: axes[i].label, pct: axes[i].pct, done: axes[i].done, total: axes[i].total, decayStatus: axes[i].decayStatus, hyGap: axes[i].hyGap });
 
-        // High-Yield Golden Target Halo at outer tip if pillar has unmastered high-yield topics
+        // Chapter-Level Orbiting Satellites around each pillar vertex
+        const sats = axes[i].satellites || [];
+        sats.forEach((sat, sIdx) => {
+          const satAngle = (sIdx / Math.max(1, sats.length)) * Math.PI * 2 + haloPulsePhase * 0.25;
+          const orbitR = 20;
+          const sx = d.dx * maxR * frac + Math.cos(satAngle) * orbitR;
+          const sy = Math.sin(satAngle) * (orbitR * 0.75);
+          const sz = d.dz * maxR * frac + Math.sin(satAngle) * orbitR;
+          const sPt = project3D(sx, sy, sz, cx, cy, fov);
+          s3dCtx.beginPath();
+          s3dCtx.arc(sPt.px, sPt.py, Math.max(1.8, (sat.hy ? 3.2 : 2.3) * sPt.scale), 0, Math.PI * 2);
+          s3dCtx.fillStyle = sat.state === "decay" ? "#f43f5e" : sat.state === "fading" ? "#f59e0b" : sat.state === "fresh" ? "#10b981" : "rgba(161, 161, 170, 0.35)";
+          s3dCtx.fill();
+        });
+
+        // High-Yield Golden Target Halo at outer tip
         if (highYieldGlowEnabled && axes[i].hyGap) {
           s3dCtx.beginPath();
           s3dCtx.arc(outerPt.px, outerPt.py, Math.max(7, 11 * outerPt.scale), 0, Math.PI * 2);
           s3dCtx.strokeStyle = `rgba(251, 191, 36, ${pulseAlpha})`;
-          s3dCtx.lineWidth = 2;
-          s3dCtx.stroke();
+          s3dCtx.lineWidth = 2; s3dCtx.stroke();
         }
 
-        const lblPt = project3D(d.dx * (maxR + 38), 0, d.dz * (maxR + 38), cx, cy, fov);
+        const lblPt = project3D(d.dx * (maxR + 42), 0, d.dz * (maxR + 42), cx, cy, fov);
         s3dCtx.font = "bold 11px Inter, sans-serif";
         s3dCtx.fillStyle = axes[i].decayStatus === "decay" ? "#fda4af" : axes[i].decayStatus === "fading" ? "#fde68a" : "#e4e4e7";
         s3dCtx.textAlign = "center";
@@ -1812,9 +2016,11 @@
         s3dCtx.fillText(`${axes[i].label} (${axes[i].pct}%)${hyIcon}`, lblPt.px, lblPt.py);
       });
 
+      projectedVerticesCache = masteryPts;
+
       const peakFrac = Math.max(0.18, spider3dOverallPct / 100);
-      const mTop = project3D(0, -maxR * 0.72 * peakFrac, 0, cx, cy, fov);
-      const mBot = project3D(0,  maxR * 0.72 * peakFrac, 0, cx, cy, fov);
+      const mTop = project3D(0, -maxR * 0.74 * peakFrac, 0, cx, cy, fov);
+      const mBot = project3D(0,  maxR * 0.74 * peakFrac, 0, cx, cy, fov);
 
       for (let i = 0; i < n; i++) {
         const pA = masteryPts[i], pB = masteryPts[(i + 1) % n];
@@ -1823,25 +2029,25 @@
                        : pal.rgb;
         s3dCtx.beginPath();
         s3dCtx.moveTo(mTop.px, mTop.py); s3dCtx.lineTo(pA.px, pA.py); s3dCtx.lineTo(pB.px, pB.py); s3dCtx.closePath();
-        s3dCtx.fillStyle = `rgba(${facetRgb}, 0.19)`; s3dCtx.fill();
-        s3dCtx.strokeStyle = `rgba(${facetRgb}, 0.78)`; s3dCtx.lineWidth = 1.4; s3dCtx.stroke();
+        s3dCtx.fillStyle = `rgba(${facetRgb}, 0.21)`; s3dCtx.fill();
+        s3dCtx.strokeStyle = `rgba(${facetRgb}, 0.82)`; s3dCtx.lineWidth = 1.5; s3dCtx.stroke();
 
         s3dCtx.beginPath();
         s3dCtx.moveTo(mBot.px, mBot.py); s3dCtx.lineTo(pA.px, pA.py); s3dCtx.lineTo(pB.px, pB.py); s3dCtx.closePath();
-        s3dCtx.fillStyle = `rgba(${facetRgb}, 0.11)`; s3dCtx.fill();
-        s3dCtx.strokeStyle = `rgba(${facetRgb}, 0.45)`; s3dCtx.lineWidth = 1.0; s3dCtx.stroke();
+        s3dCtx.fillStyle = `rgba(${facetRgb}, 0.12)`; s3dCtx.fill();
+        s3dCtx.strokeStyle = `rgba(${facetRgb}, 0.48)`; s3dCtx.lineWidth = 1.0; s3dCtx.stroke();
       }
 
       [...masteryPts, mTop, mBot].forEach(pt => {
         const nodeColor = pt.decayStatus === "decay" ? "#f43f5e" : pt.decayStatus === "fading" ? "#f59e0b" : pal.bar;
         if (highYieldGlowEnabled && pt.hyGap) {
           s3dCtx.beginPath();
-          s3dCtx.arc(pt.px, pt.py, Math.max(8, 12 * pt.scale), 0, Math.PI * 2);
+          s3dCtx.arc(pt.px, pt.py, Math.max(8, 13 * pt.scale), 0, Math.PI * 2);
           s3dCtx.fillStyle = `rgba(251, 191, 36, ${pulseAlpha * 0.45})`;
           s3dCtx.fill();
         }
         s3dCtx.beginPath();
-        s3dCtx.arc(pt.px, pt.py, Math.max(3.5, 5.8 * pt.scale), 0, Math.PI * 2);
+        s3dCtx.arc(pt.px, pt.py, Math.max(3.8, 6.2 * pt.scale), 0, Math.PI * 2);
         s3dCtx.fillStyle = "#ffffff"; s3dCtx.fill();
         s3dCtx.strokeStyle = nodeColor; s3dCtx.lineWidth = 2.2; s3dCtx.stroke();
       });
@@ -1858,17 +2064,132 @@
       if (!s3dAnimId) render3dSpiderWebFrame();
     }
 
-    // 15. 3-SLIDE MOBILE SCREEN SLIDING CONTROLLER
+    // 15. PAGE 4: WEEKLY REVISION & SPRINT BLUEPRINT ENGINE
+    const SPRINT_DAYS = [
+      { key: "Mon", label: "Monday" },
+      { key: "Tue", label: "Tuesday" },
+      { key: "Wed", label: "Wednesday" },
+      { key: "Thu", label: "Thursday" },
+      { key: "Fri", label: "Friday" },
+      { key: "Sat", label: "Saturday" },
+      { key: "Sun", label: "Sunday" }
+    ];
+
+    function getTodayShortDay() {
+      const idx = new Date().getDay(); // 0=Sun..6=Sat
+      return ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][idx] || "Mon";
+    }
+    document.getElementById("sprintDaySelect").value = getTodayShortDay();
+
+    function renderWeeklySprintBoard() {
+      if (!currentUser) return;
+      if (!Array.isArray(currentUser.weeklySprint)) currentUser.weeklySprint = [];
+      const tasks = currentUser.weeklySprint;
+      const doneCount = tasks.filter(t => t.done).length;
+      document.getElementById("sprintProgressBadge").textContent = `${doneCount} / ${tasks.length} Completed`;
+
+      const todayKey = getTodayShortDay();
+      const grid = document.getElementById("weeklySprintGrid");
+
+      grid.innerHTML = SPRINT_DAYS.map(day => {
+        const dayTasks = tasks.filter(t => t.day === day.key);
+        const isToday = day.key === todayKey;
+
+        const tasksHtml = dayTasks.length ? dayTasks.map(t => {
+          const safeClockTitle = t.title.replace(/'/g, "\\'");
+          return `
+            <div class="p-2.5 rounded-xl bg-zinc-950/90 border ${t.done ? 'border-emerald-500/25 opacity-60' : 'border-zinc-800'} flex items-start justify-between gap-2">
+              <label class="flex items-start gap-2 cursor-pointer flex-1 select-none">
+                <input type="checkbox" ${t.done ? "checked" : ""} onchange="toggleSprintTask('${t.id}')" class="mt-0.5 w-3.5 h-3.5 rounded accent-amber-400 cursor-pointer shrink-0" />
+                <span class="text-xs leading-snug ${t.done ? 'line-through text-zinc-500' : 'text-zinc-200 font-medium'}">${t.title}</span>
+              </label>
+              <div class="flex items-center gap-1 shrink-0">
+                ${!t.done ? `<button type="button" onclick="startDotRecommendedClockIn('${safeClockTitle}')" class="clicky px-1.5 py-0.5 rounded bg-white/10 hover:bg-white hover:text-black text-[10px] font-bold text-zinc-200" title="Clock in this task">▶</button>` : ""}
+                <button type="button" onclick="deleteSprintTask('${t.id}')" class="text-zinc-500 hover:text-rose-400 text-xs px-1">✕</button>
+              </div>
+            </div>`;
+        }).join("") : `<p class="text-[11px] text-zinc-600 italic py-4 text-center">No sprint targets set</p>`;
+
+        return `
+          <div class="bg-black/70 rounded-2xl p-4 border ${isToday ? 'border-amber-400/50 shadow-[0_0_20px_rgba(245,158,11,0.12)]' : 'border-zinc-800'} flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3 pb-2 border-b border-zinc-800/80">
+                <span class="text-xs font-extrabold uppercase tracking-wider ${isToday ? 'theme-gradient-text' : 'text-zinc-300'}">${day.label}</span>
+                ${isToday ? `<span class="px-2 py-0.5 rounded-full text-[9px] font-black theme-btn-primary uppercase">TODAY</span>` : `<span class="text-[10px] text-zinc-500 mono-nums">${dayTasks.length} tasks</span>`}
+              </div>
+              <div class="space-y-2 max-h-56 overflow-y-auto pr-0.5">${tasksHtml}</div>
+            </div>
+          </div>`;
+      }).join("");
+    }
+
+    document.getElementById("addSprintTaskForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (!currentUser) return;
+      const day = document.getElementById("sprintDaySelect").value;
+      const input = document.getElementById("sprintTaskInput");
+      const title = input.value.trim();
+      if (!title) return;
+      currentUser.weeklySprint.push({ id: "sp_" + Date.now(), day, title, done: false });
+      input.value = "";
+      renderWeeklySprintBoard();
+      await saveUserToCloud(currentUser);
+    });
+
+    window.toggleSprintTask = async function(taskId) {
+      if (!currentUser) return;
+      const t = (currentUser.weeklySprint || []).find(item => item.id === taskId);
+      if (t) t.done = !t.done;
+      renderWeeklySprintBoard();
+      await saveUserToCloud(currentUser);
+    };
+
+    window.deleteSprintTask = async function(taskId) {
+      if (!currentUser) return;
+      currentUser.weeklySprint = (currentUser.weeklySprint || []).filter(item => item.id !== taskId);
+      renderWeeklySprintBoard();
+      await saveUserToCloud(currentUser);
+    };
+
+    document.getElementById("autoFillSprintBtn").addEventListener("click", async () => {
+      if (!currentUser) return;
+      const queue = getDotPriorityQueue();
+      if (!queue.length) return alert("All NCERT nodes are already Fresh & Mastered!");
+      const existingTitles = new Set((currentUser.weeklySprint || []).map(t => t.title));
+      let added = 0;
+      queue.slice(0, 7).forEach((item, idx) => {
+        const dayKey = SPRINT_DAYS[idx % 7].key;
+        const prefix = item.isRevision ? "🔁 Revise" : "🔥 High-Yield";
+        const title = `${prefix} ${item.subject}: ${item.subtopicName}`;
+        if (!existingTitles.has(title)) {
+          currentUser.weeklySprint.push({ id: "sp_" + Date.now() + "_" + idx, day: dayKey, title, done: false });
+          added++;
+        }
+      });
+      renderWeeklySprintBoard();
+      if (added > 0) await saveUserToCloud(currentUser);
+    });
+
+    document.getElementById("clearDoneSprintBtn").addEventListener("click", async () => {
+      if (!currentUser) return;
+      currentUser.weeklySprint = (currentUser.weeklySprint || []).filter(t => !t.done);
+      renderWeeklySprintBoard();
+      await saveUserToCloud(currentUser);
+    });
+
+    // 16. 4-SLIDE MOBILE SCREEN SLIDING CONTROLLER
     const phoneSliderViewport = document.getElementById("phoneSliderViewport");
     const SCREEN_TITLES = [
-      "Swipe ⇄ • 1/3 Command & Telemetry",
-      "Swipe ⇄ • 2/3 NCERT Checklist",
-      "Swipe ⇄ • 3/3 3D Spider Web"
+      "Swipe ⇄ • 1/4 Command & Telemetry",
+      "Swipe ⇄ • 2/4 NCERT Checklist",
+      "Swipe ⇄ • 3/4 3D Space Web",
+      "Swipe ⇄ • 4/4 Weekly Sprint"
     ];
     const navButtons = [
       document.getElementById("navDashboardBtn"),
       document.getElementById("navSyllabusBtn"),
-      document.getElementById("navSpider3dBtn")
+      document.getElementById("navSpider3dBtn"),
+      document.getElementById("navSprintBtn")
     ];
     let currentSlideIndex = 0;
 
@@ -1876,19 +2197,19 @@
       currentSlideIndex = idx;
       const lbl = document.getElementById("activeScreenLabel");
       if (lbl) lbl.textContent = SCREEN_TITLES[idx] || SCREEN_TITLES[0];
-      for (let i = 0; i < 3; i++) {
+      for (let i = 0; i < 4; i++) {
         const dot = document.getElementById(`dotIndicator${i}`);
         if (dot) dot.className = i === idx ? "h-1.5 w-7 rounded-full bg-white transition-all duration-300 shadow-[0_0_10px_rgba(255,255,255,.7)]" : "h-1.5 w-2 rounded-full bg-zinc-700 hover:bg-zinc-500 transition-all duration-300";
         const btn = navButtons[i];
         if (btn) btn.className = i === idx
-          ? "clicky flex flex-col items-center justify-center py-2 px-2 rounded-2xl bg-white/15 text-white border border-white/30 font-bold text-xs shadow-sm"
-          : "clicky flex flex-col items-center justify-center py-2 px-2 rounded-2xl bg-zinc-900/70 text-zinc-400 border border-transparent hover:text-white font-semibold text-xs";
+          ? "clicky flex flex-col items-center justify-center py-2 px-1 rounded-2xl bg-white/15 text-white border border-white/30 font-bold text-xs shadow-sm"
+          : "clicky flex flex-col items-center justify-center py-2 px-1 rounded-2xl bg-zinc-900/70 text-zinc-400 border border-transparent hover:text-white font-semibold text-xs";
       }
       if (idx === 2) resize3dCanvas();
     }
 
     window.slideToScreen = function(index) {
-      const clamped = Math.max(0, Math.min(2, index));
+      const clamped = Math.max(0, Math.min(3, index));
       phoneSliderViewport.scrollTo({ left: clamped * window.innerWidth, behavior: "smooth" });
       updateActiveSlideIndicators(clamped);
     };
@@ -1898,12 +2219,13 @@
       if (scrollTimeout) clearTimeout(scrollTimeout);
       scrollTimeout = setTimeout(() => {
         const idx = Math.round(phoneSliderViewport.scrollLeft / window.innerWidth);
-        if (idx !== currentSlideIndex && idx >= 0 && idx <= 2) updateActiveSlideIndicators(idx);
+        if (idx !== currentSlideIndex && idx >= 0 && idx <= 3) updateActiveSlideIndicators(idx);
       }, 40);
     }, { passive: true });
 
     window.addEventListener("resize", () => phoneSliderViewport.scrollTo({ left: currentSlideIndex * window.innerWidth, behavior: "auto" }));
     window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && is3dFullscreen) toggle3dFullscreen(false);
       if (appScreen.classList.contains("hidden")) return;
       const tag = (document.activeElement && document.activeElement.tagName) || "";
       if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
@@ -1915,8 +2237,9 @@
     document.getElementById("navSyllabusBtn").addEventListener("click", () => window.slideToScreen(1));
     document.getElementById("navSpider3dBtn").addEventListener("click", () => window.slideToScreen(2));
     document.getElementById("dashSyllabusCard").addEventListener("click", () => window.slideToScreen(2));
+    document.getElementById("navSprintBtn").addEventListener("click", () => window.slideToScreen(3));
 
-    // 16. AUTO-LOGIN ON PAGE LOAD
+    // 17. AUTO-LOGIN ON PAGE LOAD
     const saved = localStorage.getItem("studypunch_current_user");
     if (saved) {
       try {
@@ -1924,7 +2247,7 @@
         if (parsed && parsed.id) {
           loginSuccess(parsed);
           fetchUserFromCloud(parsed.id).then(cloudData => {
-            if (cloudData) { currentUser = cloudData; saveLocalUser(cloudData); renderDashboard(); renderSyllabusTree(); }
+            if (cloudData) { currentUser = cloudData; saveLocalUser(cloudData); renderDashboard(); renderSyllabusTree(); renderWeeklySprintBoard(); }
           });
         }
       } catch {}
