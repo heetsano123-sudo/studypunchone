@@ -2358,4 +2358,313 @@
     }
   </script>
 </body>
+  /* StudyPunch Focus Add-on — paste inside a new <script> tag just before </body>.
+   No edits to existing code needed. Adds: 8 focus sounds, live home background
+   (Off / Top section / Whole page, in Settings), clock-in ring + goal + break reminder. */
+(function () {
+  "use strict";
+  const $ = id => document.getElementById(id), LS = localStorage, R = Math.random;
+
+  /* ---------- CSS ---------- */
+  const st = document.createElement("style");
+  st.textContent = `
+  #appScreen{position:relative;z-index:1}
+  #homeBgCanvas{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:0;opacity:.5;transition:opacity .6s}
+  #homeBgCanvas.top{position:absolute;inset:auto;top:0;left:0;width:100%;height:780px;opacity:.7;
+    -webkit-mask-image:linear-gradient(#000 55%,transparent);mask-image:linear-gradient(#000 55%,transparent)}
+  #dashboardView>div{position:relative}
+  #dashboardView>div>*:not(canvas){position:relative;z-index:1}
+  .sp-btn{padding:.45rem .5rem;border-radius:.75rem;font-size:10.5px;font-weight:700;text-align:left;border:1px solid #27272a;background:rgba(0,0,0,.7);color:#a1a1aa}
+  .sp-btn.on{background:rgba(255,255,255,.15);color:#fff;border-color:rgba(255,255,255,.45)}
+  .sp-vol{width:100%;accent-color:var(--accent-mid)}
+  #zdBreakBanner{animation:pulseBeacon 1.4s infinite}`;
+  document.head.appendChild(st);
+
+  /* ---------- LIVE HOME BACKGROUND ---------- */
+  const cv = document.createElement("canvas");
+  cv.id = "homeBgCanvas";
+  const cx = cv.getContext("2d");
+  let mode = LS.getItem("studypunch_home_bg_mode") || "top", wp = "", P = [], drops = [], t = 0, last = 0;
+
+  function init() {
+    const w = cv.width, h = cv.height; P = []; drops = [];
+    const mk = (n, f) => { for (let i = 0; i < n; i++) P.push(f()); };
+    switch (wp) {
+      case "snow": mk(50, () => ({ x: R() * w, y: R() * h, r: R() * 2 + .7, v: R() * .5 + .2, d: R() * 6.28 })); break;
+      case "rain": mk(70, () => ({ x: R() * w, y: R() * h, l: R() * 14 + 8, v: R() * 5 + 5 })); break;
+      case "meteor":
+        mk(40, () => ({ x: R() * w, y: R() * h, r: R() * 1.2 + .3, p: R() * 6.28 }));
+        mk(4, () => ({ m: 1, x: R() * w * 1.3, y: -R() * h * .5, l: R() * 80 + 50, v: R() * 6 + 6 })); break;
+      case "embers": mk(45, () => ({ x: R() * w, y: R() * h, r: R() * 2 + .7, v: -(R() + .3), d: R() * 6.28, c: R() > .35 ? "251,146,60" : "253,224,71" })); break;
+      case "fireflies": mk(30, () => ({ x: R() * w, y: R() * h, vx: (R() - .5) * .4, vy: (R() - .5) * .4, r: R() * 2.4 + 1.2, p: R() * 6.28 })); break;
+      case "matrix": drops = Array.from({ length: Math.floor(w / 18) }, () => Math.floor(R() * -40)); break;
+      case "ocean": mk(35, () => ({ x: R() * w, y: R() * h, r: R() * 4 + 1.5, v: -(R() * .7 + .3), d: R() * 6.28 })); break;
+      case "sakura": mk(30, () => ({ x: R() * w, y: R() * h, s: R() * 4 + 3, v: R() * .7 + .3, u: R() * .5 + .2, a: R() * 6.28, q: (R() - .5) * .03 })); break;
+    }
+  }
+  const dot = (x, y, r, fill) => { cx.beginPath(); cx.arc(x, y, r, 0, 6.2832); cx.fillStyle = fill; cx.fill(); };
+
+  function draw() {
+    const w = cv.width, h = cv.height; t += .006;
+    if (wp === "matrix") {
+      cx.fillStyle = "rgba(0,0,0,.1)"; cx.fillRect(0, 0, w, h);
+      cx.fillStyle = "rgba(16,185,129,.45)"; cx.font = "13px monospace";
+      drops.forEach((d, i) => {
+        cx.fillText("01λπΩ∑μ"[Math.floor(R() * 7)], i * 18, d * 18);
+        if (d * 18 > h && R() > .975) drops[i] = 0; drops[i]++;
+      }); return;
+    }
+    cx.clearRect(0, 0, w, h);
+    if (wp === "black") return;
+    if (wp === "aurora") {
+      [[.28, 55, .0022, 1, "16,185,129"], [.36, 70, .0017, -.7, "99,102,241"], [.22, 45, .0028, .5, "45,212,191"]].forEach(([y, a, f, s, c], i) => {
+        cx.beginPath(); cx.moveTo(0, h);
+        for (let x = 0; x <= w; x += 24) cx.lineTo(x, h * y + Math.sin(x * f + t * s * 40 + i) * a + Math.cos(x * f * 1.6 - t * 30) * a * .45);
+        cx.lineTo(w, h); cx.closePath();
+        const g = cx.createLinearGradient(0, 0, 0, h * .8);
+        g.addColorStop(0, `rgba(${c},.2)`); g.addColorStop(1, `rgba(${c},0)`); cx.fillStyle = g; cx.fill();
+      }); return;
+    }
+    P.forEach(p => {
+      switch (wp) {
+        case "snow": p.y += p.v; p.d += .012; p.x += Math.sin(p.d) * .35; if (p.y > h) { p.y = -5; p.x = R() * w; } dot(p.x, p.y, p.r, "rgba(226,232,240,.4)"); break;
+        case "rain": p.y += p.v; p.x -= .9; if (p.y > h) { p.y = -20; p.x = R() * w; } if (p.x < 0) p.x = w;
+          cx.strokeStyle = "rgba(148,163,184,.2)"; cx.beginPath(); cx.moveTo(p.x, p.y); cx.lineTo(p.x - 2, p.y + p.l); cx.stroke(); break;
+        case "meteor":
+          if (!p.m) { p.p += .03; dot(p.x, p.y, p.r, `rgba(226,232,240,${.25 + .25 * Math.sin(p.p)})`); break; }
+          p.x -= p.v; p.y += p.v * .65; if (p.x < -120 || p.y > h + 120) { p.x = R() * w * 1.3 + 100; p.y = -R() * 200; }
+          const g = cx.createLinearGradient(p.x, p.y, p.x + p.l, p.y - p.l * .65);
+          g.addColorStop(0, "rgba(253,230,138,.6)"); g.addColorStop(1, "rgba(253,230,138,0)");
+          cx.strokeStyle = g; cx.beginPath(); cx.moveTo(p.x, p.y); cx.lineTo(p.x + p.l, p.y - p.l * .65); cx.stroke(); break;
+        case "embers": p.y += p.v; p.d += .025; p.x += Math.sin(p.d) * .55; if (p.y < -10) { p.y = h + 10; p.x = R() * w; } dot(p.x, p.y, p.r, `rgba(${p.c},.5)`); break;
+        case "fireflies": p.x += p.vx; p.y += p.vy; p.p += .035;
+          if (p.x < 0) p.x = w; if (p.x > w) p.x = 0; if (p.y < 0) p.y = h; if (p.y > h) p.y = 0;
+          const rg = cx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 4);
+          rg.addColorStop(0, `rgba(190,242,100,${.25 + .5 * (.5 + .5 * Math.sin(p.p))})`); rg.addColorStop(1, "rgba(190,242,100,0)");
+          cx.fillStyle = rg; cx.beginPath(); cx.arc(p.x, p.y, p.r * 4, 0, 6.2832); cx.fill(); break;
+        case "ocean": p.y += p.v; p.d += .02; p.x += Math.sin(p.d) * .4; if (p.y < -15) { p.y = h + 15; p.x = R() * w; }
+          cx.beginPath(); cx.arc(p.x, p.y, p.r, 0, 6.2832); cx.strokeStyle = "rgba(103,232,249,.25)"; cx.stroke(); break;
+        case "sakura": p.y += p.v; p.x += p.u + Math.sin(p.a) * .3; p.a += p.q; if (p.y > h + 15) { p.y = -15; p.x = R() * w; } if (p.x > w + 15) p.x = -15;
+          cx.save(); cx.translate(p.x, p.y); cx.rotate(p.a); cx.beginPath(); cx.ellipse(0, 0, p.s, p.s * .55, 0, 0, 6.2832);
+          cx.fillStyle = "rgba(251,207,232,.45)"; cx.fill(); cx.restore(); break;
+      }
+    });
+  }
+
+  function loop(ts) {
+    requestAnimationFrame(loop);
+    if (ts - last < 33) return; last = ts;               // ~30fps to save battery
+    const app = $("appScreen"), ov = $("zeroDistractionOverlay"), vp = $("phoneSliderViewport");
+    const on = mode !== "off" && app && !app.classList.contains("hidden") && ov.classList.contains("hidden")
+      && !document.hidden && vp.scrollLeft < innerWidth * .5;
+    cv.style.display = on ? "block" : "none";
+    if (!on) return;
+    const w = cv.clientWidth | 0, h = cv.clientHeight | 0;
+    const cur = LS.getItem("studypunch_focus_wp") || "aurora";
+    if (cv.width !== w || cv.height !== h || cur !== wp) { cv.width = w; cv.height = h; wp = cur; init(); }
+    draw();
+  }
+
+  function applyMode(m) {
+    mode = m; LS.setItem("studypunch_home_bg_mode", m);
+    cv.className = m === "top" ? "top" : "";
+    if (m === "top") { const box = $("dashboardView"); if (box && box.firstElementChild) box.firstElementChild.prepend(cv); }
+    else document.body.insertBefore(cv, $("appScreen"));
+    document.querySelectorAll(".hb-btn").forEach(b => {
+      const on = b.dataset.m === m;
+      b.className = "hb-btn clicky p-2 rounded-xl border text-center text-[11px] font-bold " +
+        (on ? "border-white/45 bg-white/15 text-white" : "border-zinc-800 bg-black/70 text-zinc-400");
+    });
+  }
+
+  /* ---------- FOCUS SOUND ENGINE (generated live, offline, no files) ---------- */
+  const SOUNDS = [
+    { id: "brown", n: "🟤 Brown noise", e: "Limited–moderate", d: "Deep, smooth rumble. Masks speech and traffic." },
+    { id: "pink", n: "🌸 Pink noise", e: "Moderate", d: "Balanced and natural. Good general-purpose masking." },
+    { id: "white", n: "⚪ Soft white noise", e: "Moderate", d: "Even hiss. Keep it quiet, loud white noise tires you." },
+    { id: "cafe", n: "☕ Café murmur", e: "Moderate (creative tasks)", d: "Moderate ambient noise (~70 dB) helped creative thinking in one study. For revision, keep it low." },
+    { id: "forest", n: "🌲 Forest & stream", e: "Moderate", d: "Nature sound supports recovery from mental fatigue (Attention Restoration Theory)." },
+    { id: "ocean", n: "🌊 Ocean waves", e: "Moderate", d: "Slow wave rhythm. Same nature-sound basis as forest." },
+    { id: "beta", n: "🎧 Binaural beta 15 Hz", e: "Mixed · experimental", d: "Needs headphones. Evidence is small and inconsistent; try it, keep it only if it helps you." },
+    { id: "pad", n: "🎹 Slow ambient pad", e: "Moderate", d: "65 BPM, no lyrics. Music without words disturbs reading and memory far less than songs." }
+  ];
+  const S = { ctx: null, master: null, bus: null, nodes: [], timers: [], cur: LS.getItem("sp_sound") === null ? "off" : "off", vol: parseFloat(LS.getItem("sp_vol") || ".35") };
+
+  function actx() {
+    if (!S.ctx) { S.ctx = new (window.AudioContext || window.webkitAudioContext)(); S.master = S.ctx.createGain(); S.master.connect(S.ctx.destination); }
+    if (S.ctx.state === "suspended") S.ctx.resume();
+    S.master.gain.value = S.vol; return S.ctx;
+  }
+  function noiseBuf(type) {
+    const c = S.ctx, n = c.sampleRate * 4, b = c.createBuffer(1, n, c.sampleRate), o = b.getChannelData(0);
+    let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0, l = 0;
+    for (let i = 0; i < n; i++) {
+      const w = R() * 2 - 1;
+      if (type === "white") o[i] = w * .5;
+      else if (type === "pink") {
+        b0 = .99886 * b0 + w * .0555179; b1 = .99332 * b1 + w * .0750759; b2 = .969 * b2 + w * .153852;
+        b3 = .8665 * b3 + w * .3104856; b4 = .55 * b4 + w * .5329522; b5 = -.7616 * b5 - w * .016898;
+        o[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + w * .5362) * .11; b6 = w * .115926;
+      } else { l = (l + .02 * w) / 1.02; o[i] = l * 3.5; }
+    }
+    return b;
+  }
+  function stopSound() {
+    S.timers.forEach(clearInterval); S.timers = [];
+    const old = S.nodes, bus = S.bus; S.nodes = []; S.bus = null;
+    if (bus) { bus.gain.setTargetAtTime(0, S.ctx.currentTime, .15);
+      setTimeout(() => old.forEach(n => { try { n.stop && n.stop(); } catch (e) {} try { n.disconnect(); } catch (e) {} }), 700); }
+  }
+  function play(id) {
+    stopSound(); S.cur = id; LS.setItem("sp_sound", id);
+    if (id === "off") return syncSound();
+    const c = actx();
+    const ab = $("toggleAmbientAudioBtn"); if (ab && /On/.test(ab.textContent)) ab.click();   // stop old rain/wind
+    const bus = c.createGain(); bus.gain.value = 0; bus.connect(S.master); bus.gain.setTargetAtTime(1, c.currentTime, .4); S.bus = bus;
+    const A = n => (S.nodes.push(n), n);
+    const noise = (type, dest) => { const s = A(c.createBufferSource()); s.buffer = noiseBuf(type); s.loop = true; s.connect(dest); s.start(); };
+    const filt = (type, f, q = .7) => { const x = A(c.createBiquadFilter()); x.type = type; x.frequency.value = f; x.Q.value = q; return x; };
+    const gain = v => { const g = A(c.createGain()); g.gain.value = v; return g; };
+    const lfo = (f, d, p) => { const o = A(c.createOscillator()), g = A(c.createGain()); o.frequency.value = f; g.gain.value = d; o.connect(g); g.connect(p); o.start(); };
+    switch (id) {
+      case "brown": { const f = filt("lowpass", 700), g = gain(.9); f.connect(g); g.connect(bus); noise("brown", f); break; }
+      case "pink": { const g = gain(.7); g.connect(bus); noise("pink", g); break; }
+      case "white": { const f = filt("lowpass", 5000), g = gain(.35); f.connect(g); g.connect(bus); noise("white", f); break; }
+      case "cafe": { const f = filt("bandpass", 900, .5), g = gain(.8); f.connect(g); g.connect(bus); noise("pink", f); lfo(.27, .25, g.gain); lfo(.11, 200, f.frequency); break; }
+      case "forest": {
+        const hp = filt("highpass", 1200), lp = filt("lowpass", 5000), g = gain(.45);
+        hp.connect(lp); lp.connect(g); g.connect(bus); noise("pink", hp); lfo(.4, .12, g.gain);
+        S.timers.push(setInterval(() => {
+          if (R() > .55) return;
+          const n = 2 + Math.floor(R() * 3), f0 = 2500 + R() * 2000;
+          for (let i = 0; i < n; i++) {
+            const o = c.createOscillator(), e = c.createGain(), t0 = c.currentTime + i * .16;
+            o.frequency.setValueAtTime(f0, t0); o.frequency.exponentialRampToValueAtTime(f0 * 1.3, t0 + .1);
+            e.gain.setValueAtTime(0, t0); e.gain.linearRampToValueAtTime(.05, t0 + .02); e.gain.exponentialRampToValueAtTime(.0001, t0 + .12);
+            o.connect(e); e.connect(bus); o.start(t0); o.stop(t0 + .15);
+          }
+        }, 2500)); break;
+      }
+      case "ocean": {
+        const lp = filt("lowpass", 500), g = gain(.5); lp.connect(g); g.connect(bus); noise("brown", lp); lfo(.09, 300, lp.frequency); lfo(.09, .45, g.gain);
+        const hp = filt("highpass", 2500), g2 = gain(.08); hp.connect(g2); g2.connect(bus); noise("pink", hp); lfo(.09, .07, g2.gain); break;
+      }
+      case "beta": {
+        [[200, -1], [215, 1]].forEach(([f, p]) => {
+          const o = A(c.createOscillator()), g = gain(.12), pn = A(c.createStereoPanner());
+          o.frequency.value = f; pn.pan.value = p; o.connect(g); g.connect(pn); pn.connect(bus); o.start();
+        });
+        const lp = filt("lowpass", 1500), g = gain(.25); lp.connect(g); g.connect(bus); noise("pink", lp); break;
+      }
+      case "pad": {
+        const chords = [[110, 164.81, 220, 277.18], [87.31, 130.81, 174.61, 261.63], [98, 146.83, 196, 246.94], [110, 164.81, 220, 261.63]];
+        const lp = filt("lowpass", 900), g = gain(.16); lp.connect(g); g.connect(bus); lfo(.05, .05, g.gain);
+        const oscs = chords[0].map(f => { const o = A(c.createOscillator()); o.type = "triangle"; o.frequency.value = f; o.connect(lp); o.start(); return o; });
+        let i = 0;
+        S.timers.push(setInterval(() => { i = (i + 1) % 4; oscs.forEach((o, k) => o.frequency.setTargetAtTime(chords[i][k], c.currentTime, 1.5)); }, (60 / 65) * 8 * 1000)); break;
+      }
+    }
+    syncSound();
+  }
+  function setVol(v) { S.vol = v; LS.setItem("sp_vol", v); if (S.master) S.master.gain.setTargetAtTime(v, S.ctx.currentTime, .05); syncSound(); }
+
+  function soundPanelHTML() {
+    return `<div class="space-y-2">
+      <div class="grid grid-cols-2 gap-1.5">
+        ${SOUNDS.map(s => `<button type="button" class="sp-btn clicky" data-s="${s.id}">${s.n}</button>`).join("")}
+        <button type="button" class="sp-btn clicky" data-s="off">🔇 Off</button>
+      </div>
+      <p class="sp-info text-[10px] text-zinc-400 leading-snug min-h-[28px]"></p>
+      <div class="flex items-center gap-2"><span class="text-[10px] text-zinc-500">Vol</span><input type="range" class="sp-vol" min="0" max="1" step=".01"></div>
+    </div>`;
+  }
+  function syncSound() {
+    document.querySelectorAll(".sp-btn").forEach(b => b.classList.toggle("on", b.dataset.s === S.cur));
+    const s = SOUNDS.find(x => x.id === S.cur);
+    document.querySelectorAll(".sp-info").forEach(el => {
+      el.textContent = s ? `Evidence: ${s.e}. ${s.d}` : "Pick a sound. Low volume works best; loud sound hurts focus.";
+    });
+    document.querySelectorAll(".sp-vol").forEach(v => { v.value = S.vol; });
+  }
+  document.addEventListener("click", e => { const b = e.target.closest(".sp-btn"); if (b) play(b.dataset.s); });
+  document.addEventListener("input", e => { if (e.target.classList.contains("sp-vol")) setVol(parseFloat(e.target.value)); });
+
+  /* ---------- SETTINGS SECTION ---------- */
+  function buildSettings() {
+    const box = document.querySelector("#settingsModal .overflow-y-auto");
+    if (!box || $("addonSettings")) return;
+    const sec = document.createElement("div");
+    sec.id = "addonSettings"; sec.className = "pt-4 border-t border-white/10 space-y-3";
+    sec.innerHTML = `
+      <label class="block text-[10px] font-extrabold uppercase tracking-[0.2em] theme-gradient-text">4. Live Home Background (uses your wallpaper)</label>
+      <div class="grid grid-cols-3 gap-2">
+        <button type="button" class="hb-btn" data-m="off">🚫 Off</button>
+        <button type="button" class="hb-btn" data-m="top">⬆️ Top section</button>
+        <button type="button" class="hb-btn" data-m="page">📱 Whole page</button>
+      </div>
+      <p class="text-[10px] text-zinc-500">Top section saves battery. On clock-in the scene goes full screen automatically.</p>
+      <label class="block text-[10px] font-extrabold uppercase tracking-[0.2em] theme-gradient-text pt-2">5. Focus Sounds (8 science-labelled)</label>
+      ${soundPanelHTML()}`;
+    box.insertBefore(sec, box.lastElementChild);
+    sec.querySelectorAll(".hb-btn").forEach(b => b.addEventListener("click", () => applyMode(b.dataset.m)));
+    applyMode(mode); syncSound();
+  }
+
+  /* ---------- CLOCK-IN SCREEN: sounds, progress ring, goal, break reminder ---------- */
+  function buildOverlay() {
+    const out = $("zdClockOutBtn"); if (!out || $("zdExtras")) return;
+    const wrap = document.createElement("div");
+    wrap.id = "zdExtras"; wrap.className = "space-y-3";
+    wrap.innerHTML = `
+      <div class="inline-flex items-center gap-4 px-4 py-3 rounded-3xl bg-black/70 backdrop-blur-md border border-white/10">
+        <svg viewBox="0 0 100 100" class="w-20 h-20 -rotate-90">
+          <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="7"/>
+          <circle id="zdRing" cx="50" cy="50" r="42" fill="none" stroke="var(--accent-mid)" stroke-width="7" stroke-linecap="round" stroke-dasharray="263.9" stroke-dashoffset="263.9" style="transition:stroke-dashoffset .9s linear"/>
+        </svg>
+        <div class="text-left">
+          <p id="zdRingTxt" class="mono-nums text-lg font-extrabold text-white">0/45m</p>
+          <label class="text-[10px] uppercase tracking-widest text-zinc-400">Session goal
+            <select id="zdGoal" class="ml-1 px-2 py-1 rounded-lg bg-zinc-950 border border-zinc-700 text-white text-[11px]">
+              ${[25, 45, 60, 90, 120].map(m => `<option value="${m}">${m} min</option>`).join("")}
+            </select></label>
+          <p id="zdBlockNo" class="text-[10px] text-zinc-500 mt-1">Block 1</p>
+        </div>
+      </div>
+      <div id="zdBreakBanner" class="hidden px-4 py-2 rounded-2xl bg-emerald-950/90 border border-emerald-400/40 text-emerald-200 text-xs font-bold">☕ Goal reached! Take a 5-minute break: stand, drink water, look far away.</div>
+      <details class="max-w-md mx-auto text-left rounded-2xl bg-black/70 backdrop-blur-md border border-white/10 p-3">
+        <summary class="cursor-pointer text-xs font-bold text-zinc-200">🎧 Focus sounds</summary>
+        <div class="mt-3">${soundPanelHTML()}</div>
+      </details>`;
+    out.parentElement.parentElement.insertBefore(wrap, out.parentElement);
+    const goal = $("zdGoal"); goal.value = LS.getItem("sp_goal") || "45";
+    goal.addEventListener("change", () => LS.setItem("sp_goal", goal.value));
+    syncSound();
+  }
+
+  let lastBlock = 0;
+  function tick() {
+    const el = $("zdTimerDisplay"), ring = $("zdRing"); if (!el || !ring) return;
+    const p = el.textContent.split(":").map(Number); if (p.length !== 3 || p.some(isNaN)) return;
+    const secs = p[0] * 3600 + p[1] * 60 + p[2], goal = parseInt($("zdGoal").value, 10) * 60;
+    if (secs < 5) lastBlock = 0;
+    const inBlock = secs % goal, block = Math.floor(secs / goal);
+    ring.style.strokeDashoffset = 263.9 * (1 - inBlock / goal);
+    $("zdRingTxt").textContent = `${Math.floor(inBlock / 60)}/${goal / 60}m`;
+    $("zdBlockNo").textContent = `Block ${block + 1}`;
+    if (block > lastBlock) {
+      lastBlock = block;
+      const b = $("zdBreakBanner"); b.classList.remove("hidden"); setTimeout(() => b.classList.add("hidden"), 25000);
+      try { const c = actx(), o = c.createOscillator(), g = c.createGain(); o.frequency.value = 880;
+        g.gain.setValueAtTime(.15, c.currentTime); g.gain.exponentialRampToValueAtTime(.0001, c.currentTime + .6);
+        o.connect(g); g.connect(c.destination); o.start(); o.stop(c.currentTime + .6); } catch (e) {}
+    }
+  }
+
+  /* ---------- BOOT ---------- */
+  function boot() {
+    applyMode(mode); buildSettings(); buildOverlay(); syncSound();
+    setInterval(tick, 1000); requestAnimationFrame(loop);
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot); else boot();
+})();
 </html>
