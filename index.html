@@ -57,6 +57,39 @@
     <button id="skipIntroBtn" type="button" class="clicky fixed bottom-6 right-6 z-20 px-3.5 py-1.5 rounded-xl bg-white/5 hover:bg-white/15 border border-white/10 text-[10px] font-bold uppercase tracking-widest text-zinc-400 hover:text-white">Skip ›</button>
   </div>
 
+  <!-- REVISION REASON QUICK-DIAGNOSIS MODAL -->
+  <div id="revisionReasonModal" class="hidden fixed inset-0 z-[160] bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="luxury-card rounded-3xl w-full max-w-md p-6 border border-white/20 shadow-2xl">
+      <div class="flex items-center justify-between mb-3">
+        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-[0.2em] bg-white/10 text-zinc-200 border border-white/15">DOT AI Calibration</span>
+        <button type="button" id="closeRevisionReasonBtn" class="w-7 h-7 rounded-lg bg-zinc-900 text-zinc-400 hover:text-white text-xs font-bold">✕</button>
+      </div>
+      <h3 class="font-serif-luxury text-xl font-bold text-white">Why did you revise this topic?</h3>
+      <p id="revModalTopicLabel" class="text-xs text-zinc-400 mt-1 mb-4">Tagging your mark-leak reason calibrates DOT AI's next spaced-repetition interval.</p>
+      <div class="grid grid-cols-1 gap-2">
+        <button type="button" onclick="confirmRevisionWithReason('📖 Forgot NCERT Line')" class="clicky p-3 rounded-xl bg-black/80 hover:bg-amber-950/50 border border-amber-500/30 text-left flex items-center justify-between">
+          <span class="text-xs font-bold text-amber-200">📖 Forgot NCERT Line / Fact</span>
+          <span class="text-[10px] text-amber-400 font-semibold">Tightens cycle to 4d/18d</span>
+        </button>
+        <button type="button" onclick="confirmRevisionWithReason('🧠 Concept Gap')" class="clicky p-3 rounded-xl bg-black/80 hover:bg-indigo-950/50 border border-indigo-500/30 text-left flex items-center justify-between">
+          <span class="text-xs font-bold text-indigo-200">🧠 Concept Gap</span>
+          <span class="text-[10px] text-zinc-400">Standard 7d/31d cycle</span>
+        </button>
+        <button type="button" onclick="confirmRevisionWithReason('🔢 Calculation Error')" class="clicky p-3 rounded-xl bg-black/80 hover:bg-rose-950/50 border border-rose-500/30 text-left flex items-center justify-between">
+          <span class="text-xs font-bold text-rose-200">🔢 Calculation / Numerical Error</span>
+          <span class="text-[10px] text-zinc-400">Logs numerical leak</span>
+        </button>
+        <button type="button" onclick="confirmRevisionWithReason('⚡ Formula Slip')" class="clicky p-3 rounded-xl bg-black/80 hover:bg-emerald-950/50 border border-emerald-500/30 text-left flex items-center justify-between">
+          <span class="text-xs font-bold text-emerald-200">⚡ Formula / Reagent Slip</span>
+          <span class="text-[10px] text-zinc-400">Logs recall slip</span>
+        </button>
+        <button type="button" onclick="confirmRevisionWithReason('✓ Routine Refresh')" class="clicky p-2.5 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 border border-zinc-800 text-center text-xs font-semibold text-zinc-300">
+          ✓ Routine Scheduled Refresh (No Error)
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- NEW USER TOUR MODAL -->
   <div id="newUserIntroModal" class="hidden fixed inset-0 z-[150] bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
     <div class="luxury-card rounded-3xl w-full max-w-md p-6 sm:p-8 border border-white/20 shadow-2xl text-center">
@@ -273,8 +306,11 @@
               <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-2xl bg-black/80 border border-white/15 flex items-center justify-center theme-gradient-text font-black text-lg">◉</div>
                 <div>
-                  <div class="flex items-center gap-2"><h2 class="font-serif-luxury text-lg font-bold text-white">DOT — 31-Day Spaced-Repetition &amp; Next-Step AI</h2><span class="px-2 py-0.5 rounded-md text-[9px] font-extrabold tracking-widest bg-white/10 text-zinc-200 border border-white/15">31D MEMORY DECAY</span></div>
-                  <p class="text-xs text-zinc-400">Prioritizes critical decay (31+ days) &amp; fading NCERT chapters (7–30 days) before new topics</p>
+                  <div class="flex flex-wrap items-center gap-2">
+                    <h2 class="font-serif-luxury text-lg font-bold text-white">DOT — 31-Day Spaced-Repetition &amp; Next-Step AI</h2>
+                    <span id="dotMarkLeakBadge" class="px-2.5 py-0.5 rounded-md text-[10px] font-extrabold bg-white/10 text-amber-200 border border-amber-400/25">Mark-Leak: Balanced</span>
+                  </div>
+                  <p class="text-xs text-zinc-400">Calibrated by your Revision Reason tags (NCERT line slips tighten to 4d/18d cycle)</p>
                 </div>
               </div>
               <button id="dotRefreshBtn" type="button" class="clicky px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-black/80 hover:bg-zinc-900 text-zinc-200 border border-white/15">↻ Recalibrate DOT</button>
@@ -322,10 +358,20 @@
             <div class="luxury-card rounded-2xl p-6 flex flex-col justify-between">
               <div>
                 <h3 class="font-serif-luxury text-lg font-bold text-white mb-1">✍️ Manual Study Ledger</h3>
-                <p class="text-xs text-zinc-400 mb-4">Log offline NCERT book sessions manually to feed your streak &amp; charts.</p>
+                <p class="text-xs text-zinc-400 mb-4">Log offline NCERT book sessions with optional Revision Reason tags.</p>
                 <form id="manualEntryForm" class="space-y-3">
                   <div><label class="block text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-1">Date</label><input id="manualDate" type="date" required class="w-full px-3 py-2 rounded-xl bg-black/80 border border-zinc-800 text-white text-xs" /></div>
                   <div><label class="block text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-1">Subject / NCERT Chapter</label><input id="manualSubject" type="text" required placeholder="e.g. Physics: Rotational Motion" class="w-full px-3 py-2 rounded-xl bg-black/80 border border-zinc-800 text-white text-xs" /></div>
+                  <div>
+                    <label class="block text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-1">Revision / Focus Tag</label>
+                    <select id="manualReasonSelect" class="w-full px-3 py-2 rounded-xl bg-black/80 border border-zinc-800 text-white text-xs">
+                      <option value="">🎯 Standard Study Session</option>
+                      <option value="📖 Forgot NCERT Line">📖 Forgot NCERT Line</option>
+                      <option value="🧠 Concept Gap">🧠 Concept Gap</option>
+                      <option value="🔢 Calculation Error">🔢 Calculation Error</option>
+                      <option value="⚡ Formula Slip">⚡ Formula Slip</option>
+                    </select>
+                  </div>
                   <div class="grid grid-cols-2 gap-3">
                     <div><label class="block text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-1">Hours</label><input id="manualHours" type="number" min="0" max="18" value="1" required class="w-full px-3 py-2 rounded-xl bg-black/80 border border-zinc-800 text-white text-xs mono-nums" /></div>
                     <div><label class="block text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-1">Minutes</label><input id="manualMinutes" type="number" min="0" max="59" value="30" required class="w-full px-3 py-2 rounded-xl bg-black/80 border border-zinc-800 text-white text-xs mono-nums" /></div>
@@ -339,7 +385,7 @@
               <h3 class="font-serif-luxury text-lg font-bold text-white mb-4">🕒 Chronological Study Ledger</h3>
               <div class="overflow-x-auto max-h-80">
                 <table class="w-full text-left border-collapse">
-                  <thead><tr class="border-b border-zinc-800 text-[10px] uppercase tracking-[0.18em] text-zinc-400"><th class="py-2.5 px-4">Date</th><th class="py-2.5 px-4">Objective</th><th class="py-2.5 px-4">Mode</th><th class="py-2.5 px-4 text-right">Duration</th><th class="py-2.5 px-4 text-right">Remove</th></tr></thead>
+                  <thead><tr class="border-b border-zinc-800 text-[10px] uppercase tracking-[0.18em] text-zinc-400"><th class="py-2.5 px-4">Date</th><th class="py-2.5 px-4">Objective &amp; Tag</th><th class="py-2.5 px-4">Mode</th><th class="py-2.5 px-4 text-right">Duration</th><th class="py-2.5 px-4 text-right">Remove</th></tr></thead>
                   <tbody id="timesheetTableBody" class="text-xs divide-y divide-zinc-800/60"></tbody>
                 </table>
               </div>
@@ -349,7 +395,7 @@
         </div>
       </main>
 
-      <!-- SLIDE 1: NCERT SYLLABUS CHECKLIST WITH 31-DAY DECAY -->
+      <!-- SLIDE 1: NCERT SYLLABUS CHECKLIST WITH 31-DAY DECAY & REVISION REASONS -->
       <section id="syllabusView" class="phone-screen-slide p-4 sm:p-6">
         <div class="max-w-7xl mx-auto space-y-6">
           <div class="luxury-card rounded-3xl p-4 sm:p-5 sticky top-0 z-20">
@@ -366,9 +412,9 @@
           <div class="luxury-card rounded-3xl p-6">
             <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
               <div>
-                <span class="px-2.5 py-1 rounded-lg bg-white/10 text-zinc-200 border border-white/15 font-bold text-[10px] tracking-widest uppercase">Complete NCERT Class 11 &amp; 12 • 31-Day Spaced Repetition</span>
+                <span class="px-2.5 py-1 rounded-lg bg-white/10 text-zinc-200 border border-white/15 font-bold text-[10px] tracking-widest uppercase">Complete NCERT Class 11 &amp; 12 • High-Yield &amp; 31-Day Spaced Repetition</span>
                 <h2 class="font-serif-luxury text-2xl font-bold text-white mt-2">NCERT Syllabus &amp; Retention Tracker</h2>
-                <p class="text-xs text-zinc-400 mt-1">🟢 Fresh (0–6d) • 🟡 Fading (7–30d) • 🔴 Decay Alert (31+d). Click <b>↻ Revised</b> to refresh memory.</p>
+                <p class="text-xs text-zinc-400 mt-1">🔥 High-Yield Chapters • 🟢 Fresh (0–6d) • 🟡 Fading (7–30d) • 🔴 Decay Alert (31+d). Click <b>↻ Revised</b> to tag &amp; refresh.</p>
               </div>
               <div class="text-right">
                 <span id="overallSyllabusBigPct" class="mono-nums text-4xl font-black theme-gradient-text">0%</span>
@@ -384,35 +430,40 @@
         </div>
       </section>
 
-      <!-- SLIDE 2: 3D VOLUMETRIC SPIDER-WEB OBSERVATORY -->
+      <!-- SLIDE 2: 3D VOLUMETRIC SPIDER-WEB OBSERVATORY WITH HIGH-YIELD WEIGHTAGE GLOW -->
       <section id="spider3dView" class="phone-screen-slide p-4 sm:p-6">
         <div class="max-w-7xl mx-auto space-y-6">
           <div class="luxury-card rounded-3xl p-5 sm:p-7">
             <div class="flex flex-wrap items-center justify-between gap-3 pb-4 mb-5 border-b border-white/10">
               <div>
-                <div class="flex items-center gap-2">
-                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-[0.2em] bg-white/10 text-zinc-200 border border-white/15">31-Day Memory Decay Hologram</span>
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-[0.2em] bg-white/10 text-zinc-200 border border-white/15">31-Day Memory Decay + High-Yield Hologram</span>
                   <span id="spider3dRankBadge" class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-amber-500/20 text-amber-200 border border-amber-400/30">Rank: Initiate ⚡</span>
                 </div>
                 <h2 class="font-serif-luxury text-2xl sm:text-3xl font-bold text-white mt-1.5">🌐 3D Spider-Web Mastery Observatory</h2>
-                <p class="text-xs text-zinc-400 mt-0.5">Drag 360° to inspect your 3D progress crystal. Facets shift from Emerald → Amber → Crimson if unrevised for 31+ days.</p>
+                <p class="text-xs text-zinc-400 mt-0.5">Golden halos pulse on pillars with untapped High-Yield NEET weightage; facets shift Emerald → Amber → Crimson with decay.</p>
               </div>
               <div class="flex flex-wrap items-center gap-2">
+                <button type="button" id="toggleHighYieldGlowBtn" class="clicky px-3.5 py-2 rounded-xl text-xs font-bold bg-amber-500/20 text-amber-200 border border-amber-400/40">🔥 High-Yield Halo: ON</button>
                 <button type="button" id="toggle3dAutoRotateBtn" class="clicky px-3.5 py-2 rounded-xl text-xs font-bold theme-btn-primary">🔄 Auto-Orbit: ON</button>
-                <button type="button" id="reset3dCameraBtn" class="clicky px-3.5 py-2 rounded-xl text-xs font-semibold bg-black/80 hover:bg-zinc-900 text-zinc-200 border border-white/15">🎯 Reset View</button>
+                <button type="button" id="reset3dCameraBtn" class="clicky px-3 py-2 rounded-xl text-xs font-semibold bg-black/80 hover:bg-zinc-900 text-zinc-200 border border-white/15">🎯 Reset</button>
               </div>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
               <div class="lg:col-span-2 bg-black/85 rounded-3xl border border-white/15 relative overflow-hidden min-h-[380px] sm:min-h-[460px] flex items-center justify-center">
                 <canvas id="spider3dCanvas" class="w-full h-full block cursor-grab active:cursor-grabbing" style="touch-action:none"></canvas>
-                <div class="absolute bottom-3 left-3 px-3 py-1.5 rounded-xl bg-black/80 border border-white/10 text-[10px] text-zinc-400 pointer-events-none">🖱️ Drag to Rotate 3D • Scroll to Zoom</div>
+                <div class="absolute bottom-3 left-3 px-3 py-1.5 rounded-xl bg-black/80 border border-white/10 text-[10px] text-zinc-400 pointer-events-none">🖱️ Drag 360° • Scroll Zoom • Golden Halo = High-Yield Gap</div>
                 <div id="spider3dOverallTag" class="absolute top-3 right-3 px-3 py-1.5 rounded-xl bg-black/80 border border-white/15 mono-nums text-xs font-extrabold theme-gradient-text pointer-events-none">Overall 3D Web: 0%</div>
               </div>
 
               <div class="space-y-4 flex flex-col justify-between">
                 <div class="bg-black/75 rounded-2xl p-4 border border-zinc-800">
-                  <h3 class="text-xs font-extrabold uppercase tracking-[0.18em] theme-gradient-text mb-2.5">🧠 Spaced-Repetition Health (31d Cycle)</h3>
+                  <div class="flex items-center justify-between mb-2">
+                    <h3 class="text-xs font-extrabold uppercase tracking-[0.18em] theme-gradient-text">🔥 High-Yield Weightage Radar</h3>
+                    <span id="highYieldOverallBadge" class="mono-nums text-xs font-extrabold text-amber-300">0%</span>
+                  </div>
+                  <p id="highYieldSubtext" class="text-[11px] text-zinc-400 mb-3">0 / 0 high-weightage NCERT nodes mastered</p>
                   <div id="retentionHealthSummary" class="grid grid-cols-3 gap-2 text-center"></div>
                 </div>
                 <div class="bg-black/75 rounded-2xl p-4 border border-zinc-800 flex-1">
@@ -452,6 +503,8 @@
     let activeWebTheme = localStorage.getItem("studypunch_web_theme") || "sunset";
     let isDoomsdayVisible = localStorage.getItem("studypunch_doomsday_visible") !== "false";
     let currentFocusWallpaper = localStorage.getItem("studypunch_focus_wp") || "aurora";
+    let highYieldGlowEnabled = localStorage.getItem("studypunch_hy_glow") !== "false";
+    let pendingRevisionTopicKey = null;
     let wpAnimFrame = null, wpParticles = [], auroraTime = 0;
     let audioCtx = null, ambientNoiseNode = null, isAmbientSoundOn = false;
 
@@ -520,43 +573,43 @@
       skipBtn.addEventListener("click", () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); closeIntro(); });
     })();
 
-    // 3. GRANULAR NCERT CLASS 11 & 12 SYLLABUS
-    const mkCh = (arr) => arr.map(([id, name, sub]) => ({ id, name, subtopics: sub.split("|") }));
+    // 3. GRANULAR NCERT CLASS 11 & 12 SYLLABUS (WITH HIGH-YIELD NEET WEIGHTAGE FLAGS)
+    const mkCh = (arr) => arr.map(([id, name, sub, hy]) => ({ id, name, hy: Boolean(hy), subtopics: sub.split("|") }));
     const NEET_2027_SYLLABUS = [
       {
         id: "phys", subject: "Physics", icon: "⚡",
         units: [
           { id: "phys_11", unitName: "NCERT Class 11 Physics (Ch 1–14)", chapters: mkCh([
-            ["p11_1", "Ch 1: Units and Measurements", "SI Units & Base/Derived Units|Significant Figures & Rounding|Dimensional Analysis & Applications|Vernier Callipers & Screw Gauge"],
-            ["p11_2", "Ch 2: Motion in a Straight Line", "Displacement, Speed & Velocity|Position-Time & Velocity-Time Graphs|Kinematic Equations & Free Fall|Relative Velocity in 1D"],
-            ["p11_3", "Ch 3: Motion in a Plane", "Vectors, Resolution, Dot & Cross Product|Projectile Motion (Path, Time, Range)|Uniform Circular Motion & Centripetal Accel"],
-            ["p11_4", "Ch 4: Laws of Motion", "Newton's Laws, Impulse & Momentum|Equilibrium & Concurrent Forces|Static, Kinetic & Rolling Friction|Circular Motion on Level & Banked Road"],
-            ["p11_5", "Ch 5: Work, Energy and Power", "Work-Energy Theorem & Variable Force|Spring Potential Energy & Vertical Circle|1D & 2D Elastic/Inelastic Collisions"],
-            ["p11_6", "Ch 6: System of Particles & Rotational Motion", "Centre of Mass & Motion of COM|Torque & Angular Momentum Conservation|Moment of Inertia & Axes Theorems|Rolling Motion Kinematics & Dynamics"],
-            ["p11_7", "Ch 7: Gravitation", "Kepler's Laws & Universal Gravitation|Variation of g with Altitude & Depth|Gravitational Potential & Escape Velocity|Satellites, Orbital Velocity & Energy"],
-            ["p11_8", "Ch 8: Mechanical Properties of Solids", "Stress-Strain Curve & Hooke's Law|Young's, Shear & Bulk Moduli, Poisson's Ratio"],
-            ["p11_9", "Ch 9: Mechanical Properties of Fluids", "Pascal's Law & Pressure with Depth|Continuity Equation & Bernoulli's Principle|Viscosity, Stokes' Law & Terminal Velocity|Surface Tension, Drops, Bubbles & Capillarity"],
-            ["p11_10", "Ch 10: Thermal Properties of Matter", "Thermal Expansion & Calorimetry|Change of State & Latent Heat|Conduction, Convection, Radiation & Cooling"],
-            ["p11_11", "Ch 11: Thermodynamics", "Zeroth & First Law, Cp - Cv = R|Isothermal, Adiabatic, Isochoric & Isobaric|Second Law, Reversible & Irreversible"],
-            ["p11_12", "Ch 12: Kinetic Theory", "Ideal Gas Pressure & RMS/Average Speed|Degrees of Freedom, Equipartition & Mean Free Path"],
-            ["p11_13", "Ch 13: Oscillations", "SHM Displacement, Velocity, Accel & Energy|Spring Oscillations & Simple Pendulum"],
-            ["p11_14", "Ch 14: Waves", "Progressive Wave & Sound Speed (Laplace)|Superposition, Standing Waves & Beats"]
+            ["p11_1", "Ch 1: Units and Measurements", "SI Units & Base/Derived Units|Significant Figures & Rounding|Dimensional Analysis & Applications|Vernier Callipers & Screw Gauge", 0],
+            ["p11_2", "Ch 2: Motion in a Straight Line", "Displacement, Speed & Velocity|Position-Time & Velocity-Time Graphs|Kinematic Equations & Free Fall|Relative Velocity in 1D", 0],
+            ["p11_3", "Ch 3: Motion in a Plane", "Vectors, Resolution, Dot & Cross Product|Projectile Motion (Path, Time, Range)|Uniform Circular Motion & Centripetal Accel", 0],
+            ["p11_4", "Ch 4: Laws of Motion", "Newton's Laws, Impulse & Momentum|Equilibrium & Concurrent Forces|Static, Kinetic & Rolling Friction|Circular Motion on Level & Banked Road", 1],
+            ["p11_5", "Ch 5: Work, Energy and Power", "Work-Energy Theorem & Variable Force|Spring Potential Energy & Vertical Circle|1D & 2D Elastic/Inelastic Collisions", 1],
+            ["p11_6", "Ch 6: System of Particles & Rotational Motion", "Centre of Mass & Motion of COM|Torque & Angular Momentum Conservation|Moment of Inertia & Axes Theorems|Rolling Motion Kinematics & Dynamics", 1],
+            ["p11_7", "Ch 7: Gravitation", "Kepler's Laws & Universal Gravitation|Variation of g with Altitude & Depth|Gravitational Potential & Escape Velocity|Satellites, Orbital Velocity & Energy", 1],
+            ["p11_8", "Ch 8: Mechanical Properties of Solids", "Stress-Strain Curve & Hooke's Law|Young's, Shear & Bulk Moduli, Poisson's Ratio", 0],
+            ["p11_9", "Ch 9: Mechanical Properties of Fluids", "Pascal's Law & Pressure with Depth|Continuity Equation & Bernoulli's Principle|Viscosity, Stokes' Law & Terminal Velocity|Surface Tension, Drops, Bubbles & Capillarity", 0],
+            ["p11_10", "Ch 10: Thermal Properties of Matter", "Thermal Expansion & Calorimetry|Change of State & Latent Heat|Conduction, Convection, Radiation & Cooling", 0],
+            ["p11_11", "Ch 11: Thermodynamics", "Zeroth & First Law, Cp - Cv = R|Isothermal, Adiabatic, Isochoric & Isobaric|Second Law, Reversible & Irreversible", 1],
+            ["p11_12", "Ch 12: Kinetic Theory", "Ideal Gas Pressure & RMS/Average Speed|Degrees of Freedom, Equipartition & Mean Free Path", 0],
+            ["p11_13", "Ch 13: Oscillations", "SHM Displacement, Velocity, Accel & Energy|Spring Oscillations & Simple Pendulum", 1],
+            ["p11_14", "Ch 14: Waves", "Progressive Wave & Sound Speed (Laplace)|Superposition, Standing Waves & Beats", 0]
           ])},
           { id: "phys_12", unitName: "NCERT Class 12 Physics (Ch 1–14)", chapters: mkCh([
-            ["p12_1", "Ch 1: Electric Charges and Fields", "Coulomb's Law & Superposition|Electric Field Lines, Dipole & Torque|Electric Flux & Gauss's Law Applications"],
-            ["p12_2", "Ch 2: Electrostatic Potential & Capacitance", "Potential of Point Charge, Dipole & Equipotentials|Dielectrics, Parallel Plate Capacitor & Energy"],
-            ["p12_3", "Ch 3: Current Electricity", "Drift Velocity, Mobility & Ohm's Law|Cell EMF, Internal Resistance & Kirchhoff's Rules|Wheatstone Bridge & Meter Bridge"],
-            ["p12_4", "Ch 4: Moving Charges and Magnetism", "Lorentz Force & Motion in Magnetic Field|Biot-Savart Law & Ampere's Circuital Law|Parallel Currents, Torque & Galvanometer"],
-            ["p12_5", "Ch 5: Magnetism and Matter", "Bar Magnet, Gauss's Law & Magnetic Dipole|Dia-, Para- and Ferromagnetic Materials"],
-            ["p12_6", "Ch 6: Electromagnetic Induction", "Faraday's Law, Lenz's Law & Motional EMF|Self & Mutual Inductance, AC Generator"],
-            ["p12_7", "Ch 7: Alternating Current", "Peak/RMS AC, Reactance & LCR Resonance|Power Factor, Wattless Current & Transformers"],
-            ["p12_8", "Ch 8: Electromagnetic Waves", "Displacement Current & EM Spectrum Properties"],
-            ["p12_9", "Ch 9: Ray Optics and Optical Instruments", "Spherical Mirrors, Refraction & TIR|Lensmaker's Formula, Thin Lens & Prism|Compound Microscope & Astronomical Telescope"],
-            ["p12_10", "Ch 10: Wave Optics", "Huygens Principle & Young's Double Slit (YDSE)|Single Slit Diffraction & Polarisation (Brewster)"],
-            ["p12_11", "Ch 11: Dual Nature of Radiation & Matter", "Photoelectric Effect & Einstein's Equation|de Broglie Wavelength of Matter Waves"],
-            ["p12_12", "Ch 12: Atoms", "Rutherford Model & Bohr Model of Hydrogen|Hydrogen Spectral Series"],
-            ["p12_13", "Ch 13: Nuclei", "Mass Defect, Binding Energy Curve, Fission & Fusion"],
-            ["p12_14", "Ch 14: Semiconductor Electronics", "Intrinsic/Extrinsic Semiconductors & p-n Diode|Half/Full-Wave Rectifier, Zener, LED & Logic Gates"]
+            ["p12_1", "Ch 1: Electric Charges and Fields", "Coulomb's Law & Superposition|Electric Field Lines, Dipole & Torque|Electric Flux & Gauss's Law Applications", 1],
+            ["p12_2", "Ch 2: Electrostatic Potential & Capacitance", "Potential of Point Charge, Dipole & Equipotentials|Dielectrics, Parallel Plate Capacitor & Energy", 1],
+            ["p12_3", "Ch 3: Current Electricity", "Drift Velocity, Mobility & Ohm's Law|Cell EMF, Internal Resistance & Kirchhoff's Rules|Wheatstone Bridge & Meter Bridge", 1],
+            ["p12_4", "Ch 4: Moving Charges and Magnetism", "Lorentz Force & Motion in Magnetic Field|Biot-Savart Law & Ampere's Circuital Law|Parallel Currents, Torque & Galvanometer", 1],
+            ["p12_5", "Ch 5: Magnetism and Matter", "Bar Magnet, Gauss's Law & Magnetic Dipole|Dia-, Para- and Ferromagnetic Materials", 0],
+            ["p12_6", "Ch 6: Electromagnetic Induction", "Faraday's Law, Lenz's Law & Motional EMF|Self & Mutual Inductance, AC Generator", 0],
+            ["p12_7", "Ch 7: Alternating Current", "Peak/RMS AC, Reactance & LCR Resonance|Power Factor, Wattless Current & Transformers", 1],
+            ["p12_8", "Ch 8: Electromagnetic Waves", "Displacement Current & EM Spectrum Properties", 0],
+            ["p12_9", "Ch 9: Ray Optics and Optical Instruments", "Spherical Mirrors, Refraction & TIR|Lensmaker's Formula, Thin Lens & Prism|Compound Microscope & Astronomical Telescope", 1],
+            ["p12_10", "Ch 10: Wave Optics", "Huygens Principle & Young's Double Slit (YDSE)|Single Slit Diffraction & Polarisation (Brewster)", 1],
+            ["p12_11", "Ch 11: Dual Nature of Radiation & Matter", "Photoelectric Effect & Einstein's Equation|de Broglie Wavelength of Matter Waves", 1],
+            ["p12_12", "Ch 12: Atoms", "Rutherford Model & Bohr Model of Hydrogen|Hydrogen Spectral Series", 1],
+            ["p12_13", "Ch 13: Nuclei", "Mass Defect, Binding Energy Curve, Fission & Fusion", 0],
+            ["p12_14", "Ch 14: Semiconductor Electronics", "Intrinsic/Extrinsic Semiconductors & p-n Diode|Half/Full-Wave Rectifier, Zener, LED & Logic Gates", 1]
           ])}
         ]
       },
@@ -564,28 +617,28 @@
         id: "chem", subject: "Chemistry", icon: "🧪",
         units: [
           { id: "chem_11", unitName: "NCERT Class 11 Chemistry (Ch 1–9)", chapters: mkCh([
-            ["c11_1", "Ch 1: Some Basic Concepts of Chemistry", "Laws of Chemical Combination & Mole Concept|Empirical Formula, Stoichiometry & Limiting Reagent"],
-            ["c11_2", "Ch 2: Structure of Atom", "Bohr Model & Hydrogen Spectrum|de Broglie, Heisenberg & Quantum Numbers|Aufbau, Pauli & Hund's Rule"],
-            ["c11_3", "Ch 3: Classification & Periodicity", "Atomic/Ionic Radii, IE, Electron Gain & Electronegativity"],
-            ["c11_4", "Ch 4: Chemical Bonding & Molecular Structure", "VSEPR Theory, Hybridization & Dipole Moment|Molecular Orbital Theory (MOT) & H-Bonding"],
-            ["c11_5", "Ch 5: Thermodynamics", "First Law, Enthalpy & Hess's Law|Entropy (ΔS), Gibbs Energy (ΔG) & Spontaneity"],
-            ["c11_6", "Ch 6: Equilibrium", "Kp, Kc & Le Chatelier's Principle|Acids/Bases, pH, Buffers & Solubility Product (Ksp)"],
-            ["c11_7", "Ch 7: Redox Reactions", "Oxidation Number, Balancing & Electrode Potentials"],
-            ["c11_8", "Ch 8: Organic Chemistry (GOC)", "IUPAC Nomenclature & Structural/Stereoisomerism|Inductive, Resonance, Hyperconjugation & Intermediates|Purification & Lassaigne's / Quantitative Analysis"],
-            ["c11_9", "Ch 9: Hydrocarbons", "Alkanes & Conformations|Alkenes (Markovnikov, Kharasch, Ozonolysis)|Alkynes & Benzene Electrophilic Substitution"]
+            ["c11_1", "Ch 1: Some Basic Concepts of Chemistry", "Laws of Chemical Combination & Mole Concept|Empirical Formula, Stoichiometry & Limiting Reagent", 0],
+            ["c11_2", "Ch 2: Structure of Atom", "Bohr Model & Hydrogen Spectrum|de Broglie, Heisenberg & Quantum Numbers|Aufbau, Pauli & Hund's Rule", 1],
+            ["c11_3", "Ch 3: Classification & Periodicity", "Atomic/Ionic Radii, IE, Electron Gain & Electronegativity", 0],
+            ["c11_4", "Ch 4: Chemical Bonding & Molecular Structure", "VSEPR Theory, Hybridization & Dipole Moment|Molecular Orbital Theory (MOT) & H-Bonding", 1],
+            ["c11_5", "Ch 5: Thermodynamics", "First Law, Enthalpy & Hess's Law|Entropy (ΔS), Gibbs Energy (ΔG) & Spontaneity", 1],
+            ["c11_6", "Ch 6: Equilibrium", "Kp, Kc & Le Chatelier's Principle|Acids/Bases, pH, Buffers & Solubility Product (Ksp)", 1],
+            ["c11_7", "Ch 7: Redox Reactions", "Oxidation Number, Balancing & Electrode Potentials", 0],
+            ["c11_8", "Ch 8: Organic Chemistry (GOC)", "IUPAC Nomenclature & Structural/Stereoisomerism|Inductive, Resonance, Hyperconjugation & Intermediates|Purification & Lassaigne's / Quantitative Analysis", 1],
+            ["c11_9", "Ch 9: Hydrocarbons", "Alkanes & Conformations|Alkenes (Markovnikov, Kharasch, Ozonolysis)|Alkynes & Benzene Electrophilic Substitution", 1]
           ])},
           { id: "chem_12", unitName: "NCERT Class 12 Chemistry (Ch 1–10 + p-Block)", chapters: mkCh([
-            ["c12_1", "Ch 1: Solutions", "Henry's Law, Raoult's Law & Ideal/Non-Ideal Solutions|Colligative Properties & Van't Hoff Factor"],
-            ["c12_2", "Ch 2: Electrochemistry", "Nernst Equation & Gibbs Energy Relation|Conductivity, Kohlrausch's Law, Faraday & Batteries"],
-            ["c12_3", "Ch 3: Chemical Kinetics", "Order, Molecularity, Zero & First Order Kinetics|Arrhenius Equation & Activation Energy"],
-            ["c12_4", "Ch 4: d- and f-Block Elements", "Transition Metals, K2Cr2O7 & KMnO4|Lanthanoid Contraction & Actinoids"],
-            ["c12_5", "Ch 5: Coordination Compounds", "Werner's Theory, IUPAC & Isomerism|VBT, Crystal Field Theory (CFT) & Metal Carbonyls"],
-            ["c12_pblock", "NMC Unit 10: p-Block Elements (Groups 13–18)", "Groups 13, 14 & 15 Trends & Anomalies|Groups 16, 17 & 18 Properties & Reactivity"],
-            ["c12_6", "Ch 6: Haloalkanes and Haloarenes", "SN1 vs SN2, Optical Activity & Zaitsev Elimination|Haloarenes & Polyhalogen Compounds"],
-            ["c12_7", "Ch 7: Alcohols, Phenols and Ethers", "Alcohols (Lucas Test) & Phenols (Reimer-Tiemann, Kolbe)|Ethers & Williamson Synthesis"],
-            ["c12_8", "Ch 8: Aldehydes, Ketones & Carboxylic Acids", "Nucleophilic Addition, Aldol & Cannizzaro Reaction|Tollens', Fehling's, Haloform & Carboxylic Acids (HVZ)"],
-            ["c12_9", "Ch 9: Amines", "Basicity of Amines, Hoffmann Bromamide & Carbylamine|Diazonium Salts & Coupling Reactions"],
-            ["c12_10", "Ch 10: Biomolecules & Practical Chemistry", "Carbohydrates, Proteins, Enzymes, Vitamins & Nucleic Acids|Functional Group Tests, Titrations & Salt Analysis"]
+            ["c12_1", "Ch 1: Solutions", "Henry's Law, Raoult's Law & Ideal/Non-Ideal Solutions|Colligative Properties & Van't Hoff Factor", 1],
+            ["c12_2", "Ch 2: Electrochemistry", "Nernst Equation & Gibbs Energy Relation|Conductivity, Kohlrausch's Law, Faraday & Batteries", 1],
+            ["c12_3", "Ch 3: Chemical Kinetics", "Order, Molecularity, Zero & First Order Kinetics|Arrhenius Equation & Activation Energy", 1],
+            ["c12_4", "Ch 4: d- and f-Block Elements", "Transition Metals, K2Cr2O7 & KMnO4|Lanthanoid Contraction & Actinoids", 1],
+            ["c12_5", "Ch 5: Coordination Compounds", "Werner's Theory, IUPAC & Isomerism|VBT, Crystal Field Theory (CFT) & Metal Carbonyls", 1],
+            ["c12_pblock", "NMC Unit 10: p-Block Elements (Groups 13–18)", "Groups 13, 14 & 15 Trends & Anomalies|Groups 16, 17 & 18 Properties & Reactivity", 1],
+            ["c12_6", "Ch 6: Haloalkanes and Haloarenes", "SN1 vs SN2, Optical Activity & Zaitsev Elimination|Haloarenes & Polyhalogen Compounds", 0],
+            ["c12_7", "Ch 7: Alcohols, Phenols and Ethers", "Alcohols (Lucas Test) & Phenols (Reimer-Tiemann, Kolbe)|Ethers & Williamson Synthesis", 1],
+            ["c12_8", "Ch 8: Aldehydes, Ketones & Carboxylic Acids", "Nucleophilic Addition, Aldol & Cannizzaro Reaction|Tollens', Fehling's, Haloform & Carboxylic Acids (HVZ)", 1],
+            ["c12_9", "Ch 9: Amines", "Basicity of Amines, Hoffmann Bromamide & Carbylamine|Diazonium Salts & Coupling Reactions", 0],
+            ["c12_10", "Ch 10: Biomolecules & Practical Chemistry", "Carbohydrates, Proteins, Enzymes, Vitamins & Nucleic Acids|Functional Group Tests, Titrations & Salt Analysis", 1]
           ])}
         ]
       },
@@ -593,40 +646,40 @@
         id: "bio", subject: "Biology", icon: "🧬",
         units: [
           { id: "bio_11", unitName: "NCERT Class 11 Biology (Ch 1–19)", chapters: mkCh([
-            ["b11_1", "Ch 1: The Living World", "Binomial Nomenclature & Taxonomic Categories"],
-            ["b11_2", "Ch 2: Biological Classification", "Monera, Protista & Fungi|Viruses, Viroids, Prions & Lichens"],
-            ["b11_3", "Ch 3: Plant Kingdom", "Algae, Bryophytes, Pteridophytes, Gymnosperms & Angiosperms"],
-            ["b11_4", "Ch 4: Animal Kingdom", "Basis of Classification & Non-Chordate Phyla|Chordates: Urochordata, Cephalochordata & Vertebrata"],
-            ["b11_5", "Ch 5: Morphology of Flowering Plants", "Root, Stem, Leaf, Inflorescence, Flower, Fruit & Seed|Plant Families (Solanaceae, Fabaceae, Malvaceae, Compositae, Gramineae)"],
-            ["b11_6", "Ch 6: Anatomy of Flowering Plants", "Tissue Systems & Dicot vs Monocot Root, Stem, Leaf"],
-            ["b11_7", "Ch 7: Structural Organisation in Animals (Frog)", "Animal Tissues & Frog Morphology/Anatomy"],
-            ["b11_8", "Ch 8: Cell: The Unit of Life", "Prokaryotic vs Eukaryotic Cell & Fluid Mosaic Membrane|Endomembrane System, Mitochondria, Plastids, Ribosomes & Nucleus"],
-            ["b11_9", "Ch 9: Biomolecules", "Proteins, Polysaccharides, Lipids & Nucleic Acids|Enzymes: Mechanism, Factors & Co-factors"],
-            ["b11_10", "Ch 10: Cell Cycle and Cell Division", "Interphase & Mitosis|Meiosis I (Prophase I Stages) & Meiosis II"],
-            ["b11_11", "Ch 11: Photosynthesis in Higher Plants", "Light Reaction, Photophosphorylation & Chemiosmosis|Calvin (C3) Cycle, C4 Pathway & Photorespiration"],
-            ["b11_12", "Ch 12: Respiration in Plants", "Glycolysis, Fermentation & Krebs Cycle|ETS, Oxidative Phosphorylation, ATP Balance & RQ"],
-            ["b11_13", "Ch 13: Plant Growth and Development", "Growth Curves & PGRs (Auxin, Gibberellin, Cytokinin, Ethylene, ABA)"],
-            ["b11_14", "Ch 14: Breathing and Exchange of Gases", "Mechanism of Breathing, Lung Volumes & Gas Transport"],
-            ["b11_15", "Ch 15: Body Fluids and Circulation", "Blood Groups, Coagulation, Cardiac Cycle, ECG & Double Circulation"],
-            ["b11_16", "Ch 16: Excretory Products & Elimination", "Nephron, Urine Formation, Counter-Current & RAAS/ADH"],
-            ["b11_17", "Ch 17: Locomotion and Movement", "Sliding Filament Theory, Axial/Appendicular Skeleton & Joints"],
-            ["b11_18", "Ch 18: Neural Control and Coordination", "Nerve Impulse Conduction, Synapses & Human Brain"],
-            ["b11_19", "Ch 19: Chemical Coordination & Integration", "Endocrine Glands, Hormones & Mechanism of Action"]
+            ["b11_1", "Ch 1: The Living World", "Binomial Nomenclature & Taxonomic Categories", 0],
+            ["b11_2", "Ch 2: Biological Classification", "Monera, Protista & Fungi|Viruses, Viroids, Prions & Lichens", 1],
+            ["b11_3", "Ch 3: Plant Kingdom", "Algae, Bryophytes, Pteridophytes, Gymnosperms & Angiosperms", 1],
+            ["b11_4", "Ch 4: Animal Kingdom", "Basis of Classification & Non-Chordate Phyla|Chordates: Urochordata, Cephalochordata & Vertebrata", 1],
+            ["b11_5", "Ch 5: Morphology of Flowering Plants", "Root, Stem, Leaf, Inflorescence, Flower, Fruit & Seed|Plant Families (Solanaceae, Fabaceae, Malvaceae, Compositae, Gramineae)", 1],
+            ["b11_6", "Ch 6: Anatomy of Flowering Plants", "Tissue Systems & Dicot vs Monocot Root, Stem, Leaf", 0],
+            ["b11_7", "Ch 7: Structural Organisation in Animals (Frog)", "Animal Tissues & Frog Morphology/Anatomy", 0],
+            ["b11_8", "Ch 8: Cell: The Unit of Life", "Prokaryotic vs Eukaryotic Cell & Fluid Mosaic Membrane|Endomembrane System, Mitochondria, Plastids, Ribosomes & Nucleus", 1],
+            ["b11_9", "Ch 9: Biomolecules", "Proteins, Polysaccharides, Lipids & Nucleic Acids|Enzymes: Mechanism, Factors & Co-factors", 1],
+            ["b11_10", "Ch 10: Cell Cycle and Cell Division", "Interphase & Mitosis|Meiosis I (Prophase I Stages) & Meiosis II", 1],
+            ["b11_11", "Ch 11: Photosynthesis in Higher Plants", "Light Reaction, Photophosphorylation & Chemiosmosis|Calvin (C3) Cycle, C4 Pathway & Photorespiration", 1],
+            ["b11_12", "Ch 12: Respiration in Plants", "Glycolysis, Fermentation & Krebs Cycle|ETS, Oxidative Phosphorylation, ATP Balance & RQ", 1],
+            ["b11_13", "Ch 13: Plant Growth and Development", "Growth Curves & PGRs (Auxin, Gibberellin, Cytokinin, Ethylene, ABA)", 0],
+            ["b11_14", "Ch 14: Breathing and Exchange of Gases", "Mechanism of Breathing, Lung Volumes & Gas Transport", 0],
+            ["b11_15", "Ch 15: Body Fluids and Circulation", "Blood Groups, Coagulation, Cardiac Cycle, ECG & Double Circulation", 1],
+            ["b11_16", "Ch 16: Excretory Products & Elimination", "Nephron, Urine Formation, Counter-Current & RAAS/ADH", 1],
+            ["b11_17", "Ch 17: Locomotion and Movement", "Sliding Filament Theory, Axial/Appendicular Skeleton & Joints", 0],
+            ["b11_18", "Ch 18: Neural Control and Coordination", "Nerve Impulse Conduction, Synapses & Human Brain", 1],
+            ["b11_19", "Ch 19: Chemical Coordination & Integration", "Endocrine Glands, Hormones & Mechanism of Action", 1]
           ])},
           { id: "bio_12", unitName: "NCERT Class 12 Biology (Ch 1–13)", chapters: mkCh([
-            ["b12_1", "Ch 1: Sexual Reproduction in Flowering Plants", "Micro/Megasporogenesis, Pollination & Double Fertilisation|Endosperm, Embryo, Seed, Apomixis & Polyembryony"],
-            ["b12_2", "Ch 2: Human Reproduction", "Gametogenesis, Menstrual Cycle, Fertilisation & Parturition"],
-            ["b12_3", "Ch 3: Reproductive Health", "Contraceptive Methods, MTP, STIs & ART (IVF, ZIFT, GIFT, ICSI)"],
-            ["b12_4", "Ch 4: Principles of Inheritance and Variation", "Mendel's Laws, Linkage, Sex Determination & Pedigree|Mendelian & Chromosomal Disorders"],
-            ["b12_5", "Ch 5: Molecular Basis of Inheritance", "DNA Structure, Replication, Transcription & Genetic Code|Translation, Lac Operon, HGP & DNA Fingerprinting"],
-            ["b12_6", "Ch 6: Evolution", "Origin of Life, Evidences, Adaptive Radiation & Hardy-Weinberg"],
-            ["b12_7", "Ch 7: Human Health and Disease", "Common Pathogens, Innate/Acquired Immunity, AIDS & Cancer"],
-            ["b12_8", "Ch 8: Microbes in Human Welfare", "Industrial Products, Sewage Treatment, Biogas & Biofertilisers"],
-            ["b12_9", "Ch 9: Biotechnology: Principles & Processes", "Restriction Enzymes, PCR, Cloning Vectors & Bioreactors"],
-            ["b12_10", "Ch 10: Biotechnology and its Applications", "Bt Cotton, RNAi, Insulin, Gene Therapy & Molecular Diagnosis"],
-            ["b12_11", "Ch 11: Organisms and Populations", "Population Growth Models & Population Interactions"],
-            ["b12_12", "Ch 12: Ecosystem", "Productivity, Decomposition, Energy Flow & Ecological Pyramids"],
-            ["b12_13", "Ch 13: Biodiversity and Conservation", "Biodiversity Patterns, Evil Quartet & In-situ/Ex-situ Conservation"]
+            ["b12_1", "Ch 1: Sexual Reproduction in Flowering Plants", "Micro/Megasporogenesis, Pollination & Double Fertilisation|Endosperm, Embryo, Seed, Apomixis & Polyembryony", 1],
+            ["b12_2", "Ch 2: Human Reproduction", "Gametogenesis, Menstrual Cycle, Fertilisation & Parturition", 1],
+            ["b12_3", "Ch 3: Reproductive Health", "Contraceptive Methods, MTP, STIs & ART (IVF, ZIFT, GIFT, ICSI)", 0],
+            ["b12_4", "Ch 4: Principles of Inheritance and Variation", "Mendel's Laws, Linkage, Sex Determination & Pedigree|Mendelian & Chromosomal Disorders", 1],
+            ["b12_5", "Ch 5: Molecular Basis of Inheritance", "DNA Structure, Replication, Transcription & Genetic Code|Translation, Lac Operon, HGP & DNA Fingerprinting", 1],
+            ["b12_6", "Ch 6: Evolution", "Origin of Life, Evidences, Adaptive Radiation & Hardy-Weinberg", 1],
+            ["b12_7", "Ch 7: Human Health and Disease", "Common Pathogens, Innate/Acquired Immunity, AIDS & Cancer", 1],
+            ["b12_8", "Ch 8: Microbes in Human Welfare", "Industrial Products, Sewage Treatment, Biogas & Biofertilisers", 0],
+            ["b12_9", "Ch 9: Biotechnology: Principles & Processes", "Restriction Enzymes, PCR, Cloning Vectors & Bioreactors", 1],
+            ["b12_10", "Ch 10: Biotechnology and its Applications", "Bt Cotton, RNAi, Insulin, Gene Therapy & Molecular Diagnosis", 1],
+            ["b12_11", "Ch 11: Organisms and Populations", "Population Growth Models & Population Interactions", 1],
+            ["b12_12", "Ch 12: Ecosystem", "Productivity, Decomposition, Energy Flow & Ecological Pyramids", 1],
+            ["b12_13", "Ch 13: Biodiversity and Conservation", "Biodiversity Patterns, Evil Quartet & In-situ/Ex-situ Conservation", 1]
           ])}
         ]
       }
@@ -705,11 +758,7 @@
       today.setHours(0, 0, 0, 0);
       const todayStr = toLocalYMD(today);
 
-      let streak = 0;
-      let shieldsUsedInWindow = 0;
-      let dayCounter = 0;
-
-      // Check today first: if ≥80% already hit today, count today; otherwise start streak check from yesterday
+      let streak = 0, shieldsUsedInWindow = 0, dayCounter = 0;
       const todayMet = (secsByDate[todayStr] || 0) >= thresholdSecs;
       let cursor = new Date(today);
       if (!todayMet) cursor.setDate(cursor.getDate() - 1);
@@ -717,24 +766,15 @@
       for (let i = 0; i < 365; i++) {
         const dStr = toLocalYMD(cursor);
         const met = (secsByDate[dStr] || 0) >= thresholdSecs;
-        if (met) {
-          streak++;
-          dayCounter++;
-        } else {
-          // 1 Weekly Rest Shield per rolling 7-day block
+        if (met) { streak++; dayCounter++; }
+        else {
           const weekBucket = Math.floor(dayCounter / 7);
-          if (shieldsUsedInWindow <= weekBucket && streak > 0) {
-            shieldsUsedInWindow++;
-            dayCounter++;
-          } else {
-            break;
-          }
+          if (shieldsUsedInWindow <= weekBucket && streak > 0) { shieldsUsedInWindow++; dayCounter++; }
+          else break;
         }
         cursor.setDate(cursor.getDate() - 1);
       }
-
-      const shieldAvailable = shieldsUsedInWindow === 0 ? 1 : 0;
-      return { streak, shieldAvailable };
+      return { streak, shieldAvailable: shieldsUsedInWindow === 0 ? 1 : 0 };
     }
 
     // 6. SETTINGS, THEMES & DOOMSDAY TOGGLE
@@ -960,8 +1000,8 @@
     // 9. NEW USER INTERACTIVE INTRODUCTION TOUR (3 PAGES)
     const TOUR_SLIDES = [
       { icon: "⏱️", title: "Sanctuary Focus & Doomsday Clock", desc: "Clock in to enter pitch-black Focus Mode with Live Aurora, Snowfall, or Rain wallpapers and rain white-noise—while your Doomsday Clock counts down every second to NEET 2027 (02 May 2027) and protects your 🔥 Streak Flame." },
-      { icon: "📋", title: "NCERT Checklist & 31-Day Decay", desc: "Swipe right to tick off 80+ NCERT Class 11 & 12 chapters. Topics stay Fresh (0–6d), turn Fading (7–30d), and trigger Decay Alerts at 31+ days so DOT AI automatically schedules timely revisions." },
-      { icon: "🌐", title: "3D Spider-Web Observatory & ⚙️ Settings", desc: "Swipe to Slide 3 to spin your interactive 3D Spider-Web progress crystal in 360° space. Tap ⚙️ Settings anytime to switch between Sunset, Flora & Fauna, and Night Sky themes!" }
+      { icon: "📋", title: "NCERT Checklist & Revision Reason Tags", desc: "Swipe right to tick off 80+ NCERT Class 11 & 12 chapters. Tag revisions with 'Forgot NCERT Line' or 'Concept Gap' so DOT AI automatically schedules timely 31-day spaced repetition." },
+      { icon: "🌐", title: "3D High-Yield Spider-Web Observatory", desc: "Swipe to Slide 3 to spin your interactive 3D Spider-Web crystal in 360° space—with golden halos highlighting high-weightage NEET chapters that still hold untapped marks." }
     ];
 
     let tourIndex = 0;
@@ -1019,7 +1059,7 @@
       try {
         const existing = await fetchUserFromCloud(rawId) || getLocalUsersMap()[rawId];
         if (existing) { return showAlert("Student ID already exists! Sign in instead."); }
-        const newUser = { id: rawId, name: fullName, pin, targetHours, webTheme: activeWebTheme, focusWallpaper: currentFocusWallpaper, sessions: [], syllabusChecked: {}, syllabusCheckedAt: {}, activePunchStart: null, activeSubject: "", createdAt: new Date().toISOString() };
+        const newUser = { id: rawId, name: fullName, pin, targetHours, webTheme: activeWebTheme, focusWallpaper: currentFocusWallpaper, sessions: [], syllabusChecked: {}, syllabusCheckedAt: {}, syllabusReason: {}, activePunchStart: null, activeSubject: "", createdAt: new Date().toISOString() };
         await saveUserToCloud(newUser);
         loginSuccess(newUser);
       } catch (err) { showAlert("Error: " + err.message); }
@@ -1045,7 +1085,7 @@
       const cleanId = (gUser.email.split("@")[0].replace(/[^a-zA-Z0-9_-]/g, "").toLowerCase() || "student").slice(0, 20);
       let userObj = await fetchUserFromCloud(cleanId) || getLocalUsersMap()[cleanId];
       if (!userObj) {
-        userObj = { id: cleanId, name: gUser.displayName || cleanId, email: gUser.email || "", pin: "0000", targetHours: 6, webTheme: activeWebTheme, focusWallpaper: currentFocusWallpaper, sessions: [], syllabusChecked: {}, syllabusCheckedAt: {}, activePunchStart: null, activeSubject: "", createdAt: new Date().toISOString() };
+        userObj = { id: cleanId, name: gUser.displayName || cleanId, email: gUser.email || "", pin: "0000", targetHours: 6, webTheme: activeWebTheme, focusWallpaper: currentFocusWallpaper, sessions: [], syllabusChecked: {}, syllabusCheckedAt: {}, syllabusReason: {}, activePunchStart: null, activeSubject: "", createdAt: new Date().toISOString() };
         await saveUserToCloud(userObj);
       } else { saveLocalUser(userObj); }
       loginSuccess(userObj);
@@ -1064,10 +1104,11 @@
       } finally { btn.disabled = false; }
     });
 
-    // 11. DASHBOARD, CLOCK-IN & 31-DAY SPACED-REPETITION DOT AI
+    // 11. DASHBOARD, CLOCK-IN & SPACED-REPETITION DOT AI (WITH REVISION REASONS)
     function ensureRetentionTimestamps(userObj) {
       if (!userObj.syllabusChecked || typeof userObj.syllabusChecked !== "object") userObj.syllabusChecked = {};
       if (!userObj.syllabusCheckedAt || typeof userObj.syllabusCheckedAt !== "object") userObj.syllabusCheckedAt = {};
+      if (!userObj.syllabusReason || typeof userObj.syllabusReason !== "object") userObj.syllabusReason = {};
       const now = Date.now();
       Object.keys(userObj.syllabusChecked).forEach(k => {
         if (userObj.syllabusChecked[k] && !userObj.syllabusCheckedAt[k]) userObj.syllabusCheckedAt[k] = now;
@@ -1075,12 +1116,25 @@
     }
 
     function getNodeRetentionState(topicKey) {
-      if (!currentUser || !currentUser.syllabusChecked || !currentUser.syllabusChecked[topicKey]) return { status: "unlearned", days: 0 };
+      if (!currentUser || !currentUser.syllabusChecked || !currentUser.syllabusChecked[topicKey]) return { status: "unlearned", days: 0, reason: "" };
       const ts = currentUser.syllabusCheckedAt?.[topicKey] || Date.now();
+      const reason = currentUser.syllabusReason?.[topicKey] || "";
       const days = Math.max(0, Math.floor((Date.now() - ts) / DAY_MS));
-      if (days >= DECAY_DAYS) return { status: "decay", days };
-      if (days >= FADING_DAYS) return { status: "fading", days };
-      return { status: "fresh", days };
+      // Tighter spaced-repetition curve if user flagged "Forgot NCERT Line"
+      const fadeThresh = reason.includes("NCERT Line") ? 4 : FADING_DAYS;
+      const decayThresh = reason.includes("NCERT Line") ? 18 : DECAY_DAYS;
+      if (days >= decayThresh) return { status: "decay", days, reason };
+      if (days >= fadeThresh) return { status: "fading", days, reason };
+      return { status: "fresh", days, reason };
+    }
+
+    function computeDominantMarkLeak() {
+      if (!currentUser) return "Balanced";
+      const counts = {};
+      Object.values(currentUser.syllabusReason || {}).forEach(r => { if (r && !r.includes("Routine")) counts[r] = (counts[r] || 0) + 1; });
+      (currentUser.sessions || []).forEach(s => { if (s.reasonTag && !s.reasonTag.includes("Routine")) counts[s.reasonTag] = (counts[s.reasonTag] || 0) + 1; });
+      const entries = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+      return entries.length ? `${entries[0][0]} (${entries[0][1]}x)` : "Balanced";
     }
 
     function loginSuccess(userObj) {
@@ -1115,10 +1169,11 @@
 
     function renderDotRecommendations() {
       if (!currentUser) return;
+      document.getElementById("dotMarkLeakBadge").textContent = `Top Leak: ${computeDominantMarkLeak()}`;
       const checked = currentUser.syllabusChecked || {}, recommendations = [];
 
       NEET_2027_SYLLABUS.forEach(subj => {
-        let decayPick = null, fadingPick = null, inProgressPick = null, freshStartPick = null;
+        let decayPick = null, fadingPick = null, highYieldPick = null, inProgressPick = null, freshStartPick = null;
 
         subj.units.forEach(u => {
           u.chapters.forEach(ch => {
@@ -1128,7 +1183,7 @@
               if (checked[key]) {
                 doneInChapter++;
                 const ret = getNodeRetentionState(key);
-                const revCand = { subject: subj.subject, icon: subj.icon, chapterName: ch.name, topicKey: key, subtopicName: st, isRevision: true, daysOld: ret.days, status: ret.status };
+                const revCand = { subject: subj.subject, icon: subj.icon, chapterName: ch.name, topicKey: key, subtopicName: st, isRevision: true, daysOld: ret.days, status: ret.status, reason: ret.reason, hy: ch.hy };
                 if (ret.status === "decay" && (!decayPick || ret.days > decayPick.daysOld)) decayPick = revCand;
                 if (ret.status === "fading" && (!fadingPick || ret.days > fadingPick.daysOld)) fadingPick = revCand;
               } else if (firstUndoneIdx === -1) {
@@ -1137,14 +1192,15 @@
             });
 
             if (firstUndoneIdx !== -1) {
-              const cand = { subject: subj.subject, icon: subj.icon, chapterName: ch.name, topicKey: `${ch.id}_${firstUndoneIdx}`, subtopicName: ch.subtopics[firstUndoneIdx], doneInChapter, totalInChapter: ch.subtopics.length, isRevision: false };
+              const cand = { subject: subj.subject, icon: subj.icon, chapterName: ch.name, topicKey: `${ch.id}_${firstUndoneIdx}`, subtopicName: ch.subtopics[firstUndoneIdx], doneInChapter, totalInChapter: ch.subtopics.length, isRevision: false, hy: ch.hy };
               if (doneInChapter > 0 && !inProgressPick) inProgressPick = cand;
+              if (ch.hy && !highYieldPick) highYieldPick = cand;
               if (doneInChapter === 0 && !freshStartPick) freshStartPick = cand;
             }
           });
         });
 
-        const chosen = decayPick || fadingPick || inProgressPick || freshStartPick;
+        const chosen = decayPick || fadingPick || inProgressPick || highYieldPick || freshStartPick;
         if (chosen) recommendations.push(chosen);
       });
 
@@ -1156,13 +1212,17 @@
       grid.innerHTML = recommendations.map(rec => {
         const badgeHtml = rec.isRevision
           ? (rec.status === "decay"
-              ? `<span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-rose-950 text-rose-300 border border-rose-500/40">🔴 Decay (${rec.daysOld}d ago)</span>`
-              : `<span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-950 text-amber-300 border border-amber-500/40">🟡 Fading (${rec.daysOld}d ago)</span>`)
-          : `<span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-white/10 text-zinc-200 border border-white/10">${rec.doneInChapter > 0 ? `In Progress (${rec.doneInChapter}/${rec.totalInChapter})` : "Next NCERT Topic"}</span>`;
+              ? `<span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-rose-950 text-rose-300 border border-rose-500/40">🔴 Decay (${rec.daysOld}d)</span>`
+              : `<span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-950 text-amber-300 border border-amber-500/40">🟡 Fading (${rec.daysOld}d)</span>`)
+          : (rec.hy
+              ? `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-200 border border-amber-400/30">🔥 High-Yield</span>`
+              : `<span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-white/10 text-zinc-200 border border-white/10">${rec.doneInChapter > 0 ? `In Progress (${rec.doneInChapter}/${rec.totalInChapter})` : "Next Topic"}</span>`);
 
+        const reasonTagLine = rec.reason ? `<span class="inline-block mt-1.5 text-[10px] px-2 py-0.5 rounded bg-white/5 text-zinc-300 border border-white/10">Last tag: ${rec.reason}</span>` : "";
         const safeTitle = `${rec.isRevision ? "Revise " : ""}${rec.subject}: ${rec.subtopicName}`.replace(/'/g, "\\'");
+        const safeSubLabel = `${rec.subject} • ${rec.subtopicName}`.replace(/'/g, "\\'");
         const actionBtn = rec.isRevision
-          ? `<button type="button" onclick="reviseDotTopicNow('${rec.topicKey}')" class="clicky py-2 px-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-emerald-300 border border-emerald-500/30 font-semibold text-[11px]">↻ Mark Revised</button>`
+          ? `<button type="button" onclick="openRevisionReasonModal('${rec.topicKey}', '${safeSubLabel}')" class="clicky py-2 px-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-emerald-300 border border-emerald-500/30 font-semibold text-[11px]">↻ Revised</button>`
           : `<button type="button" onclick="markDotTopicDone('${rec.topicKey}')" class="clicky py-2 px-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-emerald-300 border border-zinc-800 font-semibold text-[11px]">✓ Mark Done</button>`;
 
         return `
@@ -1171,6 +1231,7 @@
               <div class="flex items-center justify-between gap-2 mb-2"><span class="text-xs font-bold theme-gradient-text">${rec.icon} ${rec.subject}</span>${badgeHtml}</div>
               <p class="text-xs font-medium text-zinc-400 line-clamp-1">${rec.chapterName}</p>
               <p class="text-sm font-bold text-white mt-1">${rec.isRevision ? "🔁" : "🎯"} ${rec.subtopicName}</p>
+              ${reasonTagLine}
             </div>
             <div class="grid grid-cols-2 gap-2 mt-4 pt-3 border-t border-zinc-900">
               <button type="button" onclick="startDotRecommendedClockIn('${safeTitle}')" class="clicky py-2 px-3 rounded-xl theme-btn-primary font-extrabold text-[11px]">▶ Clock In</button>
@@ -1188,13 +1249,32 @@
       renderDashboard(); renderSyllabusTree();
       await saveUserToCloud(currentUser);
     };
-    window.reviseDotTopicNow = async function(topicKey) {
-      if (!currentUser) return;
-      currentUser.syllabusChecked[topicKey] = true;
-      currentUser.syllabusCheckedAt[topicKey] = Date.now();
+
+    // Revision Reason Modal Handlers
+    const revReasonModal = document.getElementById("revisionReasonModal");
+    window.openRevisionReasonModal = function(topicKey, labelText) {
+      pendingRevisionTopicKey = topicKey;
+      document.getElementById("revModalTopicLabel").textContent = labelText || "Select your revision reason to calibrate DOT AI:";
+      revReasonModal.classList.remove("hidden");
+    };
+    document.getElementById("closeRevisionReasonBtn").addEventListener("click", () => {
+      pendingRevisionTopicKey = null;
+      revReasonModal.classList.add("hidden");
+    });
+    revReasonModal.addEventListener("click", (e) => { if (e.target === revReasonModal) { pendingRevisionTopicKey = null; revReasonModal.classList.add("hidden"); } });
+
+    window.confirmRevisionWithReason = async function(reasonStr) {
+      if (!currentUser || !pendingRevisionTopicKey) return;
+      const k = pendingRevisionTopicKey;
+      pendingRevisionTopicKey = null;
+      revReasonModal.classList.add("hidden");
+      currentUser.syllabusChecked[k] = true;
+      currentUser.syllabusCheckedAt[k] = Date.now();
+      currentUser.syllabusReason[k] = reasonStr;
       renderDashboard(); renderSyllabusTree();
       await saveUserToCloud(currentUser);
     };
+
     document.getElementById("dotRefreshBtn").addEventListener("click", renderDotRecommendations);
 
     function renderDashboard() {
@@ -1281,12 +1361,14 @@
       if (!currentUser) return;
       const dateVal = document.getElementById("manualDate").value || toLocalYMD(new Date());
       const subjectVal = document.getElementById("manualSubject").value.trim() || "Manual Study";
+      const reasonTag = document.getElementById("manualReasonSelect").value || "";
       const hrs = parseInt(document.getElementById("manualHours").value, 10) || 0;
       const mins = parseInt(document.getElementById("manualMinutes").value, 10) || 0;
       const totalSeconds = (hrs * 3600) + (mins * 60);
       if (totalSeconds <= 0) return alert("Enter at least 1 minute.");
-      currentUser.sessions.unshift({ date: dateVal, subject: subjectVal, startTime: "Manual", endTime: `${hrs}h ${mins}m`, durationSeconds: totalSeconds, entryType: "manual", timestamp: Date.now() });
+      currentUser.sessions.unshift({ date: dateVal, subject: subjectVal, reasonTag, startTime: "Manual", endTime: `${hrs}h ${mins}m`, durationSeconds: totalSeconds, entryType: "manual", timestamp: Date.now() });
       document.getElementById("manualSubject").value = "";
+      document.getElementById("manualReasonSelect").value = "";
       renderDashboard();
       await saveUserToCloud(currentUser);
     });
@@ -1307,7 +1389,10 @@
       tbody.innerHTML = currentUser.sessions.slice(0, 25).map((s, idx) => `
         <tr class="hover:bg-white/5">
           <td class="py-3 px-4 font-semibold text-zinc-300">${s.date}</td>
-          <td class="py-3 px-4 text-white font-medium">${s.subject}</td>
+          <td class="py-3 px-4 text-white font-medium">
+            <span>${s.subject}</span>
+            ${s.reasonTag ? `<span class="ml-1.5 px-2 py-0.5 rounded text-[10px] bg-white/10 text-amber-200 border border-white/10">${s.reasonTag}</span>` : ""}
+          </td>
           <td class="py-3 px-4 text-zinc-400">${s.entryType === "manual" ? "✍️ Manual" : `⏱️ ${s.startTime}–${s.endTime}`}</td>
           <td class="py-3 px-4 text-right mono-nums font-bold theme-gradient-text">${Math.round((s.durationSeconds || 0) / 60)}m (${(s.durationSeconds / 3600).toFixed(2)}h)</td>
           <td class="py-3 px-4 text-right"><button onclick="deleteStudySession(${idx})" class="text-rose-400 hover:text-rose-300 px-2">✕</button></td>
@@ -1316,8 +1401,8 @@
 
     function exportCsvFile() {
       if (!currentUser || !currentUser.sessions.length) return alert("No sessions to export.");
-      const rows = [["Date", "Subject", "Type", "Duration Hours"]];
-      currentUser.sessions.forEach(s => rows.push([s.date, `"${s.subject}"`, s.entryType || "live", (s.durationSeconds / 3600).toFixed(2)]));
+      const rows = [["Date", "Subject", "Reason Tag", "Type", "Duration Hours"]];
+      currentUser.sessions.forEach(s => rows.push([s.date, `"${s.subject}"`, `"${s.reasonTag || ""}"`, s.entryType || "live", (s.durationSeconds / 3600).toFixed(2)]));
       const link = document.createElement("a");
       link.href = encodeURI("data:text/csv;charset=utf-8," + rows.map(r => r.join(",")).join("\n"));
       link.download = `studypunch_${currentUser.id}.csv`;
@@ -1382,16 +1467,16 @@
       });
     }
 
-    // 13. NCERT SYLLABUS & 31-DAY MEMORY DECAY 3D SPIDER-WEB DATA
+    // 13. NCERT SYLLABUS & 31-DAY MEMORY DECAY + HIGH-YIELD 3D SPIDER-WEB DATA
     const openFoldersState = { phys: true, chem: true, bio: true, phys_11: true, chem_11: true, bio_11: true };
     let spider3dOverallPct = 0;
     let spider3dAxesData = [
-      { label: "⚡ Phys 11", pct: 0, done: 0, total: 1, decayStatus: "fresh" },
-      { label: "⚡ Phys 12", pct: 0, done: 0, total: 1, decayStatus: "fresh" },
-      { label: "🧪 Chem 11", pct: 0, done: 0, total: 1, decayStatus: "fresh" },
-      { label: "🧪 Chem 12", pct: 0, done: 0, total: 1, decayStatus: "fresh" },
-      { label: "🧬 Bio 11", pct: 0, done: 0, total: 1, decayStatus: "fresh" },
-      { label: "🧬 Bio 12", pct: 0, done: 0, total: 1, decayStatus: "fresh" }
+      { label: "⚡ Phys 11", pct: 0, done: 0, total: 1, decayStatus: "fresh", hyGap: true },
+      { label: "⚡ Phys 12", pct: 0, done: 0, total: 1, decayStatus: "fresh", hyGap: true },
+      { label: "🧪 Chem 11", pct: 0, done: 0, total: 1, decayStatus: "fresh", hyGap: true },
+      { label: "🧪 Chem 12", pct: 0, done: 0, total: 1, decayStatus: "fresh", hyGap: true },
+      { label: "🧬 Bio 11", pct: 0, done: 0, total: 1, decayStatus: "fresh", hyGap: true },
+      { label: "🧬 Bio 12", pct: 0, done: 0, total: 1, decayStatus: "fresh", hyGap: true }
     ];
 
     window.toggleFolderNode = function(key) { openFoldersState[key] = !openFoldersState[key]; renderSyllabusTree(document.getElementById("syllabusSearchInput").value.trim()); };
@@ -1400,6 +1485,7 @@
       if (currentUser.syllabusChecked[topicKey]) {
         delete currentUser.syllabusChecked[topicKey];
         delete currentUser.syllabusCheckedAt[topicKey];
+        delete currentUser.syllabusReason[topicKey];
       } else {
         currentUser.syllabusChecked[topicKey] = true;
         currentUser.syllabusCheckedAt[topicKey] = Date.now();
@@ -1415,7 +1501,7 @@
         if (ch.id === chId) ch.subtopics.forEach((_, idx) => {
           const k = `${ch.id}_${idx}`;
           if (checkAll) { currentUser.syllabusChecked[k] = true; currentUser.syllabusCheckedAt[k] = now; }
-          else { delete currentUser.syllabusChecked[k]; delete currentUser.syllabusCheckedAt[k]; }
+          else { delete currentUser.syllabusChecked[k]; delete currentUser.syllabusCheckedAt[k]; delete currentUser.syllabusReason[k]; }
         });
       })));
       openFoldersState[chId] = true;
@@ -1447,23 +1533,28 @@
       const checkedMap = currentUser.syllabusChecked || {};
       const q = searchQuery.toLowerCase();
       let overallDone = 0, freshTotal = 0, fadingTotal = 0, decayTotal = 0;
+      let hyTotalNodes = 0, hyDoneNodes = 0;
       const subjectStats = [], new3dAxes = [];
 
       const treeHtml = NEET_2027_SYLLABUS.map(subj => {
         let subjTotal = 0, subjDone = 0;
         const unitsHtml = subj.units.map(u => {
-          let unitTotal = 0, unitDone = 0, unitFading = 0, unitDecay = 0;
+          let unitTotal = 0, unitDone = 0, unitFading = 0, unitDecay = 0, unitHyGap = false;
           const chaptersHtml = u.chapters.map(ch => {
             const chTotal = ch.subtopics.length;
             let chDone = 0;
             ch.subtopics.forEach((_, idx) => {
               const k = `${ch.id}_${idx}`;
+              if (ch.hy) hyTotalNodes++;
               if (checkedMap[k]) {
                 chDone++;
+                if (ch.hy) hyDoneNodes++;
                 const ret = getNodeRetentionState(k);
-                if (ret.status === "decay") { decayTotal++; unitDecay++; }
+                if (ret.status === "decay") { decayTotal++; unitDecay++; if (ch.hy) unitHyGap = true; }
                 else if (ret.status === "fading") { fadingTotal++; unitFading++; }
                 else { freshTotal++; }
+              } else if (ch.hy) {
+                unitHyGap = true;
               }
             });
             unitTotal += chTotal; unitDone += chDone; subjTotal += chTotal; subjDone += chDone; overallDone += chDone;
@@ -1478,6 +1569,7 @@
               const key = `${ch.id}_${idx}`, isDone = Boolean(checkedMap[key]);
               if (q && !ch.name.toLowerCase().includes(q) && !stName.toLowerCase().includes(q)) return "";
               const safeTopic = `${subj.subject}: ${stName}`.replace(/'/g, "\\'");
+              const safeSubLabel = `${subj.subject} • ${stName}`.replace(/'/g, "\\'");
               const ret = getNodeRetentionState(key);
 
               let retBadge = "";
@@ -1486,16 +1578,20 @@
                 else if (ret.status === "fading") retBadge = `<span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-amber-950 text-amber-300 border border-amber-500/40">🟡 Fading ${ret.days}d</span>`;
                 else retBadge = `<span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-500/30">🟢 Fresh</span>`;
               }
+              const reasonChip = (isDone && ret.reason && !ret.reason.includes("Routine"))
+                ? `<span class="px-1.5 py-0.5 rounded text-[9px] bg-white/5 text-zinc-300 border border-white/10">${ret.reason}</span>`
+                : "";
 
               return `
                 <div class="spider-node flex flex-wrap items-center justify-between gap-2 py-2 px-3 rounded-xl hover:bg-white/5 transition">
-                  <label class="flex items-center gap-2.5 cursor-pointer flex-1 select-none">
+                  <label class="flex flex-wrap items-center gap-2 cursor-pointer flex-1 select-none">
                     <input type="checkbox" ${isDone ? "checked" : ""} onchange="toggleSubtopicCheck('${key}')" class="w-4 h-4 rounded accent-amber-400 cursor-pointer shrink-0" />
                     <span class="text-xs sm:text-sm ${isDone ? 'text-zinc-300 font-medium' : 'text-zinc-200 font-medium'}">${stName}</span>
                     ${retBadge}
+                    ${reasonChip}
                   </label>
                   <div class="flex items-center gap-1.5 shrink-0">
-                    ${isDone ? `<button type="button" onclick="reviseDotTopicNow('${key}')" class="clicky px-2 py-1 rounded-lg text-[10px] font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500 hover:text-black" title="Reset 31-day memory decay timer">↻ Revised</button>` : ""}
+                    ${isDone ? `<button type="button" onclick="openRevisionReasonModal('${key}', '${safeSubLabel}')" class="clicky px-2 py-1 rounded-lg text-[10px] font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500 hover:text-black" title="Tag reason & refresh memory">↻ Revised</button>` : ""}
                     <button type="button" onclick="startDotRecommendedClockIn('${safeTopic}')" class="clicky px-2.5 py-1 rounded-lg text-[10px] font-bold bg-white/10 text-zinc-200 border border-white/15 hover:bg-white hover:text-black">⚡ Clock In</button>
                   </div>
                 </div>`;
@@ -1503,11 +1599,12 @@
 
             return `
               <div class="spider-node my-2.5">
-                <div class="bg-black/75 border border-zinc-800 rounded-2xl p-3">
+                <div class="bg-black/75 border ${ch.hy ? 'border-amber-500/25' : 'border-zinc-800'} rounded-2xl p-3">
                   <div class="flex flex-wrap items-center justify-between gap-2">
-                    <button type="button" onclick="toggleFolderNode('${ch.id}')" class="flex items-center gap-2 text-left font-bold text-xs sm:text-sm text-white flex-1">
+                    <button type="button" onclick="toggleFolderNode('${ch.id}')" class="flex flex-wrap items-center gap-2 text-left font-bold text-xs sm:text-sm text-white flex-1">
                       <span>${isChOpen ? "📂" : "📁"}</span><span>${ch.name}</span>
-                      <span class="ml-1 px-2 py-0.5 text-[10px] rounded-full font-bold ${allChecked ? 'bg-emerald-950 text-emerald-300 border border-emerald-500/30' : 'bg-zinc-900 text-zinc-400'}">${chDone}/${chTotal} (${chPct}%)</span>
+                      ${ch.hy ? `<span class="px-1.5 py-0.5 text-[9px] rounded bg-amber-500/20 text-amber-200 border border-amber-400/30 font-extrabold">🔥 HIGH-YIELD</span>` : ""}
+                      <span class="px-2 py-0.5 text-[10px] rounded-full font-bold ${allChecked ? 'bg-emerald-950 text-emerald-300 border border-emerald-500/30' : 'bg-zinc-900 text-zinc-400'}">${chDone}/${chTotal} (${chPct}%)</span>
                     </button>
                     <button type="button" onclick="toggleWholeChapter('${ch.id}', ${!allChecked})" class="clicky text-[10px] font-semibold px-2.5 py-1 rounded-lg bg-zinc-900 text-zinc-300 hover:bg-zinc-800 border border-zinc-800">${allChecked ? "Reset" : "✓ Tick Chapter"}</button>
                   </div>
@@ -1519,7 +1616,7 @@
           const unitPct = unitTotal ? Math.round((unitDone / unitTotal) * 100) : 0;
           const shortAxis = u.unitName.replace("NCERT Class ", "").replace("Physics", "Phys").replace("Chemistry", "Chem").replace("Biology", "Bio").split(" (")[0];
           const unitHealth = unitDecay > 0 ? "decay" : (unitFading > 0 ? "fading" : "fresh");
-          new3dAxes.push({ label: `${subj.icon} ${shortAxis}`, pct: unitPct, done: unitDone, total: unitTotal, decayStatus: unitHealth });
+          new3dAxes.push({ label: `${subj.icon} ${shortAxis}`, pct: unitPct, done: unitDone, total: unitTotal, decayStatus: unitHealth, hyGap: unitHyGap });
 
           if (!chaptersHtml.trim()) return "";
           const isUnitOpen = q ? true : Boolean(openFoldersState[u.id]);
@@ -1561,6 +1658,10 @@
       document.getElementById("spider3dOverallTag").textContent = `Overall 3D Web: ${overallPct}% (${overallDone}/${TOTAL_SYLLABUS_TOPICS})`;
       document.getElementById("spider3dRankBadge").textContent = getMasteryRankTitle(overallPct);
 
+      const hyPct = hyTotalNodes ? Math.round((hyDoneNodes / hyTotalNodes) * 100) : 0;
+      document.getElementById("highYieldOverallBadge").textContent = `${hyPct}% Mastered`;
+      document.getElementById("highYieldSubtext").textContent = `${hyDoneNodes} / ${hyTotalNodes} high-weightage NCERT nodes mastered`;
+
       document.getElementById("retentionHealthSummary").innerHTML = `
         <div class="p-2 rounded-xl bg-emerald-950/40 border border-emerald-500/30"><p class="mono-nums text-sm font-black text-emerald-400">${freshTotal}</p><p class="text-[9px] text-emerald-200 uppercase font-bold">🟢 Fresh</p></div>
         <div class="p-2 rounded-xl bg-amber-950/40 border border-amber-500/30"><p class="mono-nums text-sm font-black text-amber-400">${fadingTotal}</p><p class="text-[9px] text-amber-200 uppercase font-bold">🟡 7–30d</p></div>
@@ -1575,10 +1676,11 @@
 
       document.getElementById("spider3dAxisList").innerHTML = spider3dAxesData.map(ax => {
         const dot = ax.decayStatus === "decay" ? "🔴" : ax.decayStatus === "fading" ? "🟡" : "🟢";
+        const hyTag = (highYieldGlowEnabled && ax.hyGap) ? `<span class="text-[9px] text-amber-300 font-bold ml-1">🔥 HY</span>` : "";
         return `
         <div>
           <div class="flex justify-between text-[11px] font-semibold mb-1">
-            <span class="text-zinc-200">${dot} ${ax.label}</span>
+            <span class="text-zinc-200">${dot} ${ax.label}${hyTag}</span>
             <span class="mono-nums theme-gradient-text font-bold">${ax.pct}% (${ax.done}/${ax.total})</span>
           </div>
           <div class="w-full bg-zinc-950 h-1.5 rounded-full overflow-hidden border border-zinc-800"><div class="theme-btn-primary h-full rounded-full transition-all duration-300" style="width:${ax.pct}%"></div></div>
@@ -1596,11 +1698,26 @@
       document.getElementById("syllabusTreeContainer").innerHTML = treeHtml || `<div class="p-8 text-center text-zinc-500">No NCERT chapters or sub-topics match your search.</div>`;
     }
 
-    // 14. INTERACTIVE 3D VOLUMETRIC SPIDER-WEB ENGINE (WITH 31-DAY DECAY COLORING)
+    // 14. INTERACTIVE 3D VOLUMETRIC SPIDER-WEB ENGINE (WITH HIGH-YIELD HALO + 31D DECAY)
     const s3dCanvas = document.getElementById("spider3dCanvas");
     const s3dCtx = s3dCanvas.getContext("2d");
-    let rotX = 0.45, rotY = 0.35, zoom3d = 1.0, autoRotate3d = true;
+    let rotX = 0.45, rotY = 0.35, zoom3d = 1.0, autoRotate3d = true, haloPulsePhase = 0;
     let isDragging3d = false, lastMouseX = 0, lastMouseY = 0, s3dAnimId = null;
+
+    const hyBtn = document.getElementById("toggleHighYieldGlowBtn");
+    function updateHyBtnLabel() {
+      hyBtn.textContent = highYieldGlowEnabled ? "🔥 High-Yield Halo: ON" : "🔥 High-Yield Halo: OFF";
+      hyBtn.className = highYieldGlowEnabled
+        ? "clicky px-3.5 py-2 rounded-xl text-xs font-bold bg-amber-500/20 text-amber-200 border border-amber-400/40"
+        : "clicky px-3.5 py-2 rounded-xl text-xs font-semibold bg-black/80 text-zinc-400 border border-zinc-800";
+    }
+    updateHyBtnLabel();
+    hyBtn.addEventListener("click", () => {
+      highYieldGlowEnabled = !highYieldGlowEnabled;
+      localStorage.setItem("studypunch_hy_glow", String(highYieldGlowEnabled));
+      updateHyBtnLabel();
+      renderSyllabusTree(document.getElementById("syllabusSearchInput").value.trim());
+    });
 
     function resize3dCanvas() {
       if (!s3dCanvas || !s3dCanvas.parentElement) return;
@@ -1645,6 +1762,9 @@
       const w = s3dCanvas.width, h = s3dCanvas.height, cx = w / 2, cy = h / 2, maxR = Math.min(w, h) * 0.35, fov = 460;
 
       if (autoRotate3d && !isDragging3d) rotY += 0.0055;
+      haloPulsePhase += 0.06;
+      const pulseAlpha = 0.35 + 0.35 * Math.sin(haloPulsePhase);
+
       s3dCtx.clearRect(0, 0, w, h);
       const pal = THEME_CHART_PALETTE[activeWebTheme] || THEME_CHART_PALETTE.sunset;
       const axes = spider3dAxesData, n = axes.length;
@@ -1673,13 +1793,23 @@
 
         const frac = Math.max(0.14, (axes[i].pct || 0) / 100);
         const mPt = project3D(d.dx * maxR * frac, 0, d.dz * maxR * frac, cx, cy, fov);
-        masteryPts.push({ ...mPt, label: axes[i].label, pct: axes[i].pct, decayStatus: axes[i].decayStatus });
+        masteryPts.push({ ...mPt, label: axes[i].label, pct: axes[i].pct, decayStatus: axes[i].decayStatus, hyGap: axes[i].hyGap });
+
+        // High-Yield Golden Target Halo at outer tip if pillar has unmastered high-yield topics
+        if (highYieldGlowEnabled && axes[i].hyGap) {
+          s3dCtx.beginPath();
+          s3dCtx.arc(outerPt.px, outerPt.py, Math.max(7, 11 * outerPt.scale), 0, Math.PI * 2);
+          s3dCtx.strokeStyle = `rgba(251, 191, 36, ${pulseAlpha})`;
+          s3dCtx.lineWidth = 2;
+          s3dCtx.stroke();
+        }
 
         const lblPt = project3D(d.dx * (maxR + 38), 0, d.dz * (maxR + 38), cx, cy, fov);
         s3dCtx.font = "bold 11px Inter, sans-serif";
         s3dCtx.fillStyle = axes[i].decayStatus === "decay" ? "#fda4af" : axes[i].decayStatus === "fading" ? "#fde68a" : "#e4e4e7";
         s3dCtx.textAlign = "center";
-        s3dCtx.fillText(`${axes[i].label} (${axes[i].pct}%)`, lblPt.px, lblPt.py);
+        const hyIcon = (highYieldGlowEnabled && axes[i].hyGap) ? " 🔥" : "";
+        s3dCtx.fillText(`${axes[i].label} (${axes[i].pct}%)${hyIcon}`, lblPt.px, lblPt.py);
       });
 
       const peakFrac = Math.max(0.18, spider3dOverallPct / 100);
@@ -1704,6 +1834,12 @@
 
       [...masteryPts, mTop, mBot].forEach(pt => {
         const nodeColor = pt.decayStatus === "decay" ? "#f43f5e" : pt.decayStatus === "fading" ? "#f59e0b" : pal.bar;
+        if (highYieldGlowEnabled && pt.hyGap) {
+          s3dCtx.beginPath();
+          s3dCtx.arc(pt.px, pt.py, Math.max(8, 12 * pt.scale), 0, Math.PI * 2);
+          s3dCtx.fillStyle = `rgba(251, 191, 36, ${pulseAlpha * 0.45})`;
+          s3dCtx.fill();
+        }
         s3dCtx.beginPath();
         s3dCtx.arc(pt.px, pt.py, Math.max(3.5, 5.8 * pt.scale), 0, Math.PI * 2);
         s3dCtx.fillStyle = "#ffffff"; s3dCtx.fill();
