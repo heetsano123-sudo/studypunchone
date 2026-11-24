@@ -15,6 +15,13 @@
     :root,[data-theme="sunset"]{--bg-base:#090608;--bg-glow-1:rgba(245,158,11,.16);--bg-glow-2:rgba(244,63,94,.12);--card-bg:linear-gradient(180deg,rgba(24,15,19,.92),rgba(12,8,11,.96));--card-border:rgba(245,158,11,.25);--accent-start:#fde68a;--accent-mid:#f59e0b;--accent-end:#e11d48;--btn-text:#090608;--spider-line:rgba(245,158,11,.42);--spider-dot:#f59e0b}
     [data-theme="flora"]{--bg-base:#040a07;--bg-glow-1:rgba(16,185,129,.16);--bg-glow-2:rgba(132,204,22,.11);--card-bg:linear-gradient(180deg,rgba(11,24,18,.92),rgba(6,14,10,.96));--card-border:rgba(16,185,129,.26);--accent-start:#a7f3d0;--accent-mid:#10b981;--accent-end:#84cc16;--btn-text:#040a07;--spider-line:rgba(16,185,129,.42);--spider-dot:#10b981}
     [data-theme="night"]{--bg-base:#04060d;--bg-glow-1:rgba(99,102,241,.18);--bg-glow-2:rgba(56,189,248,.12);--card-bg:linear-gradient(180deg,rgba(13,17,32,.92),rgba(7,10,20,.96));--card-border:rgba(129,140,248,.26);--accent-start:#e0e7ff;--accent-mid:#818cf8;--accent-end:#38bdf8;--btn-text:#04060d;--spider-line:rgba(129,140,248,.42);--spider-dot:#818cf8}
+    [data-theme="obsidian"]{--bg-base:#060606;--bg-glow-1:rgba(212,175,55,.17);--bg-glow-2:rgba(161,130,45,.10);--card-bg:linear-gradient(180deg,rgba(20,19,16,.93),rgba(10,10,9,.97));--card-border:rgba(212,175,55,.30);--accent-start:#fef08a;--accent-mid:#d4af37;--accent-end:#a16207;--btn-text:#060606;--spider-line:rgba(212,175,55,.45);--spider-dot:#d4af37}
+    [data-theme="crimson"]{--bg-base:#0a0305;--bg-glow-1:rgba(225,29,72,.18);--bg-glow-2:rgba(159,18,57,.12);--card-bg:linear-gradient(180deg,rgba(26,10,15,.92),rgba(13,5,8,.97));--card-border:rgba(244,63,94,.28);--accent-start:#fecdd3;--accent-mid:#f43f5e;--accent-end:#be123c;--btn-text:#0a0305;--spider-line:rgba(244,63,94,.45);--spider-dot:#f43f5e}
+    [data-theme="ocean"]{--bg-base:#03090c;--bg-glow-1:rgba(6,182,212,.17);--bg-glow-2:rgba(37,99,235,.12);--card-bg:linear-gradient(180deg,rgba(9,22,29,.92),rgba(5,12,17,.97));--card-border:rgba(34,211,238,.26);--accent-start:#cffafe;--accent-mid:#06b6d4;--accent-end:#2563eb;--btn-text:#03090c;--spider-line:rgba(34,211,238,.44);--spider-dot:#22d3ee}
+    [data-theme="amethyst"]{--bg-base:#08040d;--bg-glow-1:rgba(168,85,247,.18);--bg-glow-2:rgba(217,70,239,.11);--card-bg:linear-gradient(180deg,rgba(22,12,33,.92),rgba(11,6,18,.97));--card-border:rgba(192,132,252,.28);--accent-start:#f3e8ff;--accent-mid:#c084fc;--accent-end:#9333ea;--btn-text:#08040d;--spider-line:rgba(192,132,252,.44);--spider-dot:#c084fc}
+    [data-theme="solar"]{--bg-base:#0a0502;--bg-glow-1:rgba(249,115,22,.18);--bg-glow-2:rgba(234,88,12,.12);--card-bg:linear-gradient(180deg,rgba(27,15,8,.92),rgba(14,8,4,.97));--card-border:rgba(251,146,60,.28);--accent-start:#ffedd5;--accent-mid:#f97316;--accent-end:#dc2626;--btn-text:#0a0502;--spider-line:rgba(251,146,60,.45);--spider-dot:#f97316}
+    [data-theme="arctic"]{--bg-base:#04080b;--bg-glow-1:rgba(56,189,248,.16);--bg-glow-2:rgba(148,163,184,.12);--card-bg:linear-gradient(180deg,rgba(13,21,29,.92),rgba(7,12,18,.97));--card-border:rgba(125,211,252,.28);--accent-start:#f8fafc;--accent-mid:#7dd3fc;--accent-end:#0284c7;--btn-text:#04080b;--spider-line:rgba(125,211,252,.44);--spider-dot:#7dd3fc}
+
     body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-base);background-image:radial-gradient(ellipse at 50% -10%,var(--bg-glow-1),transparent 60%),radial-gradient(ellipse at 85% 25%,var(--bg-glow-2),transparent 50%);color:#f4f4f5;overflow-x:hidden;transition:background-color .35s ease}
     .font-serif-luxury{font-family:'Playfair Display',Georgia,serif}
     .theme-gradient-text{background:linear-gradient(135deg,var(--accent-start),var(--accent-mid) 55%,var(--accent-end));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
@@ -109,23 +116,29 @@
     </div>
   </div>
 
-  <!-- SETTINGS & CUSTOMIZATION DRAWER -->
+  <!-- SETTINGS & CUSTOMIZATION DRAWER (9 LUXURY THEMES) -->
   <div id="settingsModal" class="hidden fixed inset-0 z-[110] bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="luxury-card rounded-3xl w-full max-w-lg max-h-[88vh] flex flex-col overflow-hidden border border-white/15 shadow-2xl">
+    <div class="luxury-card rounded-3xl w-full max-w-xl max-h-[90vh] flex flex-col overflow-hidden border border-white/15 shadow-2xl">
       <div class="px-6 py-4 border-b border-white/10 flex items-center justify-between bg-black/40">
         <div class="flex items-center gap-2.5">
           <span class="text-lg">⚙️</span>
-          <div><h2 class="font-serif-luxury text-lg font-bold text-white">Command Settings &amp; Customs</h2><p class="text-[11px] text-zinc-400">Themes, live wallpapers, Doomsday clock, goals &amp; backups</p></div>
+          <div><h2 class="font-serif-luxury text-lg font-bold text-white">Command Settings &amp; Customs</h2><p class="text-[11px] text-zinc-400">9 Atelier themes, live focus wallpapers, Doomsday clock &amp; goals</p></div>
         </div>
         <button type="button" id="closeSettingsBtn" class="clicky w-8 h-8 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-300 flex items-center justify-center border border-white/10 text-sm font-bold">✕</button>
       </div>
       <div class="p-6 overflow-y-auto space-y-6">
         <div>
-          <label class="block text-[10px] font-extrabold uppercase tracking-[0.2em] theme-gradient-text mb-2">1. Web Interface Theme</label>
-          <div class="grid grid-cols-3 gap-2.5">
-            <button type="button" onclick="setWebTheme('sunset')" data-theme-opt="sunset" class="theme-pill clicky p-3 rounded-2xl border text-left flex flex-col gap-1"><span class="text-base">🌅</span><span class="text-xs font-bold">Sunset</span><span class="text-[10px] text-zinc-400">Amber &amp; Rose</span></button>
-            <button type="button" onclick="setWebTheme('flora')" data-theme-opt="flora" class="theme-pill clicky p-3 rounded-2xl border text-left flex flex-col gap-1"><span class="text-base">🌿</span><span class="text-xs font-bold">Flora &amp; Fauna</span><span class="text-[10px] text-zinc-400">Emerald &amp; Moss</span></button>
-            <button type="button" onclick="setWebTheme('night')" data-theme-opt="night" class="theme-pill clicky p-3 rounded-2xl border text-left flex flex-col gap-1"><span class="text-base">🌌</span><span class="text-xs font-bold">Night Sky</span><span class="text-[10px] text-zinc-400">Indigo &amp; Starlight</span></button>
+          <label class="block text-[10px] font-extrabold uppercase tracking-[0.2em] theme-gradient-text mb-2.5">1. Web Interface Theme (9 Atelier Palettes)</label>
+          <div class="grid grid-cols-3 gap-2">
+            <button type="button" onclick="setWebTheme('sunset')" data-theme-opt="sunset" class="theme-pill clicky p-2.5 rounded-2xl border text-left flex flex-col gap-0.5"><span class="text-sm">🌅</span><span class="text-[11px] font-bold">Sunset</span><span class="text-[9px] text-zinc-400">Amber &amp; Rose</span></button>
+            <button type="button" onclick="setWebTheme('flora')" data-theme-opt="flora" class="theme-pill clicky p-2.5 rounded-2xl border text-left flex flex-col gap-0.5"><span class="text-sm">🌿</span><span class="text-[11px] font-bold">Flora &amp; Fauna</span><span class="text-[9px] text-zinc-400">Emerald &amp; Moss</span></button>
+            <button type="button" onclick="setWebTheme('night')" data-theme-opt="night" class="theme-pill clicky p-2.5 rounded-2xl border text-left flex flex-col gap-0.5"><span class="text-sm">🌌</span><span class="text-[11px] font-bold">Night Sky</span><span class="text-[9px] text-zinc-400">Indigo &amp; Starlight</span></button>
+            <button type="button" onclick="setWebTheme('obsidian')" data-theme-opt="obsidian" class="theme-pill clicky p-2.5 rounded-2xl border text-left flex flex-col gap-0.5"><span class="text-sm">👑</span><span class="text-[11px] font-bold">Obsidian Gold</span><span class="text-[9px] text-zinc-400">24K Gold &amp; Onyx</span></button>
+            <button type="button" onclick="setWebTheme('crimson')" data-theme-opt="crimson" class="theme-pill clicky p-2.5 rounded-2xl border text-left flex flex-col gap-0.5"><span class="text-sm">🩸</span><span class="text-[11px] font-bold">Crimson Eclipse</span><span class="text-[9px] text-zinc-400">Ruby &amp; Shadow</span></button>
+            <button type="button" onclick="setWebTheme('ocean')" data-theme-opt="ocean" class="theme-pill clicky p-2.5 rounded-2xl border text-left flex flex-col gap-0.5"><span class="text-sm">🌊</span><span class="text-[11px] font-bold">Abyssal Ocean</span><span class="text-[9px] text-zinc-400">Cyan &amp; Sapphire</span></button>
+            <button type="button" onclick="setWebTheme('amethyst')" data-theme-opt="amethyst" class="theme-pill clicky p-2.5 rounded-2xl border text-left flex flex-col gap-0.5"><span class="text-sm">🔮</span><span class="text-[11px] font-bold">Royal Amethyst</span><span class="text-[9px] text-zinc-400">Violet &amp; Nebula</span></button>
+            <button type="button" onclick="setWebTheme('solar')" data-theme-opt="solar" class="theme-pill clicky p-2.5 rounded-2xl border text-left flex flex-col gap-0.5"><span class="text-sm">☀️</span><span class="text-[11px] font-bold">Solar Flare</span><span class="text-[9px] text-zinc-400">Molten &amp; Plasma</span></button>
+            <button type="button" onclick="setWebTheme('arctic')" data-theme-opt="arctic" class="theme-pill clicky p-2.5 rounded-2xl border text-left flex flex-col gap-0.5"><span class="text-sm">❄️</span><span class="text-[11px] font-bold">Arctic Frost</span><span class="text-[9px] text-zinc-400">Glacier &amp; Ice</span></button>
           </div>
         </div>
         <div class="pt-4 border-t border-white/10">
@@ -449,29 +462,25 @@
                 <button type="button" id="toggle3dFullscreenBtn" class="clicky px-3.5 py-2 rounded-xl text-xs font-extrabold bg-white/15 hover:bg-white/25 text-white border border-white/30 shadow-md">⛶ Full Screen</button>
                 <button type="button" id="toggleHighYieldGlowBtn" class="clicky px-3.5 py-2 rounded-xl text-xs font-bold bg-amber-500/20 text-amber-200 border border-amber-400/40">🔥 High-Yield Halo: ON</button>
                 <button type="button" id="toggle3dAutoRotateBtn" class="clicky px-3.5 py-2 rounded-xl text-xs font-bold theme-btn-primary">🔄 Auto-Orbit: ON</button>
-                <button type="button" id="reset3dCameraBtn" class="clicky px-3 py-2 rounded-xl text-xs font-semibold bg-black/80 hover:bg-zinc-900 text-zinc-200 border border-white/15">🎯 Reset</button>
+                <button type="button" id="reset3dCameraBtn" class="clicky px-3.5 py-2 rounded-xl text-xs font-semibold bg-black/80 hover:bg-zinc-900 text-zinc-200 border border-white/15">🎯 Reset</button>
               </div>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
-              <!-- 3D Deep Space Canvas Container (Supports Full-Screen Expansion) -->
               <div id="spider3dStageBox" class="lg:col-span-2 bg-[#020308] rounded-3xl border border-white/15 relative overflow-hidden min-h-[420px] sm:min-h-[500px] flex items-center justify-center transition-all">
                 <canvas id="spider3dCanvas" class="w-full h-full block cursor-grab active:cursor-grabbing" style="touch-action:none"></canvas>
 
-                <!-- Top Left Pillar Inspector HUD -->
                 <div id="spider3dInspectorHud" class="absolute top-3.5 left-3.5 px-3.5 py-2 rounded-2xl bg-black/75 backdrop-blur-md border border-white/15 pointer-events-none max-w-[230px]">
                   <p class="text-[9px] font-extrabold uppercase tracking-[0.2em] text-zinc-400">3D Constellation Telemetry</p>
                   <p id="spider3dFocusTitle" class="text-xs font-bold text-white mt-0.5">6 NCERT Pillars • Orbiting Nodes</p>
                   <p id="spider3dFocusSub" class="text-[10px] text-amber-300 mt-0.5">Tap/Hover any pillar vertex to inspect</p>
                 </div>
 
-                <!-- Top Right Overall Mastery & Exit Fullscreen HUD -->
                 <div class="absolute top-3.5 right-3.5 flex items-center gap-2 z-20">
                   <div id="spider3dOverallTag" class="px-3 py-1.5 rounded-xl bg-black/75 backdrop-blur-md border border-white/15 mono-nums text-xs font-extrabold theme-gradient-text pointer-events-none">Overall 3D Web: 0%</div>
                   <button type="button" id="exit3dFullscreenBtn" class="hidden clicky px-3.5 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-extrabold text-xs shadow-lg border border-rose-400/40">✕ Exit Full Screen</button>
                 </div>
 
-                <!-- Bottom Controls Bar (Visible in both Normal & Fullscreen) -->
                 <div class="absolute bottom-3.5 left-3.5 right-3.5 flex flex-wrap items-center justify-between gap-2 pointer-events-none">
                   <div class="px-3 py-1.5 rounded-xl bg-black/75 backdrop-blur-md border border-white/10 text-[10px] text-zinc-300">
                     🖱️ Drag 360° • Scroll Zoom • Satellites = Chapters
@@ -508,7 +517,7 @@
         </div>
       </section>
 
-      <!-- SLIDE 3: WEEKLY REVISION & SPRINT BLUEPRINT (PAGE 4) -->
+      <!-- SLIDE 3: WEEKLY REVISION & SPRINT BLUEPRINT -->
       <section id="sprintView" class="phone-screen-slide p-4 sm:p-6">
         <div class="max-w-7xl mx-auto space-y-6">
           <div class="luxury-card rounded-3xl p-5 sm:p-7">
@@ -527,7 +536,6 @@
               </div>
             </div>
 
-            <!-- Quick Add Sprint Task Bar -->
             <form id="addSprintTaskForm" class="grid grid-cols-1 sm:grid-cols-4 gap-2.5 mb-6 bg-black/60 p-3.5 rounded-2xl border border-zinc-800">
               <select id="sprintDaySelect" class="px-3 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-xs font-bold">
                 <option value="Mon">Monday</option>
@@ -542,7 +550,6 @@
               <button type="submit" class="clicky py-2.5 px-4 rounded-xl theme-btn-primary font-extrabold text-xs uppercase tracking-wider">+ Add to Sprint</button>
             </form>
 
-            <!-- 7-Day Sprint Grid -->
             <div id="weeklySprintGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"></div>
           </div>
           <div class="pt-4 text-center"><p class="text-xs text-zinc-500 tracking-wider">StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p></div>
@@ -583,9 +590,15 @@
     const DECAY_DAYS = 31;
 
     const THEME_CHART_PALETTE = {
-      sunset: { bar: "#f59e0b", line: "#fb7185", lineFill: "rgba(251, 113, 133, 0.16)", rgb: "245, 158, 11", neb1: "rgba(245, 158, 11, 0.14)", neb2: "rgba(225, 29, 72, 0.12)" },
-      flora:  { bar: "#10b981", line: "#84cc16", lineFill: "rgba(132, 204, 22, 0.16)", rgb: "16, 185, 129", neb1: "rgba(16, 185, 129, 0.14)", neb2: "rgba(132, 204, 22, 0.10)" },
-      night:  { bar: "#818cf8", line: "#38bdf8", lineFill: "rgba(56, 189, 248, 0.16)", rgb: "129, 140, 248", neb1: "rgba(99, 102, 241, 0.18)", neb2: "rgba(56, 189, 248, 0.12)" }
+      sunset:   { bar: "#f59e0b", line: "#fb7185", lineFill: "rgba(251, 113, 133, 0.16)", rgb: "245, 158, 11", neb1: "rgba(245, 158, 11, 0.14)", neb2: "rgba(225, 29, 72, 0.12)" },
+      flora:    { bar: "#10b981", line: "#84cc16", lineFill: "rgba(132, 204, 22, 0.16)",  rgb: "16, 185, 129", neb1: "rgba(16, 185, 129, 0.14)", neb2: "rgba(132, 204, 22, 0.10)" },
+      night:    { bar: "#818cf8", line: "#38bdf8", lineFill: "rgba(56, 189, 248, 0.16)",  rgb: "129, 140, 248",neb1: "rgba(99, 102, 241, 0.18)", neb2: "rgba(56, 189, 248, 0.12)" },
+      obsidian: { bar: "#d4af37", line: "#fef08a", lineFill: "rgba(212, 175, 55, 0.16)",  rgb: "212, 175, 55", neb1: "rgba(212, 175, 55, 0.15)", neb2: "rgba(161, 98, 7, 0.10)" },
+      crimson:  { bar: "#f43f5e", line: "#fda4af", lineFill: "rgba(244, 63, 94, 0.16)",   rgb: "244, 63, 94",  neb1: "rgba(225, 29, 72, 0.16)",  neb2: "rgba(159, 18, 57, 0.11)" },
+      ocean:    { bar: "#06b6d4", line: "#3b82f6", lineFill: "rgba(6, 182, 212, 0.16)",   rgb: "6, 182, 212",  neb1: "rgba(6, 182, 212, 0.15)",  neb2: "rgba(37, 99, 235, 0.12)" },
+      amethyst: { bar: "#c084fc", line: "#e879f9", lineFill: "rgba(192, 132, 252, 0.16)", rgb: "192, 132, 252",neb1: "rgba(168, 85, 247, 0.17)", neb2: "rgba(217, 70, 239, 0.11)" },
+      solar:    { bar: "#f97316", line: "#ef4444", lineFill: "rgba(249, 115, 22, 0.16)",  rgb: "249, 115, 22", neb1: "rgba(249, 115, 22, 0.16)", neb2: "rgba(220, 38, 38, 0.11)" },
+      arctic:   { bar: "#7dd3fc", line: "#e2e8f0", lineFill: "rgba(125, 211, 252, 0.16)", rgb: "125, 211, 252",neb1: "rgba(56, 189, 248, 0.14)", neb2: "rgba(148, 163, 184, 0.11)" }
     };
 
     // 2. 3D ANIMATED ENTRY INTRO (0.5s "BY HEET" FLASH)
@@ -844,7 +857,7 @@
       return { streak, shieldAvailable: shieldsUsedInWindow === 0 ? 1 : 0 };
     }
 
-    // 6. SETTINGS, THEMES & DOOMSDAY TOGGLE
+    // 6. SETTINGS, 9 THEMES & DOOMSDAY TOGGLE
     function flashSettingsSaved() {
       const toast = document.getElementById("settingsSavedToast");
       if (!toast) return;
@@ -860,8 +873,8 @@
       document.querySelectorAll(".theme-pill").forEach(btn => {
         const isMatch = btn.getAttribute("data-theme-opt") === themeName;
         btn.className = isMatch
-          ? "theme-pill clicky p-3 rounded-2xl border border-white/40 bg-white/15 text-white text-left flex flex-col gap-1 shadow-md"
-          : "theme-pill clicky p-3 rounded-2xl border border-zinc-800 bg-black/70 text-zinc-400 hover:text-white text-left flex flex-col gap-1";
+          ? "theme-pill clicky p-2.5 rounded-2xl border border-white/45 bg-white/15 text-white text-left flex flex-col gap-0.5 shadow-md"
+          : "theme-pill clicky p-2.5 rounded-2xl border border-zinc-800 bg-black/70 text-zinc-400 hover:text-white text-left flex flex-col gap-0.5";
       });
       if (!skipSync) {
         flashSettingsSaved();
@@ -1069,7 +1082,7 @@
       { icon: "⏱️", title: "Sanctuary Focus & Doomsday Clock", desc: "Clock in to enter pitch-black Focus Mode with Live Aurora, Snowfall, or Rain wallpapers and rain white-noise—while your Doomsday Clock counts down every second to NEET 2027 (02 May 2027) and protects your 🔥 Streak Flame." },
       { icon: "📋", title: "NCERT Checklist & Revision Reason Tags", desc: "Swipe right to tick off 80+ NCERT Class 11 & 12 chapters. Tag revisions with 'Forgot NCERT Line' or 'Concept Gap' so DOT AI automatically schedules timely 31-day spaced repetition." },
       { icon: "🌐", title: "3D Deep-Space Spider-Web Observatory", desc: "Swipe to Slide 3 to spin your interactive 3D Spider-Web crystal in deep space—complete with Full-Screen mode, orbiting chapter satellites, and golden High-Yield weightage halos." },
-      { icon: "📅", title: "Weekly Revision & Sprint Blueprint", desc: "Swipe to Slide 4 to organize your Monday–Sunday sprint board, or tap ⚡ Auto-Fill to schedule decaying and high-yield NCERT chapters across the week." }
+      { icon: "📅", title: "Weekly Sprint & 9 Atelier Themes", desc: "Swipe to Slide 4 to organize your Monday–Sunday sprint board, or tap ⚙️ Settings anytime to switch across 9 luxury color palettes!" }
     ];
 
     let tourIndex = 0;
@@ -1657,7 +1670,6 @@
               }
             });
 
-            // Build satellite state for 3D constellation
             const satState = chDone === 0 ? "unlearned" : (chHasDecay ? "decay" : (chHasFading ? "fading" : "fresh"));
             unitSatellites.push({ state: satState, hy: ch.hy, pct: chDone / chTotal });
 
@@ -1810,7 +1822,6 @@
     let isDragging3d = false, lastMouseX = 0, lastMouseY = 0, s3dAnimId = null;
     let projectedVerticesCache = [];
 
-    // 3D Deep-Space Starfield for the Observatory
     const spaceStars3d = Array.from({ length: 140 }, () => ({
       x: (Math.random() - 0.5) * 900,
       y: (Math.random() - 0.5) * 900,
@@ -1974,7 +1985,6 @@
         s3dCtx.moveTo(outerTop.px, outerTop.py); s3dCtx.lineTo(outerPt.px, outerPt.py); s3dCtx.lineTo(outerBot.px, outerBot.py);
         s3dCtx.strokeStyle = "rgba(255, 255, 255, 0.12)"; s3dCtx.lineWidth = 0.9; s3dCtx.stroke();
 
-        // Traveling Energy Pulse along each spoke
         const pulsePt = project3D(d.dx * maxR * energyWave, 0, d.dz * maxR * energyWave, cx, cy, fov);
         s3dCtx.beginPath();
         s3dCtx.arc(pulsePt.px, pulsePt.py, Math.max(1.5, 2.5 * pulsePt.scale), 0, Math.PI * 2);
@@ -1985,7 +1995,6 @@
         const mPt = project3D(d.dx * maxR * frac, 0, d.dz * maxR * frac, cx, cy, fov);
         masteryPts.push({ ...mPt, label: axes[i].label, pct: axes[i].pct, done: axes[i].done, total: axes[i].total, decayStatus: axes[i].decayStatus, hyGap: axes[i].hyGap });
 
-        // Chapter-Level Orbiting Satellites around each pillar vertex
         const sats = axes[i].satellites || [];
         sats.forEach((sat, sIdx) => {
           const satAngle = (sIdx / Math.max(1, sats.length)) * Math.PI * 2 + haloPulsePhase * 0.25;
@@ -2000,7 +2009,6 @@
           s3dCtx.fill();
         });
 
-        // High-Yield Golden Target Halo at outer tip
         if (highYieldGlowEnabled && axes[i].hyGap) {
           s3dCtx.beginPath();
           s3dCtx.arc(outerPt.px, outerPt.py, Math.max(7, 11 * outerPt.scale), 0, Math.PI * 2);
@@ -2076,7 +2084,7 @@
     ];
 
     function getTodayShortDay() {
-      const idx = new Date().getDay(); // 0=Sun..6=Sat
+      const idx = new Date().getDay();
       return ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][idx] || "Mon";
     }
     document.getElementById("sprintDaySelect").value = getTodayShortDay();
