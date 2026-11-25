@@ -21,24 +21,26 @@
     [data-theme="amethyst"]{--bg-base:#08040d;--bg-glow-1:rgba(168,85,247,.18);--bg-glow-2:rgba(217,70,239,.11);--card-bg:linear-gradient(180deg,rgba(22,12,33,.92),rgba(11,6,18,.97));--card-border:rgba(192,132,252,.28);--accent-start:#f3e8ff;--accent-mid:#c084fc;--accent-end:#9333ea;--btn-text:#08040d;--spider-line:rgba(192,132,252,.44);--spider-dot:#c084fc}
     [data-theme="solar"]{--bg-base:#0a0502;--bg-glow-1:rgba(249,115,22,.18);--bg-glow-2:rgba(234,88,12,.12);--card-bg:linear-gradient(180deg,rgba(27,15,8,.92),rgba(14,8,4,.97));--card-border:rgba(251,146,60,.28);--accent-start:#ffedd5;--accent-mid:#f97316;--accent-end:#dc2626;--btn-text:#0a0502;--spider-line:rgba(251,146,60,.45);--spider-dot:#f97316}
     [data-theme="arctic"]{--bg-base:#04080b;--bg-glow-1:rgba(56,189,248,.16);--bg-glow-2:rgba(148,163,184,.12);--card-bg:linear-gradient(180deg,rgba(13,21,29,.92),rgba(7,12,18,.97));--card-border:rgba(125,211,252,.28);--accent-start:#f8fafc;--accent-mid:#7dd3fc;--accent-end:#0284c7;--btn-text:#04080b;--spider-line:rgba(125,211,252,.44);--spider-dot:#7dd3fc}
-    body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-base);background-image:radial-gradient(ellipse at 50% -10%,var(--bg-glow-1),transparent 60%),radial-gradient(ellipse at 85% 25%,var(--bg-glow-2),transparent 50%);color:#f4f4f5;overflow-x:hidden;transition:background-color .35s ease}
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-base);background-image:radial-gradient(ellipse at 50% -10%,var(--bg-glow-1),transparent 60%),radial-gradient(ellipse at 85% 25%,var(--bg-glow-2),transparent 50%);color:#f4f4f5;overflow-x:hidden;transition:background-color .4s cubic-bezier(.22,1,.36,1)}
     .font-serif-luxury{font-family:'Playfair Display',Georgia,serif}
     .theme-gradient-text{background:linear-gradient(135deg,var(--accent-start),var(--accent-mid) 55%,var(--accent-end));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
     .theme-btn-primary{background:linear-gradient(135deg,var(--accent-start),var(--accent-mid) 60%,var(--accent-end));color:var(--btn-text);box-shadow:0 8px 25px -6px var(--bg-glow-1)}
-    .luxury-card{background:var(--card-bg);border:1px solid var(--card-border);box-shadow:0 20px 50px -15px rgba(0,0,0,.85);backdrop-filter:blur(20px)}
-    .doomsday-panel{background:radial-gradient(circle at 50% 0%,rgba(185,28,28,.16),rgba(10,10,14,.98) 72%);border:1px solid var(--card-border);box-shadow:0 25px 60px -15px rgba(0,0,0,.95)}
+    .luxury-card{background:var(--card-bg);border:1px solid var(--card-border);box-shadow:0 20px 50px -15px rgba(0,0,0,.85);backdrop-filter:blur(20px);transition:transform .28s cubic-bezier(.22,1,.36,1),border-color .28s ease,box-shadow .28s ease}
+    .luxury-card:hover{border-color:rgba(255,255,255,.22)}
+    .doomsday-panel{background:radial-gradient(circle at 50% 0%,rgba(185,28,28,.16),rgba(10,10,14,.98) 72%);border:1px solid var(--card-border);box-shadow:0 25px 60px -15px rgba(0,0,0,.95);transition:border-color .28s ease,box-shadow .28s ease}
     ::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:var(--bg-base)}::-webkit-scrollbar-thumb{background:#27272a;border-radius:9999px}
     .phone-slider-viewport{display:flex;width:100vw;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none}
     .phone-slider-viewport::-webkit-scrollbar{display:none}
-    .phone-screen-slide{flex:0 0 100vw;width:100vw;scroll-snap-align:start;scroll-snap-stop:always;height:calc(100vh - 118px);overflow-y:auto;overflow-x:hidden;padding-bottom:5rem}
+    .phone-screen-slide{flex:0 0 100vw;width:100vw;scroll-snap-align:start;scroll-snap-stop:always;height:calc(100vh - 118px);overflow-y:auto;overflow-x:hidden;padding-bottom:5rem;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;will-change:scroll-position}
     .mono-nums{font-family:'JetBrains Mono',monospace;font-variant-numeric:tabular-nums}
-    .clicky{transition:transform .12s cubic-bezier(.34,1.56,.64,1),box-shadow .2s ease,border-color .2s ease}
-    .clicky:active{transform:scale(.96) translateY(1px)}
+    .clicky{transition:transform .18s cubic-bezier(.22,1,.36,1),background-color .2s ease,border-color .2s ease,box-shadow .2s ease;will-change:transform}
+    .clicky:hover{transform:translateY(-1px)}
+    .clicky:active{transform:scale(.965) translateY(1px)}
     .spider-hub{position:relative;border-left:1px solid var(--spider-line);margin-left:1.1rem;padding-left:1.1rem}
     .spider-node{position:relative}.spider-node::before{content:"";position:absolute;left:-1.1rem;top:50%;width:.85rem;height:1px;background:var(--spider-line)}.spider-node::after{content:"";position:absolute;left:-1.27rem;top:calc(50% - 2.5px);width:5px;height:5px;border-radius:9999px;background:var(--spider-dot)}
     @keyframes pulseBeacon{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.12);opacity:.85}}.doomsday-beacon{animation:pulseBeacon 1s infinite}.live-beacon{animation:pulseBeacon 1.8s infinite}
     .spider-fullscreen-box{position:fixed!important;inset:0!important;z-index:130!important;border-radius:0!important;border:none!important;min-height:100vh!important;height:100vh!important;width:100vw!important}
-    /* DOCTOR STRANGE ASTRAL-PUSH INTRO */
     #introSplashOverlay{perspective:1200px;background:#030206;transition:opacity .65s cubic-bezier(.16,1,.3,1),transform .65s cubic-bezier(.16,1,.3,1),filter .65s ease}
     #introSplashOverlay.portal-exit{opacity:0;transform:scale(1.65);filter:blur(10px);pointer-events:none}
     .astral-stage{transform-style:preserve-3d;animation:astralPush 1.1s cubic-bezier(.16,1,.3,1) forwards}
@@ -80,8 +82,8 @@
       <h3 class="font-serif-luxury text-xl font-bold text-white">Why did you revise this topic?</h3>
       <p id="revModalTopicLabel" class="text-xs text-zinc-400 mt-1 mb-4">Tagging your mark-leak reason calibrates DOT AI.</p>
       <div class="grid grid-cols-1 gap-2">
-        <button type="button" onclick="confirmRevisionWithReason('📖 Forgot NCERT Line')" class="clicky p-3 rounded-xl bg-black/80 hover:bg-amber-950/50 border border-amber-500/30 text-left flex items-center justify-between"><span class="text-xs font-bold text-amber-200">📖 Forgot NCERT Line / Fact</span><span class="text-[10px] text-amber-400 font-semibold">4d/18d cycle</span></button>
-        <button type="button" onclick="confirmRevisionWithReason('🧠 Concept Gap')" class="clicky p-3 rounded-xl bg-black/80 hover:bg-indigo-950/50 border border-indigo-500/30 text-left flex items-center justify-between"><span class="text-xs font-bold text-indigo-200">🧠 Concept Gap</span><span class="text-[10px] text-zinc-400">7d/31d cycle</span></button>
+        <button type="button" onclick="confirmRevisionWithReason('📖 Forgot NCERT Line')" class="clicky p-3 rounded-xl bg-black/80 hover:bg-amber-950/50 border border-amber-500/30 text-left flex items-center justify-between"><span class="text-xs font-bold text-amber-200">📖 Forgot NCERT Line / Fact</span><span class="text-[10px] text-amber-400 font-semibold">4d/12d/18d cycle</span></button>
+        <button type="button" onclick="confirmRevisionWithReason('🧠 Concept Gap')" class="clicky p-3 rounded-xl bg-black/80 hover:bg-indigo-950/50 border border-indigo-500/30 text-left flex items-center justify-between"><span class="text-xs font-bold text-indigo-200">🧠 Concept Gap</span><span class="text-[10px] text-zinc-400">7d/17d/27d cycle</span></button>
         <button type="button" onclick="confirmRevisionWithReason('🔢 Calculation Error')" class="clicky p-3 rounded-xl bg-black/80 hover:bg-rose-950/50 border border-rose-500/30 text-left flex items-center justify-between"><span class="text-xs font-bold text-rose-200">🔢 Calculation Error</span><span class="text-[10px] text-zinc-400">Logs leak</span></button>
         <button type="button" onclick="confirmRevisionWithReason('⚡ Formula Slip')" class="clicky p-3 rounded-xl bg-black/80 hover:bg-emerald-950/50 border border-emerald-500/30 text-left flex items-center justify-between"><span class="text-xs font-bold text-emerald-200">⚡ Formula / Reagent Slip</span><span class="text-[10px] text-zinc-400">Logs slip</span></button>
         <button type="button" onclick="confirmRevisionWithReason('✓ Routine Refresh')" class="clicky p-2.5 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 border border-zinc-800 text-center text-xs font-semibold text-zinc-300">✓ Routine Scheduled Refresh</button>
@@ -280,10 +282,10 @@
         </div>
         <div class="hidden sm:flex flex-col items-center">
           <div class="flex items-center gap-1.5">
-            <button type="button" onclick="slideToScreen(0)" id="dotIndicator0" class="h-1.5 w-7 rounded-full bg-white transition-all"></button>
-            <button type="button" onclick="slideToScreen(1)" id="dotIndicator1" class="h-1.5 w-2 rounded-full bg-zinc-700 transition-all"></button>
-            <button type="button" onclick="slideToScreen(2)" id="dotIndicator2" class="h-1.5 w-2 rounded-full bg-zinc-700 transition-all"></button>
-            <button type="button" onclick="slideToScreen(3)" id="dotIndicator3" class="h-1.5 w-2 rounded-full bg-zinc-700 transition-all"></button>
+            <button type="button" onclick="slideToScreen(0)" id="dotIndicator0" class="h-1.5 w-7 rounded-full bg-white transition-all duration-300"></button>
+            <button type="button" onclick="slideToScreen(1)" id="dotIndicator1" class="h-1.5 w-2 rounded-full bg-zinc-700 transition-all duration-300"></button>
+            <button type="button" onclick="slideToScreen(2)" id="dotIndicator2" class="h-1.5 w-2 rounded-full bg-zinc-700 transition-all duration-300"></button>
+            <button type="button" onclick="slideToScreen(3)" id="dotIndicator3" class="h-1.5 w-2 rounded-full bg-zinc-700 transition-all duration-300"></button>
           </div>
           <span id="activeScreenLabel" class="text-[9px] font-semibold text-zinc-400 mt-1 tracking-[0.15em] uppercase">Swipe ⇄ • 1/4 Command &amp; Telemetry</span>
         </div>
@@ -318,7 +320,7 @@
           <div class="max-w-2xl mx-auto luxury-card rounded-3xl p-6 sm:p-8 text-center">
             <div class="flex items-center justify-between mb-3"><span class="text-[10px] font-extrabold uppercase tracking-[0.22em] theme-gradient-text">⚡ Sanctuary Focus Chronometer</span><span id="punchStatusTag" class="px-3 py-1 rounded-full text-[11px] font-semibold bg-black/80 text-zinc-300 border border-white/10">Standby</span></div>
             <div id="liveTimerDisplay" class="mono-nums text-5xl sm:text-7xl font-black text-white tracking-tight my-4">00:00:00</div>
-            <div class="max-w-md mx-auto mb-5"><input id="sessionSubjectInput" type="text" placeholder="Specify your NCERT objective (e.g. Physics: Rotational Motion)" class="w-full px-4 py-3 rounded-2xl bg-black/80 border border-zinc-800 text-white text-center text-sm focus:outline-none focus:border-amber-400" /></div>
+            <div class="max-w-md mx-auto mb-5"><input id="sessionSubjectInput" type="text" placeholder="Specify your NCERT objective (e.g. Organic Chem: Aldol)" class="w-full px-4 py-3 rounded-2xl bg-black/80 border border-zinc-800 text-white text-center text-sm focus:outline-none focus:border-amber-400 transition-colors" /></div>
             <div class="max-w-md mx-auto"><button id="clockInBtn" type="button" class="clicky w-full theme-btn-primary font-extrabold py-4 px-6 rounded-2xl text-xs uppercase tracking-[0.18em]">▶ Clock In • Pure Black Sanctuary</button></div>
           </div>
 
@@ -327,8 +329,8 @@
               <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-2xl bg-black/80 border border-white/15 flex items-center justify-center theme-gradient-text font-black text-lg">◉</div>
                 <div>
-                  <div class="flex flex-wrap items-center gap-2"><h2 class="font-serif-luxury text-lg font-bold text-white">DOT — 31-Day Spaced-Repetition AI</h2><span id="dotMarkLeakBadge" class="px-2.5 py-0.5 rounded-md text-[10px] font-extrabold bg-white/10 text-amber-200 border border-amber-400/25">Top Leak: Balanced</span></div>
-                  <p class="text-xs text-zinc-400">Calibrated by Revision Reason tags (NCERT line slips tighten to 4d/18d)</p>
+                  <div class="flex flex-wrap items-center gap-2"><h2 class="font-serif-luxury text-lg font-bold text-white">DOT — Spaced-Repetition AI (7–16d / 27d)</h2><span id="dotMarkLeakBadge" class="px-2.5 py-0.5 rounded-md text-[10px] font-extrabold bg-white/10 text-amber-200 border border-amber-400/25">Top Leak: Balanced</span></div>
+                  <p class="text-xs text-zinc-400">Medium decay at 7–16d • Urgent 17–26d • Red Alert at 27+d</p>
                 </div>
               </div>
               <button id="dotRefreshBtn" type="button" class="clicky px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-black/80 hover:bg-zinc-900 text-zinc-200 border border-white/15">↻ Recalibrate</button>
@@ -337,10 +339,10 @@
           </div>
 
           <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            <div class="luxury-card rounded-2xl p-5"><p class="text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400">Today's Focus</p><p id="statTodayHours" class="mono-nums text-2xl font-black text-white mt-1">0h 00m</p><div class="w-full bg-black h-1.5 rounded-full mt-3 overflow-hidden border border-zinc-800"><div id="statProgressBar" class="theme-btn-primary h-full rounded-full transition-all" style="width:0%"></div></div><p id="statTargetText" class="text-[11px] text-zinc-500 mt-1.5">Target: 6h/day</p></div>
+            <div class="luxury-card rounded-2xl p-5"><p class="text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400">Today's Focus</p><p id="statTodayHours" class="mono-nums text-2xl font-black text-white mt-1">0h 00m</p><div class="w-full bg-black h-1.5 rounded-full mt-3 overflow-hidden border border-zinc-800"><div id="statProgressBar" class="theme-btn-primary h-full rounded-full transition-all duration-500" style="width:0%"></div></div><p id="statTargetText" class="text-[11px] text-zinc-500 mt-1.5">Target: 6h/day</p></div>
             <div class="luxury-card rounded-2xl p-5"><p class="text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400">Streak &amp; Shield</p><div class="flex items-center gap-2 mt-1"><p id="statStreakFlame" class="mono-nums text-2xl font-black text-amber-400">🔥 0d</p><span id="statShieldPill" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-sky-950/90 text-sky-300 border border-sky-500/30">🛡️ 1/1</span></div><p class="text-[11px] text-zinc-500 mt-2">≥80% daily • 1 Shield/wk</p></div>
             <div class="luxury-card rounded-2xl p-5"><p class="text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400">All-Time Hours</p><p id="statAllTimeHours" class="mono-nums text-2xl font-black text-emerald-400 mt-1">0.0 hrs</p><p id="statTotalSessions" class="text-[11px] text-zinc-500 mt-2">0 sessions</p></div>
-            <div id="dashSyllabusCard" class="clicky luxury-card rounded-2xl p-5 cursor-pointer hover:border-white/40"><p class="text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400">3D Space Web</p><p id="statSyllabusPct" class="mono-nums text-2xl font-black theme-gradient-text mt-1">0%</p><p id="statSyllabusCount" class="text-[11px] text-zinc-300 font-medium mt-2">Open 3D Web →</p></div>
+            <div id="dashSyllabusCard" class="clicky luxury-card rounded-2xl p-5 cursor-pointer hover:border-white/40"><p class="text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400">9-Axis 3D Web</p><p id="statSyllabusPct" class="mono-nums text-2xl font-black theme-gradient-text mt-1">0%</p><p id="statSyllabusCount" class="text-[11px] text-zinc-300 font-medium mt-2">Open 3D Web →</p></div>
           </div>
 
           <div class="luxury-card rounded-3xl p-6 space-y-6">
@@ -387,12 +389,12 @@
         </div>
       </main>
 
-      <!-- SLIDE 1: NCERT SYLLABUS -->
+      <!-- SLIDE 1: 9-BRANCH NCERT SYLLABUS -->
       <section id="syllabusView" class="phone-screen-slide p-4 sm:p-6">
         <div class="max-w-7xl mx-auto space-y-6">
           <div class="luxury-card rounded-3xl p-4 sm:p-5 sticky top-0 z-20">
             <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
-              <input id="syllabusSearchInput" type="text" placeholder="🔍 Search NCERT Class 11 & 12 Chapters & Sub-Topics..." class="flex-1 pl-4 pr-6 py-3 rounded-2xl bg-black/80 border border-white/15 text-white text-sm focus:outline-none focus:border-amber-400" />
+              <input id="syllabusSearchInput" type="text" placeholder="🔍 Search Mechanics, Organic, Inorganic, Botany, Zoology..." class="flex-1 pl-4 pr-6 py-3 rounded-2xl bg-black/80 border border-white/15 text-white text-sm focus:outline-none focus:border-amber-400 transition-colors" />
               <div class="flex items-center gap-2">
                 <button id="expandAllFoldersBtn" type="button" class="clicky px-4 py-2.5 rounded-xl text-xs font-bold theme-btn-primary">🕸️ Expand All</button>
                 <button id="collapseAllFoldersBtn" type="button" class="clicky px-3.5 py-2.5 rounded-xl text-xs font-semibold bg-black/80 hover:bg-zinc-900 text-zinc-300 border border-zinc-800">Collapse</button>
@@ -402,7 +404,7 @@
           </div>
           <div class="luxury-card rounded-3xl p-6">
             <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
-              <div><h2 class="font-serif-luxury text-2xl font-bold text-white">NCERT Syllabus &amp; 31-Day Retention</h2><p class="text-xs text-zinc-400 mt-1">🔥 High-Yield • 🟢 Fresh (0–6d) • 🟡 Fading (7–30d) • 🔴 Decay (31+d)</p></div>
+              <div><h2 class="font-serif-luxury text-2xl font-bold text-white">9-Branch NCERT Syllabus &amp; Retention</h2><p class="text-xs text-zinc-400 mt-1">🔥 High-Yield • 🟢 Fresh (0–6d) • 🟡 Medium (7–16d) • 🟠 Urgent (17–26d) • 🔴 Red Alert (27+d)</p></div>
               <div class="text-right"><span id="overallSyllabusBigPct" class="mono-nums text-4xl font-black theme-gradient-text">0%</span><p id="overallSyllabusCounts" class="text-xs text-zinc-400 font-semibold">0 / 0 nodes</p></div>
             </div>
             <div class="w-full bg-black h-3 rounded-full overflow-hidden mb-5 border border-zinc-800"><div id="overallSyllabusBar" class="theme-btn-primary h-full rounded-full transition-all duration-500" style="width:0%"></div></div>
@@ -413,13 +415,13 @@
         </div>
       </section>
 
-      <!-- SLIDE 2: 3D DEEP-SPACE SPIDER-WEB OBSERVATORY -->
+      <!-- SLIDE 2: 9-AXIS 3D DEEP-SPACE SPIDER-WEB OBSERVATORY -->
       <section id="spider3dView" class="phone-screen-slide p-4 sm:p-6">
         <div class="max-w-7xl mx-auto space-y-6">
           <div class="luxury-card rounded-3xl p-5 sm:p-7">
             <div class="flex flex-wrap items-center justify-between gap-3 pb-4 mb-5 border-b border-white/10">
               <div>
-                <div class="flex flex-wrap items-center gap-2"><span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-[0.2em] bg-white/10 text-zinc-200 border border-white/15">Deep-Space 3D Hologram</span><span id="spider3dRankBadge" class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase bg-amber-500/20 text-amber-200 border border-amber-400/30">Rank: Initiate ⚡</span></div>
+                <div class="flex flex-wrap items-center gap-2"><span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-[0.2em] bg-white/10 text-zinc-200 border border-white/15">9-Axis Deep-Space Hologram</span><span id="spider3dRankBadge" class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase bg-amber-500/20 text-amber-200 border border-amber-400/30">Rank: Initiate ⚡</span></div>
                 <h2 class="font-serif-luxury text-2xl sm:text-3xl font-bold text-white mt-1.5">🌐 3D Deep-Space Spider-Web Observatory</h2>
               </div>
               <div class="flex flex-wrap items-center gap-2">
@@ -432,10 +434,10 @@
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
               <div id="spider3dStageBox" class="lg:col-span-2 bg-[#020308] rounded-3xl border border-white/15 relative overflow-hidden min-h-[420px] sm:min-h-[500px] flex items-center justify-center transition-all">
                 <canvas id="spider3dCanvas" class="w-full h-full block cursor-grab active:cursor-grabbing" style="touch-action:none"></canvas>
-                <div id="spider3dInspectorHud" class="absolute top-3.5 left-3.5 px-3.5 py-2 rounded-2xl bg-black/80 border border-white/15 pointer-events-none max-w-[230px]">
-                  <p class="text-[9px] font-extrabold uppercase tracking-[0.2em] text-zinc-400">3D Constellation Telemetry</p>
-                  <p id="spider3dFocusTitle" class="text-xs font-bold text-white mt-0.5">6 NCERT Pillars • Orbiting Nodes</p>
-                  <p id="spider3dFocusSub" class="text-[10px] text-amber-300 mt-0.5">Tap/Hover any pillar vertex</p>
+                <div id="spider3dInspectorHud" class="absolute top-3.5 left-3.5 px-3.5 py-2 rounded-2xl bg-black/80 border border-white/15 pointer-events-none max-w-[240px]">
+                  <p class="text-[9px] font-extrabold uppercase tracking-[0.2em] text-zinc-400">9-Branch Constellation</p>
+                  <p id="spider3dFocusTitle" class="text-xs font-bold text-white mt-0.5">9 NEET Branches • Orbiting Nodes</p>
+                  <p id="spider3dFocusSub" class="text-[10px] text-amber-300 mt-0.5">Tap/Hover any branch vertex</p>
                 </div>
                 <div class="absolute top-3.5 right-3.5 flex items-center gap-2 z-20">
                   <div id="spider3dOverallTag" class="px-3 py-1.5 rounded-xl bg-black/80 border border-white/15 mono-nums text-xs font-extrabold theme-gradient-text pointer-events-none">Overall 3D Web: 0%</div>
@@ -454,9 +456,9 @@
                 <div class="bg-black/75 rounded-2xl p-4 border border-zinc-800">
                   <div class="flex items-center justify-between mb-2"><h3 class="text-xs font-extrabold uppercase tracking-[0.18em] theme-gradient-text">🔥 High-Yield Radar</h3><span id="highYieldOverallBadge" class="mono-nums text-xs font-extrabold text-amber-300">0%</span></div>
                   <p id="highYieldSubtext" class="text-[11px] text-zinc-400 mb-3">0 / 0 high-weightage nodes</p>
-                  <div id="retentionHealthSummary" class="grid grid-cols-3 gap-2 text-center"></div>
+                  <div id="retentionHealthSummary" class="grid grid-cols-4 gap-1.5 text-center"></div>
                 </div>
-                <div class="bg-black/75 rounded-2xl p-4 border border-zinc-800 flex-1"><h3 class="text-xs font-extrabold uppercase tracking-[0.18em] theme-gradient-text mb-3">6-Axis Coordinates</h3><div id="spider3dAxisList" class="space-y-3"></div></div>
+                <div class="bg-black/75 rounded-2xl p-4 border border-zinc-800 flex-1 max-h-60 overflow-y-auto"><h3 class="text-xs font-extrabold uppercase tracking-[0.18em] theme-gradient-text mb-3">9-Branch Coordinates</h3><div id="spider3dAxisList" class="space-y-2.5"></div></div>
                 <div class="bg-black/75 rounded-2xl p-4 border border-zinc-800"><p class="text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400 mb-2">📊 Subject Completion</p><div class="h-28 w-full"><canvas id="syllabusSubjectBarCanvas"></canvas></div></div>
               </div>
             </div>
@@ -481,7 +483,7 @@
             </div>
             <form id="addSprintTaskForm" class="grid grid-cols-1 sm:grid-cols-4 gap-2.5 mb-6 bg-black/60 p-3.5 rounded-2xl border border-zinc-800">
               <select id="sprintDaySelect" class="px-3 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-xs font-bold"><option value="Mon">Monday</option><option value="Tue">Tuesday</option><option value="Wed">Wednesday</option><option value="Thu">Thursday</option><option value="Fri">Friday</option><option value="Sat">Saturday</option><option value="Sun">Sunday</option></select>
-              <input id="sprintTaskInput" type="text" required placeholder="Add sprint goal (e.g. Revise Bio: Molecular Basis)..." class="sm:col-span-2 px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-xs focus:outline-none focus:border-amber-400" />
+              <input id="sprintTaskInput" type="text" required placeholder="Add sprint goal (e.g. Revise Organic Chem: Aldol)..." class="sm:col-span-2 px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-xs focus:outline-none focus:border-amber-400" />
               <button type="submit" class="clicky py-2.5 px-4 rounded-xl theme-btn-primary font-extrabold text-xs uppercase tracking-wider">+ Add</button>
             </form>
             <div id="weeklySprintGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"></div>
@@ -517,7 +519,8 @@
     let is3dFullscreen = false, isZdHudHidden = false, pendingRevisionTopicKey = null;
     let wpAnimFrame = null, wpParticles = [], wpDrops = [], auroraTime = 0, audioCtx = null, activeAudioCleanup = null;
 
-    const DAY_MS = 86400000, FADING_DAYS = 7, DECAY_DAYS = 31;
+    // 0–6d Fresh | 7–16d Medium | 17–26d Urgent | 27+d Red Alert
+    const DAY_MS = 86400000, MEDIUM_DAYS = 7, URGENT_DAYS = 17, RED_ALERT_DAYS = 27;
     const NEET_2027_EXAM_TIMESTAMP = new Date("2027-05-02T14:00:00+05:30").getTime();
 
     const THEME_CHART_PALETTE = {
@@ -607,105 +610,111 @@
       skipBtn.addEventListener("click", () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); close(); });
     })();
 
-    // NCERT SYLLABUS
+    // 9-BRANCH NCERT SYLLABUS
     const mkCh = (arr) => arr.map(([id, name, sub, hy]) => ({ id, name, hy: Boolean(hy), subtopics: sub.split("|") }));
     const NEET_2027_SYLLABUS = [
       { id: "phys", subject: "Physics", icon: "⚡", units: [
-        { id: "phys_11", unitName: "NCERT Class 11 Physics (Ch 1–14)", chapters: mkCh([
-          ["p11_1","Ch 1: Units & Measurements","SI Units|Significant Figures|Dimensional Analysis|Vernier & Screw Gauge",0],
-          ["p11_2","Ch 2: Motion in a Straight Line","Speed & Velocity|x-t & v-t Graphs|Kinematics & Free Fall|Relative Velocity",0],
-          ["p11_3","Ch 3: Motion in a Plane","Vectors & Products|Projectile Motion|Uniform Circular Motion",0],
-          ["p11_4","Ch 4: Laws of Motion","Newton's Laws & Impulse|Equilibrium|Friction|Banked Road Motion",1],
-          ["p11_5","Ch 5: Work, Energy & Power","Work-Energy Theorem|Spring PE & Vertical Circle|Collisions",1],
-          ["p11_6","Ch 6: Rotational Motion","Centre of Mass|Torque & Angular Momentum|Moment of Inertia|Rolling Motion",1],
-          ["p11_7","Ch 7: Gravitation","Kepler's Laws|Variation of g|Escape Velocity|Satellites",1],
-          ["p11_8","Ch 8: Mechanical Properties of Solids","Stress-Strain & Hooke's Law|Moduli & Poisson's Ratio",0],
-          ["p11_9","Ch 9: Mechanical Properties of Fluids","Pascal's Law|Bernoulli's Principle|Viscosity & Stokes' Law|Surface Tension",0],
-          ["p11_10","Ch 10: Thermal Properties of Matter","Expansion & Calorimetry|Latent Heat|Heat Transfer",0],
-          ["p11_11","Ch 11: Thermodynamics","First Law & Cp-Cv=R|Thermodynamic Processes|Second Law",1],
-          ["p11_12","Ch 12: Kinetic Theory","Ideal Gas Pressure & RMS|Degrees of Freedom & Mean Free Path",0],
-          ["p11_13","Ch 13: Oscillations","SHM Equations & Energy|Spring & Simple Pendulum",1],
-          ["p11_14","Ch 14: Waves","Progressive Waves & Sound|Standing Waves & Beats",0]
+        { id: "phys_mech", short: "Mechanics", unitName: "Mechanics (Kinematics, Laws, Rotational & Fluids)", chapters: mkCh([
+          ["p11_1","Units & Measurements","SI Units|Significant Figures|Dimensional Analysis|Vernier & Screw Gauge",0],
+          ["p11_2","Motion in a Straight Line","Speed & Velocity|x-t & v-t Graphs|Kinematics & Free Fall|Relative Velocity",0],
+          ["p11_3","Motion in a Plane","Vectors & Products|Projectile Motion|Uniform Circular Motion",0],
+          ["p11_4","Laws of Motion","Newton's Laws & Impulse|Equilibrium|Friction|Banked Road Motion",1],
+          ["p11_5","Work, Energy & Power","Work-Energy Theorem|Spring PE & Vertical Circle|Collisions",1],
+          ["p11_6","Rotational Motion","Centre of Mass|Torque & Angular Momentum|Moment of Inertia|Rolling Motion",1],
+          ["p11_7","Gravitation","Kepler's Laws|Variation of g|Escape Velocity|Satellites",1],
+          ["p11_8","Mechanical Properties of Solids","Stress-Strain & Hooke's Law|Moduli & Poisson's Ratio",0],
+          ["p11_9","Mechanical Properties of Fluids","Pascal's Law|Bernoulli's Principle|Viscosity & Stokes' Law|Surface Tension",0]
         ])},
-        { id: "phys_12", unitName: "NCERT Class 12 Physics (Ch 1–14)", chapters: mkCh([
-          ["p12_1","Ch 1: Electric Charges & Fields","Coulomb's Law|Dipole & Field Lines|Gauss's Law",1],
-          ["p12_2","Ch 2: Electrostatic Potential & Capacitance","Potential & Equipotentials|Dielectrics & Capacitors",1],
-          ["p12_3","Ch 3: Current Electricity","Drift Velocity & Ohm's Law|Kirchhoff's Rules|Wheatstone & Meter Bridge",1],
-          ["p12_4","Ch 4: Moving Charges & Magnetism","Lorentz Force|Biot-Savart & Ampere's Law|Galvanometer",1],
-          ["p12_5","Ch 5: Magnetism & Matter","Bar Magnet & Dipole|Dia, Para & Ferromagnetism",0],
-          ["p12_6","Ch 6: Electromagnetic Induction","Faraday & Lenz's Law|Inductance & AC Generator",0],
-          ["p12_7","Ch 7: Alternating Current","RMS AC & LCR Resonance|Power Factor & Transformers",1],
-          ["p12_8","Ch 8: Electromagnetic Waves","Displacement Current & EM Spectrum",0],
-          ["p12_9","Ch 9: Ray Optics","Mirrors, Refraction & TIR|Lensmaker & Prism|Microscope & Telescope",1],
-          ["p12_10","Ch 10: Wave Optics","Huygens & YDSE|Diffraction & Polarisation",1],
-          ["p12_11","Ch 11: Dual Nature","Photoelectric Effect|de Broglie Wavelength",1],
-          ["p12_12","Ch 12: Atoms","Rutherford & Bohr Model|Hydrogen Spectrum",1],
-          ["p12_13","Ch 13: Nuclei","Binding Energy, Fission & Fusion",0],
-          ["p12_14","Ch 14: Semiconductor Electronics","p-n Diode & Rectifiers|Zener, LED & Logic Gates",1]
+        { id: "phys_therm", short: "Thermal & Waves", unitName: "Thermal Physics, SHM & Waves", chapters: mkCh([
+          ["p11_10","Thermal Properties of Matter","Expansion & Calorimetry|Latent Heat|Heat Transfer",0],
+          ["p11_11","Thermodynamics","First Law & Cp-Cv=R|Thermodynamic Processes|Second Law",1],
+          ["p11_12","Kinetic Theory of Gases","Ideal Gas Pressure & RMS|Degrees of Freedom & Mean Free Path",0],
+          ["p11_13","Oscillations (SHM)","SHM Equations & Energy|Spring & Simple Pendulum",1],
+          ["p11_14","Waves & Acoustics","Progressive Waves & Sound|Standing Waves & Beats",0]
+        ])},
+        { id: "phys_em", short: "Electromagnetism", unitName: "Electromagnetism (Electrostatics, Current, Mag & AC)", chapters: mkCh([
+          ["p12_1","Electric Charges & Fields","Coulomb's Law|Dipole & Field Lines|Gauss's Law",1],
+          ["p12_2","Electrostatic Potential & Capacitance","Potential & Equipotentials|Dielectrics & Capacitors",1],
+          ["p12_3","Current Electricity","Drift Velocity & Ohm's Law|Kirchhoff's Rules|Wheatstone & Meter Bridge",1],
+          ["p12_4","Moving Charges & Magnetism","Lorentz Force|Biot-Savart & Ampere's Law|Galvanometer",1],
+          ["p12_5","Magnetism & Matter","Bar Magnet & Dipole|Dia, Para & Ferromagnetism",0],
+          ["p12_6","Electromagnetic Induction","Faraday & Lenz's Law|Inductance & AC Generator",0],
+          ["p12_7","Alternating Current","RMS AC & LCR Resonance|Power Factor & Transformers",1],
+          ["p12_8","Electromagnetic Waves","Displacement Current & EM Spectrum",0]
+        ])},
+        { id: "phys_opt", short: "Optics & Modern", unitName: "Optics, Modern Physics & Semiconductors", chapters: mkCh([
+          ["p12_9","Ray Optics","Mirrors, Refraction & TIR|Lensmaker & Prism|Microscope & Telescope",1],
+          ["p12_10","Wave Optics","Huygens & YDSE|Diffraction & Polarisation",1],
+          ["p12_11","Dual Nature of Radiation","Photoelectric Effect|de Broglie Wavelength",1],
+          ["p12_12","Atoms","Rutherford & Bohr Model|Hydrogen Spectrum",1],
+          ["p12_13","Nuclei","Binding Energy, Fission & Fusion",0],
+          ["p12_14","Semiconductor Electronics","p-n Diode & Rectifiers|Zener, LED & Logic Gates",1]
         ])}
       ]},
       { id: "chem", subject: "Chemistry", icon: "🧪", units: [
-        { id: "chem_11", unitName: "NCERT Class 11 Chemistry (Ch 1–9)", chapters: mkCh([
-          ["c11_1","Ch 1: Basic Concepts","Mole Concept|Stoichiometry & Limiting Reagent",0],
-          ["c11_2","Ch 2: Structure of Atom","Bohr & Spectrum|Quantum Numbers|Aufbau, Pauli & Hund",1],
-          ["c11_3","Ch 3: Periodicity","Radii, IE, Electron Gain & Electronegativity",0],
-          ["c11_4","Ch 4: Chemical Bonding","VSEPR & Hybridization|MOT & H-Bonding",1],
-          ["c11_5","Ch 5: Thermodynamics","Enthalpy & Hess's Law|Entropy & Gibbs Energy",1],
-          ["c11_6","Ch 6: Equilibrium","Kp, Kc & Le Chatelier|pH, Buffers & Ksp",1],
-          ["c11_7","Ch 7: Redox Reactions","Oxidation Number & Balancing",0],
-          ["c11_8","Ch 8: Organic Chemistry (GOC)","IUPAC & Isomerism|Electronic Effects & Intermediates|Qualitative Analysis",1],
-          ["c11_9","Ch 9: Hydrocarbons","Alkanes|Alkenes|Alkynes & Benzene",1]
+        { id: "chem_phys", short: "Physical Chem", unitName: "Physical Chemistry", chapters: mkCh([
+          ["c11_1","Some Basic Concepts (Mole)","Mole Concept|Stoichiometry & Limiting Reagent",0],
+          ["c11_2","Structure of Atom","Bohr & Spectrum|Quantum Numbers|Aufbau, Pauli & Hund",1],
+          ["c11_5","Thermodynamics","Enthalpy & Hess's Law|Entropy & Gibbs Energy",1],
+          ["c11_6","Equilibrium (Chem & Ionic)","Kp, Kc & Le Chatelier|pH, Buffers & Ksp",1],
+          ["c11_7","Redox Reactions","Oxidation Number & Balancing",0],
+          ["c12_1","Solutions","Henry & Raoult's Law|Colligative Properties & Van't Hoff",1],
+          ["c12_2","Electrochemistry","Nernst Equation|Conductivity, Kohlrausch & Faraday",1],
+          ["c12_3","Chemical Kinetics","Zero & First Order|Arrhenius Equation",1]
         ])},
-        { id: "chem_12", unitName: "NCERT Class 12 Chemistry (Ch 1–10 + p-Block)", chapters: mkCh([
-          ["c12_1","Ch 1: Solutions","Henry & Raoult's Law|Colligative Properties & Van't Hoff",1],
-          ["c12_2","Ch 2: Electrochemistry","Nernst Equation|Conductivity, Kohlrausch & Faraday",1],
-          ["c12_3","Ch 3: Chemical Kinetics","Zero & First Order|Arrhenius Equation",1],
-          ["c12_4","Ch 4: d- and f-Block","Transition Metals, K2Cr2O7 & KMnO4|Lanthanoids & Actinoids",1],
-          ["c12_5","Ch 5: Coordination Compounds","Werner, IUPAC & Isomerism|VBT, CFT & Carbonyls",1],
-          ["c12_pblock","NMC Unit 10: p-Block (Gr 13–18)","Groups 13–15 Trends|Groups 16–18 Trends",1],
-          ["c12_6","Ch 6: Haloalkanes & Haloarenes","SN1/SN2 & Elimination|Haloarenes",0],
-          ["c12_7","Ch 7: Alcohols, Phenols & Ethers","Lucas, Reimer-Tiemann & Kolbe|Williamson Synthesis",1],
-          ["c12_8","Ch 8: Aldehydes, Ketones & Acids","Aldol & Cannizzaro|Tollens, Haloform & HVZ",1],
-          ["c12_9","Ch 9: Amines","Basicity, Hoffmann & Carbylamine|Diazonium Salts",0],
-          ["c12_10","Ch 10: Biomolecules & Practical","Carbs, Proteins & Nucleic Acids|Salt Analysis & Titrations",1]
+        { id: "chem_inorg", short: "Inorganic Chem", unitName: "Inorganic Chemistry", chapters: mkCh([
+          ["c11_3","Classification & Periodicity","Radii, IE, Electron Gain & Electronegativity",0],
+          ["c11_4","Chemical Bonding","VSEPR & Hybridization|MOT & H-Bonding",1],
+          ["c12_pblock","p-Block Elements (Gr 13–18)","Groups 13–15 Trends|Groups 16–18 Trends",1],
+          ["c12_4","d- and f-Block Elements","Transition Metals, K2Cr2O7 & KMnO4|Lanthanoids & Actinoids",1],
+          ["c12_5","Coordination Compounds","Werner, IUPAC & Isomerism|VBT, CFT & Carbonyls",1]
+        ])},
+        { id: "chem_org", short: "Organic Chem", unitName: "Organic Chemistry & Practical", chapters: mkCh([
+          ["c11_8","Organic Chemistry (GOC)","IUPAC & Isomerism|Electronic Effects & Intermediates|Qualitative Analysis",1],
+          ["c11_9","Hydrocarbons","Alkanes|Alkenes|Alkynes & Benzene",1],
+          ["c12_6","Haloalkanes & Haloarenes","SN1/SN2 & Elimination|Haloarenes",0],
+          ["c12_7","Alcohols, Phenols & Ethers","Lucas, Reimer-Tiemann & Kolbe|Williamson Synthesis",1],
+          ["c12_8","Aldehydes, Ketones & Acids","Aldol & Cannizzaro|Tollens, Haloform & HVZ",1],
+          ["c12_9","Amines","Basicity, Hoffmann & Carbylamine|Diazonium Salts",0],
+          ["c12_10","Biomolecules & Practical","Carbs, Proteins & Nucleic Acids|Salt Analysis & Titrations",1]
         ])}
       ]},
       { id: "bio", subject: "Biology", icon: "🧬", units: [
-        { id: "bio_11", unitName: "NCERT Class 11 Biology (Ch 1–19)", chapters: mkCh([
-          ["b11_1","Ch 1: The Living World","Binomial Nomenclature & Taxonomic Hierarchy",0],
-          ["b11_2","Ch 2: Biological Classification","Monera, Protista & Fungi|Viruses, Viroids & Lichens",1],
-          ["b11_3","Ch 3: Plant Kingdom","Algae, Bryophytes, Pteridophytes, Gymnosperms & Angiosperms",1],
-          ["b11_4","Ch 4: Animal Kingdom","Non-Chordates|Chordates & Vertebrates",1],
-          ["b11_5","Ch 5: Morphology of Flowering Plants","Root, Stem, Leaf, Flower & Seed|Plant Families",1],
-          ["b11_6","Ch 6: Anatomy of Flowering Plants","Tissue Systems & Dicot vs Monocot",0],
-          ["b11_7","Ch 7: Structural Org (Frog)","Animal Tissues & Frog Anatomy",0],
-          ["b11_8","Ch 8: Cell: Unit of Life","Prokaryotic vs Eukaryotic|Organelles & Nucleus",1],
-          ["b11_9","Ch 9: Biomolecules","Biomacromolecules|Enzymes & Co-factors",1],
-          ["b11_10","Ch 10: Cell Cycle & Division","Mitosis|Meiosis I & II",1],
-          ["b11_11","Ch 11: Photosynthesis","Light Reaction & Chemiosmosis|C3, C4 & Photorespiration",1],
-          ["b11_12","Ch 12: Respiration in Plants","Glycolysis & Krebs Cycle|ETS, ATP Balance & RQ",1],
-          ["b11_13","Ch 13: Plant Growth","Growth Curves & PGRs",0],
-          ["b11_14","Ch 14: Breathing & Gases","Lung Volumes & Gas Transport",0],
-          ["b11_15","Ch 15: Body Fluids & Circulation","Blood, Cardiac Cycle & ECG",1],
-          ["b11_16","Ch 16: Excretory Products","Nephron, Counter-Current & RAAS",1],
-          ["b11_17","Ch 17: Locomotion & Movement","Sliding Filament & Skeleton",0],
-          ["b11_18","Ch 18: Neural Control","Nerve Impulse & Human Brain",1],
-          ["b11_19","Ch 19: Chemical Coordination","Endocrine Glands & Hormones",1]
+        { id: "bio_bot", short: "Botany", unitName: "Botany (Plant Diversity, Cell, Plant Phys & Ecology)", chapters: mkCh([
+          ["b11_1","The Living World","Binomial Nomenclature & Taxonomic Hierarchy",0],
+          ["b11_2","Biological Classification","Monera, Protista & Fungi|Viruses, Viroids & Lichens",1],
+          ["b11_3","Plant Kingdom","Algae, Bryophytes, Pteridophytes, Gymnosperms & Angiosperms",1],
+          ["b11_5","Morphology of Flowering Plants","Root, Stem, Leaf, Flower & Seed|Plant Families",1],
+          ["b11_6","Anatomy of Flowering Plants","Tissue Systems & Dicot vs Monocot",0],
+          ["b11_8","Cell: Unit of Life","Prokaryotic vs Eukaryotic|Organelles & Nucleus",1],
+          ["b11_10","Cell Cycle & Division","Mitosis|Meiosis I & II",1],
+          ["b11_11","Photosynthesis in Higher Plants","Light Reaction & Chemiosmosis|C3, C4 & Photorespiration",1],
+          ["b11_12","Respiration in Plants","Glycolysis & Krebs Cycle|ETS, ATP Balance & RQ",1],
+          ["b11_13","Plant Growth & Development","Growth Curves & PGRs",0],
+          ["b12_1","Sexual Reprod in Flowering Plants","Pollination & Double Fertilisation|Seed, Apomixis & Polyembryony",1],
+          ["b12_8","Microbes in Human Welfare","Sewage, Biogas & Biofertilisers",0],
+          ["b12_11","Organisms & Populations","Growth Models & Interactions",1],
+          ["b12_12","Ecosystem","Productivity, Energy Flow & Pyramids",1],
+          ["b12_13","Biodiversity & Conservation","Patterns, Evil Quartet & Conservation",1]
         ])},
-        { id: "bio_12", unitName: "NCERT Class 12 Biology (Ch 1–13)", chapters: mkCh([
-          ["b12_1","Ch 1: Sexual Reprod in Plants","Pollination & Double Fertilisation|Seed, Apomixis & Polyembryony",1],
-          ["b12_2","Ch 2: Human Reproduction","Gametogenesis, Menstrual Cycle & Parturition",1],
-          ["b12_3","Ch 3: Reproductive Health","Contraceptives, STIs & ART",0],
-          ["b12_4","Ch 4: Inheritance & Variation","Mendel, Linkage & Pedigree|Disorders",1],
-          ["b12_5","Ch 5: Molecular Basis","DNA Replication & Transcription|Lac Operon, HGP & Fingerprinting",1],
-          ["b12_6","Ch 6: Evolution","Evidences, Adaptive Radiation & Hardy-Weinberg",1],
-          ["b12_7","Ch 7: Human Health & Disease","Pathogens, Immunity, AIDS & Cancer",1],
-          ["b12_8","Ch 8: Microbes in Welfare","Sewage, Biogas & Biofertilisers",0],
-          ["b12_9","Ch 9: Biotech Principles","Restriction Enzymes, PCR & Vectors",1],
-          ["b12_10","Ch 10: Biotech Applications","Bt Cotton, RNAi, Insulin & Gene Therapy",1],
-          ["b12_11","Ch 11: Organisms & Populations","Growth Models & Interactions",1],
-          ["b12_12","Ch 12: Ecosystem","Productivity, Energy Flow & Pyramids",1],
-          ["b12_13","Ch 13: Biodiversity","Patterns, Evil Quartet & Conservation",1]
+        { id: "bio_zoo", short: "Zoology", unitName: "Zoology (Animal Kingdom, Human Phys, Genetics & Biotech)", chapters: mkCh([
+          ["b11_4","Animal Kingdom","Non-Chordates|Chordates & Vertebrates",1],
+          ["b11_7","Structural Org (Frog)","Animal Tissues & Frog Anatomy",0],
+          ["b11_9","Biomolecules","Biomacromolecules|Enzymes & Co-factors",1],
+          ["b11_14","Breathing & Exchange of Gases","Lung Volumes & Gas Transport",0],
+          ["b11_15","Body Fluids & Circulation","Blood, Cardiac Cycle & ECG",1],
+          ["b11_16","Excretory Products","Nephron, Counter-Current & RAAS",1],
+          ["b11_17","Locomotion & Movement","Sliding Filament & Skeleton",0],
+          ["b11_18","Neural Control & Coordination","Nerve Impulse & Human Brain",1],
+          ["b11_19","Chemical Coordination","Endocrine Glands & Hormones",1],
+          ["b12_2","Human Reproduction","Gametogenesis, Menstrual Cycle & Parturition",1],
+          ["b12_3","Reproductive Health","Contraceptives, STIs & ART",0],
+          ["b12_4","Inheritance & Variation","Mendel, Linkage & Pedigree|Disorders",1],
+          ["b12_5","Molecular Basis of Inheritance","DNA Replication & Transcription|Lac Operon, HGP & Fingerprinting",1],
+          ["b12_6","Evolution","Evidences, Adaptive Radiation & Hardy-Weinberg",1],
+          ["b12_7","Human Health & Disease","Pathogens, Immunity, AIDS & Cancer",1],
+          ["b12_9","Biotech: Principles & Processes","Restriction Enzymes, PCR & Vectors",1],
+          ["b12_10","Biotech & Its Applications","Bt Cotton, RNAi, Insulin & Gene Therapy",1]
         ])}
       ]}
     ];
@@ -899,8 +908,8 @@
     // TOUR
     const TOUR_SLIDES = [
       { icon: "⏱️", title: "Pure Black Sanctuary & 9 Soundtracks", desc: "Live wallpapers drift subtly behind Home; Clock In opens a pure black screen with crisp live wallpaper, 9 science soundtracks & 9 timestamp formats." },
-      { icon: "📋", title: "NCERT Checklist & 31-Day Decay", desc: "Tick off Class 11 & 12 NCERT chapters. Tag revisions with 'Forgot NCERT Line' or 'Concept Gap' so DOT AI schedules timely revisions." },
-      { icon: "🌐", title: "3D Deep-Space Spider-Web Observatory", desc: "Spin your 3D mastery crystal in deep space with Full-Screen mode, orbiting chapter satellites, and golden High-Yield halos." },
+      { icon: "📋", title: "9-Branch NCERT & 27-Day Red Alert", desc: "Organized into Mechanics, Thermal, EM, Optics, Physical/Inorganic/Organic Chem, Botany & Zoology. Medium decay triggers at 7–16d and Red Alert at 27+d." },
+      { icon: "🌐", title: "9-Axis 3D Deep-Space Observatory", desc: "Spin your 9-axis mastery crystal in deep space with Full-Screen mode, orbiting chapter satellites, and golden High-Yield halos." },
       { icon: "📅", title: "Weekly Sprint & 9 Atelier Themes", desc: "Plan Mon–Sun targets or auto-fill decaying chapters from DOT AI, and switch across 9 luxury themes in ⚙️ Settings." }
     ];
     let tourIndex = 0; const tourModal = document.getElementById("newUserIntroModal");
@@ -963,7 +972,7 @@
       catch (err) { if (err && (err.code === "auth/popup-blocked" || err.code === "auth/cancelled-popup-request")) signInWithRedirect(auth, googleProvider).catch(() => {}); else showAlert("Google Sign-In error: " + (err.code || err.message)); }
     });
 
-    // CORE APP LOGIC
+    // CORE APP LOGIC (7–16d MEDIUM | 17–26d URGENT | 27+d RED ALERT)
     function ensureRetention(u) {
       if (!u.syllabusChecked) u.syllabusChecked = {}; if (!u.syllabusCheckedAt) u.syllabusCheckedAt = {}; if (!u.syllabusReason) u.syllabusReason = {}; if (!Array.isArray(u.weeklySprint)) u.weeklySprint = [];
       const now = Date.now(); Object.keys(u.syllabusChecked).forEach(k => { if (u.syllabusChecked[k] && !u.syllabusCheckedAt[k]) u.syllabusCheckedAt[k] = now; });
@@ -971,8 +980,12 @@
     function getRetention(k) {
       if (!currentUser?.syllabusChecked?.[k]) return { status: "unlearned", days: 0, reason: "" };
       const ts = currentUser.syllabusCheckedAt?.[k] || Date.now(), reason = currentUser.syllabusReason?.[k] || "", days = Math.max(0, Math.floor((Date.now() - ts) / DAY_MS));
-      const fade = reason.includes("NCERT Line") ? 4 : FADING_DAYS, decay = reason.includes("NCERT Line") ? 18 : DECAY_DAYS;
-      return { status: days >= decay ? "decay" : (days >= fade ? "fading" : "fresh"), days, reason };
+      const tight = reason.includes("NCERT Line");
+      const medT = tight ? 4 : MEDIUM_DAYS, urgT = tight ? 12 : URGENT_DAYS, redT = tight ? 18 : RED_ALERT_DAYS;
+      if (days >= redT) return { status: "decay", days, reason };
+      if (days >= urgT) return { status: "urgent", days, reason };
+      if (days >= medT) return { status: "fading", days, reason };
+      return { status: "fresh", days, reason };
     }
     function computeTopLeak() {
       if (!currentUser) return "Balanced"; const c = {};
@@ -996,17 +1009,21 @@
     function getDotQueue() {
       if (!currentUser) return []; const checked = currentUser.syllabusChecked || {}, q = [];
       NEET_2027_SYLLABUS.forEach(s => {
-        let dec = null, fad = null, hy = null, inp = null, fr = null;
+        let dec = null, urg = null, fad = null, hy = null, inp = null, fr = null;
         s.units.forEach(u => u.chapters.forEach(ch => {
           let done = 0, first = -1;
           ch.subtopics.forEach((st, i) => {
             const k = `${ch.id}_${i}`;
-            if (checked[k]) { done++; const r = getRetention(k), o = { subject: s.subject, icon: s.icon, chapterName: ch.name, topicKey: k, subtopicName: st, isRevision: true, daysOld: r.days, status: r.status, reason: r.reason, hy: ch.hy }; if (r.status === "decay" && (!dec || r.days > dec.daysOld)) dec = o; if (r.status === "fading" && (!fad || r.days > fad.daysOld)) fad = o; }
-            else if (first === -1) first = i;
+            if (checked[k]) {
+              done++; const r = getRetention(k), o = { subject: s.subject, branch: u.short, icon: s.icon, chapterName: ch.name, topicKey: k, subtopicName: st, isRevision: true, daysOld: r.days, status: r.status, reason: r.reason, hy: ch.hy };
+              if (r.status === "decay" && (!dec || r.days > dec.daysOld)) dec = o;
+              if (r.status === "urgent" && (!urg || r.days > urg.daysOld)) urg = o;
+              if (r.status === "fading" && (!fad || r.days > fad.daysOld)) fad = o;
+            } else if (first === -1) first = i;
           });
-          if (first !== -1) { const o = { subject: s.subject, icon: s.icon, chapterName: ch.name, topicKey: `${ch.id}_${first}`, subtopicName: ch.subtopics[first], doneInChapter: done, totalInChapter: ch.subtopics.length, isRevision: false, hy: ch.hy }; if (done > 0 && !inp) inp = o; if (ch.hy && !hy) hy = o; if (done === 0 && !fr) fr = o; }
+          if (first !== -1) { const o = { subject: s.subject, branch: u.short, icon: s.icon, chapterName: ch.name, topicKey: `${ch.id}_${first}`, subtopicName: ch.subtopics[first], doneInChapter: done, totalInChapter: ch.subtopics.length, isRevision: false, hy: ch.hy }; if (done > 0 && !inp) inp = o; if (ch.hy && !hy) hy = o; if (done === 0 && !fr) fr = o; }
         }));
-        [dec, fad, inp, hy, fr].forEach(x => { if (x && !q.some(e => e.topicKey === x.topicKey)) q.push(x); });
+        [dec, urg, fad, inp, hy, fr].forEach(x => { if (x && !q.some(e => e.topicKey === x.topicKey)) q.push(x); });
       });
       return q;
     }
@@ -1018,9 +1035,13 @@
       const grid = document.getElementById("dotRecommendationsGrid");
       if (!recs.length) { grid.innerHTML = `<div class="col-span-3 p-4 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 text-emerald-300 text-xs font-bold text-center">🏆 All NCERT nodes Fresh &amp; Mastered!</div>`; return; }
       grid.innerHTML = recs.map(r => {
-        const badge = r.isRevision ? (r.status === "decay" ? `<span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-rose-950 text-rose-300 border border-rose-500/40">🔴 Decay (${r.daysOld}d)</span>` : `<span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-950 text-amber-300 border border-amber-500/40">🟡 Fading (${r.daysOld}d)</span>`) : (r.hy ? `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-200 border border-amber-400/30">🔥 High-Yield</span>` : `<span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-white/10 text-zinc-200">Next Topic</span>`);
-        const safeT = `${r.isRevision ? "Revise " : ""}${r.subject}: ${r.subtopicName}`.replace(/'/g, "\\'"), safeL = `${r.subject} • ${r.subtopicName}`.replace(/'/g, "\\'");
-        return `<div class="bg-black/75 rounded-2xl p-4 border ${r.status === 'decay' ? 'border-rose-500/40' : r.status === 'fading' ? 'border-amber-500/35' : 'border-zinc-800'} flex flex-col justify-between"><div><div class="flex items-center justify-between gap-2 mb-2"><span class="text-xs font-bold theme-gradient-text">${r.icon} ${r.subject}</span>${badge}</div><p class="text-xs text-zinc-400 line-clamp-1">${r.chapterName}</p><p class="text-sm font-bold text-white mt-1">${r.isRevision ? "🔁" : "🎯"} ${r.subtopicName}</p>${r.reason ? `<span class="inline-block mt-1.5 text-[10px] px-2 py-0.5 rounded bg-white/5 text-zinc-300">Tag: ${r.reason}</span>` : ""}</div><div class="grid grid-cols-2 gap-2 mt-4 pt-3 border-t border-zinc-900"><button type="button" onclick="startDotRecommendedClockIn('${safeT}')" class="clicky py-2 px-3 rounded-xl theme-btn-primary font-extrabold text-[11px]">▶ Clock In</button>${r.isRevision ? `<button type="button" onclick="openRevisionReasonModal('${r.topicKey}','${safeL}')" class="clicky py-2 px-3 rounded-xl bg-zinc-900 text-emerald-300 border border-emerald-500/30 font-semibold text-[11px]">↻ Revised</button>` : `<button type="button" onclick="markDotTopicDone('${r.topicKey}')" class="clicky py-2 px-3 rounded-xl bg-zinc-900 text-emerald-300 border border-zinc-800 font-semibold text-[11px]">✓ Done</button>`}</div></div>`;
+        const badge = r.isRevision
+          ? (r.status === "decay" ? `<span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-rose-950 text-rose-300 border border-rose-500/40">🔴 Red Alert (${r.daysOld}d)</span>`
+            : r.status === "urgent" ? `<span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-orange-950 text-orange-300 border border-orange-500/40">🟠 Urgent (${r.daysOld}d)</span>`
+            : `<span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-950 text-amber-300 border border-amber-500/40">🟡 Medium (${r.daysOld}d)</span>`)
+          : (r.hy ? `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-200 border border-amber-400/30">🔥 High-Yield</span>` : `<span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-white/10 text-zinc-200">Next Topic</span>`);
+        const safeT = `${r.isRevision ? "Revise " : ""}${r.branch}: ${r.subtopicName}`.replace(/'/g, "\\'"), safeL = `${r.branch} • ${r.subtopicName}`.replace(/'/g, "\\'");
+        return `<div class="bg-black/75 rounded-2xl p-4 border ${r.status === 'decay' ? 'border-rose-500/40' : r.status === 'urgent' ? 'border-orange-500/40' : r.status === 'fading' ? 'border-amber-500/35' : 'border-zinc-800'} flex flex-col justify-between transition-colors"><div><div class="flex items-center justify-between gap-2 mb-2"><span class="text-xs font-bold theme-gradient-text">${r.icon} ${r.branch}</span>${badge}</div><p class="text-xs text-zinc-400 line-clamp-1">${r.chapterName}</p><p class="text-sm font-bold text-white mt-1">${r.isRevision ? "🔁" : "🎯"} ${r.subtopicName}</p>${r.reason ? `<span class="inline-block mt-1.5 text-[10px] px-2 py-0.5 rounded bg-white/5 text-zinc-300">Tag: ${r.reason}</span>` : ""}</div><div class="grid grid-cols-2 gap-2 mt-4 pt-3 border-t border-zinc-900"><button type="button" onclick="startDotRecommendedClockIn('${safeT}')" class="clicky py-2 px-3 rounded-xl theme-btn-primary font-extrabold text-[11px]">▶ Clock In</button>${r.isRevision ? `<button type="button" onclick="openRevisionReasonModal('${r.topicKey}','${safeL}')" class="clicky py-2 px-3 rounded-xl bg-zinc-900 text-emerald-300 border border-emerald-500/30 font-semibold text-[11px]">↻ Revised</button>` : `<button type="button" onclick="markDotTopicDone('${r.topicKey}')" class="clicky py-2 px-3 rounded-xl bg-zinc-900 text-emerald-300 border border-zinc-800 font-semibold text-[11px]">✓ Done</button>`}</div></div>`;
       }).join("");
     }
 
@@ -1098,7 +1119,7 @@
     window.deleteStudySession = async (i) => { if (!currentUser) return; currentUser.sessions.splice(i, 1); renderDashboard(); await saveUserToCloud(currentUser); };
     function renderTimesheetTable() {
       const tb = document.getElementById("timesheetTableBody");
-      tb.innerHTML = !currentUser.sessions.length ? `<tr><td colspan="5" class="py-6 text-center text-zinc-500">No sessions yet.</td></tr>` : currentUser.sessions.slice(0, 25).map((s, i) => `<tr class="hover:bg-white/5"><td class="py-3 px-4 font-semibold text-zinc-300">${s.date}</td><td class="py-3 px-4 text-white">${s.subject}${s.reasonTag ? `<span class="ml-1.5 px-2 py-0.5 rounded text-[10px] bg-white/10 text-amber-200">${s.reasonTag}</span>` : ""}</td><td class="py-3 px-4 text-zinc-400 mono-nums text-[10px]">${s.entryType === "manual" ? "✍️ Manual" : `⏱️ ${s.startTime}`}</td><td class="py-3 px-4 text-right mono-nums font-bold theme-gradient-text">${Math.round((s.durationSeconds || 0) / 60)}m</td><td class="py-3 px-4 text-right"><button onclick="deleteStudySession(${i})" class="text-rose-400 px-2">✕</button></td></tr>`).join("");
+      tb.innerHTML = !currentUser.sessions.length ? `<tr><td colspan="5" class="py-6 text-center text-zinc-500">No sessions yet.</td></tr>` : currentUser.sessions.slice(0, 25).map((s, i) => `<tr class="hover:bg-white/5 transition-colors"><td class="py-3 px-4 font-semibold text-zinc-300">${s.date}</td><td class="py-3 px-4 text-white">${s.subject}${s.reasonTag ? `<span class="ml-1.5 px-2 py-0.5 rounded text-[10px] bg-white/10 text-amber-200">${s.reasonTag}</span>` : ""}</td><td class="py-3 px-4 text-zinc-400 mono-nums text-[10px]">${s.entryType === "manual" ? "✍️ Manual" : `⏱️ ${s.startTime}`}</td><td class="py-3 px-4 text-right mono-nums font-bold theme-gradient-text">${Math.round((s.durationSeconds || 0) / 60)}m</td><td class="py-3 px-4 text-right"><button onclick="deleteStudySession(${i})" class="text-rose-400 px-2">✕</button></td></tr>`).join("");
     }
     const exportCsv = () => { if (!currentUser?.sessions?.length) return alert("No sessions."); const rows = [["Date", "Subject", "Tag", "Stamp", "Hours"], ...currentUser.sessions.map(s => [s.date, `"${s.subject}"`, `"${s.reasonTag || ""}"`, `"${s.startTime || ""}"`, (s.durationSeconds / 3600).toFixed(2)])]; const a = document.createElement("a"); a.href = encodeURI("data:text/csv;charset=utf-8," + rows.map(r => r.join(",")).join("\n")); a.download = `studypunch_${currentUser.id}.csv`; a.click(); };
     document.getElementById("exportCsvBtn").addEventListener("click", exportCsv); document.getElementById("settingsExportCsvBtn").addEventListener("click", exportCsv);
@@ -1111,7 +1132,7 @@
       studyChart = new Chart(document.getElementById("studyChartCanvas"), { type: "bar", data: { labels: l7, datasets: [{ data: d7, backgroundColor: pal.bar, borderRadius: 6 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: "#a1a1aa", font: { size: 10 } }, grid: { display: false } }, y: { beginAtZero: true, ticks: { color: "#a1a1aa", font: { size: 10 } }, grid: { color: "rgba(161,161,170,.08)" } } } } });
 
       const b = { Physics: 0, Chemistry: 0, Biology: 0, Other: 0 };
-      currentUser.sessions.forEach(s => { const t = (s.subject || "").toLowerCase(); const k = /phys|rotat|optic|electro|magnet|wave/.test(t) ? "Physics" : /chem|goc|organic|mole|kinetic|block/.test(t) ? "Chemistry" : /bio|genet|cell|plant|human|ecolog/.test(t) ? "Biology" : "Other"; b[k] += Number(s.durationSeconds || 0); });
+      currentUser.sessions.forEach(s => { const t = (s.subject || "").toLowerCase(); const k = /phys|mech|therm|optic|electro|magnet|wave/.test(t) ? "Physics" : /chem|goc|organic|inorg|physical|mole|kinetic|block/.test(t) ? "Chemistry" : /bio|botan|zool|genet|cell|plant|human|ecolog/.test(t) ? "Biology" : "Other"; b[k] += Number(s.durationSeconds || 0); });
       const dv = Object.values(b).map(v => +(v / 3600).toFixed(2));
       if (subjectDoughnutChart) subjectDoughnutChart.destroy();
       subjectDoughnutChart = new Chart(document.getElementById("subjectDoughnutCanvas"), { type: "doughnut", data: { labels: ["⚡ Phys", "🧪 Chem", "🧬 Bio", "🎯 Mock"], datasets: [{ data: dv.reduce((a, c) => a + c, 0) > 0 ? dv : [1, 1, 1, 1], backgroundColor: ["#818cf8", "#f59e0b", "#10b981", "#52525b"], borderColor: "#050507", borderWidth: 3 }] }, options: { responsive: true, maintainAspectRatio: false, cutout: "66%", plugins: { legend: { position: "bottom", labels: { color: "#d4d4d8", font: { size: 10 }, boxWidth: 10 } } } } });
@@ -1121,8 +1142,8 @@
       velocityLineChart = new Chart(document.getElementById("velocityLineCanvas"), { type: "line", data: { labels: l14, datasets: [{ data: d14, borderColor: pal.line, backgroundColor: pal.lineFill, fill: true, tension: .35, pointRadius: 3, pointBackgroundColor: pal.bar }, { data: tgt, borderColor: "rgba(255,255,255,.3)", borderDash: [5, 5], pointRadius: 0, fill: false }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: "#a1a1aa", font: { size: 9 } }, grid: { display: false } }, y: { beginAtZero: true, ticks: { color: "#a1a1aa", font: { size: 10 } }, grid: { color: "rgba(161,161,170,.08)" } } } } });
     }
 
-    // SYLLABUS + 3D DATA
-    const openFolders = { phys: true, chem: true, bio: true, phys_11: true, chem_11: true, bio_11: true };
+    // 9-BRANCH SYLLABUS + 9-AXIS 3D DATA
+    const openFolders = { phys: true, chem: true, bio: true, phys_mech: true, chem_org: true, bio_bot: true };
     let spider3dOverallPct = 0, spider3dAxesData = [];
     window.toggleFolderNode = (k) => { openFolders[k] = !openFolders[k]; renderSyllabusTree(document.getElementById("syllabusSearchInput").value.trim()); };
     window.toggleSubtopicCheck = async (k) => { if (!currentUser) return; if (currentUser.syllabusChecked[k]) { delete currentUser.syllabusChecked[k]; delete currentUser.syllabusCheckedAt[k]; delete currentUser.syllabusReason[k]; } else { currentUser.syllabusChecked[k] = true; currentUser.syllabusCheckedAt[k] = Date.now(); } renderSyllabusTree(document.getElementById("syllabusSearchInput").value.trim()); renderDashboard(); await saveUserToCloud(currentUser); };
@@ -1134,32 +1155,37 @@
     function renderSyllabusTree(q = "") {
       if (!currentUser) return; ensureRetention(currentUser);
       const checked = currentUser.syllabusChecked || {}, ql = q.toLowerCase();
-      let allDone = 0, frT = 0, faT = 0, deT = 0, hyTot = 0, hyDone = 0; const subjStats = [], axes = [];
+      let allDone = 0, frT = 0, faT = 0, urT = 0, deT = 0, hyTot = 0, hyDone = 0; const subjStats = [], axes = [];
       const html = NEET_2027_SYLLABUS.map(s => {
         let sTot = 0, sDone = 0;
         const uHtml = s.units.map(u => {
-          let uTot = 0, uDone = 0, uFa = 0, uDe = 0, uHyGap = false; const sats = [];
+          let uTot = 0, uDone = 0, uFa = 0, uUr = 0, uDe = 0, uHyGap = false; const sats = [];
           const cHtml = u.chapters.map(ch => {
-            const cTot = ch.subtopics.length; let cDone = 0, cDe = false, cFa = false;
+            const cTot = ch.subtopics.length; let cDone = 0, cDe = false, cUr = false, cFa = false;
             ch.subtopics.forEach((_, i) => {
               const k = `${ch.id}_${i}`; if (ch.hy) hyTot++;
-              if (checked[k]) { cDone++; if (ch.hy) hyDone++; const r = getRetention(k); if (r.status === "decay") { deT++; uDe++; cDe = true; if (ch.hy) uHyGap = true; } else if (r.status === "fading") { faT++; uFa++; cFa = true; } else frT++; }
-              else if (ch.hy) uHyGap = true;
+              if (checked[k]) {
+                cDone++; if (ch.hy) hyDone++; const r = getRetention(k);
+                if (r.status === "decay") { deT++; uDe++; cDe = true; if (ch.hy) uHyGap = true; }
+                else if (r.status === "urgent") { urT++; uUr++; cUr = true; }
+                else if (r.status === "fading") { faT++; uFa++; cFa = true; }
+                else frT++;
+              } else if (ch.hy) uHyGap = true;
             });
-            sats.push({ state: cDone === 0 ? "unlearned" : (cDe ? "decay" : (cFa ? "fading" : "fresh")), hy: ch.hy });
+            sats.push({ state: cDone === 0 ? "unlearned" : (cDe ? "decay" : (cUr ? "urgent" : (cFa ? "fading" : "fresh"))), hy: ch.hy });
             uTot += cTot; uDone += cDone; sTot += cTot; sDone += cDone; allDone += cDone;
-            if (ql && !ch.name.toLowerCase().includes(ql) && !ch.subtopics.some(x => x.toLowerCase().includes(ql))) return "";
+            if (ql && !u.unitName.toLowerCase().includes(ql) && !ch.name.toLowerCase().includes(ql) && !ch.subtopics.some(x => x.toLowerCase().includes(ql))) return "";
             const isOpen = ql ? true : Boolean(openFolders[ch.id]), allC = cDone === cTot;
             const stHtml = ch.subtopics.map((st, i) => {
-              const k = `${ch.id}_${i}`, dn = Boolean(checked[k]); if (ql && !ch.name.toLowerCase().includes(ql) && !st.toLowerCase().includes(ql)) return "";
-              const r = getRetention(k), safeT = `${s.subject}: ${st}`.replace(/'/g, "\\'"), safeL = `${s.subject} • ${st}`.replace(/'/g, "\\'");
-              const b = !dn ? "" : r.status === "decay" ? `<span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-rose-950 text-rose-300">🔴 ${r.days}d</span>` : r.status === "fading" ? `<span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-amber-950 text-amber-300">🟡 ${r.days}d</span>` : `<span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-emerald-950/80 text-emerald-300">🟢 Fresh</span>`;
-              return `<div class="spider-node flex flex-wrap items-center justify-between gap-2 py-2 px-3 rounded-xl hover:bg-white/5"><label class="flex flex-wrap items-center gap-2 cursor-pointer flex-1"><input type="checkbox" ${dn ? "checked" : ""} onchange="toggleSubtopicCheck('${k}')" class="w-4 h-4 rounded accent-amber-400" /><span class="text-xs sm:text-sm text-zinc-200">${st}</span>${b}</label><div class="flex items-center gap-1.5">${dn ? `<button type="button" onclick="openRevisionReasonModal('${k}','${safeL}')" class="clicky px-2 py-1 rounded-lg text-[10px] font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-500/30">↻ Revised</button>` : ""}<button type="button" onclick="startDotRecommendedClockIn('${safeT}')" class="clicky px-2.5 py-1 rounded-lg text-[10px] font-bold bg-white/10 text-zinc-200">⚡ Clock In</button></div></div>`;
+              const k = `${ch.id}_${i}`, dn = Boolean(checked[k]); if (ql && !u.unitName.toLowerCase().includes(ql) && !ch.name.toLowerCase().includes(ql) && !st.toLowerCase().includes(ql)) return "";
+              const r = getRetention(k), safeT = `${u.short}: ${st}`.replace(/'/g, "\\'"), safeL = `${u.short} • ${st}`.replace(/'/g, "\\'");
+              const b = !dn ? "" : r.status === "decay" ? `<span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-rose-950 text-rose-300">🔴 ${r.days}d</span>` : r.status === "urgent" ? `<span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-orange-950 text-orange-300">🟠 ${r.days}d</span>` : r.status === "fading" ? `<span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-amber-950 text-amber-300">🟡 ${r.days}d</span>` : `<span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-emerald-950/80 text-emerald-300">🟢 Fresh</span>`;
+              return `<div class="spider-node flex flex-wrap items-center justify-between gap-2 py-2 px-3 rounded-xl hover:bg-white/5 transition-colors"><label class="flex flex-wrap items-center gap-2 cursor-pointer flex-1"><input type="checkbox" ${dn ? "checked" : ""} onchange="toggleSubtopicCheck('${k}')" class="w-4 h-4 rounded accent-amber-400" /><span class="text-xs sm:text-sm text-zinc-200">${st}</span>${b}</label><div class="flex items-center gap-1.5">${dn ? `<button type="button" onclick="openRevisionReasonModal('${k}','${safeL}')" class="clicky px-2 py-1 rounded-lg text-[10px] font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-500/30">↻ Revised</button>` : ""}<button type="button" onclick="startDotRecommendedClockIn('${safeT}')" class="clicky px-2.5 py-1 rounded-lg text-[10px] font-bold bg-white/10 text-zinc-200">⚡ Clock In</button></div></div>`;
             }).join("");
-            return `<div class="spider-node my-2.5"><div class="bg-black/75 border ${ch.hy ? 'border-amber-500/25' : 'border-zinc-800'} rounded-2xl p-3"><div class="flex flex-wrap items-center justify-between gap-2"><button type="button" onclick="toggleFolderNode('${ch.id}')" class="flex flex-wrap items-center gap-2 text-left font-bold text-xs sm:text-sm text-white flex-1"><span>${isOpen ? "📂" : "📁"}</span><span>${ch.name}</span>${ch.hy ? `<span class="px-1.5 py-0.5 text-[9px] rounded bg-amber-500/20 text-amber-200 font-extrabold">🔥 HY</span>` : ""}<span class="px-2 py-0.5 text-[10px] rounded-full bg-zinc-900 text-zinc-400">${cDone}/${cTot}</span></button><button type="button" onclick="toggleWholeChapter('${ch.id}',${!allC})" class="clicky text-[10px] px-2.5 py-1 rounded-lg bg-zinc-900 text-zinc-300 border border-zinc-800">${allC ? "Reset" : "✓ Tick"}</button></div>${isOpen ? `<div class="spider-hub mt-2 space-y-1">${stHtml}</div>` : ""}</div></div>`;
+            return `<div class="spider-node my-2.5"><div class="bg-black/75 border ${ch.hy ? 'border-amber-500/25' : 'border-zinc-800'} rounded-2xl p-3 transition-colors"><div class="flex flex-wrap items-center justify-between gap-2"><button type="button" onclick="toggleFolderNode('${ch.id}')" class="flex flex-wrap items-center gap-2 text-left font-bold text-xs sm:text-sm text-white flex-1"><span>${isOpen ? "📂" : "📁"}</span><span>${ch.name}</span>${ch.hy ? `<span class="px-1.5 py-0.5 text-[9px] rounded bg-amber-500/20 text-amber-200 font-extrabold">🔥 HY</span>` : ""}<span class="px-2 py-0.5 text-[10px] rounded-full bg-zinc-900 text-zinc-400">${cDone}/${cTot}</span></button><button type="button" onclick="toggleWholeChapter('${ch.id}',${!allC})" class="clicky text-[10px] px-2.5 py-1 rounded-lg bg-zinc-900 text-zinc-300 border border-zinc-800">${allC ? "Reset" : "✓ Tick"}</button></div>${isOpen ? `<div class="spider-hub mt-2 space-y-1">${stHtml}</div>` : ""}</div></div>`;
           }).join("");
           const uPct = uTot ? Math.round((uDone / uTot) * 100) : 0;
-          axes.push({ label: `${s.icon} ${u.unitName.replace("NCERT Class ", "").replace("Physics", "Phys").replace("Chemistry", "Chem").replace("Biology", "Bio").split(" (")[0]}`, pct: uPct, done: uDone, total: uTot, decayStatus: uDe > 0 ? "decay" : (uFa > 0 ? "fading" : "fresh"), hyGap: uHyGap, satellites: sats });
+          axes.push({ label: `${s.icon} ${u.short}`, pct: uPct, done: uDone, total: uTot, decayStatus: uDe > 0 ? "decay" : (uUr > 0 ? "urgent" : (uFa > 0 ? "fading" : "fresh")), hyGap: uHyGap, satellites: sats });
           if (!cHtml.trim()) return "";
           const isUOpen = ql ? true : Boolean(openFolders[u.id]);
           return `<div class="spider-node my-3"><div class="bg-black/60 border border-zinc-800/90 rounded-2xl p-3.5"><button type="button" onclick="toggleFolderNode('${u.id}')" class="w-full flex items-center justify-between text-left"><span class="font-bold text-sm theme-gradient-text">🕸️ ${u.unitName}</span><span class="mono-nums text-xs font-bold text-emerald-400">${uDone}/${uTot} (${uPct}%)</span></button>${isUOpen ? `<div class="spider-hub mt-3">${cHtml}</div>` : ""}</div></div>`;
@@ -1176,15 +1202,15 @@
       document.getElementById("spider3dRankBadge").textContent = spider3dOverallPct >= 90 ? "Rank: Apex Legend 👑" : spider3dOverallPct >= 70 ? "Rank: Vanguard ⚔️" : spider3dOverallPct >= 45 ? "Rank: Tactician 🎯" : spider3dOverallPct >= 20 ? "Rank: Challenger 🔥" : "Rank: Initiate ⚡";
       document.getElementById("highYieldOverallBadge").textContent = `${hyTot ? Math.round((hyDone / hyTot) * 100) : 0}% Mastered`;
       document.getElementById("highYieldSubtext").textContent = `${hyDone} / ${hyTot} high-weightage nodes`;
-      document.getElementById("retentionHealthSummary").innerHTML = `<div class="p-2 rounded-xl bg-emerald-950/40 border border-emerald-500/30"><p class="mono-nums text-sm font-black text-emerald-400">${frT}</p><p class="text-[9px] text-emerald-200 font-bold">🟢 Fresh</p></div><div class="p-2 rounded-xl bg-amber-950/40 border border-amber-500/30"><p class="mono-nums text-sm font-black text-amber-400">${faT}</p><p class="text-[9px] text-amber-200 font-bold">🟡 7–30d</p></div><div class="p-2 rounded-xl bg-rose-950/40 border border-rose-500/30"><p class="mono-nums text-sm font-black text-rose-400">${deT}</p><p class="text-[9px] text-rose-200 font-bold">🔴 31+d</p></div>`;
+      document.getElementById("retentionHealthSummary").innerHTML = `<div class="p-1.5 rounded-xl bg-emerald-950/40 border border-emerald-500/30"><p class="mono-nums text-xs font-black text-emerald-400">${frT}</p><p class="text-[8px] text-emerald-200 font-bold">🟢 0–6d</p></div><div class="p-1.5 rounded-xl bg-amber-950/40 border border-amber-500/30"><p class="mono-nums text-xs font-black text-amber-400">${faT}</p><p class="text-[8px] text-amber-200 font-bold">🟡 7–16d</p></div><div class="p-1.5 rounded-xl bg-orange-950/40 border border-orange-500/30"><p class="mono-nums text-xs font-black text-orange-400">${urT}</p><p class="text-[8px] text-orange-200 font-bold">🟠 17–26d</p></div><div class="p-1.5 rounded-xl bg-rose-950/40 border border-rose-500/30"><p class="mono-nums text-xs font-black text-rose-400">${deT}</p><p class="text-[8px] text-rose-200 font-bold">🔴 27+d</p></div>`;
       document.getElementById("subjectSummaryCards").innerHTML = subjStats.map(st => `<div class="p-4 rounded-2xl bg-black/75 border border-zinc-800 flex items-center justify-between"><div><p class="text-xs font-bold text-white">${st.icon} ${st.name}</p><p class="text-[11px] text-zinc-500 mono-nums">${st.done}/${st.total}</p></div><span class="mono-nums text-lg font-black theme-gradient-text">${st.pct}%</span></div>`).join("");
-      document.getElementById("spider3dAxisList").innerHTML = axes.map(ax => `<div><div class="flex justify-between text-[11px] font-semibold mb-1"><span class="text-zinc-200">${ax.decayStatus === "decay" ? "🔴" : ax.decayStatus === "fading" ? "🟡" : "🟢"} ${ax.label}</span><span class="mono-nums theme-gradient-text font-bold">${ax.pct}%</span></div><div class="w-full bg-zinc-950 h-1.5 rounded-full overflow-hidden border border-zinc-800"><div class="theme-btn-primary h-full rounded-full" style="width:${ax.pct}%"></div></div></div>`).join("");
+      document.getElementById("spider3dAxisList").innerHTML = axes.map(ax => `<div><div class="flex justify-between text-[11px] font-semibold mb-1"><span class="text-zinc-200">${ax.decayStatus === "decay" ? "🔴" : ax.decayStatus === "urgent" ? "🟠" : ax.decayStatus === "fading" ? "🟡" : "🟢"} ${ax.label}</span><span class="mono-nums theme-gradient-text font-bold">${ax.pct}%</span></div><div class="w-full bg-zinc-950 h-1.5 rounded-full overflow-hidden border border-zinc-800"><div class="theme-btn-primary h-full rounded-full transition-all duration-500" style="width:${ax.pct}%"></div></div></div>`).join("");
       if (syllabusSubjectBarChart) syllabusSubjectBarChart.destroy();
       syllabusSubjectBarChart = new Chart(document.getElementById("syllabusSubjectBarCanvas"), { type: "bar", data: { labels: subjStats.map(s => `${s.icon} ${s.name}`), datasets: [{ data: subjStats.map(s => s.pct), backgroundColor: ["#818cf8", "#f59e0b", "#10b981"], borderRadius: 6 }] }, options: { indexAxis: "y", responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { min: 0, max: 100, ticks: { color: "#a1a1aa", font: { size: 10 } } }, y: { ticks: { color: "#f4f4f5", font: { size: 11, weight: "bold" } } } } } });
       document.getElementById("syllabusTreeContainer").innerHTML = html || `<div class="p-8 text-center text-zinc-500">No matches.</div>`;
     }
 
-    // 3D DEEP-SPACE SPIDER-WEB
+    // 9-AXIS 3D DEEP-SPACE SPIDER-WEB
     const s3dStageBox = document.getElementById("spider3dStageBox"), s3dCanvas = document.getElementById("spider3dCanvas"), s3dCtx = s3dCanvas.getContext("2d");
     let rotX = .45, rotY = .35, zoom3d = 1, autoRotate3d = true, haloPhase = 0, energyWave = 0, isDragging3d = false, lastMX = 0, lastMY = 0, s3dAnimId = null, projCache = [];
     const spaceStars3d = Array.from({ length: 140 }, () => ({ x: (Math.random() - .5) * 900, y: (Math.random() - .5) * 900, z: (Math.random() - .5) * 900, r: Math.random() * 1.5 + .4, tw: Math.random() * 6.28 }));
@@ -1214,7 +1240,7 @@
     function render3dFrame() {
       if (!s3dCtx) return; if (!s3dCanvas.width) resize3dCanvas();
       const w = s3dCanvas.width, h = s3dCanvas.height, cx = w / 2, cy = h / 2, maxR = Math.min(w, h) * .35, fov = 460;
-      if (autoRotate3d && !isDragging3d) rotY += .0055; haloPhase += .06; energyWave = (energyWave + .015) % 1;
+      if (autoRotate3d && !isDragging3d) rotY += .005; haloPhase += .06; energyWave = (energyWave + .015) % 1;
       const pAlpha = .35 + .35 * Math.sin(haloPhase), pal = THEME_CHART_PALETTE[activeWebTheme] || THEME_CHART_PALETTE.sunset;
       s3dCtx.fillStyle = "#020308"; s3dCtx.fillRect(0, 0, w, h);
       const n1 = s3dCtx.createRadialGradient(cx * .7, cy * .65, 10, cx * .7, cy * .65, maxR * 1.9); n1.addColorStop(0, pal.neb1); n1.addColorStop(1, "rgba(2,3,8,0)"); s3dCtx.fillStyle = n1; s3dCtx.fillRect(0, 0, w, h);
@@ -1228,22 +1254,22 @@
         const mPts = [];
         dirs.forEach((d, i) => {
           const op = project3D(d.dx * maxR, 0, d.dz * maxR, cx, cy, fov);
-          s3dCtx.beginPath(); s3dCtx.moveTo(ctr.px, ctr.py); s3dCtx.lineTo(op.px, op.py); s3dCtx.moveTo(oTop.px, oTop.py); s3dCtx.lineTo(op.px, op.py); s3dCtx.lineTo(oBot.px, oBot.py); s3dCtx.strokeStyle = "rgba(255,255,255,.12)"; s3dCtx.lineWidth = .9; s3dCtx.stroke();
+          s3dCtx.beginPath(); s3dCtx.moveTo(ctr.px, ctr.py); s3dCtx.lineTo(op.px, op.py); s3dCtx.moveTo(oTop.px, oTop.py); s3dCtx.lineTo(op.px, op.py); s3dCtx.lineTo(oBot.px, oBot.py); s3dCtx.strokeStyle = "rgba(255,255,255,.11)"; s3dCtx.lineWidth = .85; s3dCtx.stroke();
           const pp = project3D(d.dx * maxR * energyWave, 0, d.dz * maxR * energyWave, cx, cy, fov); s3dCtx.beginPath(); s3dCtx.arc(pp.px, pp.py, Math.max(1.5, 2.5 * pp.scale), 0, Math.PI * 2); s3dCtx.fillStyle = `rgba(${pal.rgb},${1 - energyWave})`; s3dCtx.fill();
           const f = Math.max(.14, (axes[i].pct || 0) / 100), mp = project3D(d.dx * maxR * f, 0, d.dz * maxR * f, cx, cy, fov);
           mPts.push({ ...mp, ...axes[i] });
-          (axes[i].satellites || []).forEach((sat, si) => { const sa = (si / Math.max(1, axes[i].satellites.length)) * Math.PI * 2 + haloPhase * .25, sp = project3D(d.dx * maxR * f + Math.cos(sa) * 20, Math.sin(sa) * 15, d.dz * maxR * f + Math.sin(sa) * 20, cx, cy, fov); s3dCtx.beginPath(); s3dCtx.arc(sp.px, sp.py, Math.max(1.8, (sat.hy ? 3.2 : 2.3) * sp.scale), 0, Math.PI * 2); s3dCtx.fillStyle = sat.state === "decay" ? "#f43f5e" : sat.state === "fading" ? "#f59e0b" : sat.state === "fresh" ? "#10b981" : "rgba(161,161,170,.35)"; s3dCtx.fill(); });
-          if (highYieldGlowEnabled && axes[i].hyGap) { s3dCtx.beginPath(); s3dCtx.arc(op.px, op.py, Math.max(7, 11 * op.scale), 0, Math.PI * 2); s3dCtx.strokeStyle = `rgba(251,191,36,${pAlpha})`; s3dCtx.lineWidth = 2; s3dCtx.stroke(); }
-          const lp = project3D(d.dx * (maxR + 42), 0, d.dz * (maxR + 42), cx, cy, fov); s3dCtx.font = "bold 11px Inter,sans-serif"; s3dCtx.fillStyle = axes[i].decayStatus === "decay" ? "#fda4af" : axes[i].decayStatus === "fading" ? "#fde68a" : "#e4e4e7"; s3dCtx.textAlign = "center"; s3dCtx.fillText(`${axes[i].label} (${axes[i].pct}%)${highYieldGlowEnabled && axes[i].hyGap ? " 🔥" : ""}`, lp.px, lp.py);
+          (axes[i].satellites || []).forEach((sat, si) => { const sa = (si / Math.max(1, axes[i].satellites.length)) * Math.PI * 2 + haloPhase * .25, sp = project3D(d.dx * maxR * f + Math.cos(sa) * 18, Math.sin(sa) * 13, d.dz * maxR * f + Math.sin(sa) * 18, cx, cy, fov); s3dCtx.beginPath(); s3dCtx.arc(sp.px, sp.py, Math.max(1.6, (sat.hy ? 3 : 2.1) * sp.scale), 0, Math.PI * 2); s3dCtx.fillStyle = sat.state === "decay" ? "#f43f5e" : sat.state === "urgent" ? "#f97316" : sat.state === "fading" ? "#f59e0b" : sat.state === "fresh" ? "#10b981" : "rgba(161,161,170,.35)"; s3dCtx.fill(); });
+          if (highYieldGlowEnabled && axes[i].hyGap) { s3dCtx.beginPath(); s3dCtx.arc(op.px, op.py, Math.max(6, 10 * op.scale), 0, Math.PI * 2); s3dCtx.strokeStyle = `rgba(251,191,36,${pAlpha})`; s3dCtx.lineWidth = 1.8; s3dCtx.stroke(); }
+          const lp = project3D(d.dx * (maxR + 40), 0, d.dz * (maxR + 40), cx, cy, fov); s3dCtx.font = "bold 10px Inter,sans-serif"; s3dCtx.fillStyle = axes[i].decayStatus === "decay" ? "#fda4af" : axes[i].decayStatus === "urgent" ? "#fdba74" : axes[i].decayStatus === "fading" ? "#fde68a" : "#e4e4e7"; s3dCtx.textAlign = "center"; s3dCtx.fillText(`${axes[i].label} (${axes[i].pct}%)`, lp.px, lp.py);
         });
         projCache = mPts;
         const pf = Math.max(.18, spider3dOverallPct / 100), mTop = project3D(0, -maxR * .74 * pf, 0, cx, cy, fov), mBot = project3D(0, maxR * .74 * pf, 0, cx, cy, fov);
         for (let i = 0; i < n; i++) {
-          const pA = mPts[i], pB = mPts[(i + 1) % n], rgb = (pA.decayStatus === "decay" || pB.decayStatus === "decay") ? "244,63,94" : (pA.decayStatus === "fading" || pB.decayStatus === "fading") ? "245,158,11" : pal.rgb;
-          s3dCtx.beginPath(); s3dCtx.moveTo(mTop.px, mTop.py); s3dCtx.lineTo(pA.px, pA.py); s3dCtx.lineTo(pB.px, pB.py); s3dCtx.closePath(); s3dCtx.fillStyle = `rgba(${rgb},.21)`; s3dCtx.fill(); s3dCtx.strokeStyle = `rgba(${rgb},.82)`; s3dCtx.lineWidth = 1.5; s3dCtx.stroke();
+          const pA = mPts[i], pB = mPts[(i + 1) % n], rgb = (pA.decayStatus === "decay" || pB.decayStatus === "decay") ? "244,63,94" : (pA.decayStatus === "urgent" || pB.decayStatus === "urgent") ? "249,115,22" : (pA.decayStatus === "fading" || pB.decayStatus === "fading") ? "245,158,11" : pal.rgb;
+          s3dCtx.beginPath(); s3dCtx.moveTo(mTop.px, mTop.py); s3dCtx.lineTo(pA.px, pA.py); s3dCtx.lineTo(pB.px, pB.py); s3dCtx.closePath(); s3dCtx.fillStyle = `rgba(${rgb},.21)`; s3dCtx.fill(); s3dCtx.strokeStyle = `rgba(${rgb},.82)`; s3dCtx.lineWidth = 1.4; s3dCtx.stroke();
           s3dCtx.beginPath(); s3dCtx.moveTo(mBot.px, mBot.py); s3dCtx.lineTo(pA.px, pA.py); s3dCtx.lineTo(pB.px, pB.py); s3dCtx.closePath(); s3dCtx.fillStyle = `rgba(${rgb},.12)`; s3dCtx.fill(); s3dCtx.strokeStyle = `rgba(${rgb},.48)`; s3dCtx.lineWidth = 1; s3dCtx.stroke();
         }
-        [...mPts, mTop, mBot].forEach(pt => { s3dCtx.beginPath(); s3dCtx.arc(pt.px, pt.py, Math.max(3.8, 6.2 * pt.scale), 0, Math.PI * 2); s3dCtx.fillStyle = "#fff"; s3dCtx.fill(); s3dCtx.strokeStyle = pt.decayStatus === "decay" ? "#f43f5e" : pt.decayStatus === "fading" ? "#f59e0b" : pal.bar; s3dCtx.lineWidth = 2.2; s3dCtx.stroke(); });
+        [...mPts, mTop, mBot].forEach(pt => { s3dCtx.beginPath(); s3dCtx.arc(pt.px, pt.py, Math.max(3.5, 5.8 * pt.scale), 0, Math.PI * 2); s3dCtx.fillStyle = "#fff"; s3dCtx.fill(); s3dCtx.strokeStyle = pt.decayStatus === "decay" ? "#f43f5e" : pt.decayStatus === "urgent" ? "#f97316" : pt.decayStatus === "fading" ? "#f59e0b" : pal.bar; s3dCtx.lineWidth = 2; s3dCtx.stroke(); });
         s3dCtx.font = "bold 10px JetBrains Mono,monospace"; s3dCtx.fillStyle = pal.bar; s3dCtx.textAlign = "center"; s3dCtx.fillText(`APEX ${spider3dOverallPct}%`, mTop.px, mTop.py - 12);
       }
       s3dAnimId = requestAnimationFrame(render3dFrame);
@@ -1260,23 +1286,23 @@
       document.getElementById("sprintProgressBadge").textContent = `${tasks.filter(t => t.done).length} / ${tasks.length} Done`;
       document.getElementById("weeklySprintGrid").innerHTML = SPRINT_DAYS.map(d => {
         const dt = tasks.filter(t => t.day === d.key), isT = d.key === todayKey;
-        return `<div class="bg-black/70 rounded-2xl p-4 border ${isT ? 'border-amber-400/50' : 'border-zinc-800'}"><div class="flex items-center justify-between mb-3 pb-2 border-b border-zinc-800/80"><span class="text-xs font-extrabold uppercase ${isT ? 'theme-gradient-text' : 'text-zinc-300'}">${d.label}</span>${isT ? `<span class="px-2 py-0.5 rounded-full text-[9px] font-black theme-btn-primary">TODAY</span>` : `<span class="text-[10px] text-zinc-500">${dt.length}</span>`}</div><div class="space-y-2 max-h-56 overflow-y-auto">${dt.length ? dt.map(t => `<div class="p-2.5 rounded-xl bg-zinc-950/90 border ${t.done ? 'border-emerald-500/25 opacity-60' : 'border-zinc-800'} flex items-start justify-between gap-2"><label class="flex items-start gap-2 cursor-pointer flex-1"><input type="checkbox" ${t.done ? "checked" : ""} onchange="toggleSprintTask('${t.id}')" class="mt-0.5 w-3.5 h-3.5 accent-amber-400" /><span class="text-xs ${t.done ? 'line-through text-zinc-500' : 'text-zinc-200'}">${t.title}</span></label><div class="flex items-center gap-1">${!t.done ? `<button type="button" onclick="startDotRecommendedClockIn('${t.title.replace(/'/g, "\\'")}')" class="px-1.5 py-0.5 rounded bg-white/10 text-[10px] font-bold">▶</button>` : ""}<button type="button" onclick="deleteSprintTask('${t.id}')" class="text-zinc-500 hover:text-rose-400 text-xs px-1">✕</button></div></div>`).join("") : `<p class="text-[11px] text-zinc-600 italic py-4 text-center">No targets</p>`}</div></div>`;
+        return `<div class="bg-black/70 rounded-2xl p-4 border ${isT ? 'border-amber-400/50' : 'border-zinc-800'} transition-colors"><div class="flex items-center justify-between mb-3 pb-2 border-b border-zinc-800/80"><span class="text-xs font-extrabold uppercase ${isT ? 'theme-gradient-text' : 'text-zinc-300'}">${d.label}</span>${isT ? `<span class="px-2 py-0.5 rounded-full text-[9px] font-black theme-btn-primary">TODAY</span>` : `<span class="text-[10px] text-zinc-500">${dt.length}</span>`}</div><div class="space-y-2 max-h-56 overflow-y-auto">${dt.length ? dt.map(t => `<div class="p-2.5 rounded-xl bg-zinc-950/90 border ${t.done ? 'border-emerald-500/25 opacity-60' : 'border-zinc-800'} flex items-start justify-between gap-2 transition-opacity"><label class="flex items-start gap-2 cursor-pointer flex-1"><input type="checkbox" ${t.done ? "checked" : ""} onchange="toggleSprintTask('${t.id}')" class="mt-0.5 w-3.5 h-3.5 accent-amber-400" /><span class="text-xs ${t.done ? 'line-through text-zinc-500' : 'text-zinc-200'}">${t.title}</span></label><div class="flex items-center gap-1">${!t.done ? `<button type="button" onclick="startDotRecommendedClockIn('${t.title.replace(/'/g, "\\'")}')" class="px-1.5 py-0.5 rounded bg-white/10 text-[10px] font-bold">▶</button>` : ""}<button type="button" onclick="deleteSprintTask('${t.id}')" class="text-zinc-500 hover:text-rose-400 text-xs px-1">✕</button></div></div>`).join("") : `<p class="text-[11px] text-zinc-600 italic py-4 text-center">No targets</p>`}</div></div>`;
       }).join("");
     }
     document.getElementById("addSprintTaskForm").addEventListener("submit", async (e) => { e.preventDefault(); if (!currentUser) return; const title = document.getElementById("sprintTaskInput").value.trim(); if (!title) return; currentUser.weeklySprint.push({ id: "sp_" + Date.now(), day: document.getElementById("sprintDaySelect").value, title, done: false }); document.getElementById("sprintTaskInput").value = ""; renderWeeklySprintBoard(); await saveUserToCloud(currentUser); });
     window.toggleSprintTask = async (id) => { const t = currentUser?.weeklySprint?.find(x => x.id === id); if (t) t.done = !t.done; renderWeeklySprintBoard(); await saveUserToCloud(currentUser); };
     window.deleteSprintTask = async (id) => { if (!currentUser) return; currentUser.weeklySprint = currentUser.weeklySprint.filter(x => x.id !== id); renderWeeklySprintBoard(); await saveUserToCloud(currentUser); };
-    document.getElementById("autoFillSprintBtn").addEventListener("click", async () => { if (!currentUser) return; const q = getDotQueue(); if (!q.length) return alert("All nodes mastered!"); const ex = new Set(currentUser.weeklySprint.map(t => t.title)); q.slice(0, 7).forEach((item, i) => { const t = `${item.isRevision ? "🔁 Revise" : "🔥 High-Yield"} ${item.subject}: ${item.subtopicName}`; if (!ex.has(t)) currentUser.weeklySprint.push({ id: "sp_" + Date.now() + "_" + i, day: SPRINT_DAYS[i % 7].key, title: t, done: false }); }); renderWeeklySprintBoard(); await saveUserToCloud(currentUser); });
+    document.getElementById("autoFillSprintBtn").addEventListener("click", async () => { if (!currentUser) return; const q = getDotQueue(); if (!q.length) return alert("All nodes mastered!"); const ex = new Set(currentUser.weeklySprint.map(t => t.title)); q.slice(0, 7).forEach((item, i) => { const t = `${item.isRevision ? "🔁 Revise" : "🔥 High-Yield"} ${item.branch}: ${item.subtopicName}`; if (!ex.has(t)) currentUser.weeklySprint.push({ id: "sp_" + Date.now() + "_" + i, day: SPRINT_DAYS[i % 7].key, title: t, done: false }); }); renderWeeklySprintBoard(); await saveUserToCloud(currentUser); });
     document.getElementById("clearDoneSprintBtn").addEventListener("click", async () => { if (!currentUser) return; currentUser.weeklySprint = currentUser.weeklySprint.filter(t => !t.done); renderWeeklySprintBoard(); await saveUserToCloud(currentUser); });
 
     // 4-SLIDE CONTROLLER
-    const viewport = document.getElementById("phoneSliderViewport"), TITLES = ["Swipe ⇄ • 1/4 Command & Telemetry", "Swipe ⇄ • 2/4 NCERT Checklist", "Swipe ⇄ • 3/4 3D Space Web", "Swipe ⇄ • 4/4 Weekly Sprint"];
+    const viewport = document.getElementById("phoneSliderViewport"), TITLES = ["Swipe ⇄ • 1/4 Command & Telemetry", "Swipe ⇄ • 2/4 9-Branch NCERT", "Swipe ⇄ • 3/4 9-Axis 3D Web", "Swipe ⇄ • 4/4 Weekly Sprint"];
     const navBtns = [document.getElementById("navDashboardBtn"), document.getElementById("navSyllabusBtn"), document.getElementById("navSpider3dBtn"), document.getElementById("navSprintBtn")];
     let currentSlideIndex = 0, scrollT = null;
     function updateIndicators(idx) {
       currentSlideIndex = idx; document.getElementById("activeScreenLabel").textContent = TITLES[idx];
       for (let i = 0; i < 4; i++) {
-        document.getElementById(`dotIndicator${i}`).className = i === idx ? "h-1.5 w-7 rounded-full bg-white transition-all" : "h-1.5 w-2 rounded-full bg-zinc-700 transition-all";
+        document.getElementById(`dotIndicator${i}`).className = i === idx ? "h-1.5 w-7 rounded-full bg-white transition-all duration-300" : "h-1.5 w-2 rounded-full bg-zinc-700 transition-all duration-300";
         navBtns[i].className = i === idx ? "clicky flex flex-col items-center justify-center py-2 px-1 rounded-2xl bg-white/15 text-white border border-white/30 font-bold text-xs" : "clicky flex flex-col items-center justify-center py-2 px-1 rounded-2xl bg-zinc-900/70 text-zinc-400 border border-transparent hover:text-white font-semibold text-xs";
       }
       if (idx === 2) resize3dCanvas();
