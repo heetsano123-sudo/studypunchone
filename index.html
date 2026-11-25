@@ -119,7 +119,7 @@
   <div id="settingsModal" class="hidden fixed inset-0 z-[110] bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
     <div class="luxury-card rounded-3xl w-full max-w-xl max-h-[90vh] flex flex-col overflow-hidden border border-white/15 shadow-2xl">
       <div class="px-6 py-4 border-b border-white/10 flex items-center justify-between bg-black/40">
-        <div class="flex items-center gap-2.5"><span class="text-lg">⚙️</span><div><h2 class="font-serif-luxury text-lg font-bold text-white">Command Settings &amp; Customs</h2><p class="text-[11px] text-zinc-400">9 themes, 10 wallpapers, 9 soundtracks &amp; 9 timestamp formats</p></div></div>
+        <div class="flex items-center gap-2.5"><span class="text-lg">⚙️</span><div><h2 class="font-serif-luxury text-lg font-bold text-white">Command Settings &amp; Customs</h2><p class="text-[11px] text-zinc-400">9 themes, 10 wallpapers, dual-layer mixer &amp; 9 timestamp formats</p></div></div>
         <button type="button" id="closeSettingsBtn" class="clicky w-8 h-8 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-300 flex items-center justify-center border border-white/10 text-sm font-bold">✕</button>
       </div>
       <div class="p-6 overflow-y-auto space-y-6">
@@ -151,11 +151,24 @@
             <button type="button" onclick="setFocusWallpaper('ocean')" data-wp="ocean" class="wp-pill wp-card clicky p-2 rounded-xl border text-center"><div class="text-sm mb-0.5">🫧</div><div class="text-[10px] font-bold">Big Bubbles</div></button>
             <button type="button" onclick="setFocusWallpaper('sakura')" data-wp="sakura" class="wp-pill wp-card clicky p-2 rounded-xl border text-center"><div class="text-sm mb-0.5">🌸</div><div class="text-[10px] font-bold">Sakura</div></button>
           </div>
-          <div class="mt-3 flex flex-wrap items-center justify-between gap-2 bg-black/60 px-3.5 py-2.5 rounded-xl border border-zinc-800">
-            <div><p class="text-xs font-bold text-white">🎧 Science Focus Soundtrack (9 Tracks)</p><p class="text-[10px] text-zinc-400">Binaural beats &amp; acoustic noise</p></div>
-            <select id="settingsSoundtrackSelect" onchange="setFocusSoundtrack(this.value)" class="px-2.5 py-1.5 rounded-lg bg-zinc-950 border border-white/15 text-[11px] font-bold text-white">
-              <option value="off">🔇 Off</option><option value="pink_rain">🌧️ Pink Noise Rain</option><option value="brown_focus">🌊 Brown Noise</option><option value="gamma_40">🧠 40Hz Gamma</option><option value="beta_16">⚡ 16Hz Beta</option><option value="alpha_10">🍃 10Hz Alpha</option><option value="hz_432">🎵 432Hz Resonance</option><option value="bpm_60">💓 60 BPM Pulse</option><option value="cave_drops">💧 Water Droplets</option><option value="forest_chimes">🌲 Forest Chimes</option>
-            </select>
+          <div class="mt-3 bg-black/60 px-3.5 py-3 rounded-xl border border-zinc-800 space-y-2.5">
+            <p class="text-xs font-bold text-white">🎛️ Dual-Layer Focus Audio Mixer (Blend 2 Tracks)</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <div class="space-y-1">
+                <label class="text-[10px] text-zinc-400 font-bold uppercase">Layer A (Base)</label>
+                <select id="settingsTrackASelect" onchange="setMixerTrack('A', this.value)" class="mixer-select-a w-full px-2.5 py-1.5 rounded-lg bg-zinc-950 border border-white/15 text-[11px] font-bold text-white">
+                  <option value="off">🔇 Off</option><option value="pink_rain">🌧️ Pink Noise Rain</option><option value="brown_focus">🌊 Brown Noise</option><option value="gamma_40">🧠 40Hz Gamma</option><option value="beta_16">⚡ 16Hz Beta</option><option value="alpha_10">🍃 10Hz Alpha</option><option value="hz_432">🎵 432Hz Resonance</option><option value="bpm_60">💓 60 BPM Pulse</option><option value="cave_drops">💧 Water Droplets</option><option value="forest_chimes">🌲 Forest Chimes</option>
+                </select>
+                <input type="range" min="0" max="100" value="70" oninput="setMixerVolume('A', this.value)" class="mixer-vol-a w-full accent-amber-400 h-1 cursor-pointer" />
+              </div>
+              <div class="space-y-1">
+                <label class="text-[10px] text-zinc-400 font-bold uppercase">Layer B (Overlay)</label>
+                <select id="settingsTrackBSelect" onchange="setMixerTrack('B', this.value)" class="mixer-select-b w-full px-2.5 py-1.5 rounded-lg bg-zinc-950 border border-white/15 text-[11px] font-bold text-white">
+                  <option value="off">🔇 Off</option><option value="gamma_40">🧠 40Hz Gamma</option><option value="beta_16">⚡ 16Hz Beta</option><option value="alpha_10">🍃 10Hz Alpha</option><option value="pink_rain">🌧️ Pink Noise Rain</option><option value="brown_focus">🌊 Brown Noise</option><option value="hz_432">🎵 432Hz Resonance</option><option value="bpm_60">💓 60 BPM Pulse</option><option value="cave_drops">💧 Water Droplets</option><option value="forest_chimes">🌲 Forest Chimes</option>
+                </select>
+                <input type="range" min="0" max="100" value="40" oninput="setMixerVolume('B', this.value)" class="mixer-vol-b w-full accent-emerald-400 h-1 cursor-pointer" />
+              </div>
+            </div>
           </div>
           <div class="mt-2.5 flex flex-wrap items-center justify-between gap-2 bg-black/60 px-3.5 py-2.5 rounded-xl border border-zinc-800">
             <div><p class="text-xs font-bold text-white">🕒 Clock-In Timestamp Format (9 Types)</p><p class="text-[10px] text-zinc-400">Shown on Clock-In &amp; saved in ledger</p></div>
@@ -169,6 +182,20 @@
           <div class="flex items-center justify-between bg-black/60 px-3.5 py-2.5 rounded-xl border border-zinc-800">
             <div><p class="text-xs font-bold text-white">⏳ NEET 2027 Doomsday Clock</p><p class="text-[10px] text-zinc-400">Toggle countdown on Command screen</p></div>
             <button type="button" id="toggleDoomsdayBtn" class="clicky px-3 py-1.5 rounded-lg text-[11px] font-bold bg-rose-950/80 text-rose-200 border border-rose-500/30"><span id="toggleDoomsdayLabel">Visible</span></button>
+          </div>
+          <div class="flex items-center justify-between bg-black/60 px-3.5 py-2.5 rounded-xl border border-zinc-800">
+            <div>
+              <p class="text-xs font-bold text-white">🎬 Q-Drill Visual Effects (Zoro / Cat / FX)</p>
+              <p class="text-[10px] text-zinc-400">Shut off anytime for a minimal question timer</p>
+            </div>
+            <button type="button" id="toggleQDrillFxBtn" class="clicky px-3 py-1.5 rounded-lg text-[11px] font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-500/30">ON</button>
+          </div>
+          <div class="flex items-center justify-between bg-black/60 px-3.5 py-2.5 rounded-xl border border-zinc-800">
+            <div>
+              <p class="text-xs font-bold text-white">🔊 Q-Drill Sound Effects (Slash / Beat / Chime)</p>
+              <p class="text-[10px] text-zinc-400">Mute or unmute interval-end audio cues</p>
+            </div>
+            <button type="button" id="toggleQDrillSfxBtn" class="clicky px-3 py-1.5 rounded-lg text-[11px] font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-500/30">ON</button>
           </div>
           <div class="flex items-center justify-between bg-black/60 px-3.5 py-2.5 rounded-xl border border-zinc-800">
             <div><p class="text-xs font-bold text-white">🎯 Daily Study Goal (Hours)</p><p class="text-[10px] text-zinc-400">Hit ≥80% daily for 🔥 Streak Flame</p></div>
@@ -204,9 +231,17 @@
         <button type="button" onclick="setFocusWallpaper('sakura')" data-wp="sakura" class="wp-pill clicky px-2 py-1 rounded-lg text-[10px] font-semibold text-zinc-400 hover:text-white">🌸 Sakura</button>
       </div>
       <div class="flex flex-wrap items-center justify-center gap-2">
-        <select id="zdSoundtrackSelect" onchange="setFocusSoundtrack(this.value)" class="px-3 py-1.5 rounded-xl bg-black border border-white/15 text-[11px] font-bold text-white focus:outline-none">
-          <option value="off">🔇 Soundtrack: Off</option><option value="pink_rain">🌧️ Pink Noise Rain</option><option value="brown_focus">🌊 Brown Noise</option><option value="gamma_40">🧠 40Hz Gamma Binaural</option><option value="beta_16">⚡ 16Hz Beta Binaural</option><option value="alpha_10">🍃 10Hz Alpha Binaural</option><option value="hz_432">🎵 432Hz Resonance</option><option value="bpm_60">💓 60 BPM Pulse</option><option value="cave_drops">💧 Water Droplets</option><option value="forest_chimes">🌲 Forest Chimes</option>
-        </select>
+        <div class="flex items-center gap-1.5 bg-black px-2 py-1 rounded-xl border border-white/15">
+          <select onchange="setMixerTrack('A', this.value)" class="mixer-select-a bg-black text-[10px] font-bold text-amber-200 focus:outline-none">
+            <option value="off">A: Off</option><option value="pink_rain">A: Pink Rain</option><option value="brown_focus">A: Brown</option><option value="gamma_40">A: 40Hz</option><option value="beta_16">A: 16Hz</option><option value="alpha_10">A: 10Hz</option><option value="hz_432">A: 432Hz</option><option value="bpm_60">A: 60 BPM</option><option value="cave_drops">A: Drops</option><option value="forest_chimes">A: Chimes</option>
+          </select>
+          <input type="range" min="0" max="100" value="70" oninput="setMixerVolume('A', this.value)" class="mixer-vol-a w-12 accent-amber-400 h-1 cursor-pointer" />
+          <span class="text-zinc-600 text-[10px]">+</span>
+          <select onchange="setMixerTrack('B', this.value)" class="mixer-select-b bg-black text-[10px] font-bold text-emerald-200 focus:outline-none">
+            <option value="off">B: Off</option><option value="gamma_40">B: 40Hz</option><option value="beta_16">B: 16Hz</option><option value="alpha_10">B: 10Hz</option><option value="pink_rain">B: Pink Rain</option><option value="brown_focus">B: Brown</option><option value="hz_432">B: 432Hz</option><option value="bpm_60">B: 60 BPM</option><option value="cave_drops">B: Drops</option><option value="forest_chimes">B: Chimes</option>
+          </select>
+          <input type="range" min="0" max="100" value="40" oninput="setMixerVolume('B', this.value)" class="mixer-vol-b w-12 accent-emerald-400 h-1 cursor-pointer" />
+        </div>
         <select id="zdStampTypeSelect" onchange="setStampFormat(this.value)" class="stamp-type-select px-3 py-1.5 rounded-xl bg-black border border-white/15 text-[11px] font-bold text-white focus:outline-none">
           <option value="hms_24">1. 24h (HH:MM:SS)</option><option value="ampm_12">2. 12h AM/PM</option><option value="ist_full">3. IST Timezone</option><option value="iso_dt">4. ISO Date-Time</option><option value="unix_ep">5. Unix Epoch</option><option value="dec_hr">6. Decimal Hours</option><option value="neet_tminus">7. NEET T-Minus Day</option><option value="week_day">8. Weekday + Date</option><option value="compact_ymd">9. Compact YMD-HMS</option>
         </select>
@@ -273,7 +308,7 @@
     <footer class="mt-6 text-center"><p class="text-xs text-zinc-500 tracking-wider">StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p></footer>
   </div>
 
-  <!-- MAIN 4-PAGE SWIPEABLE SHELL -->
+  <!-- MAIN 5-PAGE SWIPEABLE SHELL -->
   <div id="appScreen" class="relative z-10 hidden flex-1 flex flex-col h-screen overflow-hidden">
     <header class="bg-black/75 border-b border-white/10 z-40 shrink-0">
       <div class="max-w-7xl mx-auto px-4 py-2.5 flex items-center justify-between gap-2">
@@ -292,8 +327,9 @@
             <button type="button" onclick="slideToScreen(1)" id="dotIndicator1" class="h-1.5 w-2 rounded-full bg-zinc-700 transition-all duration-300"></button>
             <button type="button" onclick="slideToScreen(2)" id="dotIndicator2" class="h-1.5 w-2 rounded-full bg-zinc-700 transition-all duration-300"></button>
             <button type="button" onclick="slideToScreen(3)" id="dotIndicator3" class="h-1.5 w-2 rounded-full bg-zinc-700 transition-all duration-300"></button>
+            <button type="button" onclick="slideToScreen(4)" id="dotIndicator4" class="h-1.5 w-2 rounded-full bg-zinc-700 transition-all duration-300"></button>
           </div>
-          <span id="activeScreenLabel" class="text-[9px] font-semibold text-zinc-400 mt-1 tracking-[0.15em] uppercase">Swipe ⇄ • 1/4 Command &amp; Telemetry</span>
+          <span id="activeScreenLabel" class="text-[9px] font-semibold text-zinc-400 mt-1 tracking-[0.15em] uppercase">Swipe ⇄ • 1/5 Command &amp; Telemetry</span>
         </div>
         <div class="flex items-center gap-2">
           <button type="button" id="openSettingsBtn" class="clicky px-3.5 py-2 rounded-xl text-xs font-bold bg-zinc-900 hover:bg-zinc-800 text-white border border-white/15 flex items-center gap-1.5 shadow-sm"><span>⚙️</span><span>Settings</span></button>
@@ -349,6 +385,29 @@
             <div class="luxury-card rounded-2xl p-5"><p class="text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400">Streak &amp; Shield</p><div class="flex items-center gap-2 mt-1"><p id="statStreakFlame" class="mono-nums text-2xl font-black text-amber-400">🔥 0d</p><span id="statShieldPill" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-sky-950/90 text-sky-300 border border-sky-500/30">🛡️ 1/1</span></div><p class="text-[11px] text-zinc-500 mt-2">≥80% daily • 1 Shield/wk</p></div>
             <div class="luxury-card rounded-2xl p-5"><p class="text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400">All-Time Hours</p><p id="statAllTimeHours" class="mono-nums text-2xl font-black text-emerald-400 mt-1">0.0 hrs</p><p id="statTotalSessions" class="text-[11px] text-zinc-500 mt-2">0 sessions</p></div>
             <div id="dashSyllabusCard" class="clicky luxury-card rounded-2xl p-5 cursor-pointer hover:border-white/40"><p class="text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400">9-Axis 3D Web</p><p id="statSyllabusPct" class="mono-nums text-2xl font-black theme-gradient-text mt-1">0%</p><p id="statSyllabusCount" class="text-[11px] text-zinc-300 font-medium mt-2">Open 3D Web →</p></div>
+          </div>
+
+          <!-- 365-DAY GLOWING CONSISTENCY HEATMAP -->
+          <div class="luxury-card rounded-3xl p-5 sm:p-6">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <div>
+                <span class="text-[10px] font-extrabold uppercase tracking-[0.2em] theme-gradient-text">🟩 365-Day Consistency Wall</span>
+                <h3 class="font-serif-luxury text-lg font-bold text-white">Annual Study Heatmap</h3>
+              </div>
+              <div class="flex items-center gap-1.5 text-[10px] text-zinc-400">
+                <span>Less</span>
+                <span class="w-2.5 h-2.5 rounded-sm bg-zinc-900 border border-zinc-800"></span>
+                <span class="w-2.5 h-2.5 rounded-sm bg-emerald-950 border border-emerald-800/50"></span>
+                <span class="w-2.5 h-2.5 rounded-sm bg-emerald-700/80"></span>
+                <span class="w-2.5 h-2.5 rounded-sm bg-emerald-500"></span>
+                <span class="w-2.5 h-2.5 rounded-sm bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.7)]"></span>
+                <span>More (6h+)</span>
+              </div>
+            </div>
+            <div class="overflow-x-auto pb-1">
+              <div id="heatmap365Grid" class="grid grid-flow-col grid-rows-7 gap-1 min-w-[680px]"></div>
+            </div>
+            <p id="heatmapSummaryText" class="text-[11px] text-zinc-400 mt-2.5 mono-nums">Active days in last 365d: 0</p>
           </div>
 
           <div class="luxury-card rounded-3xl p-6 space-y-6">
@@ -497,14 +556,104 @@
           <div class="pt-4 text-center"><p class="text-xs text-zinc-500 tracking-wider">StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p></div>
         </div>
       </section>
+
+      <!-- SLIDE 4: QUESTION PRACTICE AUTO-TIMER (Q-DRILL) WITH 8 EFFECTS -->
+      <section id="qdrillView" class="phone-screen-slide p-4 sm:p-6">
+        <div class="max-w-4xl mx-auto space-y-6">
+          <div class="luxury-card rounded-3xl p-5 sm:p-7">
+            <div class="flex flex-wrap items-center justify-between gap-3 pb-4 mb-5 border-b border-white/10">
+              <div>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-[0.2em] bg-white/10 text-zinc-200 border border-white/15">Auto-Restart MCQ Pacer</span>
+                <h2 class="font-serif-luxury text-2xl sm:text-3xl font-bold text-white mt-1.5">🎯 Question Practice Clock</h2>
+                <p class="text-xs text-zinc-400 mt-0.5">Auto-restarts every interval, counts questions &amp; total time, and triggers your chosen effect.</p>
+              </div>
+              <button type="button" id="qdTestEffectBtn" class="clicky px-3.5 py-2 rounded-xl text-xs font-bold bg-white/10 hover:bg-white/20 text-white border border-white/20">✨ Test Effect</button>
+            </div>
+
+            <!-- Interval Presets + Custom + Effect Selector -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div class="bg-black/60 p-3.5 rounded-2xl border border-zinc-800 space-y-2">
+                <label class="text-[10px] font-extrabold uppercase tracking-[0.18em] theme-gradient-text">1. Time Per Question</label>
+                <div class="flex flex-wrap gap-1.5">
+                  <button type="button" onclick="setQDrillInterval(30)" data-qd-sec="30" class="qd-sec-btn clicky px-3 py-1.5 rounded-xl text-xs font-bold bg-zinc-900 text-zinc-300 border border-zinc-800">30s</button>
+                  <button type="button" onclick="setQDrillInterval(45)" data-qd-sec="45" class="qd-sec-btn clicky px-3 py-1.5 rounded-xl text-xs font-bold bg-zinc-900 text-zinc-300 border border-zinc-800">45s</button>
+                  <button type="button" onclick="setQDrillInterval(60)" data-qd-sec="60" class="qd-sec-btn clicky px-3 py-1.5 rounded-xl text-xs font-bold theme-btn-primary">1 min</button>
+                  <button type="button" onclick="setQDrillInterval(90)" data-qd-sec="90" class="qd-sec-btn clicky px-3 py-1.5 rounded-xl text-xs font-bold bg-zinc-900 text-zinc-300 border border-zinc-800">1.5m</button>
+                  <button type="button" onclick="setQDrillInterval(120)" data-qd-sec="120" class="qd-sec-btn clicky px-3 py-1.5 rounded-xl text-xs font-bold bg-zinc-900 text-zinc-300 border border-zinc-800">2m</button>
+                  <div class="flex items-center gap-1 ml-auto">
+                    <input id="qdCustomSecInput" type="number" min="5" max="600" placeholder="sec" class="w-16 px-2 py-1.5 rounded-xl bg-zinc-950 border border-zinc-700 text-white text-xs mono-nums text-center" />
+                    <button type="button" id="qdApplyCustomBtn" class="clicky px-2.5 py-1.5 rounded-xl bg-white/10 text-white text-[11px] font-bold">Set</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-black/60 p-3.5 rounded-2xl border border-zinc-800 space-y-2">
+                <label class="text-[10px] font-extrabold uppercase tracking-[0.18em] theme-gradient-text">2. Timer Finish / Loop Effect (8 Modes)</label>
+                <select id="qdEffectSelect" onchange="setQDrillEffect(this.value)" class="w-full px-3 py-2 rounded-xl bg-zinc-950 border border-white/15 text-xs font-bold text-white focus:outline-none">
+                  <option value="zoro">1. ⚔️ Zoro 3-Sword Style Cut (Santoryu)</option>
+                  <option value="uprise">2. 🎵 Uprise Beat Drop</option>
+                  <option value="cat">3. 🐱 Endless Orbiting Cat (Circular Path)</option>
+                  <option value="thunder">4. ⚡ Thunder Flash Strike</option>
+                  <option value="astral">5. 🌀 Astral Mandala Pulse</option>
+                  <option value="supernova">6. 🔥 Supernova Ignition</option>
+                  <option value="helix">7. 🧬 Bio Helix Surge</option>
+                  <option value="impact">8. 💥 Anime Impact Punch</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Center Interactive Q-Drill Stage + Effects Canvas -->
+            <div class="relative bg-black rounded-3xl border border-white/15 min-h-[340px] flex flex-col items-center justify-center overflow-hidden p-6">
+              <canvas id="qdrillFxCanvas" class="absolute inset-0 w-full h-full pointer-events-none z-20"></canvas>
+
+              <div class="relative z-10 w-60 h-60 sm:w-64 sm:h-64 flex items-center justify-center">
+                <svg class="w-full h-full -rotate-90" viewBox="0 0 240 240">
+                  <circle cx="120" cy="120" r="106" fill="rgba(0,0,0,0.65)" stroke="rgba(255,255,255,0.10)" stroke-width="5" />
+                  <circle id="qdRingProgress" cx="120" cy="120" r="106" fill="none" stroke="var(--accent-mid)" stroke-width="6" stroke-linecap="round" stroke-dasharray="666" stroke-dashoffset="0" style="transition: stroke-dashoffset 0.25s linear;" />
+                </svg>
+                <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+                  <span id="qdStatusBadge" class="px-2.5 py-0.5 rounded-full text-[9px] font-extrabold uppercase tracking-widest bg-zinc-900 text-zinc-400 border border-zinc-800 mb-1.5">Ready</span>
+                  <div id="qdCountdownText" class="mono-nums text-5xl font-black text-white tracking-tight">01:00</div>
+                  <p id="qdQuestionCounter" class="mono-nums text-xs font-bold theme-gradient-text mt-2">Q #0 Completed</p>
+                </div>
+              </div>
+
+              <!-- Live Telemetry Row -->
+              <div class="relative z-10 grid grid-cols-3 gap-3 w-full max-w-md mt-5 text-center">
+                <div class="bg-zinc-950/90 rounded-xl p-2.5 border border-zinc-800">
+                  <p class="text-[9px] uppercase tracking-wider text-zinc-500 font-bold">Total Time</p>
+                  <p id="qdTotalElapsedText" class="mono-nums text-sm font-extrabold text-white mt-0.5">00:00:00</p>
+                </div>
+                <div class="bg-zinc-950/90 rounded-xl p-2.5 border border-zinc-800">
+                  <p class="text-[9px] uppercase tracking-wider text-zinc-500 font-bold">Questions</p>
+                  <p id="qdCountStatText" class="mono-nums text-sm font-extrabold theme-gradient-text mt-0.5">0</p>
+                </div>
+                <div class="bg-zinc-950/90 rounded-xl p-2.5 border border-zinc-800">
+                  <p class="text-[9px] uppercase tracking-wider text-zinc-500 font-bold">Target Pace</p>
+                  <p id="qdPaceStatText" class="mono-nums text-sm font-extrabold text-emerald-400 mt-0.5">60s / Q</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="flex flex-wrap items-center justify-center gap-3 mt-5">
+              <button type="button" id="qdStartPauseBtn" class="clicky flex-1 max-w-xs py-3.5 px-6 rounded-2xl theme-btn-primary font-extrabold text-xs uppercase tracking-[0.16em]">▶ Start Auto-Drill</button>
+              <button type="button" id="qdNextSkipBtn" class="clicky py-3.5 px-4 rounded-2xl bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-800 font-bold text-xs">⏭ Next Q</button>
+              <button type="button" id="qdStopSaveBtn" class="clicky py-3.5 px-5 rounded-2xl bg-rose-950/80 hover:bg-rose-800 text-rose-200 border border-rose-500/35 font-extrabold text-xs uppercase tracking-wider">⏹ Stop &amp; Save</button>
+            </div>
+          </div>
+          <div class="pt-4 text-center"><p class="text-xs text-zinc-500 tracking-wider">StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p></div>
+        </div>
+      </section>
     </div>
 
     <nav class="bg-black/85 border-t border-white/10 px-3 py-2 z-40 shrink-0">
-      <div class="max-w-lg mx-auto grid grid-cols-4 gap-1.5">
+      <div class="max-w-lg mx-auto grid grid-cols-5 gap-1.5">
         <button id="navDashboardBtn" type="button" class="clicky flex flex-col items-center justify-center py-2 px-1 rounded-2xl bg-white/15 text-white border border-white/30 font-bold text-xs"><span class="text-base leading-none mb-1">⏱️</span><span>Command</span></button>
         <button id="navSyllabusBtn" type="button" class="clicky flex flex-col items-center justify-center py-2 px-1 rounded-2xl bg-zinc-900/70 text-zinc-400 border border-transparent hover:text-white font-semibold text-xs"><span class="text-base leading-none mb-1">📋</span><span>NCERT</span></button>
         <button id="navSpider3dBtn" type="button" class="clicky flex flex-col items-center justify-center py-2 px-1 rounded-2xl bg-zinc-900/70 text-zinc-400 border border-transparent hover:text-white font-semibold text-xs"><span class="text-base leading-none mb-1">🌐</span><span>3D Web</span></button>
         <button id="navSprintBtn" type="button" class="clicky flex flex-col items-center justify-center py-2 px-1 rounded-2xl bg-zinc-900/70 text-zinc-400 border border-transparent hover:text-white font-semibold text-xs"><span class="text-base leading-none mb-1">📅</span><span>Sprint</span></button>
+        <button id="navQDrillBtn" type="button" class="clicky flex flex-col items-center justify-center py-2 px-1 rounded-2xl bg-zinc-900/70 text-zinc-400 border border-transparent hover:text-white font-semibold text-xs"><span class="text-base leading-none mb-1">🎯</span><span>Q-Drill</span></button>
       </div>
     </nav>
   </div>
@@ -910,40 +1059,13 @@
       resizeFocusCanvas(); initWallpaperParticles(mode); if (!wpAnimFrame) renderFocusWallpaperLoop();
     };
 
-    function stopFocusSoundtrack() { if (activeAudioCleanup) { try { activeAudioCleanup(); } catch {} activeAudioCleanup = null; } }
+    function stopFocusSoundtrack() {
+      if (activeAudioCleanup) { try { activeAudioCleanup(); } catch {} activeAudioCleanup = null; }
+      if (typeof stopAllMixerLayers === "function") stopAllMixerLayers();
+    }
     window.setFocusSoundtrack = function(trackId, skip = false) {
       currentFocusSoundtrack = trackId; localStorage.setItem("studypunch_focus_track", trackId);
-      const s1 = document.getElementById("zdSoundtrackSelect"), s2 = document.getElementById("settingsSoundtrackSelect");
-      if (s1) s1.value = trackId; if (s2) s2.value = trackId;
-      stopFocusSoundtrack();
-      if (!skip) { flashSettingsSaved(); if (currentUser) { currentUser.focusSoundtrack = trackId; saveUserToCloud(currentUser); } }
-      if (trackId === "off") return;
-      try {
-        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        if (audioCtx.state === "suspended") audioCtx.resume();
-        const nodes = [], intervals = [];
-        const makeNoise = (type) => {
-          const sz = 2 * audioCtx.sampleRate, buf = audioCtx.createBuffer(1, sz, audioCtx.sampleRate), out = buf.getChannelData(0);
-          if (type === "brown") { let lo = 0; for (let i = 0; i < sz; i++) { const w = Math.random() * 2 - 1; out[i] = (lo + .02 * w) / 1.02; lo = out[i]; out[i] *= .28; } }
-          else { let b0=0,b1=0,b2=0,b3=0,b4=0,b5=0,b6=0; for (let i = 0; i < sz; i++) { const w = Math.random() * 2 - 1; b0=.99886*b0+w*.0555179; b1=.99332*b1+w*.0750759; b2=.969*b2+w*.153852; b3=.8665*b3+w*.3104856; b4=.55*b4+w*.5329522; b5=-.7616*b5-w*.016898; out[i]=(b0+b1+b2+b3+b4+b5+b6+w*.5362)*.035; b6=w*.115926; } }
-          const src = audioCtx.createBufferSource(); src.buffer = buf; src.loop = true; return src;
-        };
-        const binaural = (base, beat) => {
-          const m = audioCtx.createChannelMerger(2), oL = audioCtx.createOscillator(), oR = audioCtx.createOscillator(), g = audioCtx.createGain();
-          oL.frequency.value = base; oR.frequency.value = base + beat; g.gain.value = .075;
-          oL.connect(m, 0, 0); oR.connect(m, 0, 1); m.connect(g); g.connect(audioCtx.destination); oL.start(); oR.start(); nodes.push(oL, oR, m, g);
-        };
-        if (trackId === "pink_rain") { const s = makeNoise("pink"), f = audioCtx.createBiquadFilter(); f.type = "lowpass"; f.frequency.value = 650; s.connect(f); f.connect(audioCtx.destination); s.start(); nodes.push(s, f); }
-        else if (trackId === "brown_focus") { const s = makeNoise("brown"), f = audioCtx.createBiquadFilter(); f.type = "lowpass"; f.frequency.value = 340; s.connect(f); f.connect(audioCtx.destination); s.start(); nodes.push(s, f); }
-        else if (trackId === "gamma_40") binaural(200, 40);
-        else if (trackId === "beta_16") binaural(220, 16);
-        else if (trackId === "alpha_10") binaural(180, 10);
-        else if (trackId === "hz_432") [216, 324, 432].forEach((fr, i) => { const o = audioCtx.createOscillator(), g = audioCtx.createGain(); o.frequency.value = fr; g.gain.value = i ? .025 : .05; o.connect(g); g.connect(audioCtx.destination); o.start(); nodes.push(o, g); });
-        else if (trackId === "bpm_60") { const p = () => { if (!audioCtx) return; const o = audioCtx.createOscillator(), g = audioCtx.createGain(); o.frequency.setValueAtTime(95, audioCtx.currentTime); o.frequency.exponentialRampToValueAtTime(42, audioCtx.currentTime + .18); g.gain.setValueAtTime(.14, audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(.001, audioCtx.currentTime + .22); o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(audioCtx.currentTime + .24); }; p(); intervals.push(setInterval(p, 1000)); }
-        else if (trackId === "cave_drops") { const s = makeNoise("brown"), f = audioCtx.createBiquadFilter(); f.type = "lowpass"; f.frequency.value = 260; s.connect(f); f.connect(audioCtx.destination); s.start(); nodes.push(s, f); intervals.push(setInterval(() => { if (!audioCtx || Math.random() > .55) return; const o = audioCtx.createOscillator(), g = audioCtx.createGain(), f0 = 700 + Math.random() * 600; o.frequency.setValueAtTime(f0, audioCtx.currentTime); o.frequency.exponentialRampToValueAtTime(f0 * 1.45, audioCtx.currentTime + .12); g.gain.setValueAtTime(.04, audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(.0008, audioCtx.currentTime + .15); o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(audioCtx.currentTime + .16); }, 1400)); }
-        else if (trackId === "forest_chimes") { const s = makeNoise("pink"), f = audioCtx.createBiquadFilter(); f.type = "bandpass"; f.frequency.value = 420; f.Q.value = 1.4; s.connect(f); f.connect(audioCtx.destination); s.start(); nodes.push(s, f); const notes = [528, 594, 660, 792, 880]; intervals.push(setInterval(() => { if (!audioCtx || Math.random() > .45) return; const o = audioCtx.createOscillator(), g = audioCtx.createGain(); o.frequency.value = notes[Math.floor(Math.random() * notes.length)]; g.gain.setValueAtTime(.035, audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(.0005, audioCtx.currentTime + 1.8); o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(audioCtx.currentTime + 1.85); }, 2600)); }
-        activeAudioCleanup = () => { intervals.forEach(clearInterval); nodes.forEach(n => { try { if (n.stop) n.stop(); n.disconnect(); } catch {} }); };
-      } catch {}
+      if (typeof window.setMixerTrack === "function") window.setMixerTrack("A", trackId, skip);
     };
 
     document.getElementById("zdZenToggleBtn").addEventListener("click", () => {
@@ -952,15 +1074,15 @@
       document.getElementById("zdZenToggleBtn").textContent = isZdHudHidden ? "👁️ Show" : "👁️ Hide";
     });
 
-    window.setWebTheme(activeWebTheme, true); window.setFocusWallpaper(currentFocusWallpaper, true); window.setFocusSoundtrack(currentFocusSoundtrack, true); window.setStampFormat(currentStampFormat, true);
+    window.setWebTheme(activeWebTheme, true); window.setFocusWallpaper(currentFocusWallpaper, true); window.setStampFormat(currentStampFormat, true);
     initWallpaperParticles(currentFocusWallpaper); renderFocusWallpaperLoop();
 
     // TOUR
     const TOUR_SLIDES = [
-      { icon: "⏱️", title: "Pure Black Sanctuary & 9 Soundtracks", desc: "Live wallpapers drift subtly behind Home; Clock In opens a pure black screen with crisp live wallpaper, 9 science soundtracks & 9 timestamp formats." },
+      { icon: "⏱️", title: "Pure Black Sanctuary & Dual-Layer Mixer", desc: "Live wallpapers drift subtly behind Home; Clock In opens a pure black screen with crisp live wallpaper, a dual-layer audio mixer & 9 timestamp formats." },
       { icon: "📋", title: "9-Branch NCERT & 27-Day Red Alert", desc: "Organized into Mechanics, Thermal, EM, Optics, Physical/Inorganic/Organic Chem, Botany & Zoology. Medium decay triggers at 7–16d and Red Alert at 27+d." },
       { icon: "🌐", title: "9-Axis 3D Deep-Space Observatory", desc: "Spin your 9-axis mastery crystal in deep space with Full-Screen mode, orbiting chapter satellites, and golden High-Yield halos." },
-      { icon: "📅", title: "Weekly Sprint & 9 Atelier Themes", desc: "Plan Mon–Sun targets or auto-fill decaying chapters from DOT AI, and switch across 9 luxury themes in ⚙️ Settings." }
+      { icon: "🎯", title: "Weekly Sprint & Q-Drill Auto-Timer", desc: "Plan Mon–Sun targets, track your 365-day heatmap, and drill MCQs with Zoro's 3-Sword Style slash, Uprise Beat & Endless Cat effects." }
     ];
     let tourIndex = 0; const tourModal = document.getElementById("newUserIntroModal");
     function renderTourSlide() {
@@ -1047,7 +1169,9 @@
     function loginSuccess(u) {
       currentUser = u; if (!Array.isArray(u.sessions)) u.sessions = []; ensureRetention(u);
       if (u.webTheme) window.setWebTheme(u.webTheme, true); if (u.focusWallpaper) window.setFocusWallpaper(u.focusWallpaper, true);
-      if (u.focusSoundtrack) window.setFocusSoundtrack(u.focusSoundtrack, true); if (u.stampFormat) window.setStampFormat(u.stampFormat, true);
+      if (u.focusMixer && typeof syncMixerFromUser === "function") syncMixerFromUser(u.focusMixer);
+      else if (u.focusSoundtrack) { mixerState.A.track = u.focusSoundtrack; document.querySelectorAll(".mixer-select-a").forEach(el => { el.value = u.focusSoundtrack; }); }
+      if (u.stampFormat) window.setStampFormat(u.stampFormat, true);
       authScreen.classList.add("hidden"); appScreen.classList.remove("hidden"); applyDoomsdayVisibility();
       renderDashboard(); renderSyllabusTree(); renderWeeklySprintBoard(); start3dSpiderWebLoop(); slideToScreen(0); maybeLaunchTour();
     }
@@ -1120,7 +1244,7 @@
       if (currentUser.activePunchStart) {
         document.getElementById("punchStatusTag").textContent = "🟢 Live Focus";
         zeroDistractionOverlay.classList.remove("hidden"); syncWallpaperCanvasLayer(true);
-        if (currentFocusSoundtrack !== "off" && !activeAudioCleanup) window.setFocusSoundtrack(currentFocusSoundtrack, true);
+        if (typeof resumeMixerIfNeeded === "function") resumeMixerIfNeeded();
         document.getElementById("zdSubjectDisplay").textContent = currentUser.activeSubject || "NEET 2027 Deep Study";
         document.getElementById("zdClockInStampLine").textContent = `IN: ${formatClockInStamp(currentUser.activePunchStart, currentStampFormat)}`;
         const ring = document.getElementById("zdProgressRing");
@@ -1135,7 +1259,7 @@
         zeroDistractionOverlay.classList.add("hidden"); syncWallpaperCanvasLayer(false); stopFocusSoundtrack();
         document.getElementById("liveTimerDisplay").textContent = "00:00:00";
       }
-      renderDotRecommendations(); renderTimesheetTable(); renderMultiChartWebAnalytics();
+      renderDotRecommendations(); renderConsistencyHeatmap(); renderTimesheetTable(); renderMultiChartWebAnalytics();
     }
 
     async function triggerClockIn(customSubj) {
@@ -1345,24 +1469,378 @@
     document.getElementById("autoFillSprintBtn").addEventListener("click", async () => { if (!currentUser) return; const q = getDotQueue(); if (!q.length) return alert("All nodes mastered!"); const ex = new Set(currentUser.weeklySprint.map(t => t.title)); q.slice(0, 7).forEach((item, i) => { const t = `${item.isRevision ? "🔁 Revise" : "🔥 High-Yield"} ${item.branch}: ${item.subtopicName}`; if (!ex.has(t)) currentUser.weeklySprint.push({ id: "sp_" + Date.now() + "_" + i, day: SPRINT_DAYS[i % 7].key, title: t, done: false }); }); renderWeeklySprintBoard(); await saveUserToCloud(currentUser); });
     document.getElementById("clearDoneSprintBtn").addEventListener("click", async () => { if (!currentUser) return; currentUser.weeklySprint = currentUser.weeklySprint.filter(t => !t.done); renderWeeklySprintBoard(); await saveUserToCloud(currentUser); });
 
-    // 4-SLIDE CONTROLLER
-    const viewport = document.getElementById("phoneSliderViewport"), TITLES = ["Swipe ⇄ • 1/4 Command & Telemetry", "Swipe ⇄ • 2/4 9-Branch NCERT", "Swipe ⇄ • 3/4 9-Axis 3D Web", "Swipe ⇄ • 4/4 Weekly Sprint"];
-    const navBtns = [document.getElementById("navDashboardBtn"), document.getElementById("navSyllabusBtn"), document.getElementById("navSpider3dBtn"), document.getElementById("navSprintBtn")];
+    // 5-SLIDE CONTROLLER
+    const viewport = document.getElementById("phoneSliderViewport"), TITLES = ["Swipe ⇄ • 1/5 Command & Telemetry", "Swipe ⇄ • 2/5 9-Branch NCERT", "Swipe ⇄ • 3/5 9-Axis 3D Web", "Swipe ⇄ • 4/5 Weekly Sprint", "Swipe ⇄ • 5/5 Question Practice"];
+    const navBtns = [document.getElementById("navDashboardBtn"), document.getElementById("navSyllabusBtn"), document.getElementById("navSpider3dBtn"), document.getElementById("navSprintBtn"), document.getElementById("navQDrillBtn")];
     let currentSlideIndex = 0, scrollT = null;
     function updateIndicators(idx) {
       currentSlideIndex = idx; document.getElementById("activeScreenLabel").textContent = TITLES[idx];
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < 5; i++) {
         document.getElementById(`dotIndicator${i}`).className = i === idx ? "h-1.5 w-7 rounded-full bg-white transition-all duration-300" : "h-1.5 w-2 rounded-full bg-zinc-700 transition-all duration-300";
         navBtns[i].className = i === idx ? "clicky flex flex-col items-center justify-center py-2 px-1 rounded-2xl bg-white/15 text-white border border-white/30 font-bold text-xs" : "clicky flex flex-col items-center justify-center py-2 px-1 rounded-2xl bg-zinc-900/70 text-zinc-400 border border-transparent hover:text-white font-semibold text-xs";
       }
       if (idx === 2) resize3dCanvas();
+      if (idx === 4 && typeof resizeQdCanvas === "function") resizeQdCanvas();
     }
-    window.slideToScreen = (idx) => { const c = Math.max(0, Math.min(3, idx)); viewport.scrollTo({ left: c * window.innerWidth, behavior: "smooth" }); updateIndicators(c); };
-    viewport.addEventListener("scroll", () => { if (scrollT) clearTimeout(scrollT); scrollT = setTimeout(() => { const i = Math.round(viewport.scrollLeft / window.innerWidth); if (i !== currentSlideIndex && i >= 0 && i <= 3) updateIndicators(i); }, 40); }, { passive: true });
+    window.slideToScreen = (idx) => { const c = Math.max(0, Math.min(4, idx)); viewport.scrollTo({ left: c * window.innerWidth, behavior: "smooth" }); updateIndicators(c); };
+    viewport.addEventListener("scroll", () => { if (scrollT) clearTimeout(scrollT); scrollT = setTimeout(() => { const i = Math.round(viewport.scrollLeft / window.innerWidth); if (i !== currentSlideIndex && i >= 0 && i <= 4) updateIndicators(i); }, 40); }, { passive: true });
     window.addEventListener("resize", () => viewport.scrollTo({ left: currentSlideIndex * window.innerWidth, behavior: "auto" }));
     window.addEventListener("keydown", (e) => { if (e.key === "Escape" && is3dFullscreen) toggle3dFullscreen(false); if (appScreen.classList.contains("hidden") || /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement?.tagName)) return; if (e.key === "ArrowRight") slideToScreen(currentSlideIndex + 1); if (e.key === "ArrowLeft") slideToScreen(currentSlideIndex - 1); });
     navBtns.forEach((b, i) => b.addEventListener("click", () => slideToScreen(i)));
     document.getElementById("dashSyllabusCard").addEventListener("click", () => slideToScreen(2));
+
+    // ================= 1. 365-DAY GLOWING CONSISTENCY HEATMAP =================
+    function renderConsistencyHeatmap() {
+      const grid = document.getElementById("heatmap365Grid"), summary = document.getElementById("heatmapSummaryText");
+      if (!grid || !currentUser) return;
+      const secsByDate = {};
+      (currentUser.sessions || []).forEach(s => { if (s.date) secsByDate[s.date] = (secsByDate[s.date] || 0) + Number(s.durationSeconds || 0); });
+      const today = new Date(); today.setHours(0, 0, 0, 0);
+      let activeDays = 0, cellsHtml = "";
+      for (let i = 363; i >= 0; i--) {
+        const d = new Date(today); d.setDate(d.getDate() - i);
+        const ymd = toLocalYMD(d), hrs = (secsByDate[ymd] || 0) / 3600;
+        if (hrs > 0) activeDays++;
+        const cls = hrs >= 6 ? "bg-amber-400 shadow-[0_0_6px_rgba(251,191,36,0.75)]"
+                  : hrs >= 4 ? "bg-emerald-500"
+                  : hrs >= 2 ? "bg-emerald-700/80"
+                  : hrs > 0  ? "bg-emerald-950 border border-emerald-700/50"
+                  : "bg-zinc-900/90 border border-zinc-800/70";
+        cellsHtml += `<div title="${ymd}: ${hrs.toFixed(1)} hrs" class="w-2.5 h-2.5 rounded-[3px] ${cls} transition-transform hover:scale-125"></div>`;
+      }
+      grid.innerHTML = cellsHtml;
+      if (summary) summary.textContent = `Active days in last 365d: ${activeDays} / 364`;
+    }
+
+    // ================= 2. DUAL-LAYER FOCUS AUDIO MIXER (TRACK A + TRACK B) =================
+    const mixerState = {
+      A: { track: localStorage.getItem("sp_mix_a_t") || "off", vol: Number(localStorage.getItem("sp_mix_a_v") || 70), cleanup: null, masterGain: null },
+      B: { track: localStorage.getItem("sp_mix_b_t") || "off", vol: Number(localStorage.getItem("sp_mix_b_v") || 40), cleanup: null, masterGain: null }
+    };
+
+    function stopMixerLayer(layer) {
+      if (mixerState[layer].cleanup) { try { mixerState[layer].cleanup(); } catch {} mixerState[layer].cleanup = null; mixerState[layer].masterGain = null; }
+    }
+    function stopAllMixerLayers() { stopMixerLayer("A"); stopMixerLayer("B"); }
+
+    function syncMixerFromUser(fm) {
+      if (!fm) return;
+      ["A", "B"].forEach(l => {
+        if (fm[l]) {
+          mixerState[l].track = fm[l].track || "off";
+          mixerState[l].vol = fm[l].vol != null ? Number(fm[l].vol) : (l === "A" ? 70 : 40);
+          localStorage.setItem(`sp_mix_${l.toLowerCase()}_t`, mixerState[l].track);
+          localStorage.setItem(`sp_mix_${l.toLowerCase()}_v`, String(mixerState[l].vol));
+          document.querySelectorAll(`.mixer-select-${l.toLowerCase()}`).forEach(el => { el.value = mixerState[l].track; });
+          window.setMixerVolume(l, mixerState[l].vol);
+        }
+      });
+    }
+
+    function resumeMixerIfNeeded() {
+      ["A", "B"].forEach(l => {
+        if (mixerState[l].track !== "off" && !mixerState[l].cleanup) {
+          window.setMixerTrack(l, mixerState[l].track, true);
+        }
+      });
+    }
+
+    window.setMixerVolume = function(layer, val) {
+      const num = Math.max(0, Math.min(100, Number(val)));
+      mixerState[layer].vol = num;
+      localStorage.setItem(`sp_mix_${layer.toLowerCase()}_v`, String(num));
+      document.querySelectorAll(`.mixer-vol-${layer.toLowerCase()}`).forEach(el => { el.value = num; });
+      if (mixerState[layer].masterGain && audioCtx) {
+        mixerState[layer].masterGain.gain.setTargetAtTime(num / 100, audioCtx.currentTime, 0.05);
+      }
+      if (currentUser) {
+        currentUser.focusMixer = { A: { track: mixerState.A.track, vol: mixerState.A.vol }, B: { track: mixerState.B.track, vol: mixerState.B.vol } };
+        saveLocalUser(currentUser);
+      }
+    };
+
+    window.setMixerTrack = function(layer, trackId, skipSync = false) {
+      mixerState[layer].track = trackId;
+      localStorage.setItem(`sp_mix_${layer.toLowerCase()}_t`, trackId);
+      document.querySelectorAll(`.mixer-select-${layer.toLowerCase()}`).forEach(el => { el.value = trackId; });
+      stopMixerLayer(layer);
+      if (!skipSync) {
+        flashSettingsSaved();
+        if (currentUser) {
+          currentUser.focusMixer = { A: { track: mixerState.A.track, vol: mixerState.A.vol }, B: { track: mixerState.B.track, vol: mixerState.B.vol } };
+          saveUserToCloud(currentUser);
+        }
+      }
+      if (trackId === "off") return;
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === "suspended") audioCtx.resume();
+        const master = audioCtx.createGain();
+        master.gain.value = mixerState[layer].vol / 100;
+        master.connect(audioCtx.destination);
+        mixerState[layer].masterGain = master;
+        const nodes = [master], intervals = [];
+
+        const makeNoise = (type) => {
+          const sz = 2 * audioCtx.sampleRate, buf = audioCtx.createBuffer(1, sz, audioCtx.sampleRate), out = buf.getChannelData(0);
+          if (type === "brown") { let lo = 0; for (let i = 0; i < sz; i++) { const w = Math.random() * 2 - 1; out[i] = (lo + .02 * w) / 1.02; lo = out[i]; out[i] *= .28; } }
+          else { let b0=0,b1=0,b2=0,b3=0,b4=0,b5=0,b6=0; for (let i = 0; i < sz; i++) { const w = Math.random() * 2 - 1; b0=.99886*b0+w*.0555179; b1=.99332*b1+w*.0750759; b2=.969*b2+w*.153852; b3=.8665*b3+w*.3104856; b4=.55*b4+w*.5329522; b5=-.7616*b5-w*.016898; out[i]=(b0+b1+b2+b3+b4+b5+b6+w*.5362)*.035; b6=w*.115926; } }
+          const src = audioCtx.createBufferSource(); src.buffer = buf; src.loop = true; return src;
+        };
+        const binaural = (base, beat) => {
+          const m = audioCtx.createChannelMerger(2), oL = audioCtx.createOscillator(), oR = audioCtx.createOscillator(), g = audioCtx.createGain();
+          oL.frequency.value = base; oR.frequency.value = base + beat; g.gain.value = .09;
+          oL.connect(m, 0, 0); oR.connect(m, 0, 1); m.connect(g); g.connect(master); oL.start(); oR.start(); nodes.push(oL, oR, m, g);
+        };
+
+        if (trackId === "pink_rain") { const s = makeNoise("pink"), f = audioCtx.createBiquadFilter(); f.type = "lowpass"; f.frequency.value = 650; s.connect(f); f.connect(master); s.start(); nodes.push(s, f); }
+        else if (trackId === "brown_focus") { const s = makeNoise("brown"), f = audioCtx.createBiquadFilter(); f.type = "lowpass"; f.frequency.value = 340; s.connect(f); f.connect(master); s.start(); nodes.push(s, f); }
+        else if (trackId === "gamma_40") binaural(200, 40);
+        else if (trackId === "beta_16") binaural(220, 16);
+        else if (trackId === "alpha_10") binaural(180, 10);
+        else if (trackId === "hz_432") [216, 324, 432].forEach((fr, i) => { const o = audioCtx.createOscillator(), g = audioCtx.createGain(); o.frequency.value = fr; g.gain.value = i ? .025 : .05; o.connect(g); g.connect(master); o.start(); nodes.push(o, g); });
+        else if (trackId === "bpm_60") { const p = () => { if (!audioCtx) return; const o = audioCtx.createOscillator(), g = audioCtx.createGain(); o.frequency.setValueAtTime(95, audioCtx.currentTime); o.frequency.exponentialRampToValueAtTime(42, audioCtx.currentTime + .18); g.gain.setValueAtTime(.14, audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(.001, audioCtx.currentTime + .22); o.connect(g); g.connect(master); o.start(); o.stop(audioCtx.currentTime + .24); }; p(); intervals.push(setInterval(p, 1000)); }
+        else if (trackId === "cave_drops") { const s = makeNoise("brown"), f = audioCtx.createBiquadFilter(); f.type = "lowpass"; f.frequency.value = 260; s.connect(f); f.connect(master); s.start(); nodes.push(s, f); intervals.push(setInterval(() => { if (!audioCtx || Math.random() > .55) return; const o = audioCtx.createOscillator(), g = audioCtx.createGain(), f0 = 700 + Math.random() * 600; o.frequency.setValueAtTime(f0, audioCtx.currentTime); o.frequency.exponentialRampToValueAtTime(f0 * 1.45, audioCtx.currentTime + .12); g.gain.setValueAtTime(.04, audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(.0008, audioCtx.currentTime + .15); o.connect(g); g.connect(master); o.start(); o.stop(audioCtx.currentTime + .16); }, 1400)); }
+        else if (trackId === "forest_chimes") { const s = makeNoise("pink"), f = audioCtx.createBiquadFilter(); f.type = "bandpass"; f.frequency.value = 420; f.Q.value = 1.4; s.connect(f); f.connect(master); s.start(); nodes.push(s, f); const notes = [528, 594, 660, 792, 880]; intervals.push(setInterval(() => { if (!audioCtx || Math.random() > .45) return; const o = audioCtx.createOscillator(), g = audioCtx.createGain(); o.frequency.value = notes[Math.floor(Math.random() * notes.length)]; g.gain.setValueAtTime(.035, audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(.0005, audioCtx.currentTime + 1.8); o.connect(g); g.connect(master); o.start(); o.stop(audioCtx.currentTime + 1.85); }, 2600)); }
+        mixerState[layer].cleanup = () => { intervals.forEach(clearInterval); nodes.forEach(n => { try { if (n.stop) n.stop(); n.disconnect(); } catch {} }); };
+      } catch {}
+    };
+    document.querySelectorAll(".mixer-select-a").forEach(el => { el.value = mixerState.A.track; });
+    document.querySelectorAll(".mixer-select-b").forEach(el => { el.value = mixerState.B.track; });
+    window.setMixerVolume("A", mixerState.A.vol); window.setMixerVolume("B", mixerState.B.vol);
+
+    // ================= 3. Q-DRILL AUTO-TIMER + 8 EFFECTS + SETTINGS SHUT-OFF =================
+    let qdFxEnabled = localStorage.getItem("sp_qd_fx") !== "false";
+    let qdSfxEnabled = localStorage.getItem("sp_qd_sfx") !== "false";
+    let qdIntervalSec = 60, qdRemainingSec = 60, qdTotalElapsed = 0, qdCount = 0, qdRunning = false, qdTimerId = null;
+    let qdSelectedEffect = localStorage.getItem("sp_qd_effect") || "zoro";
+    let qdActiveBurst = null, qdCatAngle = -Math.PI / 2;
+
+    const qdCanvas = document.getElementById("qdrillFxCanvas"), qdCtx = qdCanvas ? qdCanvas.getContext("2d") : null;
+    function resizeQdCanvas() { if (qdCanvas?.parentElement) { qdCanvas.width = qdCanvas.parentElement.clientWidth || 500; qdCanvas.height = qdCanvas.parentElement.clientHeight || 340; } }
+    window.addEventListener("resize", resizeQdCanvas); resizeQdCanvas();
+
+    function syncQdSettingsBtns() {
+      const bFx = document.getElementById("toggleQDrillFxBtn"), bSfx = document.getElementById("toggleQDrillSfxBtn");
+      if (bFx) { bFx.textContent = qdFxEnabled ? "ON" : "OFF"; bFx.className = qdFxEnabled ? "clicky px-3 py-1.5 rounded-lg text-[11px] font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-500/30" : "clicky px-3 py-1.5 rounded-lg text-[11px] font-bold bg-zinc-900 text-zinc-400 border border-zinc-700"; }
+      if (bSfx) { bSfx.textContent = qdSfxEnabled ? "ON" : "OFF"; bSfx.className = qdSfxEnabled ? "clicky px-3 py-1.5 rounded-lg text-[11px] font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-500/30" : "clicky px-3 py-1.5 rounded-lg text-[11px] font-bold bg-zinc-900 text-zinc-400 border border-zinc-700"; }
+    }
+    syncQdSettingsBtns();
+    document.getElementById("toggleQDrillFxBtn")?.addEventListener("click", () => { qdFxEnabled = !qdFxEnabled; localStorage.setItem("sp_qd_fx", String(qdFxEnabled)); syncQdSettingsBtns(); flashSettingsSaved(); });
+    document.getElementById("toggleQDrillSfxBtn")?.addEventListener("click", () => { qdSfxEnabled = !qdSfxEnabled; localStorage.setItem("sp_qd_sfx", String(qdSfxEnabled)); syncQdSettingsBtns(); flashSettingsSaved(); });
+
+    function playQDrillSfx(type) {
+      if (!qdSfxEnabled) return;
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === "suspended") audioCtx.resume();
+        const now = audioCtx.currentTime;
+        if (type === "zoro") {
+          [0, 0.09, 0.18].forEach((offset, idx) => {
+            const osc = audioCtx.createOscillator(), g = audioCtx.createGain();
+            osc.type = "sawtooth";
+            osc.frequency.setValueAtTime(1400 + idx * 350, now + offset);
+            osc.frequency.exponentialRampToValueAtTime(180, now + offset + 0.14);
+            g.gain.setValueAtTime(0.14, now + offset); g.gain.exponentialRampToValueAtTime(0.001, now + offset + 0.15);
+            osc.connect(g); g.connect(audioCtx.destination); osc.start(now + offset); osc.stop(now + offset + 0.16);
+          });
+        } else if (type === "uprise") {
+          const up = audioCtx.createOscillator(), ug = audioCtx.createGain();
+          up.type = "triangle"; up.frequency.setValueAtTime(160, now); up.frequency.exponentialRampToValueAtTime(880, now + 0.35);
+          ug.gain.setValueAtTime(0.1, now); ug.gain.exponentialRampToValueAtTime(0.001, now + 0.38);
+          up.connect(ug); ug.connect(audioCtx.destination); up.start(now); up.stop(now + 0.4);
+          const drop = audioCtx.createOscillator(), dg = audioCtx.createGain();
+          drop.type = "sine"; drop.frequency.setValueAtTime(130, now + 0.36); drop.frequency.exponentialRampToValueAtTime(36, now + 0.85);
+          dg.gain.setValueAtTime(0.28, now + 0.36); dg.gain.exponentialRampToValueAtTime(0.001, now + 0.9);
+          drop.connect(dg); dg.connect(audioCtx.destination); drop.start(now + 0.36); drop.stop(now + 0.92);
+        } else {
+          const osc = audioCtx.createOscillator(), g = audioCtx.createGain();
+          osc.type = type === "thunder" || type === "impact" ? "square" : "sine";
+          osc.frequency.setValueAtTime(type === "cat" ? 660 : 520, now);
+          osc.frequency.exponentialRampToValueAtTime(type === "cat" ? 990 : 220, now + 0.25);
+          g.gain.setValueAtTime(0.14, now); g.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
+          osc.connect(g); g.connect(audioCtx.destination); osc.start(now); osc.stop(now + 0.3);
+        }
+      } catch {}
+    }
+
+    function triggerQDrillEffect(type = qdSelectedEffect) {
+      playQDrillSfx(type);
+      if (!qdFxEnabled) return;
+      resizeQdCanvas();
+      qdActiveBurst = { type, start: performance.now(), duration: type === "uprise" ? 1100 : 850 };
+    }
+
+    function renderQDrillFxLoop(now) {
+      if (qdCtx && qdCanvas.width > 0) {
+        const w = qdCanvas.width, h = qdCanvas.height, cx = w / 2, cy = h / 2 - 22;
+        qdCtx.clearRect(0, 0, w, h);
+
+        if (qdFxEnabled && qdSelectedEffect === "cat") {
+          qdCatAngle += qdRunning ? 0.032 : 0.014;
+          const orbitR = 114;
+          const catX = cx + Math.cos(qdCatAngle) * orbitR;
+          const catY = cy + Math.sin(qdCatAngle) * orbitR;
+          qdCtx.beginPath();
+          qdCtx.arc(cx, cy, orbitR, qdCatAngle - 0.65, qdCatAngle);
+          qdCtx.strokeStyle = "rgba(251,191,36,0.55)"; qdCtx.lineWidth = 3; qdCtx.stroke();
+          qdCtx.save(); qdCtx.translate(catX, catY); qdCtx.rotate(qdCatAngle + Math.PI / 2);
+          qdCtx.fillStyle = "#fde68a";
+          qdCtx.beginPath(); qdCtx.arc(0, 0, 10, 0, Math.PI * 2); qdCtx.fill();
+          qdCtx.beginPath(); qdCtx.moveTo(-8, -5); qdCtx.lineTo(-10, -15); qdCtx.lineTo(-2, -9); qdCtx.fill();
+          qdCtx.beginPath(); qdCtx.moveTo(8, -5); qdCtx.lineTo(10, -15); qdCtx.lineTo(2, -9); qdCtx.fill();
+          qdCtx.fillStyle = "#09090b";
+          qdCtx.beginPath(); qdCtx.arc(-3.5, -1, 1.5, 0, Math.PI * 2); qdCtx.arc(3.5, -1, 1.5, 0, Math.PI * 2); qdCtx.fill();
+          qdCtx.restore();
+        }
+
+        if (qdFxEnabled && qdActiveBurst) {
+          const p = (now - qdActiveBurst.start) / qdActiveBurst.duration;
+          if (p >= 1) { qdActiveBurst = null; }
+          else {
+            const inv = 1 - p, t = qdActiveBurst.type;
+            if (t === "zoro") {
+              if (p < 0.18) { qdCtx.fillStyle = `rgba(16,185,129,${(0.18 - p) * 1.4})`; qdCtx.fillRect(0, 0, w, h); }
+              const slashes = [
+                { x1: w * 0.1, y1: h * 0.15, x2: w * 0.9, y2: h * 0.85, col: "#10b981", delay: 0 },
+                { x1: w * 0.9, y1: h * 0.15, x2: w * 0.1, y2: h * 0.85, col: "#34d399", delay: 0.08 },
+                { x1: w * 0.08, y1: cy,      x2: w * 0.92, y2: cy,      col: "#fde68a", delay: 0.16 }
+              ];
+              slashes.forEach(s => {
+                const sp = Math.max(0, Math.min(1, (p - s.delay) * 2.4));
+                if (sp <= 0) return;
+                const ex = s.x1 + (s.x2 - s.x1) * sp, ey = s.y1 + (s.y2 - s.y1) * sp;
+                qdCtx.strokeStyle = s.col; qdCtx.lineWidth = Math.max(1, 9 * inv); qdCtx.lineCap = "round";
+                qdCtx.shadowColor = s.col; qdCtx.shadowBlur = 18;
+                qdCtx.beginPath(); qdCtx.moveTo(s.x1, s.y1); qdCtx.lineTo(ex, ey); qdCtx.stroke();
+                qdCtx.shadowBlur = 0;
+              });
+              qdCtx.font = "900 18px Playfair Display, serif"; qdCtx.fillStyle = `rgba(253,230,138,${inv})`; qdCtx.textAlign = "center";
+              qdCtx.fillText("⚔️ SANTORYU: ONI GIRI!", cx, cy - 125 * p - 30);
+            } else if (t === "uprise") {
+              for (let k = 0; k < 4; k++) {
+                const r = ((p * 260) + k * 45) % 280;
+                qdCtx.beginPath(); qdCtx.arc(cx, cy, r, 0, Math.PI * 2);
+                qdCtx.strokeStyle = k % 2 === 0 ? `rgba(244,63,94,${inv * 0.85})` : `rgba(56,189,248,${inv * 0.85})`;
+                qdCtx.lineWidth = 4 * inv + 1; qdCtx.stroke();
+              }
+            } else if (t === "thunder") {
+              qdCtx.strokeStyle = `rgba(253,224,71,${inv})`; qdCtx.lineWidth = 5 * inv; qdCtx.shadowColor = "#facc15"; qdCtx.shadowBlur = 20;
+              qdCtx.beginPath(); qdCtx.moveTo(cx, 0); qdCtx.lineTo(cx - 28, cy * 0.55); qdCtx.lineTo(cx + 22, cy * 0.9); qdCtx.lineTo(cx - 18, h); qdCtx.stroke(); qdCtx.shadowBlur = 0;
+            } else if (t === "astral") {
+              qdCtx.save(); qdCtx.translate(cx, cy); qdCtx.rotate(p * 4);
+              const r = 40 + p * 170; qdCtx.strokeStyle = `rgba(56,189,248,${inv})`; qdCtx.lineWidth = 2.5;
+              qdCtx.beginPath(); qdCtx.arc(0, 0, r, 0, Math.PI * 2); qdCtx.stroke();
+              for (let i = 0; i < 8; i++) { const a = (i / 8) * Math.PI * 2; qdCtx.beginPath(); qdCtx.moveTo(Math.cos(a) * r, Math.sin(a) * r); qdCtx.lineTo(Math.cos(a + 2.35) * r, Math.sin(a + 2.35) * r); qdCtx.stroke(); }
+              qdCtx.restore();
+            } else if (t === "supernova" || t === "cat") {
+              for (let i = 0; i < 24; i++) {
+                const a = (i / 24) * Math.PI * 2, dist = 30 + p * 180;
+                qdCtx.beginPath(); qdCtx.arc(cx + Math.cos(a) * dist, cy + Math.sin(a) * dist, 4 * inv + 1, 0, Math.PI * 2);
+                qdCtx.fillStyle = i % 2 ? `rgba(251,146,60,${inv})` : `rgba(253,230,138,${inv})`; qdCtx.fill();
+              }
+            } else if (t === "helix") {
+              for (let x = 0; x < w; x += 14) {
+                const y1 = cy + Math.sin(x * 0.03 + p * 12) * 55 * inv, y2 = cy - Math.sin(x * 0.03 + p * 12) * 55 * inv;
+                qdCtx.fillStyle = `rgba(16,185,129,${inv})`; qdCtx.beginPath(); qdCtx.arc(x, y1, 3, 0, Math.PI * 2); qdCtx.arc(x, y2, 3, 0, Math.PI * 2); qdCtx.fill();
+              }
+            } else if (t === "impact") {
+              for (let i = 0; i < 32; i++) {
+                const a = (i / 32) * Math.PI * 2;
+                qdCtx.strokeStyle = `rgba(255,255,255,${inv * 0.85})`; qdCtx.lineWidth = 2;
+                qdCtx.beginPath(); qdCtx.moveTo(cx + Math.cos(a) * (80 + p * 40), cy + Math.sin(a) * (80 + p * 40)); qdCtx.lineTo(cx + Math.cos(a) * 320, cy + Math.sin(a) * 320); qdCtx.stroke();
+              }
+            }
+          }
+        }
+      }
+      requestAnimationFrame(renderQDrillFxLoop);
+    }
+    requestAnimationFrame(renderQDrillFxLoop);
+
+    function updateQDrillUI() {
+      const m = String(Math.floor(qdRemainingSec / 60)).padStart(2, "0"), s = String(qdRemainingSec % 60).padStart(2, "0");
+      document.getElementById("qdCountdownText").textContent = `${m}:${s}`;
+      document.getElementById("qdQuestionCounter").textContent = `Q #${qdCount} Completed`;
+      document.getElementById("qdCountStatText").textContent = String(qdCount);
+      document.getElementById("qdTotalElapsedText").textContent = formatHMS(qdTotalElapsed);
+      document.getElementById("qdPaceStatText").textContent = `${qdIntervalSec}s / Q`;
+      const ring = document.getElementById("qdRingProgress");
+      if (ring) ring.style.strokeDashoffset = String(666 * (1 - qdRemainingSec / Math.max(1, qdIntervalSec)));
+    }
+
+    window.setQDrillInterval = function(sec) {
+      qdIntervalSec = Math.max(5, Math.min(600, Number(sec) || 60));
+      qdRemainingSec = qdIntervalSec;
+      document.querySelectorAll(".qd-sec-btn").forEach(b => {
+        b.className = Number(b.getAttribute("data-qd-sec")) === qdIntervalSec
+          ? "qd-sec-btn clicky px-3 py-1.5 rounded-xl text-xs font-bold theme-btn-primary"
+          : "qd-sec-btn clicky px-3 py-1.5 rounded-xl text-xs font-bold bg-zinc-900 text-zinc-300 border border-zinc-800";
+      });
+      updateQDrillUI();
+    };
+    window.setQDrillEffect = function(eff) { qdSelectedEffect = eff; localStorage.setItem("sp_qd_effect", eff); };
+    if (document.getElementById("qdEffectSelect")) document.getElementById("qdEffectSelect").value = qdSelectedEffect;
+
+    document.getElementById("qdApplyCustomBtn")?.addEventListener("click", () => {
+      const v = parseInt(document.getElementById("qdCustomSecInput").value, 10);
+      if (v >= 5 && v <= 600) window.setQDrillInterval(v);
+    });
+    document.getElementById("qdTestEffectBtn")?.addEventListener("click", () => triggerQDrillEffect(qdSelectedEffect));
+
+    document.getElementById("qdStartPauseBtn")?.addEventListener("click", () => {
+      const btn = document.getElementById("qdStartPauseBtn"), badge = document.getElementById("qdStatusBadge");
+      if (!qdRunning) {
+        qdRunning = true;
+        btn.textContent = "⏸ Pause Drill";
+        badge.textContent = "🟢 Drilling";
+        qdTimerId = setInterval(() => {
+          qdTotalElapsed++;
+          qdRemainingSec--;
+          if (qdRemainingSec <= 0) {
+            qdCount++;
+            triggerQDrillEffect(qdSelectedEffect);
+            qdRemainingSec = qdIntervalSec;
+          }
+          updateQDrillUI();
+        }, 1000);
+      } else {
+        qdRunning = false;
+        clearInterval(qdTimerId);
+        btn.textContent = "▶ Resume Drill";
+        badge.textContent = "Paused";
+      }
+    });
+
+    document.getElementById("qdNextSkipBtn")?.addEventListener("click", () => {
+      if (!qdRunning && qdTotalElapsed === 0) return;
+      qdCount++;
+      triggerQDrillEffect(qdSelectedEffect);
+      qdRemainingSec = qdIntervalSec;
+      updateQDrillUI();
+    });
+
+    document.getElementById("qdStopSaveBtn")?.addEventListener("click", async () => {
+      qdRunning = false; clearInterval(qdTimerId);
+      document.getElementById("qdStartPauseBtn").textContent = "▶ Start Auto-Drill";
+      document.getElementById("qdStatusBadge").textContent = "Ready";
+      if (currentUser && qdTotalElapsed >= 10) {
+        currentUser.sessions.unshift({
+          date: toLocalYMD(new Date()),
+          subject: `🎯 Q-Drill (${qdCount} Qs @ ${qdIntervalSec}s)`,
+          startTime: formatClockInStamp(Date.now() - qdTotalElapsed * 1000, currentStampFormat),
+          endTime: formatClockInStamp(Date.now(), currentStampFormat),
+          durationSeconds: qdTotalElapsed,
+          entryType: "live",
+          timestamp: Date.now()
+        });
+        renderDashboard();
+        await saveUserToCloud(currentUser);
+      }
+      qdTotalElapsed = 0; qdCount = 0; qdRemainingSec = qdIntervalSec;
+      updateQDrillUI();
+    });
+    updateQDrillUI();
 
     // AUTO-LOGIN
     try { const p = JSON.parse(localStorage.getItem("studypunch_current_user") || "null"); if (p?.id) { loginSuccess(p); fetchUserFromCloud(p.id).then(c => { if (c) { currentUser = c; saveLocalUser(c); renderDashboard(); renderSyllabusTree(); renderWeeklySprintBoard(); } }); } } catch {}
