@@ -170,7 +170,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
     <button id="googleLoginBtn" type="button" class="clicky w-full flex items-center justify-center gap-3 bg-zinc-100 hover:bg-white text-zinc-950 font-bold py-3 px-4 rounded-xl mb-4 text-sm"><img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5" alt="G"/><span>Continue with Google Account</span></button>
     <div class="relative flex py-2 items-center mb-4"><div class="flex-grow border-t border-zinc-800"></div><span class="mx-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500">Or Student ID &amp; PIN</span><div class="flex-grow border-t border-zinc-800"></div></div>
     <div class="grid grid-cols-2 bg-black p-1 rounded-xl mb-5 border border-zinc-800"><button id="tabSignIn" type="button" class="clicky py-2 text-xs font-bold rounded-lg bg-zinc-900 text-white border border-white/15">Student Sign In</button><button id="tabCreateId" type="button" class="clicky py-2 text-xs font-bold rounded-lg text-zinc-400 hover:text-white">Create Student ID</button></div>
-    <div id="authAlert" class="hidden mb-4 p-3 rounded-xl text-xs font-semibold bg-rose-950/80 text-rose-300 border border-rose-500/30"></div>
+    <div id="authAlert" class="hidden mb-4 p-3 rounded-xl text-xs font-semibold bg-rose-950/80 text-zinc-300 border border-rose-500/30"></div>
     <form id="signInForm" class="space-y-4">
       <div><label class="block text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400 mb-1.5">Student ID</label><input id="loginStudentId" type="text" required placeholder="e.g. heet16" class="sp-inp"/></div>
       <div><label class="block text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400 mb-1.5">4-Digit PIN</label><input id="loginPin" type="password" inputmode="numeric" maxlength="4" required placeholder="••••" class="sp-inp tracking-widest"/></div>
@@ -558,7 +558,15 @@ const getCheckedCount=u=>u?.syllabusChecked?Object.values(u.syllabusChecked).fil
 
 function getDotQueue(){
   if(!currentUser)return[];const checked=currentUser.syllabusChecked||{},q=[];
-  NEET_2027_SYLLABUS.forEach(s=>{let dec=null,urg=null,fad=null,hy=null,inp=null,fr=null;s.units.forEach(u=>u.chapters.forEach(ch=>{let done=0,first=-1;ch.subtopics.forEach((st,i)=>{const k=`${ch.id}_${i}`;if(checked[k]){done++;const r=getRetention(k),o={subject:s.subject,branch:u.short,icon:s.icon,chapterName:ch.name,topicKey:k,subtopicName:st,isRevision:true,daysOld:r.days,status:r.status,reason:r.reason,hy:ch.hy};if(r.status==="decay"&&(!dec||r.days>dec.daysOld))dec=o;if(r.status==="urgent"&&(!urg||r.days>urg.daysOld))urg=o;if(r.status==="fading"&&(!fad||r.days>fad.daysOld))fad=o}else if(first===-1)first=i});if(first!==-1){const o={subject:s.subject,branch:u.short,icon:s.icon,chapterName:ch.name,topicKey:`${ch.id}_${first}`,subtopicName:ch.subtopics[first],isRevision:false,hy:ch.hy};if(done>0&&!inp)inp=o;if(ch.hy&&!hy)hy=o;if(done===0&&!fr)fr=o}});[dec,urg,fad,inp,hy,fr].forEach(x=>{if(x&&!q.some(e=>e.topicKey===x.topicKey))q.push(x)})});
+  NEET_2027_SYLLABUS.forEach(s=>{
+    let dec=null,urg=null,fad=null,hy=null,inp=null,fr=null;
+    s.units.forEach(u=>u.chapters.forEach(ch=>{
+      let done=0,first=-1;
+      ch.subtopics.forEach((st,i)=>{const k=`${ch.id}_${i}`;if(checked[k]){done++;const r=getRetention(k),o={subject:s.subject,branch:u.short,icon:s.icon,chapterName:ch.name,topicKey:k,subtopicName:st,isRevision:true,daysOld:r.days,status:r.status,reason:r.reason,hy:ch.hy};if(r.status==="decay"&&(!dec||r.days>dec.daysOld))dec=o;if(r.status==="urgent"&&(!urg||r.days>urg.daysOld))urg=o;if(r.status==="fading"&&(!fad||r.days>fad.daysOld))fad=o}else if(first===-1)first=i});
+      if(first!==-1){const o={subject:s.subject,branch:u.short,icon:s.icon,chapterName:ch.name,topicKey:`${ch.id}_${first}`,subtopicName:ch.subtopics[first],isRevision:false,hy:ch.hy};if(done>0&&!inp)inp=o;if(ch.hy&&!hy)hy=o;if(done===0&&!fr)fr=o}
+    }));
+    [dec,urg,fad,inp,hy,fr].forEach(x=>{if(x&&!q.some(e=>e.topicKey===x.topicKey))q.push(x)});
+  });
   return q;
 }
 function renderDotRecommendations(){
