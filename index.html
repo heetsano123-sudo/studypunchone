@@ -3,8 +3,12 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
-<title>StudyPunch — Executive NEET 2027 Command Atelier</title>
+<title>StudyPunch — JEE &amp; NEET 2027 Executive Atelier</title>
 <meta name="theme-color" content="#09090b"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="StudyPunch"/>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%2309090b' stroke='%23d4af37' stroke-width='4'/%3E%3Ccircle cx='50' cy='52' r='31' fill='none' stroke='%23d4af37' stroke-width='3.5' stroke-dasharray='165 30'/%3E%3Cpath d='M54 33L39 54H51L46 73L63 50H51Z' fill='%23f59e0b'/%3E%3C/svg%3E"/>
 <script src="https://cdn.tailwindcss.com/3.4.17"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
@@ -72,6 +76,46 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
   <button id="skipIntroBtn" type="button" class="clicky fixed bottom-6 right-6 z-20 px-3.5 py-1.5 rounded-xl bg-white/10 border border-white/15 text-[10px] font-bold uppercase tracking-widest text-zinc-300">Skip ›</button>
 </div>
 
+<div id="examTrackModal" class="hidden fixed inset-0 z-[170] bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
+  <div class="luxury-card oneui-sheet w-full max-w-md p-6 sm:p-7 border border-white/20 text-center">
+    <span class="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-[0.22em] bg-white/10 text-zinc-200 border border-white/15">Select Your Arena</span>
+    <h2 class="font-serif-luxury text-2xl sm:text-3xl font-bold theme-gradient-text mt-3">Choose Exam Edition</h2>
+    <p class="text-xs text-zinc-400 mt-1 mb-5">Pick JEE or NEET on start — switch anytime in Auth or Settings.</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <button type="button" onclick="chooseInitialTrack('jee')" class="clicky p-4 rounded-2xl bg-black/80 border border-sky-500/40 hover:border-sky-400 text-left flex flex-col gap-1.5">
+        <span class="text-2xl">⚙️</span>
+        <span class="text-base font-extrabold text-white">JEE 2027</span>
+        <span class="text-[11px] text-sky-300 font-semibold">Physics • Chem • Maths</span>
+        <span class="text-[10px] text-zinc-400">22 Jan 2027 Clock &amp; 9-Axis PCM Web</span>
+      </button>
+      <button type="button" onclick="chooseInitialTrack('neet')" class="clicky p-4 rounded-2xl bg-black/80 border border-emerald-500/40 hover:border-emerald-400 text-left flex flex-col gap-1.5">
+        <span class="text-2xl">🩺</span>
+        <span class="text-base font-extrabold text-white">NEET 2027</span>
+        <span class="text-[11px] text-emerald-300 font-semibold">Physics • Chem • Biology</span>
+        <span class="text-[10px] text-zinc-400">02 May 2027 Clock &amp; 9-Axis PCB Web</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div id="appInstallModal" class="hidden fixed inset-0 z-[165] bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+  <div class="luxury-card oneui-sheet w-full max-w-md p-6 border border-white/20">
+    <div class="flex items-center justify-between mb-3"><span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-[0.2em] bg-white/10 text-zinc-200 border border-white/15">Standalone App Mode</span><button type="button" id="closeAppInstallBtn" class="clicky w-7 h-7 rounded-lg bg-zinc-900 text-zinc-400 hover:text-white text-xs font-bold">✕</button></div>
+    <h3 class="font-serif-luxury text-xl font-bold text-white">📲 Make StudyPunch Like an App</h3>
+    <p class="text-xs text-zinc-400 mt-1 mb-4">Run StudyPunch without browser bars as an installed desktop/mobile app or instant fullscreen window.</p>
+    <div class="space-y-2.5">
+      <button type="button" id="nativeInstallBtn" class="clicky w-full py-3 px-4 rounded-xl theme-btn-primary font-extrabold text-xs uppercase tracking-wider">📲 Install App to Home Screen / Desktop</button>
+      <button type="button" id="toggleFullscreenAppBtn" class="clicky w-full py-2.5 px-4 rounded-xl bg-zinc-900 text-white border border-white/15 font-bold text-xs">⛶ Toggle Fullscreen App Window</button>
+    </div>
+    <p id="installHintMsg" class="hidden mt-3 p-2.5 rounded-xl bg-amber-500/10 border border-amber-400/30 text-[11px] text-amber-200"></p>
+    <div class="mt-4 pt-3 border-t border-white/10 space-y-2 text-[11px] text-zinc-300">
+      <div class="bg-black/70 p-2.5 rounded-xl border border-zinc-800"><b class="text-white">Android (Chrome / Samsung):</b> Tap menu <b>⋮</b> → <b>Add to Home screen</b> → <b>Install</b>.</div>
+      <div class="bg-black/70 p-2.5 rounded-xl border border-zinc-800"><b class="text-white">Windows / Mac (Chrome / Edge):</b> Address bar <b>⊕ Install</b> or menu <b>⋮ → Cast, save, and share → Install page as app</b>.</div>
+      <div class="bg-black/70 p-2.5 rounded-xl border border-zinc-800"><b class="text-white">iPhone / iPad (Safari):</b> Tap <b>Share ↑</b> → <b>Add to Home Screen</b>.</div>
+    </div>
+  </div>
+</div>
+
 <div id="revisionReasonModal" class="hidden fixed inset-0 z-[160] bg-black/75 backdrop-blur-md flex items-center justify-center p-4">
   <div class="luxury-card oneui-sheet w-full max-w-md p-6 border border-white/20">
     <div class="flex items-center justify-between mb-3"><span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-[0.2em] bg-white/10 text-zinc-200 border border-white/15">DOT AI Calibration</span><button type="button" id="closeRevisionReasonBtn" class="w-7 h-7 rounded-lg bg-zinc-900 text-zinc-400 hover:text-white text-xs font-bold">✕</button></div>
@@ -105,6 +149,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
       <button type="button" id="closeSettingsBtn" class="clicky w-8 h-8 rounded-xl bg-zinc-900 text-zinc-300 border border-white/10 text-sm font-bold">✕</button>
     </div>
     <div class="p-6 overflow-y-auto space-y-5">
+      <div><label class="block text-[10px] font-extrabold uppercase tracking-[0.2em] theme-gradient-text mb-2">0. Exam Version (JEE / NEET)</label><div class="grid grid-cols-2 gap-2"><button type="button" onclick="setExamTrack('jee')" data-track-btn="jee" class="track-switch-btn clicky py-2.5 px-3 rounded-xl border text-xs font-extrabold">⚙️ JEE 2027 (PCM)</button><button type="button" onclick="setExamTrack('neet')" data-track-btn="neet" class="track-switch-btn clicky py-2.5 px-3 rounded-xl border text-xs font-extrabold">🩺 NEET 2027 (PCB)</button></div></div>
       <div><label class="block text-[10px] font-extrabold uppercase tracking-[0.2em] theme-gradient-text mb-2.5">1. Web Interface Theme (9 Atelier Palettes)</label><div id="settingsThemeGrid" class="grid grid-cols-3 gap-2"></div></div>
       <div class="pt-4 border-t border-white/10">
         <label class="block text-[10px] font-extrabold uppercase tracking-[0.2em] theme-gradient-text mb-2">2. Live Wallpaper (35% Home • Pure Black Clock-In)</label>
@@ -123,14 +168,14 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
       </div>
       <div class="pt-4 border-t border-white/10 space-y-2.5">
         <label class="block text-[10px] font-extrabold uppercase tracking-[0.2em] theme-gradient-text">3. Dashboard Modules &amp; Streak Target</label>
-        <div class="flex items-center justify-between bg-black/60 px-3.5 py-2.5 rounded-xl border border-zinc-800"><div><p class="text-xs font-bold text-white">⏳ NEET 2027 Doomsday Clock</p><p class="text-[10px] text-zinc-400">Toggle countdown on Command</p></div><button type="button" id="toggleDoomsdayBtn" class="clicky px-3 py-1.5 rounded-full text-[11px] font-bold bg-rose-950/80 text-rose-200 border border-rose-500/30"><span id="toggleDoomsdayLabel">Visible</span></button></div>
+        <div class="flex items-center justify-between bg-black/60 px-3.5 py-2.5 rounded-xl border border-zinc-800"><div><p class="text-xs font-bold text-white">⏳ <span id="settingsDoomsdayTitle">Exam</span> Doomsday Clock</p><p class="text-[10px] text-zinc-400">Toggle countdown on Command</p></div><button type="button" id="toggleDoomsdayBtn" class="clicky px-3 py-1.5 rounded-full text-[11px] font-bold bg-rose-950/80 text-rose-200 border border-rose-500/30"><span id="toggleDoomsdayLabel">Visible</span></button></div>
         <div class="flex items-center justify-between bg-black/60 px-3.5 py-2.5 rounded-xl border border-zinc-800"><div><p class="text-xs font-bold text-white">🎬 Q-Drill Visual Effects (Zoro / Cat / FX)</p><p class="text-[10px] text-zinc-400">Shut off for a minimal question timer</p></div><button type="button" id="toggleQDrillFxBtn" class="clicky px-3.5 py-1.5 rounded-full text-[11px] font-bold">ON</button></div>
         <div class="flex items-center justify-between bg-black/60 px-3.5 py-2.5 rounded-xl border border-zinc-800"><div><p class="text-xs font-bold text-white">🔊 Q-Drill Sound Effects (Slash / Beat / Chime)</p><p class="text-[10px] text-zinc-400">Mute or unmute interval-end audio cues</p></div><button type="button" id="toggleQDrillSfxBtn" class="clicky px-3.5 py-1.5 rounded-full text-[11px] font-bold">ON</button></div>
         <div class="flex items-center justify-between bg-black/60 px-3.5 py-2.5 rounded-xl border border-zinc-800"><div><p class="text-xs font-bold text-white">🎯 Daily Study Goal (Hours)</p><p class="text-[10px] text-zinc-400">Hit ≥80% daily for 🔥 Streak</p></div><div class="flex items-center gap-1.5"><input id="settingsTargetInput" type="number" min="1" max="18" step="0.5" value="6" class="w-16 px-2 py-1.5 rounded-lg bg-zinc-950 border border-zinc-700 text-white text-xs mono-nums text-center"/><button type="button" id="saveTargetBtn" class="clicky px-3 py-1.5 rounded-lg text-[11px] font-bold theme-btn-primary">Save</button></div></div>
       </div>
       <div class="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-2">
         <button type="button" id="replayTourBtn" class="clicky px-3.5 py-2 rounded-xl text-xs font-semibold bg-zinc-900 text-zinc-200 border border-zinc-800">📖 Replay Guide</button>
-        <button type="button" id="installPwaBtn" class="hidden clicky px-3.5 py-2 rounded-xl text-xs font-bold theme-btn-primary">📲 Install App</button>
+        <button type="button" id="installPwaBtn" onclick="openAppInstallModal()" class="clicky px-3.5 py-2 rounded-xl text-xs font-bold theme-btn-primary">📲 Make App</button>
         <button type="button" id="settingsExportCsvBtn" class="clicky px-3.5 py-2 rounded-xl text-xs font-semibold bg-zinc-900 text-zinc-200 border border-zinc-800">⬇ Export CSV</button>
         <span id="settingsSavedToast" class="text-[11px] font-bold text-emerald-400 opacity-0 transition-opacity">✓ Saved</span>
       </div>
@@ -163,10 +208,11 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
 
 <div id="authScreen" class="relative z-10 flex-1 flex flex-col items-center justify-center p-4">
   <div class="luxury-card w-full max-w-md p-7 sm:p-9">
-    <div class="flex items-center justify-between mb-6">
-      <div class="flex items-center gap-3.5"><div class="w-12 h-12 rounded-2xl bg-black border border-white/15 flex items-center justify-center p-1.5"><svg viewBox="0 0 100 100" class="w-full h-full"><circle cx="50" cy="54" r="34" fill="none" stroke="#d4af37" stroke-width="6.5" stroke-dasharray="170 40" stroke-linecap="round"/><path d="M55 32L38 55H51L45 76L64 51H51Z" fill="#f59e0b"/></svg></div><div><h1 class="font-serif-luxury text-2xl font-bold theme-gradient-text">StudyPunch</h1><p class="text-[11px] text-zinc-400 tracking-widest uppercase">NEET 2027 Executive Atelier</p></div></div>
-      <span id="cloudBadge" class="px-3 py-1 rounded-full text-[11px] font-semibold bg-emerald-950/60 text-emerald-300 border border-emerald-500/30">Cloud Ready</span>
+    <div class="flex items-center justify-between mb-4">
+      <div class="flex items-center gap-3.5"><div class="w-12 h-12 rounded-2xl bg-black border border-white/15 flex items-center justify-center p-1.5"><svg viewBox="0 0 100 100" class="w-full h-full"><circle cx="50" cy="54" r="34" fill="none" stroke="#d4af37" stroke-width="6.5" stroke-dasharray="170 40" stroke-linecap="round"/><path d="M55 32L38 55H51L45 76L64 51H51Z" fill="#f59e0b"/></svg></div><div><h1 class="font-serif-luxury text-2xl font-bold theme-gradient-text">StudyPunch</h1><p id="authTrackSubtitle" class="text-[11px] text-zinc-400 tracking-widest uppercase">NEET 2027 Executive Atelier</p></div></div>
+      <div class="flex items-center gap-1.5"><button type="button" onclick="openAppInstallModal()" class="clicky px-2.5 py-1 rounded-full text-[10px] font-bold bg-white/10 text-zinc-200 border border-white/15">📲 App</button><span id="cloudBadge" class="px-2.5 py-1 rounded-full text-[10px] font-semibold bg-emerald-950/60 text-emerald-300 border border-emerald-500/30">Cloud Ready</span></div>
     </div>
+    <div class="grid grid-cols-2 bg-black p-1 rounded-xl mb-4 border border-zinc-800"><button type="button" onclick="setExamTrack('jee')" data-track-btn="jee" class="track-switch-btn clicky py-2 text-xs font-bold rounded-lg">⚙️ JEE 2027</button><button type="button" onclick="setExamTrack('neet')" data-track-btn="neet" class="track-switch-btn clicky py-2 text-xs font-bold rounded-lg">🩺 NEET 2027</button></div>
     <button id="googleLoginBtn" type="button" class="clicky w-full flex items-center justify-center gap-3 bg-zinc-100 hover:bg-white text-zinc-950 font-bold py-3 px-4 rounded-xl mb-4 text-sm"><img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5" alt="G"/><span>Continue with Google Account</span></button>
     <div class="relative flex py-2 items-center mb-4"><div class="flex-grow border-t border-zinc-800"></div><span class="mx-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500">Or Student ID &amp; PIN</span><div class="flex-grow border-t border-zinc-800"></div></div>
     <div class="grid grid-cols-2 bg-black p-1 rounded-xl mb-5 border border-zinc-800"><button id="tabSignIn" type="button" class="clicky py-2 text-xs font-bold rounded-lg bg-zinc-900 text-white border border-white/15">Student Sign In</button><button id="tabCreateId" type="button" class="clicky py-2 text-xs font-bold rounded-lg text-zinc-400 hover:text-white">Create Student ID</button></div>
@@ -184,18 +230,18 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
       <button id="createIdSubmitBtn" type="submit" class="clicky w-full theme-btn-primary font-extrabold py-3 rounded-xl text-xs uppercase tracking-[0.15em]">Create Student ID +</button>
     </form>
   </div>
-  <footer class="mt-6 text-center"><p class="text-xs text-zinc-500">StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p></footer>
+  <footer class="mt-6 text-center"><p id="authFooterText" class="text-xs text-zinc-500">StudyPunch Executive JEE &amp; NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p></footer>
 </div>
 
 <div id="appScreen" class="relative z-10 hidden flex-1 flex flex-col h-screen h-[100dvh] overflow-hidden">
   <header class="bg-black/75 border-b border-white/10 z-40 shrink-0">
     <div class="max-w-7xl mx-auto px-4 py-2.5 flex items-center justify-between gap-2">
-      <div class="flex items-center gap-2.5"><div class="w-9 h-9 rounded-xl bg-black border border-white/20 flex items-center justify-center p-1.5"><svg viewBox="0 0 100 100" class="w-full h-full"><circle cx="50" cy="54" r="34" fill="none" stroke="#d4af37" stroke-width="6.5" stroke-dasharray="170 40" stroke-linecap="round"/><path d="M55 32L38 55H51L45 76L64 51H51Z" fill="#f59e0b"/></svg></div><div><div class="flex items-center gap-1.5"><span class="font-serif-luxury font-bold theme-gradient-text text-base sm:text-lg">StudyPunch</span><span id="navCloudStatus" class="text-[9px] px-2 py-0.5 rounded-full bg-emerald-950/80 text-emerald-300 border border-emerald-500/30 font-semibold">Cloud Live</span></div><p id="welcomeUserText" class="text-[10px] text-zinc-400 truncate max-w-[140px] sm:max-w-xs">Logged in</p></div></div>
+      <div class="flex items-center gap-2.5"><div class="w-9 h-9 rounded-xl bg-black border border-white/20 flex items-center justify-center p-1.5"><svg viewBox="0 0 100 100" class="w-full h-full"><circle cx="50" cy="54" r="34" fill="none" stroke="#d4af37" stroke-width="6.5" stroke-dasharray="170 40" stroke-linecap="round"/><path d="M55 32L38 55H51L45 76L64 51H51Z" fill="#f59e0b"/></svg></div><div><div class="flex items-center gap-1.5"><span class="font-serif-luxury font-bold theme-gradient-text text-base sm:text-lg">StudyPunch</span><span id="headerTrackBadge" class="text-[9px] px-2 py-0.5 rounded-full bg-white/10 text-amber-200 border border-white/15 font-extrabold uppercase">NEET</span><span id="navCloudStatus" class="text-[9px] px-2 py-0.5 rounded-full bg-emerald-950/80 text-emerald-300 border border-emerald-500/30 font-semibold">Cloud Live</span></div><p id="welcomeUserText" class="text-[10px] text-zinc-400 truncate max-w-[140px] sm:max-w-xs">Logged in</p></div></div>
       <div class="hidden sm:flex flex-col items-center">
         <div class="flex items-center gap-1.5"><button type="button" onclick="slideToScreen(0)" id="dotIndicator0" class="h-1.5 w-7 rounded-full bg-white transition-all duration-300"></button><button type="button" onclick="slideToScreen(1)" id="dotIndicator1" class="h-1.5 w-2 rounded-full bg-zinc-700 transition-all duration-300"></button><button type="button" onclick="slideToScreen(2)" id="dotIndicator2" class="h-1.5 w-2 rounded-full bg-zinc-700 transition-all duration-300"></button><button type="button" onclick="slideToScreen(3)" id="dotIndicator3" class="h-1.5 w-2 rounded-full bg-zinc-700 transition-all duration-300"></button><button type="button" onclick="slideToScreen(4)" id="dotIndicator4" class="h-1.5 w-2 rounded-full bg-zinc-700 transition-all duration-300"></button></div>
         <span id="activeScreenLabel" class="text-[9px] font-semibold text-zinc-400 mt-1 tracking-[0.15em] uppercase">Swipe ⇄ • 1/5 Command &amp; Telemetry</span>
       </div>
-      <div class="flex items-center gap-2"><button type="button" id="openSettingsBtn" class="clicky px-3.5 py-2 rounded-xl text-xs font-bold bg-zinc-900 text-white border border-white/15 flex items-center gap-1.5">⚙️ Settings</button><button id="logoutBtn" type="button" class="clicky px-3 py-2 rounded-xl text-xs font-semibold bg-zinc-950 text-zinc-400 border border-zinc-800 hover:text-rose-300">Exit</button></div>
+      <div class="flex items-center gap-1.5"><button type="button" onclick="openAppInstallModal()" class="clicky px-2.5 py-2 rounded-xl text-xs font-bold bg-zinc-900 text-amber-200 border border-white/15">📲 <span class="hidden md:inline">App</span></button><button type="button" id="openSettingsBtn" class="clicky px-3 py-2 rounded-xl text-xs font-bold bg-zinc-900 text-white border border-white/15 flex items-center gap-1.5">⚙️ Settings</button><button id="logoutBtn" type="button" class="clicky px-3 py-2 rounded-xl text-xs font-semibold bg-zinc-950 text-zinc-400 border border-zinc-800 hover:text-rose-300">Exit</button></div>
     </div>
   </header>
 
@@ -203,7 +249,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
     <main id="dashboardView" class="phone-screen-slide p-4 sm:p-6">
       <div class="max-w-7xl mx-auto space-y-6">
         <div id="doomsdayClockContainer" class="doomsday-panel p-6 sm:p-8 relative overflow-hidden">
-          <div class="flex flex-wrap items-center justify-between gap-3 mb-5 border-b border-zinc-800/80 pb-4"><div class="flex items-center gap-3"><span class="w-3 h-3 rounded-full bg-rose-600 doomsday-beacon"></span><div><span class="text-[10px] font-extrabold uppercase tracking-[0.25em] text-rose-400">DOOMSDAY CHRONOGRAPH</span><h2 class="font-serif-luxury text-xl sm:text-2xl font-bold text-white">NEET 2027 Examination — 02 May 2027</h2></div></div><div class="text-right"><span class="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-[0.18em] bg-rose-950/90 text-rose-300 border border-rose-500/40">T-MINUS CRITICAL</span><p class="mono-nums text-[11px] text-zinc-400 mt-1">Exam Bell: 02 May 2027 • 14:00 IST</p></div></div>
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-5 border-b border-zinc-800/80 pb-4"><div class="flex items-center gap-3"><span class="w-3 h-3 rounded-full bg-rose-600 doomsday-beacon"></span><div><span class="text-[10px] font-extrabold uppercase tracking-[0.25em] text-rose-400">DOOMSDAY CHRONOGRAPH</span><h2 id="ddExamTitle" class="font-serif-luxury text-xl sm:text-2xl font-bold text-white">NEET 2027 Examination — 02 May 2027</h2></div></div><div class="text-right"><span class="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-[0.18em] bg-rose-950/90 text-rose-300 border border-rose-500/40">T-MINUS CRITICAL</span><p id="ddExamBell" class="mono-nums text-[11px] text-zinc-400 mt-1">Exam Bell: 02 May 2027 • 14:00 IST</p></div></div>
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-5 text-center my-2">
             <div class="bg-black/90 rounded-2xl p-4 sm:p-5 border border-rose-500/40"><p class="text-[10px] font-extrabold uppercase tracking-[0.22em] text-rose-400 mb-1">01 • Seconds</p><div id="ddSeconds" class="mono-nums text-4xl sm:text-6xl font-black text-rose-500">00</div></div>
             <div class="bg-black/80 rounded-2xl p-4 sm:p-5 border border-white/10"><p class="text-[10px] font-extrabold uppercase tracking-[0.22em] theme-gradient-text mb-1">02 • Minutes</p><div id="ddMinutes" class="mono-nums text-4xl sm:text-6xl font-black text-white">00</div></div>
@@ -261,16 +307,16 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
           </div>
           <div class="lg:col-span-2 luxury-card p-6"><h3 class="font-serif-luxury text-lg font-bold text-white mb-4">🕒 Chronological Study Ledger</h3><div class="overflow-x-auto max-h-80"><table class="w-full text-left"><thead><tr class="border-b border-zinc-800 text-[10px] uppercase tracking-[0.18em] text-zinc-400"><th class="py-2.5 px-4">Date</th><th class="py-2.5 px-4">Objective &amp; Tag</th><th class="py-2.5 px-4">Stamp / Mode</th><th class="py-2.5 px-4 text-right">Duration</th><th class="py-2.5 px-4 text-right">✕</th></tr></thead><tbody id="timesheetTableBody" class="text-xs divide-y divide-zinc-800/60"></tbody></table></div></div>
         </div>
-        <div class="pt-4 text-center"><p class="text-xs text-zinc-500">StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p></div>
+        <div class="pt-4 text-center"><p class="text-xs text-zinc-500">StudyPunch Executive JEE &amp; NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p></div>
       </div>
     </main>
 
     <section id="syllabusView" class="phone-screen-slide p-4 sm:p-6">
       <div class="max-w-7xl mx-auto space-y-6">
         <div class="luxury-card p-4 sm:p-5 sticky top-0 z-20"><div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3"><input id="syllabusSearchInput" type="text" placeholder="🔍 Search Mechanics, Organic, Inorganic, Botany, Zoology..." class="sp-inp flex-1"/><div class="flex items-center gap-2"><button id="expandAllFoldersBtn" type="button" class="clicky px-4 py-2.5 rounded-xl text-xs font-bold theme-btn-primary">🕸️ Expand All</button><button id="collapseAllFoldersBtn" type="button" class="clicky px-3.5 py-2.5 rounded-xl text-xs font-semibold bg-black/80 text-zinc-300 border border-zinc-800">Collapse</button><button type="button" onclick="slideToScreen(2)" class="clicky px-3.5 py-2.5 rounded-xl text-xs font-bold bg-white/10 text-white border border-white/20">🌐 3D Web →</button></div></div></div>
-        <div class="luxury-card p-6"><div class="flex flex-wrap items-center justify-between gap-4 mb-4"><div><h2 class="font-serif-luxury text-2xl font-bold text-white">9-Branch NCERT Syllabus &amp; Retention</h2><p class="text-xs text-zinc-400 mt-1">🔥 High-Yield • 🟢 Fresh (0–6d) • 🟡 Medium (7–16d) • 🟠 Urgent (17–26d) • 🔴 Red Alert (27+d)</p></div><div class="text-right"><span id="overallSyllabusBigPct" class="mono-nums text-4xl font-black theme-gradient-text">0%</span><p id="overallSyllabusCounts" class="text-xs text-zinc-400 font-semibold">0 / 0 nodes</p></div></div><div class="w-full bg-black h-3 rounded-full overflow-hidden mb-5 border border-zinc-800"><div id="overallSyllabusBar" class="theme-btn-primary h-full rounded-full transition-all duration-500" style="width:0%"></div></div><div id="subjectSummaryCards" class="grid grid-cols-1 sm:grid-cols-3 gap-4"></div></div>
+        <div class="luxury-card p-6"><div class="flex flex-wrap items-center justify-between gap-4 mb-4"><div><h2 id="syllabusHeaderTitle" class="font-serif-luxury text-2xl font-bold text-white">9-Branch NCERT Syllabus &amp; Retention</h2><p class="text-xs text-zinc-400 mt-1">🔥 High-Yield • 🟢 Fresh (0–6d) • 🟡 Medium (7–16d) • 🟠 Urgent (17–26d) • 🔴 Red Alert (27+d)</p></div><div class="text-right"><span id="overallSyllabusBigPct" class="mono-nums text-4xl font-black theme-gradient-text">0%</span><p id="overallSyllabusCounts" class="text-xs text-zinc-400 font-semibold">0 / 0 nodes</p></div></div><div class="w-full bg-black h-3 rounded-full overflow-hidden mb-5 border border-zinc-800"><div id="overallSyllabusBar" class="theme-btn-primary h-full rounded-full transition-all duration-500" style="width:0%"></div></div><div id="subjectSummaryCards" class="grid grid-cols-1 sm:grid-cols-3 gap-4"></div></div>
         <div id="syllabusTreeContainer" class="space-y-5"></div>
-        <div class="pt-4 text-center"><p class="text-xs text-zinc-500">StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p></div>
+        <div class="pt-4 text-center"><p class="text-xs text-zinc-500">StudyPunch Executive JEE &amp; NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p></div>
       </div>
     </section>
 
@@ -284,7 +330,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
           <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
             <div id="spider3dStageBox" class="lg:col-span-2 bg-[#020308] rounded-3xl border border-white/15 relative overflow-hidden min-h-[420px] sm:min-h-[500px] flex items-center justify-center">
               <canvas id="spider3dCanvas" class="w-full h-full block cursor-grab active:cursor-grabbing" style="touch-action:none"></canvas>
-              <div class="absolute top-3.5 left-3.5 px-3.5 py-2 rounded-2xl bg-black/80 border border-white/15 pointer-events-none max-w-[240px]"><p class="text-[9px] font-extrabold uppercase tracking-[0.2em] text-zinc-400">9-Branch Constellation</p><p id="spider3dFocusTitle" class="text-xs font-bold text-white mt-0.5">9 NEET Branches • Orbiting Nodes</p><p id="spider3dFocusSub" class="text-[10px] text-amber-300 mt-0.5">Tap/Hover any branch vertex</p></div>
+              <div class="absolute top-3.5 left-3.5 px-3.5 py-2 rounded-2xl bg-black/80 border border-white/15 pointer-events-none max-w-[240px]"><p class="text-[9px] font-extrabold uppercase tracking-[0.2em] text-zinc-400">9-Branch Constellation</p><p id="spider3dFocusTitle" class="text-xs font-bold text-white mt-0.5">9 Exam Branches • Orbiting Nodes</p><p id="spider3dFocusSub" class="text-[10px] text-amber-300 mt-0.5">Tap/Hover any branch vertex</p></div>
               <div class="absolute top-3.5 right-3.5 flex items-center gap-2 z-20"><div id="spider3dOverallTag" class="px-3 py-1.5 rounded-xl bg-black/80 border border-white/15 mono-nums text-xs font-extrabold theme-gradient-text pointer-events-none">Overall 3D Web: 0%</div><button type="button" id="exit3dFullscreenBtn" class="hidden clicky px-3.5 py-1.5 rounded-xl bg-rose-600 text-white font-extrabold text-xs">✕ Exit</button></div>
               <div class="absolute bottom-3.5 left-3.5 right-3.5 flex flex-wrap items-center justify-between gap-2 pointer-events-none"><div class="px-3 py-1.5 rounded-xl bg-black/80 border border-white/10 text-[10px] text-zinc-300">🖱️ Drag 360° • Scroll Zoom • Satellites = Chapters</div><div id="fsFloatingControls" class="hidden pointer-events-auto flex items-center gap-1.5 bg-black p-1.5 rounded-2xl border border-white/15"><button type="button" onclick="document.getElementById('toggleHighYieldGlowBtn').click()" class="clicky px-3 py-1.5 rounded-xl text-[11px] font-bold bg-amber-500/20 text-amber-200">🔥 Halo</button><button type="button" onclick="document.getElementById('toggle3dAutoRotateBtn').click()" class="clicky px-3 py-1.5 rounded-xl text-[11px] font-bold theme-btn-primary">🔄 Orbit</button><button type="button" onclick="document.getElementById('reset3dCameraBtn').click()" class="clicky px-3 py-1.5 rounded-xl text-[11px] font-semibold bg-zinc-900 text-white">🎯 Reset</button></div></div>
             </div>
@@ -295,7 +341,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
             </div>
           </div>
         </div>
-        <div class="pt-4 text-center"><p class="text-xs text-zinc-500">StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p></div>
+        <div class="pt-4 text-center"><p class="text-xs text-zinc-500">StudyPunch Executive JEE &amp; NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p></div>
       </div>
     </section>
 
@@ -303,10 +349,10 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
       <div class="max-w-7xl mx-auto space-y-6">
         <div class="luxury-card p-5 sm:p-7">
           <div class="flex flex-wrap items-center justify-between gap-4 pb-5 mb-5 border-b border-white/10"><div><div class="flex items-center gap-2"><span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-[0.2em] bg-white/10 text-zinc-200 border border-white/15">7-Day Board</span><span id="sprintProgressBadge" class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-950/80 text-emerald-300 border border-emerald-500/30 mono-nums">0 / 0 Done</span></div><h2 class="font-serif-luxury text-2xl sm:text-3xl font-bold text-white mt-1.5">📅 Weekly Revision &amp; Sprint Blueprint</h2></div><div class="flex flex-wrap items-center gap-2"><button type="button" id="autoFillSprintBtn" class="clicky px-4 py-2.5 rounded-xl text-xs font-extrabold theme-btn-primary">⚡ Auto-Fill Weak &amp; Decaying</button><button type="button" id="clearDoneSprintBtn" class="clicky px-3.5 py-2.5 rounded-xl text-xs font-semibold bg-black/80 text-zinc-300 border border-zinc-800">🧹 Clear Done</button></div></div>
-          <form id="addSprintTaskForm" class="grid grid-cols-1 sm:grid-cols-4 gap-2.5 mb-6 bg-black/60 p-3.5 rounded-2xl border border-zinc-800"><select id="sprintDaySelect" class="px-3 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-xs font-bold"><option value="Mon">Monday</option><option value="Tue">Tuesday</option><option value="Wed">Wednesday</option><option value="Thu">Thursday</option><option value="Fri">Friday</option><option value="Sat">Saturday</option><option value="Sun">Sunday</option></select><input id="sprintTaskInput" type="text" required placeholder="Add sprint goal (e.g. Revise Organic Chem: Aldol)..." class="sm:col-span-2 px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-xs"/><button type="submit" class="clicky py-2.5 px-4 rounded-xl theme-btn-primary font-extrabold text-xs uppercase tracking-wider">+ Add</button></form>
+          <form id="addSprintTaskForm" class="grid grid-cols-1 sm:grid-cols-4 gap-2.5 mb-6 bg-black/60 p-3.5 rounded-2xl border border-zinc-800"><select id="sprintDaySelect" class="px-3 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-xs font-bold"><option value="Mon">Monday</option><option value="Tue">Tuesday</option><option value="Wed">Wednesday</option><option value="Thu">Thursday</option><option value="Fri">Friday</option><option value="Sat">Saturday</option><option value="Sun">Sunday</option></select><input id="sprintTaskInput" type="text" required placeholder="Add sprint goal (e.g. Revise Organic Chem / Integration)..." class="sm:col-span-2 px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-xs"/><button type="submit" class="clicky py-2.5 px-4 rounded-xl theme-btn-primary font-extrabold text-xs uppercase tracking-wider">+ Add</button></form>
           <div id="weeklySprintGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"></div>
         </div>
-        <div class="pt-4 text-center"><p class="text-xs text-zinc-500">StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p></div>
+        <div class="pt-4 text-center"><p class="text-xs text-zinc-500">StudyPunch Executive JEE &amp; NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p></div>
       </div>
     </section>
 
@@ -328,7 +374,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
           </div>
           <div class="flex flex-wrap items-center justify-center gap-3 mt-5"><button type="button" id="qdStartPauseBtn" class="clicky flex-1 max-w-xs py-3.5 px-6 rounded-2xl theme-btn-primary font-extrabold text-xs uppercase tracking-[0.16em]">▶ Start Auto-Drill</button><button type="button" id="qdNextSkipBtn" class="clicky py-3.5 px-4 rounded-2xl bg-zinc-900 text-zinc-200 border border-zinc-800 font-bold text-xs">⏭ Next Q</button><button type="button" id="qdStopSaveBtn" class="clicky py-3.5 px-5 rounded-2xl bg-rose-950/80 text-rose-200 border border-rose-500/35 font-extrabold text-xs uppercase tracking-wider">⏹ Stop &amp; Save</button></div>
         </div>
-        <div class="pt-4 text-center"><p class="text-xs text-zinc-500">StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p></div>
+        <div class="pt-4 text-center"><p class="text-xs text-zinc-500">StudyPunch Executive JEE &amp; NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p></div>
       </div>
     </section>
   </div>
@@ -336,7 +382,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
   <nav class="pointer-events-none fixed bottom-3 left-0 right-0 px-3 z-40">
     <div class="pointer-events-auto oneui-nav-dock max-w-md mx-auto p-1.5 grid grid-cols-5 gap-1">
       <button id="navDashboardBtn" type="button" class="oneui-nav-btn is-active clicky flex flex-col items-center justify-center py-2 px-1 font-bold text-[11px]"><span class="nav-ico text-base leading-none mb-0.5">⏱️</span><span>Command</span></button>
-      <button id="navSyllabusBtn" type="button" class="oneui-nav-btn clicky flex flex-col items-center justify-center py-2 px-1 text-zinc-400 hover:text-white font-semibold text-[11px]"><span class="nav-ico text-base leading-none mb-0.5">📋</span><span>NCERT</span></button>
+      <button id="navSyllabusBtn" type="button" class="oneui-nav-btn clicky flex flex-col items-center justify-center py-2 px-1 text-zinc-400 hover:text-white font-semibold text-[11px]"><span class="nav-ico text-base leading-none mb-0.5">📋</span><span id="navSyllabusLabel">NCERT</span></button>
       <button id="navSpider3dBtn" type="button" class="oneui-nav-btn clicky flex flex-col items-center justify-center py-2 px-1 text-zinc-400 hover:text-white font-semibold text-[11px]"><span class="nav-ico text-base leading-none mb-0.5">🌐</span><span>3D Web</span></button>
       <button id="navSprintBtn" type="button" class="oneui-nav-btn clicky flex flex-col items-center justify-center py-2 px-1 text-zinc-400 hover:text-white font-semibold text-[11px]"><span class="nav-ico text-base leading-none mb-0.5">📅</span><span>Sprint</span></button>
       <button id="navQDrillBtn" type="button" class="oneui-nav-btn clicky flex flex-col items-center justify-center py-2 px-1 text-zinc-400 hover:text-white font-semibold text-[11px]"><span class="nav-ico text-base leading-none mb-0.5">🎯</span><span>Q-Drill</span></button>
@@ -353,7 +399,7 @@ const $=id=>document.getElementById(id),on=(id,ev,fn)=>$(id)?.addEventListener(e
 const THEMES=[["sunset","🌅","Sunset Peak","Mountain & Black"],["flora","🌿","Flora & Fauna","Emerald & Moss"],["night","🌕","Night Sky","Moon & Sparkle"],["obsidian","👑","Obsidian Gold","Purple & Gold"],["crimson","🩸","Crimson Eclipse","Ruby & Shadow"],["ocean","🌊","Abyssal Ocean","Cyan & Sapphire"],["amethyst","🔮","Royal Amethyst","Violet & Nebula"],["solar","☀️","Solar Flare","Molten & Plasma"],["arctic","❄️","Arctic Frost","Silver & White"]];
 const WALLPAPERS=[["black","🌑","Pitch Black","Black"],["aurora","🌌","Real Aurora","Aurora"],["snow","❄️","Snowfall","Snow"],["rain","💧","Lens Rain","Rain"],["meteor","☄️","Meteors","Meteors"],["embers","🔥","Embers","Embers"],["fireflies","✨","Fireflies","Fireflies"],["matrix","💠","Matrix","Matrix"],["ocean","🫧","Big Bubbles","Ocean"],["sakura","🌸","Sakura","Sakura"]];
 const TRACKS=[["off","🔇 Off"],["pink_rain","🌧️ Pink Noise Rain"],["brown_focus","🌊 Brown Noise"],["gamma_40","🧠 40Hz Gamma"],["beta_16","⚡ 16Hz Beta"],["alpha_10","🍃 10Hz Alpha"],["hz_432","🎵 432Hz Resonance"],["bpm_60","💓 60 BPM Pulse"],["cave_drops","💧 Water Droplets"],["forest_chimes","🌲 Forest Chimes"]];
-const STAMPS=[["hms_24","1. 24h (HH:MM:SS)"],["ampm_12","2. 12h AM/PM"],["ist_full","3. IST Timezone"],["iso_dt","4. ISO Date-Time"],["unix_ep","5. Unix Epoch"],["dec_hr","6. Decimal Hours"],["neet_tminus","7. NEET T-Minus Day"],["week_day","8. Weekday + Date"],["compact_ymd","9. Compact YMD-HMS"]];
+const STAMPS=[["hms_24","1. 24h (HH:MM:SS)"],["ampm_12","2. 12h AM/PM"],["ist_full","3. IST Timezone"],["iso_dt","4. ISO Date-Time"],["unix_ep","5. Unix Epoch"],["dec_hr","6. Decimal Hours"],["neet_tminus","7. Exam T-Minus Day"],["week_day","8. Weekday + Date"],["compact_ymd","9. Compact YMD-HMS"]];
 
 $("settingsThemeGrid").innerHTML=THEMES.map(([id,ic,n,s])=>`<button type="button" onclick="setWebTheme('${id}')" data-theme-opt="${id}" class="theme-pill clicky p-2.5 rounded-2xl border text-left flex flex-col gap-0.5"><span class="text-sm">${ic}</span><span class="text-[11px] font-bold">${n}</span><span class="text-[9px] text-zinc-400">${s}</span></button>`).join("");
 $("settingsWpGrid").innerHTML=WALLPAPERS.map(([id,ic,n])=>`<button type="button" onclick="setFocusWallpaper('${id}')" data-wp="${id}" class="wp-pill wp-card clicky p-2 rounded-xl border text-center"><div class="text-sm mb-0.5">${ic}</div><div class="text-[10px] font-bold">${n}</div></button>`).join("");
@@ -368,12 +414,18 @@ let currentFocusWallpaper=localStorage.getItem("studypunch_focus_wp")||"aurora",
 let highYieldGlowEnabled=localStorage.getItem("studypunch_hy_glow")!=="false",is3dFullscreen=false,isZdHudHidden=false,pendingRevisionTopicKey=null;
 let wpAnimFrame=null,wpParticles=[],wpDrops=[],auroraTime=0,audioCtx=null,introVisible=true;
 
-const DAY_MS=86400000,MEDIUM_DAYS=7,URGENT_DAYS=17,RED_ALERT_DAYS=27,NEET_2027_EXAM_TIMESTAMP=new Date("2027-05-02T14:00:00+05:30").getTime();
+const DAY_MS=86400000,MEDIUM_DAYS=7,URGENT_DAYS=17,RED_ALERT_DAYS=27;
+let activeExamTrack=localStorage.getItem("studypunch_exam_track")||"neet";
+const EXAM_CONFIG={
+  neet:{label:"NEET 2027",short:"NEET",icon:"🩺",examName:"NEET 2027 Examination — 02 May 2027",bell:"Exam Bell: 02 May 2027 • 14:00 IST",ts:new Date("2027-05-02T14:00:00+05:30").getTime(),subjects:["Physics","Chemistry","Biology"],chartLabels:["⚡ Phys","🧪 Chem","🧬 Bio","🎯 Mock"],placeholder:"Specify your NCERT objective (e.g. Organic Chem: Aldol)",searchPh:"🔍 Search Mechanics, Organic, Inorganic, Botany, Zoology...",branchTitle:"9-Branch NCERT Syllabus & Retention",zdDefault:"NEET 2027 Deep Study",navTab:"NCERT"},
+  jee:{label:"JEE 2027",short:"JEE",icon:"⚙️",examName:"JEE Main 2027 Session 1 — 22 Jan 2027",bell:"Exam Bell: 22 Jan 2027 • 09:00 IST",ts:new Date("2027-01-22T09:00:00+05:30").getTime(),subjects:["Physics","Chemistry","Mathematics"],chartLabels:["⚡ Phys","🧪 Chem","📐 Math","🎯 Mock"],placeholder:"Specify your JEE objective (e.g. Calculus: Definite Integrals)",searchPh:"🔍 Search Mechanics, EM, Organic, Calculus, Matrices, Vectors...",branchTitle:"9-Branch JEE Syllabus & Retention",zdDefault:"JEE 2027 Deep Study",navTab:"JEE Map"}
+};
 const THEME_CHART_PALETTE={sunset:{bar:"#fbbf24",line:"#fb7185",lineFill:"rgba(251,113,133,.18)",rgb:"251,191,36",prism:"251,113,133",neb1:"rgba(249,115,22,.16)",neb2:"rgba(225,29,72,.14)"},flora:{bar:"#2dd4bf",line:"#bef264",lineFill:"rgba(190,242,100,.16)",rgb:"45,212,191",prism:"190,242,100",neb1:"rgba(20,184,166,.16)",neb2:"rgba(163,230,53,.11)"},night:{bar:"#a5b4fc",line:"#38bdf8",lineFill:"rgba(56,189,248,.18)",rgb:"165,180,252",prism:"56,189,248",neb1:"rgba(99,102,241,.22)",neb2:"rgba(56,189,248,.15)"},obsidian:{bar:"#facc15",line:"#c084fc",lineFill:"rgba(192,132,252,.18)",rgb:"250,204,21",prism:"192,132,252",neb1:"rgba(147,51,234,.22)",neb2:"rgba(234,179,8,.16)"},crimson:{bar:"#fb7185",line:"#fdba74",lineFill:"rgba(251,146,60,.16)",rgb:"244,63,94",prism:"251,146,60",neb1:"rgba(244,63,94,.18)",neb2:"rgba(251,146,60,.12)"},ocean:{bar:"#22d3ee",line:"#60a5fa",lineFill:"rgba(96,165,250,.18)",rgb:"34,211,238",prism:"96,165,250",neb1:"rgba(34,211,238,.17)",neb2:"rgba(59,130,246,.14)"},amethyst:{bar:"#d8b4fe",line:"#f0abfc",lineFill:"rgba(240,171,252,.18)",rgb:"192,132,252",prism:"240,171,252",neb1:"rgba(192,132,252,.19)",neb2:"rgba(99,102,241,.13)"},solar:{bar:"#fb923c",line:"#fde047",lineFill:"rgba(253,224,71,.16)",rgb:"251,146,60",prism:"253,224,71",neb1:"rgba(251,146,60,.18)",neb2:"rgba(239,68,68,.13)"},arctic:{bar:"#e2e8f0",line:"#7dd3fc",lineFill:"rgba(125,211,252,.18)",rgb:"226,232,240",prism:"125,211,252",neb1:"rgba(226,232,240,.15)",neb2:"rgba(125,211,252,.13)"}};
 
 function formatClockInStamp(ms,fmt=currentStampFormat){
   const d=new Date(ms||Date.now()),p=n=>String(n).padStart(2,"0"),hh=p(d.getHours()),mm=p(d.getMinutes()),ss=p(d.getSeconds()),y=d.getFullYear(),mo=p(d.getMonth()+1),dd=p(d.getDate());
-  return{ampm_12:`${p(d.getHours()%12||12)}:${mm}:${ss} ${d.getHours()>=12?"PM":"AM"}`,ist_full:`${dd}/${mo}/${y} ${hh}:${mm}:${ss} IST`,iso_dt:`${y}-${mo}-${dd}T${hh}:${mm}:${ss}`,unix_ep:`EPOCH:${Math.floor(d.getTime()/1000)}`,dec_hr:`${(d.getHours()+d.getMinutes()/60+d.getSeconds()/3600).toFixed(2)}h Day-Clock`,neet_tminus:`T-${Math.max(0,Math.ceil((NEET_2027_EXAM_TIMESTAMP-d.getTime())/DAY_MS))}d @ ${hh}:${mm}:${ss}`,week_day:`${d.toLocaleDateString([],{weekday:"short"})} ${dd}/${mo} • ${hh}:${mm}:${ss}`,compact_ymd:`${y}${mo}${dd}-${hh}${mm}${ss}`}[fmt]||`${hh}:${mm}:${ss}`;
+  const cfg=EXAM_CONFIG[activeExamTrack]||EXAM_CONFIG.neet;
+  return{ampm_12:`${p(d.getHours()%12||12)}:${mm}:${ss} ${d.getHours()>=12?"PM":"AM"}`,ist_full:`${dd}/${mo}/${y} ${hh}:${mm}:${ss} IST`,iso_dt:`${y}-${mo}-${dd}T${hh}:${mm}:${ss}`,unix_ep:`EPOCH:${Math.floor(d.getTime()/1000)}`,dec_hr:`${(d.getHours()+d.getMinutes()/60+d.getSeconds()/3600).toFixed(2)}h Day-Clock`,neet_tminus:`${cfg.short} T-${Math.max(0,Math.ceil((cfg.ts-d.getTime())/DAY_MS))}d @ ${hh}:${mm}:${ss}`,week_day:`${d.toLocaleDateString([],{weekday:"short"})} ${dd}/${mo} • ${hh}:${mm}:${ss}`,compact_ymd:`${y}${mo}${dd}-${hh}${mm}${ss}`}[fmt]||`${hh}:${mm}:${ss}`;
 }
 window.setStampFormat=(fmt,skip=false)=>{currentStampFormat=fmt;localStorage.setItem("studypunch_stamp_fmt",fmt);document.querySelectorAll(".stamp-type-select").forEach(s=>s.value=fmt);if(currentUser?.activePunchStart)$("zdClockInStampLine").textContent=`IN: ${formatClockInStamp(currentUser.activePunchStart,fmt)}`;if(!skip){flashSettingsSaved();if(currentUser){currentUser.stampFormat=fmt;saveUserToCloud(currentUser)}}};
 
@@ -396,7 +448,7 @@ window.setStampFormat=(fmt,skip=false)=>{currentStampFormat=fmt;localStorage.set
     sparks.forEach(s=>{s.z-=s.sz*dt;s.a+=s.sp*dt;if(s.z<=26){s.z=1140;s.a=Math.random()*6.28}const sc=340/s.z,psc=340/(s.z+52);ctx.beginPath();ctx.moveTo(cx+Math.cos(s.a-s.sp*.04)*s.r*psc,cy+Math.sin(s.a-s.sp*.04)*s.r*psc);ctx.lineTo(cx+Math.cos(s.a)*s.r*sc,cy+Math.sin(s.a)*s.r*sc);ctx.strokeStyle=`rgba(${s.c},${Math.min(.9,sc*.48)})`;ctx.lineWidth=Math.max(.8,sc*1.35);ctx.lineCap="round";ctx.stroke()});
     animId=requestAnimationFrame(draw);
   };
-  const close=()=>{if(fin)return;fin=true;introVisible=false;if(animId)cancelAnimationFrame(animId);ov.classList.add("portal-exit");setTimeout(()=>{ov.classList.add("hidden");startWpLoop()},560)};
+  const close=()=>{if(fin)return;fin=true;introVisible=false;if(animId)cancelAnimationFrame(animId);ov.classList.add("portal-exit");setTimeout(()=>{ov.classList.add("hidden");startWpLoop();if(!localStorage.getItem("studypunch_exam_track"))$("examTrackModal")?.classList.remove("hidden")},560)};
   animId=requestAnimationFrame(draw);
   const t1=setTimeout(()=>{if(!fin)bh?.classList.add("show-half-sec")},1450),t2=setTimeout(()=>bh?.classList.remove("show-half-sec"),1950),t3=setTimeout(close,2350);
   sk.addEventListener("click",()=>{clearTimeout(t1);clearTimeout(t2);clearTimeout(t3);close()});
@@ -420,7 +472,52 @@ const NEET_2027_SYLLABUS=[
     {id:"bio_zoo",short:"Zoology",unitName:"Zoology (Animal Kingdom, Human Phys, Genetics & Biotech)",chapters:mkCh([["b11_4","Animal Kingdom","Non-Chordates|Chordates & Vertebrates",1],["b11_7","Structural Org (Frog)","Animal Tissues & Frog Anatomy",0],["b11_9","Biomolecules","Biomacromolecules|Enzymes & Co-factors",1],["b11_14","Breathing & Exchange of Gases","Lung Volumes & Gas Transport",0],["b11_15","Body Fluids & Circulation","Blood, Cardiac Cycle & ECG",1],["b11_16","Excretory Products","Nephron, Counter-Current & RAAS",1],["b11_17","Locomotion & Movement","Sliding Filament & Skeleton",0],["b11_18","Neural Control & Coordination","Nerve Impulse & Human Brain",1],["b11_19","Chemical Coordination","Endocrine Glands & Hormones",1],["b12_2","Human Reproduction","Gametogenesis, Menstrual Cycle & Parturition",1],["b12_3","Reproductive Health","Contraceptives, STIs & ART",0],["b12_4","Inheritance & Variation","Mendel, Linkage & Pedigree|Disorders",1],["b12_5","Molecular Basis of Inheritance","DNA Replication & Transcription|Lac Operon, HGP & Fingerprinting",1],["b12_6","Evolution","Evidences, Adaptive Radiation & Hardy-Weinberg",1],["b12_7","Human Health & Disease","Pathogens, Immunity, AIDS & Cancer",1],["b12_9","Biotech: Principles & Processes","Restriction Enzymes, PCR & Vectors",1],["b12_10","Biotech & Its Applications","Bt Cotton, RNAi, Insulin & Gene Therapy",1]])}
   ]}
 ];
-let TOTAL_SYLLABUS_TOPICS=0;NEET_2027_SYLLABUS.forEach(s=>s.units.forEach(u=>u.chapters.forEach(c=>{TOTAL_SYLLABUS_TOPICS+=c.subtopics.length})));
+const PHYS_UNITS_JEE=[
+  {id:"jp_mech",short:"Mech & Thermal",unitName:"Mechanics, Solids, Fluids, Thermal & SHM",chapters:mkCh([["p11_1","Units & Measurements","SI Units|Errors & Dimensions|Vernier & Screw Gauge",0],["p11_2","Kinematics (1D & 2D)","Relative Motion|Projectile & Circular Motion",0],["p11_4","Laws of Motion & Friction","Constraint Motion|Friction & Pseudo Force",1],["p11_5","Work, Energy & Power","Work-Energy Theorem|Vertical Circle & Collisions",1],["p11_6","Rotational Motion","Moment of Inertia|Torque, Angular Momentum & Rolling",1],["p11_7","Gravitation","Kepler's Laws|Gravitational Potential & Orbits",1],["p11_8","Properties of Solids & Fluids","Elasticity & Surface Tension|Bernoulli & Viscosity",0],["p11_11","Thermal, KTG & Thermodynamics","Calorimetry & Heat Transfer|1st/2nd Law & Carnot Engine",1],["p11_13","SHM & Waves","Oscillations & Phasors|Standing Waves & Doppler",1]])},
+  {id:"phys_em",short:"Electromagnetism",unitName:"Electrostatics, Current, Magnetism, EMI & AC",chapters:mkCh([["p12_1","Electrostatics & Gauss Law","Coulomb & Field|Gauss Law & Flux",1],["p12_2","Potential & Capacitance","Equipotentials|Dielectrics & RC Circuits",1],["p12_3","Current Electricity","Drift & Kirchhoff|Wheatstone & Instruments",1],["p12_4","Magnetism & Moving Charges","Biot-Savart & Ampere|Force & Torque on Loop",1],["p12_6","EMI & Alternating Current","Faraday & Inductance|LCR Resonance & Transformers",1],["p12_8","Electromagnetic Waves","Maxwell Displacement Current|EM Spectrum",0]])},
+  {id:"phys_opt",short:"Optics & Modern",unitName:"Optics, Modern Physics & Electronics",chapters:mkCh([["p12_9","Ray Optics","Mirrors, Lenses & TIR|Prism & Optical Instruments",1],["p12_10","Wave Optics","YDSE & Coherence|Diffraction & Polarisation",1],["p12_11","Dual Nature & Atoms","Photoelectric Effect|Bohr Model & X-Rays",1],["p12_13","Nuclei & Semiconductors","Binding Energy & Radioactivity|Diodes, Zener & Logic Gates",1]])}
+];
+const MATH_UNITS_JEE=[
+  {id:"jm_alg",short:"Algebra & Prob",unitName:"Algebra, Matrices, Binomial & Probability",chapters:mkCh([["m11_1","Sets, Relations & Functions","Domain/Range & Types|Inverse & Composition",1],["m11_2","Complex Numbers & Quadratics","Argand Plane & De Moivre|Quadratic Roots & Location",1],["m11_3","Sequences, Binomial & P&C","AP/GP/AGP|Binomial Theorem|Permutations & Combinations",1],["m12_1","Matrices & Determinants","Properties & Adjoint|System of Linear Equations",1],["m12_2","Probability & Statistics","Bayes Theorem & Random Var|Mean & Variance",1]])},
+  {id:"jm_calc",short:"Calculus & DE",unitName:"Limits, Differentiation, Integration & DE",chapters:mkCh([["m11_4","Limits, Continuity & Diff","L'Hopital & Expansion|Differentiability",1],["m12_3","Applications of Derivatives","Tangents & Monotonicity|Maxima & Minima",1],["m12_4","Indefinite & Definite Integrals","Substitution & By-Parts|King's Property & Area Under Curve",1],["m12_5","Differential Equations","Variable Separable & Linear DE|Homogeneous DE",1]])},
+  {id:"jm_coord",short:"Coord & Vectors",unitName:"Coordinate Geometry, Trigonometry & 3D Vectors",chapters:mkCh([["m11_7","Trigonometry & Inverse Trig","Identities & Equations|Inverse Trig Properties",0],["m11_5","Straight Lines & Circles","Family of Lines|Tangents & Chord of Contact",1],["m11_6","Conic Sections","Parabola|Ellipse & Hyperbola",1],["m12_6","Vectors & 3D Geometry","Dot/Cross/Box Product|Planes, Skew Lines & Shortest Dist",1]])}
+];
+const SYLLABI={
+  neet:NEET_2027_SYLLABUS,
+  jee:[
+    {id:"phys",subject:"Physics",icon:"⚡",units:PHYS_UNITS_JEE},
+    {id:"chem",subject:"Chemistry",icon:"🧪",units:NEET_2027_SYLLABUS[1].units},
+    {id:"math",subject:"Mathematics",icon:"📐",units:MATH_UNITS_JEE}
+  ]
+};
+const getActiveSyllabus=()=>SYLLABI[activeExamTrack]||SYLLABI.neet;
+const getTotalTopics=()=>{let t=0;getActiveSyllabus().forEach(s=>s.units.forEach(u=>u.chapters.forEach(c=>{t+=c.subtopics.length})));return t||1};
+let TOTAL_SYLLABUS_TOPICS=getTotalTopics();
+
+function applyTrackLabels(){
+  const cfg=EXAM_CONFIG[activeExamTrack]||EXAM_CONFIG.neet;
+  TOTAL_SYLLABUS_TOPICS=getTotalTopics();
+  if($("authTrackSubtitle"))$("authTrackSubtitle").textContent=`${cfg.label} Executive Atelier`;
+  if($("headerTrackBadge"))$("headerTrackBadge").textContent=cfg.short;
+  if($("ddExamTitle"))$("ddExamTitle").textContent=cfg.examName;
+  if($("ddExamBell"))$("ddExamBell").textContent=cfg.bell;
+  if($("settingsDoomsdayTitle"))$("settingsDoomsdayTitle").textContent=cfg.label;
+  if($("sessionSubjectInput"))$("sessionSubjectInput").placeholder=cfg.placeholder;
+  if($("syllabusSearchInput"))$("syllabusSearchInput").placeholder=cfg.searchPh;
+  if($("syllabusHeaderTitle"))$("syllabusHeaderTitle").textContent=cfg.branchTitle;
+  if($("navSyllabusLabel"))$("navSyllabusLabel").textContent=cfg.navTab;
+  if($("zdSubjectDisplay")&&!currentUser?.activeSubject)$("zdSubjectDisplay").textContent=cfg.zdDefault;
+  document.querySelectorAll(".track-switch-btn").forEach(b=>{const a=b.getAttribute("data-track-btn")===activeExamTrack;b.className=a?"track-switch-btn clicky py-2 px-3 rounded-xl border border-white/45 bg-white/15 text-white text-xs font-extrabold":"track-switch-btn clicky py-2 px-3 rounded-xl border border-zinc-800 bg-black/70 text-zinc-400 hover:text-white text-xs font-bold"});
+  updateDoomsdayChronograph();
+}
+window.setExamTrack=(track,skip=false)=>{
+  if(!SYLLABI[track])track="neet";
+  activeExamTrack=track;localStorage.setItem("studypunch_exam_track",track);
+  applyTrackLabels();
+  if(currentUser){currentUser.examTrack=track;renderDashboard();renderSyllabusTree($("syllabusSearchInput").value.trim());renderWeeklySprintBoard();if(!skip)saveUserToCloud(currentUser)}
+  if(!skip)flashSettingsSaved();
+};
+window.chooseInitialTrack=track=>{$("examTrackModal")?.classList.add("hidden");window.setExamTrack(track,false)};
 
 const firebaseConfig={apiKey:"AIzaSyDuOgES0lUt-MGSiM5blxxCm36W67xQK3c",authDomain:"studypunchone.firebaseapp.com",databaseURL:"https://studypunchone-default-rtdb.asia-southeast1.firebasedatabase.app",projectId:"studypunchone",storageBucket:"studypunchone.firebasestorage.app",messagingSenderId:"381035155998",appId:"1:381035155998:web:89d31d81751a8a92cbd40f",measurementId:"G-43W16NHSN4"};
 const setCloudStatus=o=>{$("cloudBadge").textContent=o?"Cloud Ready":"Local Fallback";$("navCloudStatus").textContent=o?"Cloud Live":"Local Mode"};
@@ -459,17 +556,36 @@ applyDoomsdayVisibility();
 on("toggleDoomsdayBtn","click",()=>{isDoomsdayVisible=!isDoomsdayVisible;localStorage.setItem("studypunch_doomsday_visible",String(isDoomsdayVisible));applyDoomsdayVisibility();flashSettingsSaved()});
 on("saveTargetBtn","click",async()=>{if(!currentUser)return;const v=parseFloat($("settingsTargetInput").value);if(!v||v<1||v>18)return alert("Enter 1–18 hrs.");currentUser.targetHours=v;renderDashboard();flashSettingsSaved();await saveUserToCloud(currentUser)});
 
-try{const l=document.createElement("link");l.rel="manifest";l.href=URL.createObjectURL(new Blob([JSON.stringify({name:"StudyPunch",short_name:"StudyPunch",start_url:".",display:"standalone",background_color:"#050507",theme_color:"#09090b"})],{type:"application/manifest+json"}));document.head.appendChild(l)}catch{}
+(function setupPwaManifestAndIcons(){
+  try{
+    const mkIcon=sz=>{const c=document.createElement("canvas");c.width=c.height=sz;const x=c.getContext("2d");x.fillStyle="#09090b";if(x.roundRect){x.beginPath();x.roundRect(0,0,sz,sz,sz*.22);x.fill()}else x.fillRect(0,0,sz,sz);x.strokeStyle="#d4af37";x.lineWidth=sz*.045;x.beginPath();x.arc(sz*.5,sz*.52,sz*.31,0.3,Math.PI*1.9);x.stroke();x.fillStyle="#f59e0b";x.beginPath();x.moveTo(sz*.54,sz*.31);x.lineTo(sz*.38,sz*.54);x.lineTo(sz*.51,sz*.54);x.lineTo(sz*.45,sz*.75);x.lineTo(sz*.63,sz*.50);x.lineTo(sz*.51,sz*.50);x.closePath();x.fill();return c.toDataURL("image/png")};
+    const i192=mkIcon(192),i512=mkIcon(512);
+    const apple=document.createElement("link");apple.rel="apple-touch-icon";apple.href=i192;document.head.appendChild(apple);
+    const l=document.createElement("link");l.rel="manifest";l.href=URL.createObjectURL(new Blob([JSON.stringify({name:"StudyPunch — JEE & NEET Atelier",short_name:"StudyPunch",start_url:location.href.split("#")[0],display:"standalone",display_override:["window-controls-overlay","standalone"],background_color:"#050507",theme_color:"#09090b",icons:[{src:i192,sizes:"192x192",type:"image/png",purpose:"any maskable"},{src:i512,sizes:"512x512",type:"image/png",purpose:"any maskable"}]})],{type:"application/manifest+json"}));document.head.appendChild(l);
+  }catch{}
+})();
 let deferredInstallPrompt=null;
-window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredInstallPrompt=e;$("installPwaBtn").classList.remove("hidden")});
-on("installPwaBtn","click",async()=>{if(!deferredInstallPrompt)return;deferredInstallPrompt.prompt();await deferredInstallPrompt.userChoice;deferredInstallPrompt=null;$("installPwaBtn").classList.add("hidden")});
+const appInstallModal=$("appInstallModal");
+window.openAppInstallModal=()=>{settingsModal?.classList.add("hidden");$("installHintMsg")?.classList.add("hidden");appInstallModal?.classList.remove("hidden")};
+on("closeAppInstallBtn","click",()=>appInstallModal?.classList.add("hidden"));
+appInstallModal?.addEventListener("click",e=>{if(e.target===appInstallModal)appInstallModal.classList.add("hidden")});
+window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredInstallPrompt=e;const b=$("nativeInstallBtn");if(b)b.textContent="📲 Install App Now (1-Tap)"});
+on("nativeInstallBtn","click",async()=>{
+  if(deferredInstallPrompt){deferredInstallPrompt.prompt();await deferredInstallPrompt.userChoice;deferredInstallPrompt=null;appInstallModal?.classList.add("hidden");return}
+  const hm=$("installHintMsg");if(hm){hm.textContent="Your browser blocks auto-prompt here — tap the 2-step menu option right below (e.g. ⋮ → Add to Home screen / Install page as app) or use Fullscreen App Mode above!";hm.classList.remove("hidden")}
+});
+on("toggleFullscreenAppBtn","click",async()=>{
+  try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen()}catch{}
+  appInstallModal?.classList.add("hidden");
+});
 
 function updateDoomsdayChronograph(){
-  const diff=Math.max(0,NEET_2027_EXAM_TIMESTAMP-Date.now()),totS=Math.floor(diff/1000),s=totS%60,totM=Math.floor(totS/60),m=totM%60,totH=Math.floor(totM/60),h=totH%24,d=Math.floor(totH/24);
+  const targetTs=(EXAM_CONFIG[activeExamTrack]||EXAM_CONFIG.neet).ts;
+  const diff=Math.max(0,targetTs-Date.now()),totS=Math.floor(diff/1000),s=totS%60,totM=Math.floor(totS/60),m=totM%60,totH=Math.floor(totM/60),h=totH%24,d=Math.floor(totH/24);
   $("ddSeconds").textContent=String(s).padStart(2,"0");$("ddMinutes").textContent=String(m).padStart(2,"0");$("ddHours").textContent=String(h).padStart(2,"0");$("ddDays").textContent=String(d).padStart(3,"0");
   $("ddSecondSweepBar").style.width=`${((60-s)/60)*100}%`;$("ddTotalHoursLeft").textContent=`Total Hours Left: ${totH.toLocaleString()} hrs`;
 }
-updateDoomsdayChronograph();setInterval(updateDoomsdayChronograph,1000);
+applyTrackLabels();setInterval(updateDoomsdayChronograph,1000);
 
 const zeroDistractionOverlay=$("zeroDistractionOverlay"),wpCanvas=$("focusWallpaperCanvas"),wpCtx=wpCanvas.getContext("2d");
 let wpW=window.innerWidth,wpH=window.innerHeight,wpLastTime=performance.now();
@@ -517,7 +633,7 @@ on("zdZenToggleBtn","click",()=>{isZdHudHidden=!isZdHudHidden;$("zdTopControlsBa
 
 window.setWebTheme(activeWebTheme,true);window.setFocusWallpaper(currentFocusWallpaper,true);window.setStampFormat(currentStampFormat,true);
 
-const TOUR_SLIDES=[{icon:"⏱️",title:"Pure Black Sanctuary & Dual-Layer Mixer",desc:"Live wallpapers drift subtly behind Home; Clock In opens a pure black screen with crisp live wallpaper, a dual-layer audio mixer & 9 timestamp formats."},{icon:"📋",title:"9-Branch NCERT & 27-Day Red Alert",desc:"Organized into Mechanics, Thermal, EM, Optics, Physical/Inorganic/Organic Chem, Botany & Zoology. Medium decay triggers at 7–16d and Red Alert at 27+d."},{icon:"🌐",title:"9-Axis 3D Deep-Space Observatory",desc:"Spin your 9-axis mastery crystal in deep space with Full-Screen mode, orbiting chapter satellites, and golden High-Yield halos."},{icon:"🎯",title:"Weekly Sprint & Q-Drill Auto-Timer",desc:"Plan Mon–Sun targets, track your 365-day heatmap, and drill MCQs with Zoro's 3-Sword Style slash, Uprise Beat & Endless Cat effects."}];
+const TOUR_SLIDES=[{icon:"⏱️",title:"Pure Black Sanctuary & Dual-Layer Mixer",desc:"Live wallpapers drift subtly behind Home; Clock In opens a pure black screen with crisp live wallpaper, a dual-layer audio mixer & 9 timestamp formats."},{icon:"📋",title:"JEE & NEET 9-Branch + 27-Day Red Alert",desc:"Switch anytime between JEE (PCM) & NEET (PCB). Medium decay triggers at 7–16d and Red Alert at 27+d."},{icon:"🌐",title:"9-Axis 3D Deep-Space Observatory",desc:"Spin your 9-axis mastery crystal in deep space with Full-Screen mode, orbiting chapter satellites, and golden High-Yield halos."},{icon:"📲",title:"App Mode, Weekly Sprint & Q-Drill",desc:"Install StudyPunch like a native app via 📲 App, plan Mon–Sun targets, track your 365-day heatmap, and drill MCQs with Zoro & Cat effects."}];
 let tourIndex=0;const tourModal=$("newUserIntroModal");
 function renderTourSlide(){const s=TOUR_SLIDES[tourIndex];$("tourStepCounter").textContent=`Welcome • ${tourIndex+1} / ${TOUR_SLIDES.length}`;$("tourSlideIcon").textContent=s.icon;$("tourSlideTitle").textContent=s.title;$("tourSlideDesc").textContent=s.desc;$("tourPrevBtn").classList.toggle("invisible",tourIndex===0);$("tourNextBtn").textContent=tourIndex===TOUR_SLIDES.length-1?"Let's Lock In 🚀":"Next →";$("tourDotsRow").innerHTML=TOUR_SLIDES.map((_,i)=>`<span class="h-1.5 rounded-full transition-all ${i===tourIndex?"w-7 bg-white":"w-2 bg-zinc-700"}"></span>`).join("")}
 const finishTour=()=>{tourModal.classList.add("hidden");if(currentUser)localStorage.setItem("studypunch_tour_seen_"+currentUser.id,"true")};
@@ -533,9 +649,9 @@ const showAlert=m=>{authAlert.textContent=m;authAlert.classList.remove("hidden")
 const actAuth="clicky py-2 text-xs font-bold rounded-lg bg-zinc-900 text-white border border-white/15",idleAuth="clicky py-2 text-xs font-bold rounded-lg text-zinc-400 hover:text-white";
 on("tabSignIn","click",()=>{clearAlert();signInForm.classList.remove("hidden");createIdForm.classList.add("hidden");$("tabSignIn").className=actAuth;$("tabCreateId").className=idleAuth});
 on("tabCreateId","click",()=>{clearAlert();createIdForm.classList.remove("hidden");signInForm.classList.add("hidden");$("tabCreateId").className=actAuth;$("tabSignIn").className=idleAuth});
-createIdForm.addEventListener("submit",async e=>{e.preventDefault();clearAlert();const name=$("regFullName").value.trim(),id=$("regStudentId").value.trim().toLowerCase(),pin=$("regPin").value.trim(),pin2=$("regPinConfirm").value.trim(),targetHours=parseFloat($("regTarget").value)||6;if(!/^[a-z0-9_-]{3,20}$/.test(id))return showAlert("ID must be 3–20 chars.");if(!/^\d{4}$/.test(pin))return showAlert("PIN must be 4 digits.");if(pin!==pin2)return showAlert("PINs do not match.");const btn=$("createIdSubmitBtn");btn.disabled=true;try{if(await fetchUserFromCloud(id)||getLocalUsersMap()[id])return showAlert("ID already exists.");const u={id,name,pin,targetHours,webTheme:activeWebTheme,focusWallpaper:currentFocusWallpaper,stampFormat:currentStampFormat,sessions:[],syllabusChecked:{},syllabusCheckedAt:{},syllabusReason:{},weeklySprint:[],activePunchStart:null,activeSubject:"",createdAt:new Date().toISOString()};await saveUserToCloud(u);loginSuccess(u)}catch(err){showAlert(err.message)}finally{btn.disabled=false}});
+createIdForm.addEventListener("submit",async e=>{e.preventDefault();clearAlert();const name=$("regFullName").value.trim(),id=$("regStudentId").value.trim().toLowerCase(),pin=$("regPin").value.trim(),pin2=$("regPinConfirm").value.trim(),targetHours=parseFloat($("regTarget").value)||6;if(!/^[a-z0-9_-]{3,20}$/.test(id))return showAlert("ID must be 3–20 chars.");if(!/^\d{4}$/.test(pin))return showAlert("PIN must be 4 digits.");if(pin!==pin2)return showAlert("PINs do not match.");const btn=$("createIdSubmitBtn");btn.disabled=true;try{if(await fetchUserFromCloud(id)||getLocalUsersMap()[id])return showAlert("ID already exists.");const u={id,name,pin,targetHours,examTrack:activeExamTrack,webTheme:activeWebTheme,focusWallpaper:currentFocusWallpaper,stampFormat:currentStampFormat,sessions:[],syllabusChecked:{},syllabusCheckedAt:{},syllabusReason:{},weeklySprint:[],activePunchStart:null,activeSubject:"",createdAt:new Date().toISOString()};await saveUserToCloud(u);loginSuccess(u)}catch(err){showAlert(err.message)}finally{btn.disabled=false}});
 signInForm.addEventListener("submit",async e=>{e.preventDefault();clearAlert();const id=$("loginStudentId").value.trim().toLowerCase(),pin=$("loginPin").value.trim(),btn=$("signInSubmitBtn");btn.disabled=true;try{const u=await fetchUserFromCloud(id)||getLocalUsersMap()[id];if(!u)return showAlert("ID not found.");if(u.pin&&u.pin!==pin)return showAlert("Incorrect PIN.");saveLocalUser(u);loginSuccess(u)}catch(err){showAlert(err.message)}finally{btn.disabled=false}});
-async function handleGoogleUser(g){const id=(g.email.split("@")[0].replace(/[^a-zA-Z0-9_-]/g,"").toLowerCase()||"student").slice(0,20);let u=await fetchUserFromCloud(id)||getLocalUsersMap()[id];if(!u){u={id,name:g.displayName||id,email:g.email||"",pin:"0000",targetHours:6,webTheme:activeWebTheme,focusWallpaper:currentFocusWallpaper,stampFormat:currentStampFormat,sessions:[],syllabusChecked:{},syllabusCheckedAt:{},syllabusReason:{},weeklySprint:[],activePunchStart:null,activeSubject:"",createdAt:new Date().toISOString()};await saveUserToCloud(u)}else saveLocalUser(u);loginSuccess(u)}
+async function handleGoogleUser(g){const id=(g.email.split("@")[0].replace(/[^a-zA-Z0-9_-]/g,"").toLowerCase()||"student").slice(0,20);let u=await fetchUserFromCloud(id)||getLocalUsersMap()[id];if(!u){u={id,name:g.displayName||id,email:g.email||"",pin:"0000",targetHours:6,examTrack:activeExamTrack,webTheme:activeWebTheme,focusWallpaper:currentFocusWallpaper,stampFormat:currentStampFormat,sessions:[],syllabusChecked:{},syllabusCheckedAt:{},syllabusReason:{},weeklySprint:[],activePunchStart:null,activeSubject:"",createdAt:new Date().toISOString()};await saveUserToCloud(u)}else saveLocalUser(u);loginSuccess(u)}
 if(auth)getRedirectResult(auth).then(r=>{if(r?.user)handleGoogleUser(r.user)}).catch(()=>{});
 on("googleLoginBtn","click",async()=>{clearAlert();if(!auth||!googleProvider)return showAlert("Firebase Auth unavailable.");try{const res=await signInWithPopup(auth,googleProvider);await handleGoogleUser(res.user)}catch(err){if(err?.code==="auth/popup-blocked"||err?.code==="auth/cancelled-popup-request")signInWithRedirect(auth,googleProvider).catch(()=>{});else showAlert("Google Sign-In error: "+(err.code||err.message))}});
 
@@ -545,6 +661,8 @@ function computeTopLeak(){if(!currentUser)return"Balanced";const c={};Object.val
 
 function loginSuccess(u){
   currentUser=u;if(!Array.isArray(u.sessions))u.sessions=[];ensureRetention(u);
+  if(u.examTrack&&SYLLABI[u.examTrack]){activeExamTrack=u.examTrack;localStorage.setItem("studypunch_exam_track",u.examTrack)}
+  applyTrackLabels();
   if(u.webTheme)window.setWebTheme(u.webTheme,true);if(u.focusWallpaper)window.setFocusWallpaper(u.focusWallpaper,true);
   if(u.focusMixer)syncMixerFromUser(u.focusMixer);else if(u.focusSoundtrack){mixerState.A.track=u.focusSoundtrack;document.querySelectorAll(".mixer-select-a").forEach(el=>el.value=u.focusSoundtrack)}
   if(u.stampFormat)window.setStampFormat(u.stampFormat,true);
@@ -554,11 +672,11 @@ function loginSuccess(u){
 on("logoutBtn","click",()=>{if(timerInterval)clearInterval(timerInterval);stopFocusSoundtrack();syncWallpaperCanvasLayer(false);localStorage.removeItem("studypunch_current_user");currentUser=null;zeroDistractionOverlay.classList.add("hidden");appScreen.classList.add("hidden");authScreen.classList.remove("hidden")});
 
 const formatHMS=sec=>[Math.floor(sec/3600),Math.floor((sec%3600)/60),Math.floor(sec%60)].map(v=>String(v).padStart(2,"0")).join(":");
-const getCheckedCount=u=>u?.syllabusChecked?Object.values(u.syllabusChecked).filter(Boolean).length:0;
+const getCheckedCount=u=>{let n=0,c=u?.syllabusChecked||{};getActiveSyllabus().forEach(s=>s.units.forEach(un=>un.chapters.forEach(ch=>ch.subtopics.forEach((_,i)=>{if(c[`${ch.id}_${i}`])n++}))));return n};
 
 function getDotQueue(){
   if(!currentUser)return[];const checked=currentUser.syllabusChecked||{},q=[];
-  NEET_2027_SYLLABUS.forEach(s=>{
+  getActiveSyllabus().forEach(s=>{
     let dec=null,urg=null,fad=null,hy=null,inp=null,fr=null;
     s.units.forEach(u=>u.chapters.forEach(ch=>{
       let done=0,first=-1;
@@ -571,8 +689,8 @@ function getDotQueue(){
 }
 function renderDotRecommendations(){
   if(!currentUser)return;$("dotMarkLeakBadge").textContent=`Top Leak: ${computeTopLeak()}`;
-  const recs=["Physics","Chemistry","Biology"].map(s=>getDotQueue().find(x=>x.subject===s)).filter(Boolean),grid=$("dotRecommendationsGrid");
-  if(!recs.length){grid.innerHTML=`<div class="col-span-3 p-4 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 text-emerald-300 text-xs font-bold text-center">🏆 All NCERT nodes Fresh &amp; Mastered!</div>`;return}
+  const subjs=(EXAM_CONFIG[activeExamTrack]||EXAM_CONFIG.neet).subjects,recs=subjs.map(s=>getDotQueue().find(x=>x.subject===s)).filter(Boolean),grid=$("dotRecommendationsGrid");
+  if(!recs.length){grid.innerHTML=`<div class="col-span-3 p-4 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 text-emerald-300 text-xs font-bold text-center">🏆 All syllabus nodes Fresh &amp; Mastered!</div>`;return}
   grid.innerHTML=recs.map(r=>{
     const badge=r.isRevision?(r.status==="decay"?`<span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-rose-950 text-rose-300 border border-rose-500/40">🔴 Red Alert (${r.daysOld}d)</span>`:r.status==="urgent"?`<span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-orange-950 text-orange-300 border border-orange-500/40">🟠 Urgent (${r.daysOld}d)</span>`:`<span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-950 text-amber-300 border border-amber-500/40">🟡 Medium (${r.daysOld}d)</span>`):(r.hy?`<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-200 border border-amber-400/30">🔥 High-Yield</span>`:`<span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-white/10 text-zinc-200">Next Topic</span>`);
     const safeT=`${r.isRevision?"Revise ":""}${r.branch}: ${r.subtopicName}`.replace(/'/g,"\\'"),safeL=`${r.branch} • ${r.subtopicName}`.replace(/'/g,"\\'");
@@ -603,14 +721,14 @@ function renderDashboard(){
   if(timerInterval)clearInterval(timerInterval);
   if(currentUser.activePunchStart){
     $("punchStatusTag").textContent="🟢 Live Focus";zeroDistractionOverlay.classList.remove("hidden");syncWallpaperCanvasLayer(true);resumeMixerIfNeeded();
-    $("zdSubjectDisplay").textContent=currentUser.activeSubject||"NEET 2027 Deep Study";$("zdClockInStampLine").textContent=`IN: ${formatClockInStamp(currentUser.activePunchStart,currentStampFormat)}`;
+    $("zdSubjectDisplay").textContent=currentUser.activeSubject||(EXAM_CONFIG[activeExamTrack]||EXAM_CONFIG.neet).zdDefault;$("zdClockInStampLine").textContent=`IN: ${formatClockInStamp(currentUser.activePunchStart,currentStampFormat)}`;
     const ring=$("zdProgressRing"),tick=()=>{const el=Math.max(0,Math.floor((Date.now()-currentUser.activePunchStart)/1000)),f=formatHMS(el);$("liveTimerDisplay").textContent=f;$("zdTimerDisplay").textContent=f;if(ring)ring.style.strokeDashoffset=String(741.4*(1-((el%60)/60)))};
     tick();timerInterval=setInterval(tick,1000);
   }else{$("punchStatusTag").textContent="Standby";zeroDistractionOverlay.classList.add("hidden");syncWallpaperCanvasLayer(false);stopFocusSoundtrack();$("liveTimerDisplay").textContent="00:00:00"}
   renderDotRecommendations();renderConsistencyHeatmap();renderTimesheetTable();renderMultiChartWebAnalytics();
 }
-async function triggerClockIn(customSubj){if(!currentUser||currentUser.activePunchStart)return;currentUser.activePunchStart=Date.now();currentUser.activeSubject=customSubj||$("sessionSubjectInput").value.trim()||"NEET Deep Focus";currentUser.activeStampText=formatClockInStamp(currentUser.activePunchStart,currentStampFormat);try{document.documentElement.requestFullscreen?.().catch(()=>{})}catch{}renderDashboard();await saveUserToCloud(currentUser)}
-async function triggerClockOut(){if(!currentUser?.activePunchStart)return;const st=currentUser.activePunchStart,en=Date.now();currentUser.sessions.unshift({date:toLocalYMD(new Date()),subject:currentUser.activeSubject||"NEET Deep Focus",startTime:currentUser.activeStampText||formatClockInStamp(st,currentStampFormat),endTime:formatClockInStamp(en,currentStampFormat),durationSeconds:Math.max(1,Math.floor((en-st)/1000)),entryType:"live",timestamp:en});currentUser.activePunchStart=null;currentUser.activeSubject="";currentUser.activeStampText="";$("sessionSubjectInput").value="";try{if(document.fullscreenElement)document.exitFullscreen?.().catch(()=>{})}catch{}renderDashboard();await saveUserToCloud(currentUser)}
+async function triggerClockIn(customSubj){if(!currentUser||currentUser.activePunchStart)return;const def=(EXAM_CONFIG[activeExamTrack]||EXAM_CONFIG.neet).zdDefault;currentUser.activePunchStart=Date.now();currentUser.activeSubject=customSubj||$("sessionSubjectInput").value.trim()||def;currentUser.activeStampText=formatClockInStamp(currentUser.activePunchStart,currentStampFormat);try{document.documentElement.requestFullscreen?.().catch(()=>{})}catch{}renderDashboard();await saveUserToCloud(currentUser)}
+async function triggerClockOut(){if(!currentUser?.activePunchStart)return;const def=(EXAM_CONFIG[activeExamTrack]||EXAM_CONFIG.neet).zdDefault,st=currentUser.activePunchStart,en=Date.now();currentUser.sessions.unshift({date:toLocalYMD(new Date()),subject:currentUser.activeSubject||def,startTime:currentUser.activeStampText||formatClockInStamp(st,currentStampFormat),endTime:formatClockInStamp(en,currentStampFormat),durationSeconds:Math.max(1,Math.floor((en-st)/1000)),entryType:"live",timestamp:en});currentUser.activePunchStart=null;currentUser.activeSubject="";currentUser.activeStampText="";$("sessionSubjectInput").value="";try{if(document.fullscreenElement)document.exitFullscreen?.().catch(()=>{})}catch{}renderDashboard();await saveUserToCloud(currentUser)}
 on("clockInBtn","click",()=>triggerClockIn());on("zdClockOutBtn","click",triggerClockOut);
 $("manualEntryForm").addEventListener("submit",async e=>{e.preventDefault();if(!currentUser)return;const tot=(parseInt($("manualHours").value,10)||0)*3600+(parseInt($("manualMinutes").value,10)||0)*60;if(tot<=0)return alert("Enter at least 1 minute.");currentUser.sessions.unshift({date:$("manualDate").value||toLocalYMD(new Date()),subject:$("manualSubject").value.trim()||"Manual Study",reasonTag:$("manualReasonSelect").value||"",startTime:"Manual",endTime:`${Math.floor(tot/3600)}h ${Math.floor((tot%3600)/60)}m`,durationSeconds:tot,entryType:"manual",timestamp:Date.now()});$("manualSubject").value="";$("manualReasonSelect").value="";renderDashboard();await saveUserToCloud(currentUser)});
 window.deleteStudySession=async i=>{if(!currentUser)return;currentUser.sessions.splice(i,1);renderDashboard();await saveUserToCloud(currentUser)};
@@ -623,28 +741,28 @@ function renderMultiChartWebAnalytics(){
   for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const ds=toLocalYMD(d);l7.push(d.toLocaleDateString([],{weekday:"short"}));let s=0;currentUser.sessions.forEach(x=>{if(x.date===ds)s+=Number(x.durationSeconds||0)});d7.push(+(s/3600).toFixed(2))}
   if(studyChart){studyChart.data.labels=l7;studyChart.data.datasets[0].data=d7;studyChart.data.datasets[0].backgroundColor=pal.bar;studyChart.update("none")}
   else studyChart=new Chart($("studyChartCanvas"),{type:"bar",data:{labels:l7,datasets:[{data:d7,backgroundColor:pal.bar,borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,animation:{duration:260},plugins:{legend:{display:false}},scales:{x:{ticks:{color:"#a1a1aa",font:{size:10}},grid:{display:false}},y:{beginAtZero:true,ticks:{color:"#a1a1aa",font:{size:10}},grid:{color:"rgba(161,161,170,.08)"}}}}});
-  const b={Physics:0,Chemistry:0,Biology:0,Other:0};
-  currentUser.sessions.forEach(s=>{const t=(s.subject||"").toLowerCase(),k=/phys|mech|therm|optic|electro|magnet|wave/.test(t)?"Physics":/chem|goc|organic|inorg|physical|mole|kinetic|block/.test(t)?"Chemistry":/bio|botan|zool|genet|cell|plant|human|ecolog/.test(t)?"Biology":"Other";b[k]+=Number(s.durationSeconds||0)});
+  const cfg=EXAM_CONFIG[activeExamTrack]||EXAM_CONFIG.neet,b={Physics:0,Chemistry:0,Third:0,Other:0};
+  currentUser.sessions.forEach(s=>{const t=(s.subject||"").toLowerCase(),k=/phys|mech|therm|optic|electro|magnet|wave/.test(t)?"Physics":/chem|goc|organic|inorg|physical|mole|kinetic|block/.test(t)?"Chemistry":(activeExamTrack==="jee"?/math|calc|integr|deriv|matrix|determ|probab|conic|vector|trigo|algebra|complex|binom|sequen/:/bio|botan|zool|genet|cell|plant|human|ecolog/).test(t)?"Third":"Other";b[k]+=Number(s.durationSeconds||0)});
   const dv=Object.values(b).map(v=>+(v/3600).toFixed(2)),dd=dv.reduce((a,c)=>a+c,0)>0?dv:[1,1,1,1];
-  if(subjectDoughnutChart){subjectDoughnutChart.data.datasets[0].data=dd;subjectDoughnutChart.update("none")}
-  else subjectDoughnutChart=new Chart($("subjectDoughnutCanvas"),{type:"doughnut",data:{labels:["⚡ Phys","🧪 Chem","🧬 Bio","🎯 Mock"],datasets:[{data:dd,backgroundColor:["#60a5fa","#fbbf24","#2dd4bf","#a78bfa"],borderColor:"#050507",borderWidth:3}]},options:{responsive:true,maintainAspectRatio:false,animation:{duration:260},cutout:"68%",plugins:{legend:{position:"bottom",labels:{color:"#d4d4d8",font:{size:10},boxWidth:10}}}}});
+  if(subjectDoughnutChart){subjectDoughnutChart.data.labels=cfg.chartLabels;subjectDoughnutChart.data.datasets[0].data=dd;subjectDoughnutChart.update("none")}
+  else subjectDoughnutChart=new Chart($("subjectDoughnutCanvas"),{type:"doughnut",data:{labels:cfg.chartLabels,datasets:[{data:dd,backgroundColor:["#60a5fa","#fbbf24","#2dd4bf","#a78bfa"],borderColor:"#050507",borderWidth:3}]},options:{responsive:true,maintainAspectRatio:false,animation:{duration:260},cutout:"68%",plugins:{legend:{position:"bottom",labels:{color:"#d4d4d8",font:{size:10},boxWidth:10}}}}});
   for(let i=13;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const ds=toLocalYMD(d);l14.push(d.getDate()+"/"+(d.getMonth()+1));let s=0;currentUser.sessions.forEach(x=>{if(x.date===ds)s+=Number(x.durationSeconds||0)});d14.push(+(s/3600).toFixed(2));tgt.push(currentUser.targetHours||6)}
   if(velocityLineChart){velocityLineChart.data.labels=l14;velocityLineChart.data.datasets[0].data=d14;velocityLineChart.data.datasets[0].borderColor=pal.line;velocityLineChart.data.datasets[0].backgroundColor=pal.lineFill;velocityLineChart.data.datasets[0].pointBackgroundColor=pal.bar;velocityLineChart.data.datasets[1].data=tgt;velocityLineChart.update("none")}
   else velocityLineChart=new Chart($("velocityLineCanvas"),{type:"line",data:{labels:l14,datasets:[{data:d14,borderColor:pal.line,backgroundColor:pal.lineFill,fill:true,tension:.35,pointRadius:3,pointBackgroundColor:pal.bar},{data:tgt,borderColor:"rgba(255,255,255,.3)",borderDash:[5,5],pointRadius:0,fill:false}]},options:{responsive:true,maintainAspectRatio:false,animation:{duration:260},plugins:{legend:{display:false}},scales:{x:{ticks:{color:"#a1a1aa",font:{size:9}},grid:{display:false}},y:{beginAtZero:true,ticks:{color:"#a1a1aa",font:{size:10}},grid:{color:"rgba(161,161,170,.08)"}}}}});
 }
 
-const openFolders={phys:true,chem:true,bio:true,phys_mech:true,chem_org:true,bio_bot:true};let spider3dOverallPct=0,spider3dAxesData=[];
+const openFolders={phys:true,chem:true,bio:true,math:true,phys_mech:true,jp_mech:true,chem_org:true,bio_bot:true,jm_calc:true};let spider3dOverallPct=0,spider3dAxesData=[];
 window.toggleFolderNode=k=>{openFolders[k]=!openFolders[k];renderSyllabusTree($("syllabusSearchInput").value.trim())};
 window.toggleSubtopicCheck=async k=>{if(!currentUser)return;if(currentUser.syllabusChecked[k]){delete currentUser.syllabusChecked[k];delete currentUser.syllabusCheckedAt[k];delete currentUser.syllabusReason[k]}else{currentUser.syllabusChecked[k]=true;currentUser.syllabusCheckedAt[k]=Date.now()}renderSyllabusTree($("syllabusSearchInput").value.trim());renderDashboard();await saveUserToCloud(currentUser)};
-window.toggleWholeChapter=async(chId,checkAll)=>{if(!currentUser)return;const now=Date.now();NEET_2027_SYLLABUS.forEach(s=>s.units.forEach(u=>u.chapters.forEach(ch=>{if(ch.id===chId)ch.subtopics.forEach((_,i)=>{const k=`${ch.id}_${i}`;if(checkAll){currentUser.syllabusChecked[k]=true;currentUser.syllabusCheckedAt[k]=now}else{delete currentUser.syllabusChecked[k];delete currentUser.syllabusCheckedAt[k];delete currentUser.syllabusReason[k]}})})));openFolders[chId]=true;renderSyllabusTree($("syllabusSearchInput").value.trim());renderDashboard();await saveUserToCloud(currentUser)};
+window.toggleWholeChapter=async(chId,checkAll)=>{if(!currentUser)return;const now=Date.now();getActiveSyllabus().forEach(s=>s.units.forEach(u=>u.chapters.forEach(ch=>{if(ch.id===chId)ch.subtopics.forEach((_,i)=>{const k=`${ch.id}_${i}`;if(checkAll){currentUser.syllabusChecked[k]=true;currentUser.syllabusCheckedAt[k]=now}else{delete currentUser.syllabusChecked[k];delete currentUser.syllabusCheckedAt[k];delete currentUser.syllabusReason[k]}})})));openFolders[chId]=true;renderSyllabusTree($("syllabusSearchInput").value.trim());renderDashboard();await saveUserToCloud(currentUser)};
 on("syllabusSearchInput","input",e=>renderSyllabusTree(e.target.value.trim()));
-on("expandAllFoldersBtn","click",()=>{NEET_2027_SYLLABUS.forEach(s=>{openFolders[s.id]=true;s.units.forEach(u=>{openFolders[u.id]=true;u.chapters.forEach(c=>{openFolders[c.id]=true})})});renderSyllabusTree($("syllabusSearchInput").value.trim())});
-on("collapseAllFoldersBtn","click",()=>{NEET_2027_SYLLABUS.forEach(s=>s.units.forEach(u=>u.chapters.forEach(c=>{openFolders[c.id]=false})));renderSyllabusTree($("syllabusSearchInput").value.trim())});
+on("expandAllFoldersBtn","click",()=>{getActiveSyllabus().forEach(s=>{openFolders[s.id]=true;s.units.forEach(u=>{openFolders[u.id]=true;u.chapters.forEach(c=>{openFolders[c.id]=true})})});renderSyllabusTree($("syllabusSearchInput").value.trim())});
+on("collapseAllFoldersBtn","click",()=>{getActiveSyllabus().forEach(s=>s.units.forEach(u=>u.chapters.forEach(c=>{openFolders[c.id]=false})));renderSyllabusTree($("syllabusSearchInput").value.trim())});
 
 function renderSyllabusTree(q=""){
   if(!currentUser)return;ensureRetention(currentUser);const checked=currentUser.syllabusChecked||{},ql=q.toLowerCase();
   let allDone=0,frT=0,faT=0,urT=0,deT=0,hyTot=0,hyDone=0;const subjStats=[],axes=[];
-  const html=NEET_2027_SYLLABUS.map(s=>{
+  const html=getActiveSyllabus().map(s=>{
     let sTot=0,sDone=0;
     const uHtml=s.units.map(u=>{
       let uTot=0,uDone=0,uFa=0,uUr=0,uDe=0,uHyGap=false;const sats=[];
@@ -666,7 +784,7 @@ function renderSyllabusTree(q=""){
       if(!cHtml.trim())return"";return`<div class="spider-node my-3"><div class="bg-black/60 border border-zinc-800 rounded-2xl p-3.5"><button type="button" onclick="toggleFolderNode('${u.id}')" class="w-full flex items-center justify-between text-left"><span class="font-bold text-sm theme-gradient-text">🕸️ ${u.unitName}</span><span class="mono-nums text-xs font-bold text-emerald-400">${uDone}/${uTot} (${uPct}%)</span></button>${(ql||openFolders[u.id])?`<div class="spider-hub mt-3">${cHtml}</div>`:""}</div></div>`;
     }).join("");
     const sPct=sTot?Math.round((sDone/sTot)*100):0;subjStats.push({name:s.subject,icon:s.icon,done:sDone,total:sTot,pct:sPct});if(!uHtml.trim())return"";
-    return`<div class="luxury-card p-5"><button type="button" onclick="toggleFolderNode('${s.id}')" class="w-full flex items-center justify-between text-left"><div class="flex items-center gap-3"><span class="text-2xl">${s.icon}</span><div><h3 class="font-serif-luxury text-lg font-bold text-white">NCERT ${s.subject}</h3><p class="text-xs text-zinc-400">${sDone}/${sTot} mastered</p></div></div><span class="mono-nums px-3 py-1 rounded-xl bg-white/10 theme-gradient-text font-bold text-xs">${sPct}%</span></button>${(ql||openFolders[s.id])?`<div class="spider-hub mt-4">${uHtml}</div>`:""}</div>`;
+    return`<div class="luxury-card p-5"><button type="button" onclick="toggleFolderNode('${s.id}')" class="w-full flex items-center justify-between text-left"><div class="flex items-center gap-3"><span class="text-2xl">${s.icon}</span><div><h3 class="font-serif-luxury text-lg font-bold text-white">${(EXAM_CONFIG[activeExamTrack]||EXAM_CONFIG.neet).short} ${s.subject}</h3><p class="text-xs text-zinc-400">${sDone}/${sTot} mastered</p></div></div><span class="mono-nums px-3 py-1 rounded-xl bg-white/10 theme-gradient-text font-bold text-xs">${sPct}%</span></button>${(ql||openFolders[s.id])?`<div class="spider-hub mt-4">${uHtml}</div>`:""}</div>`;
   }).join("");
 
   spider3dAxesData=axes;spider3dOverallPct=Math.round((allDone/TOTAL_SYLLABUS_TOPICS)*100);
@@ -676,7 +794,7 @@ function renderSyllabusTree(q=""){
   $("retentionHealthSummary").innerHTML=[[frT,"emerald","🟢 0–6d"],[faT,"amber","🟡 7–16d"],[urT,"orange","🟠 17–26d"],[deT,"rose","🔴 27+d"]].map(([v,c,l])=>`<div class="p-1.5 rounded-xl bg-${c}-950/40 border border-${c}-500/30"><p class="mono-nums text-xs font-black text-${c}-400">${v}</p><p class="text-[8px] text-${c}-200 font-bold">${l}</p></div>`).join("");
   $("subjectSummaryCards").innerHTML=subjStats.map(st=>`<div class="p-4 rounded-2xl bg-black/75 border border-zinc-800 flex items-center justify-between"><div><p class="text-xs font-bold text-white">${st.icon} ${st.name}</p><p class="text-[11px] text-zinc-500 mono-nums">${st.done}/${st.total}</p></div><span class="mono-nums text-lg font-black theme-gradient-text">${st.pct}%</span></div>`).join("");
   $("spider3dAxisList").innerHTML=axes.map(ax=>`<div><div class="flex justify-between text-[11px] font-semibold mb-1"><span class="text-zinc-200">${ax.decayStatus==="decay"?"🔴":ax.decayStatus==="urgent"?"🟠":ax.decayStatus==="fading"?"🟡":"🟢"} ${ax.label}</span><span class="mono-nums theme-gradient-text font-bold">${ax.pct}%</span></div><div class="w-full bg-zinc-950 h-1.5 rounded-full overflow-hidden border border-zinc-800"><div class="theme-btn-primary h-full rounded-full" style="width:${ax.pct}%"></div></div></div>`).join("");
-  if(syllabusSubjectBarChart){syllabusSubjectBarChart.data.datasets[0].data=subjStats.map(s=>s.pct);syllabusSubjectBarChart.update("none")}
+  if(syllabusSubjectBarChart){syllabusSubjectBarChart.data.labels=subjStats.map(s=>`${s.icon} ${s.name}`);syllabusSubjectBarChart.data.datasets[0].data=subjStats.map(s=>s.pct);syllabusSubjectBarChart.update("none")}
   else syllabusSubjectBarChart=new Chart($("syllabusSubjectBarCanvas"),{type:"bar",data:{labels:subjStats.map(s=>`${s.icon} ${s.name}`),datasets:[{data:subjStats.map(s=>s.pct),backgroundColor:["#60a5fa","#fbbf24","#2dd4bf"],borderRadius:8}]},options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,animation:{duration:260},plugins:{legend:{display:false}},scales:{x:{min:0,max:100,ticks:{color:"#a1a1aa",font:{size:10}}},y:{ticks:{color:"#f4f4f5",font:{size:11,weight:"bold"}}}}}});
   $("syllabusTreeContainer").innerHTML=html||`<div class="p-8 text-center text-zinc-500">No matches.</div>`;
 }
@@ -746,7 +864,7 @@ window.deleteSprintTask=async id=>{if(!currentUser)return;currentUser.weeklySpri
 on("autoFillSprintBtn","click",async()=>{if(!currentUser)return;const q=getDotQueue();if(!q.length)return alert("All nodes mastered!");const ex=new Set(currentUser.weeklySprint.map(t=>t.title));q.slice(0,7).forEach((item,i)=>{const t=`${item.isRevision?"🔁 Revise":"🔥 High-Yield"} ${item.branch}: ${item.subtopicName}`;if(!ex.has(t))currentUser.weeklySprint.push({id:"sp_"+Date.now()+"_"+i,day:SPRINT_DAYS[i%7].key,title:t,done:false})});renderWeeklySprintBoard();await saveUserToCloud(currentUser)});
 on("clearDoneSprintBtn","click",async()=>{if(!currentUser)return;currentUser.weeklySprint=currentUser.weeklySprint.filter(t=>!t.done);renderWeeklySprintBoard();await saveUserToCloud(currentUser)});
 
-const viewport=$("phoneSliderViewport"),TITLES=["Swipe ⇄ • 1/5 Command & Telemetry","Swipe ⇄ • 2/5 9-Branch NCERT","Swipe ⇄ • 3/5 9-Axis 3D Web","Swipe ⇄ • 4/5 Weekly Sprint","Swipe ⇄ • 5/5 Question Practice"];
+const viewport=$("phoneSliderViewport"),TITLES=["Swipe ⇄ • 1/5 Command & Telemetry","Swipe ⇄ • 2/5 9-Branch Syllabus","Swipe ⇄ • 3/5 9-Axis 3D Web","Swipe ⇄ • 4/5 Weekly Sprint","Swipe ⇄ • 5/5 Question Practice"];
 const navBtns=[$("navDashboardBtn"),$("navSyllabusBtn"),$("navSpider3dBtn"),$("navSprintBtn"),$("navQDrillBtn")];let currentSlideIndex=0,scrollT=null,progScrollUntil=0;
 function updateIndicators(idx){
   currentSlideIndex=idx;$("activeScreenLabel").textContent=TITLES[idx];
