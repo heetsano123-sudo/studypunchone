@@ -76,24 +76,32 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
   <button id="skipIntroBtn" type="button" class="clicky fixed bottom-6 right-6 z-20 px-3.5 py-1.5 rounded-xl bg-white/10 border border-white/15 text-[10px] font-bold uppercase tracking-widest text-zinc-300">Skip ›</button>
 </div>
 
-<div id="examTrackModal" class="hidden fixed inset-0 z-[170] bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
-  <div class="luxury-card oneui-sheet w-full max-w-md p-6 sm:p-7 border border-white/20 text-center">
-    <span class="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-[0.22em] bg-white/10 text-zinc-200 border border-white/15">Select Your Arena</span>
-    <h2 class="font-serif-luxury text-2xl sm:text-3xl font-bold theme-gradient-text mt-3">Choose Exam Edition</h2>
-    <p class="text-xs text-zinc-400 mt-1 mb-5">Pick JEE or NEET on start — switch anytime in Auth or Settings.</p>
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-      <button type="button" onclick="chooseInitialTrack('jee')" class="clicky p-4 rounded-2xl bg-black/80 border border-sky-500/40 hover:border-sky-400 text-left flex flex-col gap-1.5">
-        <span class="text-2xl">⚙️</span>
-        <span class="text-base font-extrabold text-white">JEE 2027</span>
-        <span class="text-[11px] text-sky-300 font-semibold">Physics • Chem • Maths</span>
-        <span class="text-[10px] text-zinc-400">22 Jan 2027 Clock &amp; 9-Axis PCM Web</span>
-      </button>
-      <button type="button" onclick="chooseInitialTrack('neet')" class="clicky p-4 rounded-2xl bg-black/80 border border-emerald-500/40 hover:border-emerald-400 text-left flex flex-col gap-1.5">
-        <span class="text-2xl">🩺</span>
-        <span class="text-base font-extrabold text-white">NEET 2027</span>
-        <span class="text-[11px] text-emerald-300 font-semibold">Physics • Chem • Biology</span>
-        <span class="text-[10px] text-zinc-400">02 May 2027 Clock &amp; 9-Axis PCB Web</span>
-      </button>
+<div id="startupSetupModal" class="hidden fixed inset-0 z-[170] bg-black/65 backdrop-blur-sm flex items-center justify-center p-4">
+  <div class="luxury-card oneui-sheet w-full max-w-lg max-h-[90vh] flex flex-col overflow-hidden border border-white/20">
+    <div class="px-6 py-4 border-b border-white/10 text-center bg-black/50">
+      <span class="px-3 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-[0.22em] bg-white/10 text-zinc-200 border border-white/15">Initial Setup</span>
+      <h2 class="font-serif-luxury text-2xl font-bold theme-gradient-text mt-2">Choose Arena, Theme &amp; Live Background</h2>
+      <p class="text-[11px] text-zinc-400 mt-0.5">Pick your starting setup now — customize anytime after login in ⚙️ Settings.</p>
+    </div>
+    <div class="p-5 sm:p-6 overflow-y-auto space-y-4">
+      <div>
+        <label class="block text-[10px] font-extrabold uppercase tracking-[0.2em] theme-gradient-text mb-2">1. Choose Exam Version</label>
+        <div class="grid grid-cols-2 gap-2.5">
+          <button type="button" onclick="setExamTrack('jee',true)" data-track-btn="jee" class="track-switch-btn clicky p-3 rounded-2xl border text-left flex flex-col gap-0.5"><span class="text-lg">⚙️</span><span class="text-sm font-extrabold text-white">JEE 2027</span><span class="text-[10px] text-sky-300">Physics • Chem • Maths</span></button>
+          <button type="button" onclick="setExamTrack('neet',true)" data-track-btn="neet" class="track-switch-btn clicky p-3 rounded-2xl border text-left flex flex-col gap-0.5"><span class="text-lg">🩺</span><span class="text-sm font-extrabold text-white">NEET 2027</span><span class="text-[10px] text-emerald-300">Physics • Chem • Biology</span></button>
+        </div>
+      </div>
+      <div>
+        <label class="block text-[10px] font-extrabold uppercase tracking-[0.2em] theme-gradient-text mb-2">2. Interface Theme (9 Palettes)</label>
+        <div id="startupThemeGrid" class="theme-grid-sync grid grid-cols-3 gap-1.5"></div>
+      </div>
+      <div>
+        <label class="block text-[10px] font-extrabold uppercase tracking-[0.2em] theme-gradient-text mb-2">3. Live Wallpaper (Live Preview Behind)</label>
+        <div id="startupWpGrid" class="wp-grid-sync grid grid-cols-2 sm:grid-cols-5 gap-1.5"></div>
+      </div>
+    </div>
+    <div class="px-6 py-4 border-t border-white/10 bg-black/50">
+      <button type="button" onclick="confirmStartupSetup()" class="clicky w-full py-3 px-5 rounded-xl theme-btn-primary font-extrabold text-xs uppercase tracking-[0.16em]">Continue to Sign In →</button>
     </div>
   </div>
 </div>
@@ -150,10 +158,10 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
     </div>
     <div class="p-6 overflow-y-auto space-y-5">
       <div><label class="block text-[10px] font-extrabold uppercase tracking-[0.2em] theme-gradient-text mb-2">0. Exam Version (JEE / NEET)</label><div class="grid grid-cols-2 gap-2"><button type="button" onclick="setExamTrack('jee')" data-track-btn="jee" class="track-switch-btn clicky py-2.5 px-3 rounded-xl border text-xs font-extrabold">⚙️ JEE 2027 (PCM)</button><button type="button" onclick="setExamTrack('neet')" data-track-btn="neet" class="track-switch-btn clicky py-2.5 px-3 rounded-xl border text-xs font-extrabold">🩺 NEET 2027 (PCB)</button></div></div>
-      <div><label class="block text-[10px] font-extrabold uppercase tracking-[0.2em] theme-gradient-text mb-2.5">1. Web Interface Theme (9 Atelier Palettes)</label><div id="settingsThemeGrid" class="grid grid-cols-3 gap-2"></div></div>
+      <div><label class="block text-[10px] font-extrabold uppercase tracking-[0.2em] theme-gradient-text mb-2.5">1. Web Interface Theme (9 Atelier Palettes)</label><div id="settingsThemeGrid" class="theme-grid-sync grid grid-cols-3 gap-2"></div></div>
       <div class="pt-4 border-t border-white/10">
         <label class="block text-[10px] font-extrabold uppercase tracking-[0.2em] theme-gradient-text mb-2">2. Live Wallpaper (35% Home • Pure Black Clock-In)</label>
-        <div id="settingsWpGrid" class="grid grid-cols-2 sm:grid-cols-5 gap-2"></div>
+        <div id="settingsWpGrid" class="wp-grid-sync grid grid-cols-2 sm:grid-cols-5 gap-2"></div>
         <div class="mt-3 bg-black/60 px-3.5 py-3 rounded-xl border border-zinc-800 space-y-2.5">
           <p class="text-xs font-bold text-white">🎛️ Dual-Layer Focus Audio Mixer (Blend 2 Tracks)</p>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -212,11 +220,11 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
       <div class="flex items-center gap-3.5"><div class="w-12 h-12 rounded-2xl bg-black border border-white/15 flex items-center justify-center p-1.5"><svg viewBox="0 0 100 100" class="w-full h-full"><circle cx="50" cy="54" r="34" fill="none" stroke="#d4af37" stroke-width="6.5" stroke-dasharray="170 40" stroke-linecap="round"/><path d="M55 32L38 55H51L45 76L64 51H51Z" fill="#f59e0b"/></svg></div><div><h1 class="font-serif-luxury text-2xl font-bold theme-gradient-text">StudyPunch</h1><p id="authTrackSubtitle" class="text-[11px] text-zinc-400 tracking-widest uppercase">NEET 2027 Executive Atelier</p></div></div>
       <div class="flex items-center gap-1.5"><button type="button" onclick="openAppInstallModal()" class="clicky px-2.5 py-1 rounded-full text-[10px] font-bold bg-white/10 text-zinc-200 border border-white/15">📲 App</button><span id="cloudBadge" class="px-2.5 py-1 rounded-full text-[10px] font-semibold bg-emerald-950/60 text-emerald-300 border border-emerald-500/30">Cloud Ready</span></div>
     </div>
-    <div class="grid grid-cols-2 bg-black p-1 rounded-xl mb-4 border border-zinc-800"><button type="button" onclick="setExamTrack('jee')" data-track-btn="jee" class="track-switch-btn clicky py-2 text-xs font-bold rounded-lg">⚙️ JEE 2027</button><button type="button" onclick="setExamTrack('neet')" data-track-btn="neet" class="track-switch-btn clicky py-2 text-xs font-bold rounded-lg">🩺 NEET 2027</button></div>
+    <div class="flex items-center justify-between bg-black/70 px-3.5 py-2 rounded-xl mb-4 border border-zinc-800"><span id="authSetupSummary" class="text-[11px] font-bold text-zinc-200 truncate">🩺 NEET 2027 • Sunset • Aurora</span><button type="button" onclick="openStartupSetup()" class="clicky text-[10px] font-extrabold uppercase tracking-wider theme-gradient-text shrink-0 ml-2">Customize ✎</button></div>
     <button id="googleLoginBtn" type="button" class="clicky w-full flex items-center justify-center gap-3 bg-zinc-100 hover:bg-white text-zinc-950 font-bold py-3 px-4 rounded-xl mb-4 text-sm"><img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5" alt="G"/><span>Continue with Google Account</span></button>
     <div class="relative flex py-2 items-center mb-4"><div class="flex-grow border-t border-zinc-800"></div><span class="mx-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500">Or Student ID &amp; PIN</span><div class="flex-grow border-t border-zinc-800"></div></div>
     <div class="grid grid-cols-2 bg-black p-1 rounded-xl mb-5 border border-zinc-800"><button id="tabSignIn" type="button" class="clicky py-2 text-xs font-bold rounded-lg bg-zinc-900 text-white border border-white/15">Student Sign In</button><button id="tabCreateId" type="button" class="clicky py-2 text-xs font-bold rounded-lg text-zinc-400 hover:text-white">Create Student ID</button></div>
-    <div id="authAlert" class="hidden mb-4 p-3 rounded-xl text-xs font-semibold bg-rose-950/80 text-zinc-300 border border-rose-500/30"></div>
+    <div id="authAlert" class="hidden mb-4 p-3 rounded-xl text-xs font-semibold bg-rose-950/80 text-rose-300 border border-rose-500/30"></div>
     <form id="signInForm" class="space-y-4">
       <div><label class="block text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400 mb-1.5">Student ID</label><input id="loginStudentId" type="text" required placeholder="e.g. heet16" class="sp-inp"/></div>
       <div><label class="block text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-400 mb-1.5">4-Digit PIN</label><input id="loginPin" type="password" inputmode="numeric" maxlength="4" required placeholder="••••" class="sp-inp tracking-widest"/></div>
@@ -307,7 +315,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
           </div>
           <div class="lg:col-span-2 luxury-card p-6"><h3 class="font-serif-luxury text-lg font-bold text-white mb-4">🕒 Chronological Study Ledger</h3><div class="overflow-x-auto max-h-80"><table class="w-full text-left"><thead><tr class="border-b border-zinc-800 text-[10px] uppercase tracking-[0.18em] text-zinc-400"><th class="py-2.5 px-4">Date</th><th class="py-2.5 px-4">Objective &amp; Tag</th><th class="py-2.5 px-4">Stamp / Mode</th><th class="py-2.5 px-4 text-right">Duration</th><th class="py-2.5 px-4 text-right">✕</th></tr></thead><tbody id="timesheetTableBody" class="text-xs divide-y divide-zinc-800/60"></tbody></table></div></div>
         </div>
-        <div class="pt-4 text-center"><p class="text-xs text-zinc-500">StudyPunch Executive JEE &amp; NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p></div>
+        <div class="pt-4 text-center"><p class="text-xs text-zinc-500">StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p></div>
       </div>
     </main>
 
@@ -316,7 +324,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
         <div class="luxury-card p-4 sm:p-5 sticky top-0 z-20"><div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3"><input id="syllabusSearchInput" type="text" placeholder="🔍 Search Mechanics, Organic, Inorganic, Botany, Zoology..." class="sp-inp flex-1"/><div class="flex items-center gap-2"><button id="expandAllFoldersBtn" type="button" class="clicky px-4 py-2.5 rounded-xl text-xs font-bold theme-btn-primary">🕸️ Expand All</button><button id="collapseAllFoldersBtn" type="button" class="clicky px-3.5 py-2.5 rounded-xl text-xs font-semibold bg-black/80 text-zinc-300 border border-zinc-800">Collapse</button><button type="button" onclick="slideToScreen(2)" class="clicky px-3.5 py-2.5 rounded-xl text-xs font-bold bg-white/10 text-white border border-white/20">🌐 3D Web →</button></div></div></div>
         <div class="luxury-card p-6"><div class="flex flex-wrap items-center justify-between gap-4 mb-4"><div><h2 id="syllabusHeaderTitle" class="font-serif-luxury text-2xl font-bold text-white">9-Branch NCERT Syllabus &amp; Retention</h2><p class="text-xs text-zinc-400 mt-1">🔥 High-Yield • 🟢 Fresh (0–6d) • 🟡 Medium (7–16d) • 🟠 Urgent (17–26d) • 🔴 Red Alert (27+d)</p></div><div class="text-right"><span id="overallSyllabusBigPct" class="mono-nums text-4xl font-black theme-gradient-text">0%</span><p id="overallSyllabusCounts" class="text-xs text-zinc-400 font-semibold">0 / 0 nodes</p></div></div><div class="w-full bg-black h-3 rounded-full overflow-hidden mb-5 border border-zinc-800"><div id="overallSyllabusBar" class="theme-btn-primary h-full rounded-full transition-all duration-500" style="width:0%"></div></div><div id="subjectSummaryCards" class="grid grid-cols-1 sm:grid-cols-3 gap-4"></div></div>
         <div id="syllabusTreeContainer" class="space-y-5"></div>
-        <div class="pt-4 text-center"><p class="text-xs text-zinc-500">StudyPunch Executive JEE &amp; NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p></div>
+        <div class="pt-4 text-center"><p class="text-xs text-zinc-500">StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p></div>
       </div>
     </section>
 
@@ -330,7 +338,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
           <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
             <div id="spider3dStageBox" class="lg:col-span-2 bg-[#020308] rounded-3xl border border-white/15 relative overflow-hidden min-h-[420px] sm:min-h-[500px] flex items-center justify-center">
               <canvas id="spider3dCanvas" class="w-full h-full block cursor-grab active:cursor-grabbing" style="touch-action:none"></canvas>
-              <div class="absolute top-3.5 left-3.5 px-3.5 py-2 rounded-2xl bg-black/80 border border-white/15 pointer-events-none max-w-[240px]"><p class="text-[9px] font-extrabold uppercase tracking-[0.2em] text-zinc-400">9-Branch Constellation</p><p id="spider3dFocusTitle" class="text-xs font-bold text-white mt-0.5">9 Exam Branches • Orbiting Nodes</p><p id="spider3dFocusSub" class="text-[10px] text-amber-300 mt-0.5">Tap/Hover any branch vertex</p></div>
+              <div class="absolute top-3.5 left-3.5 px-3.5 py-2 rounded-2xl bg-black/80 border border-white/15 pointer-events-none max-w-[240px]"><p class="text-[9px] font-extrabold uppercase tracking-[0.2em] text-zinc-400">9-Branch Constellation</p><p id="spider3dFocusTitle" class="text-xs font-bold text-white mt-0.5">9 NEET Branches • Orbiting Nodes</p><p id="spider3dFocusSub" class="text-[10px] text-amber-300 mt-0.5">Tap/Hover any branch vertex</p></div>
               <div class="absolute top-3.5 right-3.5 flex items-center gap-2 z-20"><div id="spider3dOverallTag" class="px-3 py-1.5 rounded-xl bg-black/80 border border-white/15 mono-nums text-xs font-extrabold theme-gradient-text pointer-events-none">Overall 3D Web: 0%</div><button type="button" id="exit3dFullscreenBtn" class="hidden clicky px-3.5 py-1.5 rounded-xl bg-rose-600 text-white font-extrabold text-xs">✕ Exit</button></div>
               <div class="absolute bottom-3.5 left-3.5 right-3.5 flex flex-wrap items-center justify-between gap-2 pointer-events-none"><div class="px-3 py-1.5 rounded-xl bg-black/80 border border-white/10 text-[10px] text-zinc-300">🖱️ Drag 360° • Scroll Zoom • Satellites = Chapters</div><div id="fsFloatingControls" class="hidden pointer-events-auto flex items-center gap-1.5 bg-black p-1.5 rounded-2xl border border-white/15"><button type="button" onclick="document.getElementById('toggleHighYieldGlowBtn').click()" class="clicky px-3 py-1.5 rounded-xl text-[11px] font-bold bg-amber-500/20 text-amber-200">🔥 Halo</button><button type="button" onclick="document.getElementById('toggle3dAutoRotateBtn').click()" class="clicky px-3 py-1.5 rounded-xl text-[11px] font-bold theme-btn-primary">🔄 Orbit</button><button type="button" onclick="document.getElementById('reset3dCameraBtn').click()" class="clicky px-3 py-1.5 rounded-xl text-[11px] font-semibold bg-zinc-900 text-white">🎯 Reset</button></div></div>
             </div>
@@ -341,7 +349,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
             </div>
           </div>
         </div>
-        <div class="pt-4 text-center"><p class="text-xs text-zinc-500">StudyPunch Executive JEE &amp; NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p></div>
+        <div class="pt-4 text-center"><p class="text-xs text-zinc-500">StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p></div>
       </div>
     </section>
 
@@ -349,10 +357,10 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
       <div class="max-w-7xl mx-auto space-y-6">
         <div class="luxury-card p-5 sm:p-7">
           <div class="flex flex-wrap items-center justify-between gap-4 pb-5 mb-5 border-b border-white/10"><div><div class="flex items-center gap-2"><span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-[0.2em] bg-white/10 text-zinc-200 border border-white/15">7-Day Board</span><span id="sprintProgressBadge" class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-950/80 text-emerald-300 border border-emerald-500/30 mono-nums">0 / 0 Done</span></div><h2 class="font-serif-luxury text-2xl sm:text-3xl font-bold text-white mt-1.5">📅 Weekly Revision &amp; Sprint Blueprint</h2></div><div class="flex flex-wrap items-center gap-2"><button type="button" id="autoFillSprintBtn" class="clicky px-4 py-2.5 rounded-xl text-xs font-extrabold theme-btn-primary">⚡ Auto-Fill Weak &amp; Decaying</button><button type="button" id="clearDoneSprintBtn" class="clicky px-3.5 py-2.5 rounded-xl text-xs font-semibold bg-black/80 text-zinc-300 border border-zinc-800">🧹 Clear Done</button></div></div>
-          <form id="addSprintTaskForm" class="grid grid-cols-1 sm:grid-cols-4 gap-2.5 mb-6 bg-black/60 p-3.5 rounded-2xl border border-zinc-800"><select id="sprintDaySelect" class="px-3 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-xs font-bold"><option value="Mon">Monday</option><option value="Tue">Tuesday</option><option value="Wed">Wednesday</option><option value="Thu">Thursday</option><option value="Fri">Friday</option><option value="Sat">Saturday</option><option value="Sun">Sunday</option></select><input id="sprintTaskInput" type="text" required placeholder="Add sprint goal (e.g. Revise Organic Chem / Integration)..." class="sm:col-span-2 px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-xs"/><button type="submit" class="clicky py-2.5 px-4 rounded-xl theme-btn-primary font-extrabold text-xs uppercase tracking-wider">+ Add</button></form>
+          <form id="addSprintTaskForm" class="grid grid-cols-1 sm:grid-cols-4 gap-2.5 mb-6 bg-black/60 p-3.5 rounded-2xl border border-zinc-800"><select id="sprintDaySelect" class="px-3 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-xs font-bold"><option value="Mon">Monday</option><option value="Tue">Tuesday</option><option value="Wed">Wednesday</option><option value="Thu">Thursday</option><option value="Fri">Friday</option><option value="Sat">Saturday</option><option value="Sun">Sunday</option></select><input id="sprintTaskInput" type="text" required placeholder="Add sprint goal (e.g. Revise Organic Chem: Aldol)..." class="sm:col-span-2 px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-xs"/><button type="submit" class="clicky py-2.5 px-4 rounded-xl theme-btn-primary font-extrabold text-xs uppercase tracking-wider">+ Add</button></form>
           <div id="weeklySprintGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"></div>
         </div>
-        <div class="pt-4 text-center"><p class="text-xs text-zinc-500">StudyPunch Executive JEE &amp; NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p></div>
+        <div class="pt-4 text-center"><p class="text-xs text-zinc-500">StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p></div>
       </div>
     </section>
 
@@ -374,7 +382,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
           </div>
           <div class="flex flex-wrap items-center justify-center gap-3 mt-5"><button type="button" id="qdStartPauseBtn" class="clicky flex-1 max-w-xs py-3.5 px-6 rounded-2xl theme-btn-primary font-extrabold text-xs uppercase tracking-[0.16em]">▶ Start Auto-Drill</button><button type="button" id="qdNextSkipBtn" class="clicky py-3.5 px-4 rounded-2xl bg-zinc-900 text-zinc-200 border border-zinc-800 font-bold text-xs">⏭ Next Q</button><button type="button" id="qdStopSaveBtn" class="clicky py-3.5 px-5 rounded-2xl bg-rose-950/80 text-rose-200 border border-rose-500/35 font-extrabold text-xs uppercase tracking-wider">⏹ Stop &amp; Save</button></div>
         </div>
-        <div class="pt-4 text-center"><p class="text-xs text-zinc-500">StudyPunch Executive JEE &amp; NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p></div>
+        <div class="pt-4 text-center"><p class="text-xs text-zinc-500">StudyPunch Executive NEET 2027 Atelier • Crafted by <i class="font-serif-luxury italic font-bold theme-gradient-text tracking-widest text-base">heet</i></p></div>
       </div>
     </section>
   </div>
@@ -399,10 +407,10 @@ const $=id=>document.getElementById(id),on=(id,ev,fn)=>$(id)?.addEventListener(e
 const THEMES=[["sunset","🌅","Sunset Peak","Mountain & Black"],["flora","🌿","Flora & Fauna","Emerald & Moss"],["night","🌕","Night Sky","Moon & Sparkle"],["obsidian","👑","Obsidian Gold","Purple & Gold"],["crimson","🩸","Crimson Eclipse","Ruby & Shadow"],["ocean","🌊","Abyssal Ocean","Cyan & Sapphire"],["amethyst","🔮","Royal Amethyst","Violet & Nebula"],["solar","☀️","Solar Flare","Molten & Plasma"],["arctic","❄️","Arctic Frost","Silver & White"]];
 const WALLPAPERS=[["black","🌑","Pitch Black","Black"],["aurora","🌌","Real Aurora","Aurora"],["snow","❄️","Snowfall","Snow"],["rain","💧","Lens Rain","Rain"],["meteor","☄️","Meteors","Meteors"],["embers","🔥","Embers","Embers"],["fireflies","✨","Fireflies","Fireflies"],["matrix","💠","Matrix","Matrix"],["ocean","🫧","Big Bubbles","Ocean"],["sakura","🌸","Sakura","Sakura"]];
 const TRACKS=[["off","🔇 Off"],["pink_rain","🌧️ Pink Noise Rain"],["brown_focus","🌊 Brown Noise"],["gamma_40","🧠 40Hz Gamma"],["beta_16","⚡ 16Hz Beta"],["alpha_10","🍃 10Hz Alpha"],["hz_432","🎵 432Hz Resonance"],["bpm_60","💓 60 BPM Pulse"],["cave_drops","💧 Water Droplets"],["forest_chimes","🌲 Forest Chimes"]];
-const STAMPS=[["hms_24","1. 24h (HH:MM:SS)"],["ampm_12","2. 12h AM/PM"],["ist_full","3. IST Timezone"],["iso_dt","4. ISO Date-Time"],["unix_ep","5. Unix Epoch"],["dec_hr","6. Decimal Hours"],["neet_tminus","7. Exam T-Minus Day"],["week_day","8. Weekday + Date"],["compact_ymd","9. Compact YMD-HMS"]];
+const STAMPS=[["hms_24","1. 24h (HH:MM:SS)"],["ampm_12","2. 12h AM/PM"],["ist_full","3. IST Timezone"],["iso_dt","4. ISO Date-Time"],["unix_ep","5. Unix Epoch"],["dec_hr","6. Decimal Hours"],["neet_tminus","7. NEET T-Minus Day"],["week_day","8. Weekday + Date"],["compact_ymd","9. Compact YMD-HMS"]];
 
-$("settingsThemeGrid").innerHTML=THEMES.map(([id,ic,n,s])=>`<button type="button" onclick="setWebTheme('${id}')" data-theme-opt="${id}" class="theme-pill clicky p-2.5 rounded-2xl border text-left flex flex-col gap-0.5"><span class="text-sm">${ic}</span><span class="text-[11px] font-bold">${n}</span><span class="text-[9px] text-zinc-400">${s}</span></button>`).join("");
-$("settingsWpGrid").innerHTML=WALLPAPERS.map(([id,ic,n])=>`<button type="button" onclick="setFocusWallpaper('${id}')" data-wp="${id}" class="wp-pill wp-card clicky p-2 rounded-xl border text-center"><div class="text-sm mb-0.5">${ic}</div><div class="text-[10px] font-bold">${n}</div></button>`).join("");
+document.querySelectorAll(".theme-grid-sync").forEach(el=>{el.innerHTML=THEMES.map(([id,ic,n,s])=>`<button type="button" onclick="setWebTheme('${id}')" data-theme-opt="${id}" class="theme-pill clicky p-2 rounded-2xl border text-left flex flex-col gap-0.5"><span class="text-sm">${ic}</span><span class="text-[11px] font-bold">${n}</span><span class="text-[9px] text-zinc-400">${s}</span></button>`).join("")});
+document.querySelectorAll(".wp-grid-sync").forEach(el=>{el.innerHTML=WALLPAPERS.map(([id,ic,n])=>`<button type="button" onclick="setFocusWallpaper('${id}')" data-wp="${id}" class="wp-pill wp-card clicky p-2 rounded-xl border text-center"><div class="text-sm mb-0.5">${ic}</div><div class="text-[10px] font-bold">${n}</div></button>`).join("")});
 $("zdWpBar").innerHTML=WALLPAPERS.map(([id,ic,,sn])=>`<button type="button" onclick="setFocusWallpaper('${id}')" data-wp="${id}" class="wp-pill clicky px-2 py-1 rounded-lg text-[10px] font-semibold text-zinc-400 hover:text-white">${ic} ${sn}</button>`).join("");
 document.querySelectorAll(".mixer-select-a").forEach(el=>{el.innerHTML=TRACKS.map(([v,l])=>`<option value="${v}">${el.id?l:"A: "+l}</option>`).join("")});
 document.querySelectorAll(".mixer-select-b").forEach(el=>{el.innerHTML=TRACKS.map(([v,l])=>`<option value="${v}">${el.id?l:"B: "+l}</option>`).join("")});
@@ -412,7 +420,7 @@ let db=null,auth=null,googleProvider=null,currentUser=null,timerInterval=null,st
 let activeWebTheme=localStorage.getItem("studypunch_web_theme")||"sunset",isDoomsdayVisible=localStorage.getItem("studypunch_doomsday_visible")!=="false";
 let currentFocusWallpaper=localStorage.getItem("studypunch_focus_wp")||"aurora",currentStampFormat=localStorage.getItem("studypunch_stamp_fmt")||"hms_24";
 let highYieldGlowEnabled=localStorage.getItem("studypunch_hy_glow")!=="false",is3dFullscreen=false,isZdHudHidden=false,pendingRevisionTopicKey=null;
-let wpAnimFrame=null,wpParticles=[],wpDrops=[],auroraTime=0,audioCtx=null,introVisible=true;
+let wpAnimFrame=null,wpParticles=[],wpDrops=[],auroraTime=0,audioCtx=null,introVisible=true,startupCustomized=false;
 
 const DAY_MS=86400000,MEDIUM_DAYS=7,URGENT_DAYS=17,RED_ALERT_DAYS=27;
 let activeExamTrack=localStorage.getItem("studypunch_exam_track")||"neet";
@@ -448,7 +456,7 @@ window.setStampFormat=(fmt,skip=false)=>{currentStampFormat=fmt;localStorage.set
     sparks.forEach(s=>{s.z-=s.sz*dt;s.a+=s.sp*dt;if(s.z<=26){s.z=1140;s.a=Math.random()*6.28}const sc=340/s.z,psc=340/(s.z+52);ctx.beginPath();ctx.moveTo(cx+Math.cos(s.a-s.sp*.04)*s.r*psc,cy+Math.sin(s.a-s.sp*.04)*s.r*psc);ctx.lineTo(cx+Math.cos(s.a)*s.r*sc,cy+Math.sin(s.a)*s.r*sc);ctx.strokeStyle=`rgba(${s.c},${Math.min(.9,sc*.48)})`;ctx.lineWidth=Math.max(.8,sc*1.35);ctx.lineCap="round";ctx.stroke()});
     animId=requestAnimationFrame(draw);
   };
-  const close=()=>{if(fin)return;fin=true;introVisible=false;if(animId)cancelAnimationFrame(animId);ov.classList.add("portal-exit");setTimeout(()=>{ov.classList.add("hidden");startWpLoop();if(!localStorage.getItem("studypunch_exam_track"))$("examTrackModal")?.classList.remove("hidden")},560)};
+  const close=()=>{if(fin)return;fin=true;introVisible=false;if(animId)cancelAnimationFrame(animId);ov.classList.add("portal-exit");setTimeout(()=>{ov.classList.add("hidden");startWpLoop();if(!currentUser&&!localStorage.getItem("studypunch_setup_done"))window.openStartupSetup()},560)};
   animId=requestAnimationFrame(draw);
   const t1=setTimeout(()=>{if(!fin)bh?.classList.add("show-half-sec")},1450),t2=setTimeout(()=>bh?.classList.remove("show-half-sec"),1950),t3=setTimeout(close,2350);
   sk.addEventListener("click",()=>{clearTimeout(t1);clearTimeout(t2);clearTimeout(t3);close()});
@@ -494,6 +502,11 @@ const getActiveSyllabus=()=>SYLLABI[activeExamTrack]||SYLLABI.neet;
 const getTotalTopics=()=>{let t=0;getActiveSyllabus().forEach(s=>s.units.forEach(u=>u.chapters.forEach(c=>{t+=c.subtopics.length})));return t||1};
 let TOTAL_SYLLABUS_TOPICS=getTotalTopics();
 
+function syncAuthSummary(){
+  const el=$("authSetupSummary");if(!el)return;
+  const cfg=EXAM_CONFIG[activeExamTrack]||EXAM_CONFIG.neet,th=THEMES.find(x=>x[0]===activeWebTheme)?.[2]||activeWebTheme,wp=WALLPAPERS.find(x=>x[0]===currentFocusWallpaper)?.[2]||currentFocusWallpaper;
+  el.textContent=`${cfg.icon} ${cfg.label} • ${th} • ${wp}`;
+}
 function applyTrackLabels(){
   const cfg=EXAM_CONFIG[activeExamTrack]||EXAM_CONFIG.neet;
   TOTAL_SYLLABUS_TOPICS=getTotalTopics();
@@ -507,8 +520,8 @@ function applyTrackLabels(){
   if($("syllabusHeaderTitle"))$("syllabusHeaderTitle").textContent=cfg.branchTitle;
   if($("navSyllabusLabel"))$("navSyllabusLabel").textContent=cfg.navTab;
   if($("zdSubjectDisplay")&&!currentUser?.activeSubject)$("zdSubjectDisplay").textContent=cfg.zdDefault;
-  document.querySelectorAll(".track-switch-btn").forEach(b=>{const a=b.getAttribute("data-track-btn")===activeExamTrack;b.className=a?"track-switch-btn clicky py-2 px-3 rounded-xl border border-white/45 bg-white/15 text-white text-xs font-extrabold":"track-switch-btn clicky py-2 px-3 rounded-xl border border-zinc-800 bg-black/70 text-zinc-400 hover:text-white text-xs font-bold"});
-  updateDoomsdayChronograph();
+  document.querySelectorAll(".track-switch-btn").forEach(b=>{const a=b.getAttribute("data-track-btn")===activeExamTrack,isModal=b.closest("#startupSetupModal");b.className=isModal?(a?"track-switch-btn clicky p-3 rounded-2xl border border-white/50 bg-white/15 text-left flex flex-col gap-0.5":"track-switch-btn clicky p-3 rounded-2xl border border-zinc-800 bg-black/70 text-left flex flex-col gap-0.5 opacity-75 hover:opacity-100"):(a?"track-switch-btn clicky py-2 px-3 rounded-xl border border-white/45 bg-white/15 text-white text-xs font-extrabold":"track-switch-btn clicky py-2 px-3 rounded-xl border border-zinc-800 bg-black/70 text-zinc-400 hover:text-white text-xs font-bold")});
+  syncAuthSummary();updateDoomsdayChronograph();
 }
 window.setExamTrack=(track,skip=false)=>{
   if(!SYLLABI[track])track="neet";
@@ -517,7 +530,8 @@ window.setExamTrack=(track,skip=false)=>{
   if(currentUser){currentUser.examTrack=track;renderDashboard();renderSyllabusTree($("syllabusSearchInput").value.trim());renderWeeklySprintBoard();if(!skip)saveUserToCloud(currentUser)}
   if(!skip)flashSettingsSaved();
 };
-window.chooseInitialTrack=track=>{$("examTrackModal")?.classList.add("hidden");window.setExamTrack(track,false)};
+window.openStartupSetup=()=>{if(currentUser)return;$("startupSetupModal")?.classList.remove("hidden");wpCanvas.classList.remove("opacity-35");wpCanvas.classList.add("opacity-75")};
+window.confirmStartupSetup=()=>{startupCustomized=true;localStorage.setItem("studypunch_setup_done","1");$("startupSetupModal")?.classList.add("hidden");wpCanvas.classList.remove("opacity-75");wpCanvas.classList.add("opacity-35");syncAuthSummary()};
 
 const firebaseConfig={apiKey:"AIzaSyDuOgES0lUt-MGSiM5blxxCm36W67xQK3c",authDomain:"studypunchone.firebaseapp.com",databaseURL:"https://studypunchone-default-rtdb.asia-southeast1.firebasedatabase.app",projectId:"studypunchone",storageBucket:"studypunchone.firebasestorage.app",messagingSenderId:"381035155998",appId:"1:381035155998:web:89d31d81751a8a92cbd40f",measurementId:"G-43W16NHSN4"};
 const setCloudStatus=o=>{$("cloudBadge").textContent=o?"Cloud Ready":"Local Fallback";$("navCloudStatus").textContent=o?"Cloud Live":"Local Mode"};
@@ -543,7 +557,8 @@ const flashSettingsSaved=()=>{const t=$("settingsSavedToast");if(t){t.style.opac
 window.setWebTheme=(name,skip=false)=>{
   if(!THEME_CHART_PALETTE[name])name="sunset";
   activeWebTheme=name;document.documentElement.setAttribute("data-theme",name);localStorage.setItem("studypunch_web_theme",name);
-  document.querySelectorAll(".theme-pill").forEach(b=>{b.className=b.getAttribute("data-theme-opt")===name?"theme-pill clicky p-2.5 rounded-2xl border border-white/45 bg-white/15 text-white text-left flex flex-col gap-0.5":"theme-pill clicky p-2.5 rounded-2xl border border-zinc-800 bg-black/70 text-zinc-400 hover:text-white text-left flex flex-col gap-0.5"});
+  document.querySelectorAll(".theme-pill").forEach(b=>{b.className=b.getAttribute("data-theme-opt")===name?"theme-pill clicky p-2 rounded-2xl border border-white/45 bg-white/15 text-white text-left flex flex-col gap-0.5":"theme-pill clicky p-2 rounded-2xl border border-zinc-800 bg-black/70 text-zinc-400 hover:text-white text-left flex flex-col gap-0.5"});
+  if(typeof syncAuthSummary==="function")syncAuthSummary();
   if(!skip){flashSettingsSaved();if(currentUser){currentUser.webTheme=name;saveUserToCloud(currentUser);renderMultiChartWebAnalytics()}}
 };
 
@@ -625,6 +640,7 @@ function renderFocusWallpaperLoop(now=performance.now()){
 window.setFocusWallpaper=(mode,skip=false)=>{
   currentFocusWallpaper=mode;localStorage.setItem("studypunch_focus_wp",mode);
   document.querySelectorAll(".wp-pill").forEach(b=>{const m=b.getAttribute("data-wp")===mode;b.className=b.classList.contains("wp-card")?(m?"wp-pill wp-card clicky p-2 rounded-xl border border-white/45 bg-white/15 text-white text-center":"wp-pill wp-card clicky p-2 rounded-xl border border-zinc-800 bg-black/70 text-zinc-400 hover:text-white text-center"):(m?"wp-pill clicky px-2 py-1 rounded-lg text-[10px] font-bold bg-white/15 text-white border border-white/25":"wp-pill clicky px-2 py-1 rounded-lg text-[10px] font-semibold text-zinc-400 hover:text-white")});
+  if(typeof syncAuthSummary==="function")syncAuthSummary();
   if(!skip){flashSettingsSaved();if(currentUser){currentUser.focusWallpaper=mode;saveUserToCloud(currentUser)}}
   resizeFocusCanvas();initWallpaperParticles(mode);if(mode==="black"){if(wpAnimFrame){cancelAnimationFrame(wpAnimFrame);wpAnimFrame=null}wpCtx.clearRect(0,0,wpW,wpH)}else startWpLoop();
 };
@@ -661,9 +677,9 @@ function computeTopLeak(){if(!currentUser)return"Balanced";const c={};Object.val
 
 function loginSuccess(u){
   currentUser=u;if(!Array.isArray(u.sessions))u.sessions=[];ensureRetention(u);
-  if(u.examTrack&&SYLLABI[u.examTrack]){activeExamTrack=u.examTrack;localStorage.setItem("studypunch_exam_track",u.examTrack)}
+  if(startupCustomized){u.examTrack=activeExamTrack;u.webTheme=activeWebTheme;u.focusWallpaper=currentFocusWallpaper;startupCustomized=false;saveUserToCloud(u)}
+  else{if(u.examTrack&&SYLLABI[u.examTrack]){activeExamTrack=u.examTrack;localStorage.setItem("studypunch_exam_track",u.examTrack)}if(u.webTheme)window.setWebTheme(u.webTheme,true);if(u.focusWallpaper)window.setFocusWallpaper(u.focusWallpaper,true)}
   applyTrackLabels();
-  if(u.webTheme)window.setWebTheme(u.webTheme,true);if(u.focusWallpaper)window.setFocusWallpaper(u.focusWallpaper,true);
   if(u.focusMixer)syncMixerFromUser(u.focusMixer);else if(u.focusSoundtrack){mixerState.A.track=u.focusSoundtrack;document.querySelectorAll(".mixer-select-a").forEach(el=>el.value=u.focusSoundtrack)}
   if(u.stampFormat)window.setStampFormat(u.stampFormat,true);
   authScreen.classList.add("hidden");appScreen.classList.remove("hidden");applyDoomsdayVisibility();
